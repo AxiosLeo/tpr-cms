@@ -11,7 +11,6 @@ namespace app\common\exception;
 use Exception;
 use think\Env;
 use think\Exception\Handle;
-use think\Exception\HttpException;
 use think\Response;
 
 class Http extends Handle{
