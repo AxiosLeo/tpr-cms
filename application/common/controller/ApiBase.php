@@ -15,6 +15,7 @@ use think\Request;
 use think\Response;
 
 class ApiBase extends Controller{
+
     protected $method;
 
     protected $param;
@@ -75,6 +76,6 @@ class ApiBase extends Controller{
     }
 
     public function __empty(){
-        Response::create("the function not exits",'json',"404")->send();
+        $this->wrong(500);
     }
 }
