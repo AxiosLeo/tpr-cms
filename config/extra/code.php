@@ -8,6 +8,7 @@
  */
 
 return [
+    //system code , Don't delete .
     "200"=>"success",
     "500"=>"server error",
     "400"=>"arguments error",

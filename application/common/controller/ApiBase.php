@@ -44,7 +44,24 @@ class ApiBase extends Controller{
         $route         = $this->request->routeInfo();
         $this->route   = isset($route['rule'][0]) && !empty($route['rule'][0]) ? $route['rule'][0]:'';
         $this->path    = $this->request->path();
+        $this->middleware('before');
         $this->filter();
+    }
+
+    private function middleware($when='before'){
+        $middleware = Config::get('middleware.'.$when);
+        if(!empty($this->route) && isset($middleware[$this->route])){
+            $m = $middleware[$this->route];
+
+        }else if(isset($this->filter[$this->path])){
+            $m = $middleware[$this->path];
+        }else{
+            $m = [];
+        }
+        if(!empty($m)){
+            $Middleware = middleware($m['middleware']);
+            call_user_func([$Middleware,$m['func']]);
+        }
     }
 
     protected function filter(){
@@ -82,6 +99,8 @@ class ApiBase extends Controller{
         $req['data'] = $data;
         $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
         Response::create($req,'json',"200")->send();
+        fastcgi_finish_request();
+        $this->middleware('after');
     }
 
     public function __empty(){
