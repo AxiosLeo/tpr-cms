@@ -7,9 +7,7 @@ class Index extends ApiBase
 {
     public function index()
     {
-//        dump($this->request);
-//        dump($this->request->path());
-        $this->response(['name'=>"test"]);
+        $this->response(['name'=>"hello world"]);
     }
     public function hello()
     {
