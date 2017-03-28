@@ -125,7 +125,7 @@ return [
 ```
 > 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名，func中的值为中间件类中的方法function
 
-> 定义完配置文件后就可以写middlleware类啦，middlleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
+> 定义完配置文件后就可以写middleware类啦，middleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
 
 > middleware比较独立，可以继承thinkphp自有的类，比如think/Controller或者think/Model等等，当然，也可以不继承。
 
