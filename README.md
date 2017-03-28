@@ -87,8 +87,9 @@ $this->response(['name'=>"test"]);
 
 //异常输出
 $this->wrong(406,"这里填写回调提示信息，非必须");  //传入值必须为已定义的状态码
+$this->wrong(406); // 会返回状态码对应message
 
-//为了避开tp自有的success和error方法，所以这里采用的是response和wrong命名
+//为了避开tp自有的success和error方法，这里采用的是response和wrong命名
 ```
 
 ### 中间件
