@@ -14,6 +14,12 @@
 
 ## 使用文档
 
+### thinkphp5安装
+``` shell
+#项目根目录下执行
+composer install
+```
+
 ### 根目录下创建.env文件
 ``` shell
 cp .env.example .env
