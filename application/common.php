@@ -10,6 +10,19 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+if (!function_exists('validate')) {
+    /**
+     * 实例化验证器
+     * @param string    $name 验证器名称
+     * @param string    $layer 业务层名称
+     * @param bool      $appendSuffix 是否添加类名后缀
+     * @return \think\Validate
+     */
+    function middleware($name = '', $layer = 'middleware', $appendSuffix = false)
+    {
+        return \think\Loader::validate($name, $layer, $appendSuffix);
+    }
+}
 
 if (!function_exists('get_client_ip')) {
     /**
