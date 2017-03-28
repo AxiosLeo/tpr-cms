@@ -32,6 +32,8 @@ class ApiBase extends Controller{
 
     protected $ip;
 
+    protected $path;
+
     function __construct(Request $request = null)
     {
         parent::__construct($request);
@@ -40,14 +42,21 @@ class ApiBase extends Controller{
         $this->route   = $this->request->route();
         $this->filter  = Config::get('filter');
         $route         = $this->request->routeInfo();
-        $this->route   = $route['rule'][0];
+        $this->route   = isset($route['rule'][0]) && !empty($route['rule'][0]) ? $route['rule'][0]:'';
+        $this->path    = $this->request->path();
         $this->filter();
     }
 
     protected function filter(){
-        if(isset($this->filter[$this->route])){
-
+        if(!empty($this->route) && isset($this->filter[$this->route])){
             $filter = $this->filter[$this->route];
+
+        }else if(isset($this->filter[$this->path])){
+            $filter = $this->filter[$this->path];
+        }else{
+            $filter = [];
+        }
+        if(!empty($filter)){
             if(isset($filter['mobile']) && $filter['mobile']===true){
                 if(!$this->request->isMobile()){
                     $this->wrong(406);
@@ -57,21 +66,21 @@ class ApiBase extends Controller{
 
             $check = isset($filter['scene'])?$Validate->scene($filter['scene'])->check($this->param):$Validate->check($this->param);
             if(!$check){
-                return $this->response($Validate->getError(),"400");
+                return $this->wrong(400,$Validate->getError());
             }
         }
         return true;
     }
 
-    protected function wrong($code)
+    protected function wrong($code,$message='')
     {
-        $this->response("",strval($code));
+        $this->response([],strval($code),$message);
     }
 
-    protected function response($data,$code=200){
+    protected function response($data,$code=200,$message=''){
         $req['code'] = $code;
         $req['data'] = $data;
-        $req['message'] = LangService::trans()->message($code);
+        $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
         Response::create($req,'json',"200")->send();
     }
 

@@ -10,5 +10,5 @@
 // +----------------------------------------------------------------------
 
 return [
-    'hello'     => ['index/index', ['method' => ['get','post']]],
+    'hello'     => ['index/hello', ['method' => ['get','post']]],
 ];
