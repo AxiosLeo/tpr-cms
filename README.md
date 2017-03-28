@@ -123,7 +123,7 @@ return [
     ]
 ];
 ```
-> 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名
+> 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名，func中的值为中间件类中的方法function
 
 > 定义完配置文件后就可以写middlleware类啦，middlleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
 
