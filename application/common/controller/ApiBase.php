@@ -11,7 +11,6 @@ namespace app\common\controller;
 use app\common\service\LangService;
 use think\Config;
 use think\Controller;
-use think\Db;
 use think\Request;
 use think\Response;
 
