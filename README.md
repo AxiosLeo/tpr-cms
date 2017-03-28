@@ -10,7 +10,6 @@
 > 再开发开发接口前有一些重要的配置需要做
 
 ``` php
-'url_route_must'=>true  // 强制使用路由
 'deny_module_list'       => ['common'],  // common木块禁止访问
 'exception_handle'       => '\\app\\common\\exception\\Http',  // 自定义异常处理
 'default_lang'           => 'zh-cn',  //设置默认语言

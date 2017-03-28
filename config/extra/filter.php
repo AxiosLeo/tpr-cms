@@ -8,5 +8,9 @@
  */
 
 return [
-    'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>true]
+    //route name
+    'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false],
+
+    //path
+    'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false]
 ];
