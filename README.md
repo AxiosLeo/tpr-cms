@@ -22,7 +22,7 @@ cp .env.example .env
 status = true  #调试模式
 # 当debug.status为false时(生产环境)，出现任何错误后都不再打印任何错误信息，而是会回调一个json数组，例如：
 {"code":"500","message":"something error","data":[]}
-#此举是考虑到当服务端出问题报错后，一堆错误信息会影响客户端正常运行,而且错误信息在生成环境中暴露也不安全
+#此举是考虑到当服务端出问题报错后(比如路由不存在)，一堆的错误信息会影响客户端正常运行,而且错误信息在生产环境中暴露也不安全
 ```
 
 ### 路由配置
@@ -36,17 +36,28 @@ status = true  #调试模式
 ``` php
 <?php
 //配置举例
-
+//其中validate的值是验证器的类名,scene的值是验证场景,mobile代表此次访问是否只允许移动端访问
 //route name
 'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false],  //针对路由名称的参数过滤
 
 //path
 'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false] //针对访问地址的参数过滤
-    
+
 ```
 
 ### 定义接口回调状态码
 > 配置文件地址 ： /config/extra/code.php
+
+``` php
+//状态码对应的提示信息会根据多语言的设置进行翻译, 具体可查看多语言内容
+return [
+    //system code , Don't delete .
+    "200"=>"success",
+    "500"=>"server error",
+    "400"=>"arguments error",
+    "406"=>"wrong item"
+];
+```
 
 ### 多语言
 > 语言文件地址 ： /application/lang/zh-cn.php
@@ -59,12 +70,14 @@ status = true  #调试模式
 //回调格式
 {"code":"400","data":[],"message":"名称最多不能超过25字符"}
 
-//正常输出 , 具体可参见 index模块/index控制类/index方法
+//正常输出(无需return) , 具体可参见 index模块/index控制类/index方法
 $this->response("some string");
 $this->response(['name'=>"test"]);
 
 //异常输出
 $this->wrong(406,"这里填写回调提示信息，非必须");  //传入值必须为已定义的状态码
+
+//为了避开tp自有的success和error方法，所以这里采用的是response和wrong命名
 ```
 
 ### 中间件
@@ -75,11 +88,14 @@ $this->wrong(406,"这里填写回调提示信息，非必须");  //传入值必�
 
 * 后置中间件
 > 该类中间件在请求后继续执行，且不占用请求时间。
+
 > 可以试想一下这样的一个场景，当从客户端收到一个请求后，要给50个Client发送微信推送消息，由于逻辑非常复杂，需要大约50秒的时间才能完成。
+
 > 这段时间客户端肯定是等不起的，那么就可以先返回一个code=200的请求给客户端，然后用后置中间件完成接下来的操作，这样既不占用客户端的请求时间，也能达到需求的目的，可谓两全其美。
 
 * 具体使用方法
 > 首先要在中间件配置文件中定义中间件，配置示例如下：
+
 ``` php
 <?php
 return [
@@ -94,10 +110,10 @@ return [
     ]
 ];
 ```
-> 其中before中的为前置中间件，after中的为后置中间件，middleware中的内容为中间件的类名
+> 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名
 
-> 可放置在/application/common/middleware下，也可以放置在模块目录下的middleware目录下
+> middlleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
 
 
 ## 开源协议
-> 遵循Apache2开源协议发布，并提供免费使用
+> 遵循Apache2开源协议发布，并提供免费使用。
