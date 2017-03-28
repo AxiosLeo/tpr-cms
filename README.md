@@ -127,6 +127,8 @@ return [
 
 > 定义完配置文件后就可以写middlleware类啦，middlleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
 
+> middleware比较独立，可以继承thinkphp自有的类，比如think/Controller或者think/Model等等，当然，也可以不继承。
+
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用。
