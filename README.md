@@ -5,6 +5,10 @@
 ## 前言
 > 之前有用过phalapi和laravel5.3开发过接口，个人感觉都不是很称心称手，正好今天下午没什么事儿，用thinkphp5写了个通用的接口框架。代码量不多，重在代码逻辑设计。不过，虽然比较轻量，但是该有的基础功能也都有了，因为tp5是有composer的，需要扩展一些功能也比较方便。
 
+> 交流QQ群：521797692
+
+> 项目刚刚创建，欢迎PR  ^_^ 
+
 ## Github地址
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
 
@@ -63,5 +67,37 @@ $this->response(['name'=>"test"]);
 $this->wrong(406,"这里填写回调提示信息，非必须");  //传入值必须为已定义的状态码
 ```
 
+### 中间件
+> 中间件配置文件地址： /config/extra/middleware.php
+
+* 前置中间件
+> 该类中间件在请求前执行
+
+* 后置中间件
+> 该类中间件在请求后继续执行，且不占用请求时间。
+> 可以试想一下这样的一个场景，当从客户端收到一个请求后，要给50个Client发送微信推送消息，由于逻辑非常复杂，需要大约50秒的时间才能完成。
+> 这段时间客户端肯定是等不起的，那么就可以先返回一个code=200的请求给客户端，然后用后置中间件完成接下来的操作，这样既不占用客户端的请求时间，也能达到需求的目的，可谓两全其美。
+
+* 具体使用方法
+> 首先要在中间件配置文件中定义中间件，配置示例如下：
+``` php
+<?php
+return [
+    //before the request
+    'before'=>[
+        'hello'=>['middleware'=>'Hello','func'=>'before']
+    ],
+
+    //after the request and It's not take the request time.
+    'after'=>[
+        'hello'=>['middleware'=>'Hello','func'=>'after']
+    ]
+];
+```
+> 其中before中的为前置中间件，after中的为后置中间件，middleware中的内容为中间件的类名
+
+> 可放置在/application/common/middleware下，也可以放置在模块目录下的middleware目录下
 
 
+## 开源协议
+> 遵循Apache2开源协议发布，并提供免费使用
