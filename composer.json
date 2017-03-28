@@ -17,7 +17,8 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "topthink/framework": "^5.0"
+        "topthink/framework": "^5.0",
+        "topthink/think-mongo": "^1.6"
     },
     "extra": {
         "think-path": "thinkphp"
