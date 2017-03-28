@@ -14,7 +14,7 @@ class Hello extends Base {
     ];
 
     protected $message  =   [
-        'name.require' => 'name@require',
+        'name.require' => 'name@require',  //支持分段翻译,每段由@符号隔开
         'name.max'     => 'name@must be less than@25@char',
     ];
 
