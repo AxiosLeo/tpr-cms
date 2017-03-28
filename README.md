@@ -30,7 +30,7 @@ status = true  #调试模式
 
 ### 接口参数配置
 > 配置文件地址 ： /config/extra/filter.php
-> 其中validate参数为必须的，其它参数为非必须，占时仅支持validate，scene和mobile参数
+> 其中validate参数为必须的，其它参数为非必须，暂时仅支持validate，scene和mobile参数
 > 配置好filter的validate后，需要创建相应的Validate类
 > Validate的具体使用方法参考thinkphp5文档的[《验证器》](http://www.kancloud.cn/manual/thinkphp5/129352)
 ``` php
