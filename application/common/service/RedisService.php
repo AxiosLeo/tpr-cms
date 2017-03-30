@@ -114,28 +114,6 @@ class RedisService extends \Redis {
         return $count;
     }
 
-    public function makeToken($user_id){
-        $this->switchDB("users_token");
-        $key = "hailun-system-user-".$user_id;
-        $uniq = uniqid();
-        $this->set($key,md5($uniq));
-    }
-
-    public function getToken($user_id){
-        $this->switchDB("users_token");
-        $key = "hailun-system-user-".$user_id;
-        return $this->get($key);
-    }
-
-    public function makeSystemCheckCode($code,$time=180){
-        $this->switchDB(0);
-        $this->del("hl_check_code");
-        $this->setex("hl_check_code",$time,$code);
-    }
-    public function getSystemCheckCode(){
-        $this->switchDB(0);
-        return $this->get("hl_check_code");
-    }
 
     public function setsMembers($key){
         $size = $this->sCard($key);
@@ -166,6 +144,7 @@ class RedisService extends \Redis {
         $this->hSet("logger_".$user_id,$log_key,serialize($data));
         return $this->hGet("logger_".$user_id,$log_key);
     }
+
     public function viewLog($user_id){
         $this->switchDB(3);
         $log_key = "logger_".$user_id;
@@ -177,6 +156,7 @@ class RedisService extends \Redis {
         }
         return $convert_log;
     }
+
     public function delLog($user_id){
         $this->switchDB(3);
         return $this->del("logger_".$user_id);
