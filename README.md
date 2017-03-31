@@ -34,15 +34,25 @@ status = true  #调试模式
 ### 路由配置
 > 此步可以参考thinkphp5的文档[《路由模式》](http://www.kancloud.cn/manual/thinkphp5/118019)
 
-### 接口参数配置
+### 接口配置
 
 > 配置文件地址 ： /config/extra/filter.php
+> 每一条filter的键值可以为路由名，也可以是访问path
 
-> 其中validate参数为必须的，其它参数为非必须，暂时仅支持validate，scene和mobile参数
+* validate(必须)
+  > validate的值是验证器的类名，需要创建相应的Validate类
+  > Validate的具体使用方法参考thinkphp5文档的[《验证器》](http://www.kancloud.cn/manual/thinkphp5/129352)
+  
+* scene (非必须)
+  > 验证场景的名称
 
-> 配置好filter的validate后，需要创建相应的Validate类
+* mobile (非必须)
+  > 是否只允许移动端访问，true为仅允许移动端访问 ,值为false或无该参数 代表所有客户端均可访问
 
-> Validate的具体使用方法参考thinkphp5文档的[《验证器》](http://www.kancloud.cn/manual/thinkphp5/129352)
+* cache (非必须)
+  > 接口缓存，值为缓存有效期(单位秒，为0则永久)，同一个访问，当请求内容相同时，直接回调,不进行后续逻辑操作，包括中间件和控制器等等。
+
+
 
 ``` php
 <?php
@@ -51,7 +61,7 @@ status = true  #调试模式
 //route name
 'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false],  //针对路由名称的参数过滤
 
-//path
+//path name
 'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false] //针对访问地址的参数过滤
 
 ```

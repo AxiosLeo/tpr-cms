@@ -14,6 +14,7 @@ use think\Config;
 use think\Controller;
 use think\Request;
 use think\Response;
+use think\Session;
 
 class ApiBase extends Controller{
 
@@ -83,9 +84,13 @@ class ApiBase extends Controller{
         if(!empty($filter)){
             if(isset($filter['cache'])){
                 $this->cache = true;
-                $response_cache = Cache::get($this->identify);
-                if(!empty($response_cache)){
-                    $this->send($response_cache);
+                $cache_md5 = Session::get($this->identify."_md5");
+                $param_md5 = md5(serialize($this->param));
+                if(!empty($cache_md5) && $cache_md5==$param_md5){
+                    $response_cache = Cache::get(session_id());
+                    if(!empty($response_cache)){
+                        $this->send($response_cache);
+                    }
                 }
             }
 
@@ -118,8 +123,16 @@ class ApiBase extends Controller{
         fastcgi_finish_request();
         $this->middleware('after');
         $filter = $this->filter[$this->identify];
-        if($this->cache && $filter['cache']){
-            Cache::set($this->identify,$req,$filter['cache']);
+        if($this->cache){
+            if($filter['cache']){
+                $cache_md5 = md5(serialize($this->param));
+                Session::set($this->identify."_md5",$cache_md5,$filter['cache']);
+                Cache::set(session_id(),$req,$filter['cache']);
+            }else{
+                $cache_md5 = md5(serialize($this->param));
+                Session::set($this->identify."_md5",$cache_md5,$filter['cache']);
+                Cache::set(session_id(),$req);
+            }
         }
     }
 
