@@ -15,6 +15,6 @@ return [
 
     //after the request and It's not take the request time.
     'after'=>[
-        'hello'=>['middleware'=>'Hello','func'=>'after']
+//        'hello'=>['middleware'=>'Hello','func'=>'after']
     ]
 ];

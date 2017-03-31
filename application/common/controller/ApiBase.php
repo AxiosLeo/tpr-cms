@@ -12,6 +12,7 @@ use app\common\service\LangService;
 use think\Cache;
 use think\Config;
 use think\Controller;
+use think\Db;
 use think\Request;
 use think\Response;
 use think\Session;
@@ -70,6 +71,14 @@ class ApiBase extends Controller{
         }
     }
 
+    private function cache($req){
+        $filter = $this->filter[$this->identify];
+        if($this->cache){
+            $Middleware = middleware('Cache');
+            call_user_func_array([$Middleware,'set'],[session_id(),$req,$filter['cache'],$this->param]);
+        }
+    }
+
     protected function filter(){
         if(!empty($this->route) && isset($this->filter[$this->route])){
             $this->identify = $this->route;
@@ -82,17 +91,17 @@ class ApiBase extends Controller{
         }
 
         if(!empty($filter)){
-            if(isset($filter['cache'])){
-                $this->cache = true;
-                $cache_md5 = Session::get($this->identify."_md5");
-                $param_md5 = md5(serialize($this->param));
-                if(!empty($cache_md5) && $cache_md5==$param_md5){
-                    $response_cache = Cache::get(session_id());
-                    if(!empty($response_cache)){
-                        $this->send($response_cache);
-                    }
-                }
-            }
+//            if(isset($filter['cache'])){
+//                $this->cache = true;
+//                $cache_md5 = Session::get($this->identify."_md5");
+//                $param_md5 = md5(serialize($this->param));
+//                if(!empty($cache_md5) && $cache_md5==$param_md5){
+//                    $response_cache = Cache::get(session_id());
+//                    if(!empty($response_cache)){
+//                        $this->send($response_cache);
+//                    }
+//                }
+//            }
 
             if(isset($filter['mobile']) && $filter['mobile']===true){
                 if(!$this->request->isMobile()){
@@ -120,24 +129,13 @@ class ApiBase extends Controller{
         $req['data'] = $data;
         $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
         $this->send($req);
-        fastcgi_finish_request();
-        $this->middleware('after');
-        $filter = $this->filter[$this->identify];
-        if($this->cache){
-            if($filter['cache']){
-                $cache_md5 = md5(serialize($this->param));
-                Session::set($this->identify."_md5",$cache_md5,$filter['cache']);
-                Cache::set(session_id(),$req,$filter['cache']);
-            }else{
-                $cache_md5 = md5(serialize($this->param));
-                Session::set($this->identify."_md5",$cache_md5,$filter['cache']);
-                Cache::set(session_id(),$req);
-            }
-        }
     }
 
     private function send($req){
-        Response::create($req,'json',"200")->send();
+//        $this->cache($req);
+        Response::create($req, 'json', "200")->send();
+        fastcgi_finish_request();
+        $this->middleware('after');
     }
 
     public function __empty(){
