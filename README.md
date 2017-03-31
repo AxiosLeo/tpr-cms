@@ -12,6 +12,14 @@
 ## Github地址
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
 
+## 优点
+* 基于thinkphp5开发，无缝衔接thinkphp5的功能，加速开发速度
+* 支持路由和path模式
+* 接口配置可以定制化设置接口
+* 接口参数验证，可以在一定程度上保证接口访问的标准性
+* 通过使用前置和后置中间件，可以有非常好的扩展性
+* 接口缓存，可以非常方便的加速接口请求速度
+
 ## 使用文档
 
 ### thinkphp5安装
@@ -112,7 +120,7 @@ $this->wrong(406); // 会返回状态码对应message
 > 中间件配置文件地址： /config/extra/middleware.php
 
 * 前置中间件
-> 该类中间件在请求前执行
+> 该类中间件在验证器(filter)之后和控制器(controller)操作之间执行
 
 * 后置中间件
 > 该类中间件在请求后继续执行，且不占用请求时间。
@@ -120,6 +128,8 @@ $this->wrong(406); // 会返回状态码对应message
 > 可以试想一下这样的一个场景，当从客户端收到一个请求后，要给50个Client发送微信推送消息，由于逻辑非常复杂，需要大约50秒的时间才能完成。
 
 > 这段时间客户端肯定是等不起的，那么就可以先返回一个code=200的请求给客户端，然后用后置中间件完成接下来的操作，这样既不占用客户端的请求时间，也能达到需求的目的，可谓两全其美。
+
+> 使用建议：因为后置中间件在访问结束后会继续占用php-fpm子进程，建议在php-fpm.conf配置文件，将pm.max_children(最大子进程数量)调的多一些。后置中间件处理结束后，会释放子进程。
 
 * 具体使用方法
 
@@ -139,9 +149,10 @@ return [
     ]
 ];
 ```
-> 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名，func中的值为中间件类中的方法function
 
-> 定义完配置文件后就可以写middleware类啦，middleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
+> 其中before中的为前置中间件，after中的为后置中间件，middleware中的值为中间件的类名，func中的值为中间件类中的方法function(默认为index)
+
+> middleware类可放置在/application/common/middleware目录下，也可以放置在模块目录下的middleware目录下
 
 > middleware比较独立，可以继承thinkphp自有的类，比如think/Controller或者think/Model等等，当然，也可以不继承。
 
