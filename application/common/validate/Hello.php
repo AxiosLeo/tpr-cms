@@ -10,7 +10,7 @@ namespace app\common\validate;
 
 class Hello extends Base {
     protected $rule =   [
-        'name'  => 'require|max:3',
+        'name'  => 'require|max:25',
     ];
 
     protected $message  =   [

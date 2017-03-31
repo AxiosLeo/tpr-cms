@@ -20,10 +20,10 @@ class Hello extends Controller {
         echo "hello,this is before middleware.";
     }
     public function after(){
-        sleep(5);
-        Db::name("test")->insert(['datetime'=>date("Y-m-d H:i:s")]);
-        sleep(5);
-        Db::name("test")->insert(['datetime'=>date("Y-m-d H:i:s")]);
+//        sleep(5);
+//        Db::name("test")->insert(['datetime'=>date("Y-m-d H:i:s")]);
+//        sleep(5);
+//        Db::name("test")->insert(['datetime'=>date("Y-m-d H:i:s")]);
         echo "hello,this is after middleware.";
     }
 }
