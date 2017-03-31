@@ -9,6 +9,7 @@
 namespace app\common\controller;
 
 use app\common\service\LangService;
+use think\Cache;
 use think\Config;
 use think\Controller;
 use think\Request;
@@ -34,6 +35,10 @@ class ApiBase extends Controller{
 
     protected $path;
 
+    protected $cache = false;
+
+    protected $identify = '';
+
     function __construct(Request $request = null)
     {
         parent::__construct($request);
@@ -44,8 +49,8 @@ class ApiBase extends Controller{
         $route         = $this->request->routeInfo();
         $this->route   = isset($route['rule'][0]) && !empty($route['rule'][0]) ? $route['rule'][0]:'';
         $this->path    = $this->request->path();
-        $this->middleware('before');
         $this->filter();
+        $this->middleware('before');
     }
 
     private function middleware($when='before'){
@@ -66,19 +71,30 @@ class ApiBase extends Controller{
 
     protected function filter(){
         if(!empty($this->route) && isset($this->filter[$this->route])){
-            $filter = $this->filter[$this->route];
-
+            $this->identify = $this->route;
+            $filter = $this->filter[$this->identify];
         }else if(isset($this->filter[$this->path])){
-            $filter = $this->filter[$this->path];
+            $this->identify = $this->path;
+            $filter = $this->filter[$this->identify];
         }else{
             $filter = [];
         }
+
         if(!empty($filter)){
+            if(isset($filter['cache'])){
+                $this->cache = true;
+                $response_cache = Cache::get($this->identify);
+                if(!empty($response_cache)){
+                    $this->send($response_cache);
+                }
+            }
+
             if(isset($filter['mobile']) && $filter['mobile']===true){
                 if(!$this->request->isMobile()){
                     $this->wrong(406);
                 }
             }
+
             $Validate = validate($filter['validate']);
 
             $check = isset($filter['scene'])?$Validate->scene($filter['scene'])->check($this->param):$Validate->check($this->param);
@@ -98,9 +114,17 @@ class ApiBase extends Controller{
         $req['code'] = $code;
         $req['data'] = $data;
         $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
-        Response::create($req,'json',"200")->send();
+        $this->send($req);
         fastcgi_finish_request();
         $this->middleware('after');
+        $filter = $this->filter[$this->identify];
+        if($this->cache && $filter['cache']){
+            Cache::set($this->identify,$req,$filter['cache']);
+        }
+    }
+
+    private function send($req){
+        Response::create($req,'json',"200")->send();
     }
 
     public function __empty(){
