@@ -110,7 +110,8 @@ class ApiBase extends Controller{
         }
         if(!empty($m)){
             $Middleware = middleware($m['middleware']);
-            call_user_func([$Middleware,$m['func']]);
+            $func = isset($m['func']) && !empty($m['func']) ? $m['func']:"index"; // default to index
+            call_user_func([$Middleware,$func]);
         }
     }
 
