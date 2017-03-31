@@ -74,8 +74,13 @@ class ApiBase extends Controller{
     private function cache($req){
         $filter = $this->filter[$this->identify];
         if($this->cache){
-            $Middleware = middleware('Cache');
-            call_user_func_array([$Middleware,'set'],[session_id(),$req,$filter['cache'],$this->param]);
+            $cache_md5 = md5(serialize($this->param));
+            Session::set($this->identify."_md5",$cache_md5);
+            if($filter['cache']){
+                Cache::set(session_id(),$req,$filter['cache']);
+            }else{
+                Cache::set(session_id(),$req);
+            }
         }
     }
 
@@ -91,17 +96,17 @@ class ApiBase extends Controller{
         }
 
         if(!empty($filter)){
-//            if(isset($filter['cache'])){
-//                $this->cache = true;
-//                $cache_md5 = Session::get($this->identify."_md5");
-//                $param_md5 = md5(serialize($this->param));
-//                if(!empty($cache_md5) && $cache_md5==$param_md5){
-//                    $response_cache = Cache::get(session_id());
-//                    if(!empty($response_cache)){
-//                        $this->send($response_cache);
-//                    }
-//                }
-//            }
+            if(isset($filter['cache'])){
+                $this->cache = true;
+                $cache_md5 = Session::get($this->identify."_md5");
+                $param_md5 = md5(serialize($this->param));
+                if(!empty($cache_md5) && $cache_md5==$param_md5){
+                    $response_cache = Cache::get(session_id());
+                    if(!empty($response_cache)){
+                        $this->send($response_cache);
+                    }
+                }
+            }
 
             if(isset($filter['mobile']) && $filter['mobile']===true){
                 if(!$this->request->isMobile()){
@@ -132,7 +137,7 @@ class ApiBase extends Controller{
     }
 
     private function send($req){
-//        $this->cache($req);
+        $this->cache($req);
         Response::create($req, 'json', "200")->send();
         fastcgi_finish_request();
         $this->middleware('after');
