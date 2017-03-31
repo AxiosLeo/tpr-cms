@@ -73,16 +73,12 @@ class ApiBase extends Controller{
         }
 
         if(!empty($filter)){
-            $this->identify = session_id().$this->filter_name;
             if(isset($filter['cache']) && !$this->debug){
                 $this->cache = true;
-                $cache_md5 = Cache::get($this->identify."_md5");
                 $param_md5 = md5(serialize($this->param));
-                if(!empty($cache_md5) && $cache_md5==$param_md5){
-                    $response_cache = Cache::get($this->identify);
-                    if(!empty($response_cache)){
-                        $this->send($response_cache);
-                    }
+                $response_cache = Cache::get($this->filter_name.$param_md5);
+                if(!empty($response_cache)){
+                    $this->send($response_cache);
                 }
             }
 
@@ -122,11 +118,8 @@ class ApiBase extends Controller{
         if($this->cache && !$this->debug){
             $filter = $this->filter[$this->filter_name];
             $cache_md5 = md5(serialize($this->param));
-            Cache::set($this->identify."_md5",$cache_md5);
-            if($filter['cache']){
-                Cache::set(session_id().$this->identify,$req,$filter['cache']);
-            }else{
-                Cache::set(session_id().$this->identify,$req);
+            if(isset($filter['cache']) && $filter['cache']){
+                Cache::set($this->filter_name.$cache_md5,$req,$filter['cache']);
             }
         }
     }
