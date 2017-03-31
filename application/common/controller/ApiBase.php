@@ -133,8 +133,8 @@ class ApiBase extends Controller{
         $req['code'] = $code;
         $req['data'] = $data;
         $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
-        $this->cache($req);
         $this->send($req);
+        $this->cache($req);
     }
 
     private function send($req){
