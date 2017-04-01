@@ -103,7 +103,7 @@ class ApiBase extends Controller{
         if(!empty($this->route) && isset($middleware[$this->route])){
             $m = $middleware[$this->route];
 
-        }else if(isset($this->filter[$this->path])){
+        }else if(isset($middleware[$this->path])){
             $m = $middleware[$this->path];
         }else{
             $m = [];
