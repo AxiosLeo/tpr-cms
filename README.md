@@ -13,7 +13,7 @@
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
 
 ## 特点
-* 基于thinkphp5开发，无缝衔接thinkphp5的功能，加速开发速度
+* 基于thinkphp5开发，无缝衔接thinkphp5的功能，加快开发速度
 * 支持路由和path模式
 * 接口配置可以定制化设置接口
 * 接口参数验证，可以在一定程度上保证接口访问的标准性
