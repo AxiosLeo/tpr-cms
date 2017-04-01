@@ -130,7 +130,7 @@ class ApiBase extends Controller{
         $this->response([],strval($code),$message);
     }
 
-    protected function response($data,$code=200,$message=''){
+    protected function response($data=[],$code=200,$message=''){
         $req['code'] = $code;
         $req['data'] = $data;
         $req['message'] = !empty($message)?$message:LangService::trans()->message($code);
