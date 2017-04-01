@@ -12,11 +12,9 @@ use app\common\service\LangService;
 use think\Cache;
 use think\Config;
 use think\Controller;
-use think\Db;
 use think\Env;
 use think\Request;
 use think\Response;
-use think\Session;
 
 class ApiBase extends Controller{
 
