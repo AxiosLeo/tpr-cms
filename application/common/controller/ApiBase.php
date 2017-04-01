@@ -18,7 +18,7 @@ use think\Response;
 
 class ApiBase extends Controller{
     /**
-     * 当前请求方法：post,get
+     * 当前请求方法：post,get...
      * @var
      */
     protected $method;
