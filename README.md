@@ -73,8 +73,9 @@ status = true  #调试模式
 <?php
 //配置举例
 //其中validate的值是验证器的类名,scene的值是验证场景,mobile代表此次访问是否只允许移动端访问
+
 //route name
-'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false],  //针对路由名称的参数过滤
+'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false,'cache'=>300],  //针对路由名称的参数过滤
 
 //path name
 'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false] //针对访问地址的参数过滤
