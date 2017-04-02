@@ -157,6 +157,18 @@ return [
 
 > middleware比较独立，可以继承thinkphp自有的类，比如think/Controller或者think/Model等等，当然，也可以不继承。
 
+### 接口签名验证
+* .env环境变量配置
+  > 在.env文件中的auth里定义sign_status = on 以及api_key
+
+* 签名验证配置
+  > 在/config/extra/setting.php中配置时间戳参数名称、签名参数名称以及签名有效期，若不配置，则默认分别为t、s和10
+
+* 自定义签名生成规则
+  > 如果需要自定义签名生成规则，可以修改/application/common/service/SignService.php中的makeSign方法
+  
+  > 如果是正式使用的话，非常建议由自己自定义签名生成规则
+
 ## 计划上线功能
 * 权限认证
 * 后台管理系统：管理接口及查看接口文档，可视化查看接口访问数据(如访问次数等)

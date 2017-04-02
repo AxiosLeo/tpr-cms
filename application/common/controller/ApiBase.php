@@ -93,6 +93,7 @@ class ApiBase extends Controller{
      * @return bool|mixed
      */
     protected function filter(){
+        $this->sign();
         /*** 获取接口请求配置 ***/
         if(!empty($this->route) && isset($this->filter[$this->route])){
             $this->filter_name = $this->route;
@@ -153,6 +154,49 @@ class ApiBase extends Controller{
             $Middleware = middleware($m['middleware']);
             $func = isset($m['func']) && !empty($m['func']) ? $m['func']:"index"; // default to index
             call_user_func([$Middleware,$func]);
+        }
+    }
+
+    private function sign(){
+        $sign_status = Env::get('auth.sign_status');
+
+        if(!empty($sign_status)){
+            $setting_sign = Config::get('setting.sign');
+            if(empty($setting_sign)){
+                $setting_sign = ['timestamp_name'=>'t','sign_name'=>'s','sign_expire'=>10];
+            }
+            if(!isset($setting_sign['timestamp_name']) || empty($setting_sign['timestamp_name'])){
+                $setting_sign['timestamp_name'] = 't';
+            }
+            if(!isset($setting_sign['sign_name']) || empty($setting_sign['sign_name'])){
+                $setting_sign['sign_name'] = 's';
+            }
+            if(!isset($setting_sign['sign_expire']) || empty($setting_sign['sign_expire'])){
+                $setting_sign['sign_expire'] = 10;
+            }
+            if(!isset($this->param[$setting_sign['timestamp_name']])){
+                $this->wrong(401,'sign error');
+            }
+            $timestamp = $this->param[$setting_sign['timestamp_name']];
+
+            if(!isset($this->param[$setting_sign['sign_name']])){
+                $this->wrong(401,'sign error');
+            }
+            $sign = $this->param[$setting_sign['sign_name']];
+
+            if(time()-$timestamp>$setting_sign['sign_expire']){
+                $this->wrong(401,'sign timeout');
+            }
+
+            $SignService = middleware("SignService",'service');
+            $sign_result = call_user_func_array([$SignService,'checkSign'],[$timestamp,$sign]);
+
+            if($sign_result===500){
+                $this->wrong(401,' Env->auth:api_key not exits');
+            }
+            if(!$sign_result){
+                $this->wrong(401,'wrong sign');
+            }
         }
     }
 
