@@ -24,6 +24,12 @@ class SignService {
         return $result;
     }
 
+    /**
+     * 生成签名示例方法，建议自定义生成规则
+     * @param $timestamp
+     * @param $api_key
+     * @return string
+     */
     private function makeSign($timestamp,$api_key){
         return md5($timestamp.$api_key);
     }
