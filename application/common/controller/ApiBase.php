@@ -184,7 +184,7 @@ class ApiBase extends Controller{
             }
             $sign = $this->param[$setting_sign['sign_name']];
 
-            if(time()-$timestamp>$setting_sign['sign_expire']){
+            if(time()-intval($timestamp) > intval($setting_sign['sign_expire'])){
                 $this->wrong(401,'sign timeout');
             }
 
