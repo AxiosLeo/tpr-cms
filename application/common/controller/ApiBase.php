@@ -80,8 +80,10 @@ class ApiBase extends Controller{
         $this->filter  = Config::get('filter');
         $route         = $this->request->routeInfo();
         $this->route   = '';
-        foreach ($route['rule'] as $key=>$r){
-            $this->route = $key==0? $this->route.$r:$this->route."/".$r;
+        if(!empty($route['rule'])){
+            foreach ($route['rule'] as $key=>$r){
+                $this->route = $key==0? $this->route.$r:$this->route."/".$r;
+            }
         }
         $this->path    = $this->request->path();
         $this->debug   = Env::get("debug.status");
