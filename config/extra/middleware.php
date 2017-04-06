@@ -10,7 +10,7 @@
 return [
     //before the request
     'before'=>[
-        'hello'=>['middleware'=>'Hello','func'=>'before']
+//        'hello'=>['middleware'=>'Hello','func'=>'before']
     ],
 
     //after the request and It's not take the request time.
