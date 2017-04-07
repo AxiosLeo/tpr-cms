@@ -3,11 +3,9 @@
 
 
 ## 前言
-> 之前有用过phalapi和laravel5.3开发过接口，个人感觉都不是很称心称手，正好今天下午没什么事儿，用thinkphp5写了个通用的接口框架。代码量不多，重在代码逻辑设计。不过，虽然比较轻量，但是该有的基础功能也都有了，因为tp5是有composer的，需要扩展一些功能也比较方便。
+> 基于thinkphp5开源框架，代码量不多，重在代码逻辑设计。
 
 > 交流QQ群：521797692
-
-> 项目刚刚创建，欢迎PR  ^_^ 
 
 ## Github地址
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
