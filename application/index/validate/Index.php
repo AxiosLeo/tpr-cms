@@ -8,9 +8,9 @@
  */
 namespace app\index\validate;
 
-use app\common\validate\Base;
+use app\common\validate\ValidateBase;
 
-class Index extends Base {
+class Index extends ValidateBase {
     protected $rule =   [
         'id'  => 'require|max:11',
     ];

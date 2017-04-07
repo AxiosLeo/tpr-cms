@@ -8,7 +8,7 @@
  */
 namespace app\common\validate;
 
-class Hello extends Base {
+class Hello extends ValidateBase {
     protected $rule =   [
         'name'  => 'require|max:25',
     ];
