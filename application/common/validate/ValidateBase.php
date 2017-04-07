@@ -8,6 +8,7 @@
  */
 namespace app\common\validate;
 
+use app\common\service\LangService;
 use think\Validate;
 
 class ValidateBase extends Validate{
@@ -17,16 +18,6 @@ class ValidateBase extends Validate{
     }
 
     public function getError(){
-        $error = explode('@', $this->error);
-        $str = '';
-        foreach ($error as $e){
-            $tmp = lang($e);
-            if($e===$tmp){
-                $str.=lang($e)." ";
-            }else{
-                $str.=lang($e);
-            }
-        }
-        return $str;
+        return LangService::trans($this->error);
     }
 }

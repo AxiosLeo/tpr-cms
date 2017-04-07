@@ -13,11 +13,26 @@ use think\Lang;
 
 class LangService extends Lang{
 
-    public static function trans(){
-        return new self();
+    public static function trans($message){
+        $error = explode('@', $message);
+        $str = '';
+        foreach ($error as $e){
+            $tmp = lang($e);
+            if($e===$tmp){
+                $str.=lang($e)." ";
+            }else{
+                $str.=lang($e);
+            }
+        }
+        return $str;
     }
-    public function message($code){
-        $message = Config::get("code.".$code);
-        return Lang::get($message);
+
+    public static function message($code){
+        if(Config::has('code.'.$code)){
+            $message = Config::get("code.".$code);
+            return Lang::get($message);
+        }else{
+            return "";
+        }
     }
 }
