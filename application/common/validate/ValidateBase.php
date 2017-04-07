@@ -23,6 +23,8 @@ class ValidateBase extends Validate{
             $tmp = lang($e);
             if($e===$tmp){
                 $str.=lang($e)." ";
+            }else{
+                $str.=lang($e);
             }
         }
         return $str;
