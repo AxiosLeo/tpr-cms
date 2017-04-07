@@ -240,7 +240,7 @@ class ApiBase extends Controller{
     protected function response($data=[],$code=200,$message=''){
         $req['code'] = $code;
         $req['data'] = $data;
-        $req['message'] = !empty($message)?$message:LangService::message($code);
+        $req['message'] = !empty($message)?LangService::trans($message):LangService::message($code);
         $this->send($req);
         $this->cache($req);
         die();
@@ -264,6 +264,6 @@ class ApiBase extends Controller{
      * 方法不存在时的空置方法
      */
     public function __empty(){
-        $this->wrong(500);
+        $this->wrong(404);
     }
 }

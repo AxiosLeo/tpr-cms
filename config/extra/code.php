@@ -11,5 +11,7 @@ return [
     "200"=>"success",
     "500"=>"server error",
     "400"=>"arguments error",
-    "406"=>"wrong item"
+    "404"=>"the function not exits",
+    "406"=>"wrong item",
+
 ];

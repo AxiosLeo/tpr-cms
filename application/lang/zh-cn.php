@@ -21,4 +21,7 @@ return [
     'char'=>"字符",
 
 
+    "the function not exits"=>"方法不存在"
+
+
 ];
