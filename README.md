@@ -164,7 +164,7 @@ return [
   > 在.env文件中的auth里定义sign_status = on 以及api_key
 
 * 签名验证配置
-  > 在/config/extra/setting.php中配置时间戳参数名称、签名参数名称以及签名有效期，若不配置，则默认分别为t、s和10
+  > 在/config/extra/setting.php中配置时间戳参数名称、签名参数名称以及签名有效期，若不配置，则默认分别为timestamp、sign和10
 
 * 自定义签名生成规则
   > 如果需要自定义签名生成规则，可以修改/application/common/service/SignService.php中的makeSign方法

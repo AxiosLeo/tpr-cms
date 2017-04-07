@@ -7,8 +7,8 @@
  */
 return [
     'sign'=>[
-        'timestamp_name'=>"t",
-        'sign_mame'=>'s',
+        'timestamp_name'=>"timestamp",
+        'sign_mame'=>'sign',
         'sign_expire'=>10
     ]
 ];

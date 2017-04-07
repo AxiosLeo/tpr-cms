@@ -173,10 +173,10 @@ class ApiBase extends Controller{
                 $setting_sign = ['timestamp_name'=>'t','sign_name'=>'s','sign_expire'=>10];
             }
             if(!isset($setting_sign['timestamp_name']) || empty($setting_sign['timestamp_name'])){
-                $setting_sign['timestamp_name'] = 't';
+                $setting_sign['timestamp_name'] = 'timestamp';
             }
             if(!isset($setting_sign['sign_name']) || empty($setting_sign['sign_name'])){
-                $setting_sign['sign_name'] = 's';
+                $setting_sign['sign_name'] = 'sign';
             }
             if(!isset($setting_sign['sign_expire']) || empty($setting_sign['sign_expire'])){
                 $setting_sign['sign_expire'] = 10;
