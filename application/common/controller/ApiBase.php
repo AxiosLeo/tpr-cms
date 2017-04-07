@@ -243,6 +243,7 @@ class ApiBase extends Controller{
         $req['message'] = !empty($message)?$message:LangService::message($code);
         $this->send($req);
         $this->cache($req);
+        die();
     }
 
     /**
