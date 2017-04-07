@@ -9,9 +9,8 @@
 namespace app\common\service;
 
 use think\Config;
-use think\Lang;
 
-class LangService extends Lang{
+class LangService {
 
     public static function trans($message){
         $error = explode('@', $message);
@@ -30,7 +29,7 @@ class LangService extends Lang{
     public static function message($code){
         if(Config::has('code.'.$code)){
             $message = Config::get("code.".$code);
-            return Lang::get($message);
+            return LangService::trans($message);
         }else{
             return "";
         }
