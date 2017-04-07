@@ -20,9 +20,11 @@ class ValidateBase extends Validate{
         $error = explode('@', $this->error);
         $str = '';
         foreach ($error as $e){
-            $str.=lang($e);
+            $tmp = lang($e);
+            if($e===$tmp){
+                $str.=lang($e)." ";
+            }
         }
-        $str = str_replace('@',' ',$str);
         return $str;
     }
 }
