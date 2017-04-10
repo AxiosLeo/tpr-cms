@@ -2,8 +2,8 @@
 namespace app\index\controller;
 
 use app\common\controller\ApiBase;
-use think\Config;
-use think\Db;
+use app\common\service\MongoService;
+
 class Index extends ApiBase
 {
     public function index()
@@ -18,8 +18,16 @@ class Index extends ApiBase
     }
 
     public function mongo(){
-        $config = Config::get('mongo');
-        $test = Db::connect($config)->name('test')->select();
-        dump($test);
+        $Mongo = MongoService::name('test');
+        dump($Mongo);
+
+        $data = $Mongo->select();
+        dump($data);
+
+        $Mongo->insertGetId(['timestamp'=>"123"]);
+        dump($Mongo->select());
+
+        $Mongo->where('timestamp',"123")->delete();
+        dump($Mongo->select());
     }
 }
