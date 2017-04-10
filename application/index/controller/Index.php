@@ -19,7 +19,7 @@ class Index extends ApiBase
 
     public function mongo(){
         $config = Config::get('mongo');
-        $test = Db::connect($config)->name('bridge')->select();
+        $test = Db::connect($config)->name('test')->select();
         dump($test);
     }
 }
