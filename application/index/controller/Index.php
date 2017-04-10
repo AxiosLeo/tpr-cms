@@ -2,7 +2,8 @@
 namespace app\index\controller;
 
 use app\common\controller\ApiBase;
-
+use think\Config;
+use think\Db;
 class Index extends ApiBase
 {
     public function index()
@@ -14,5 +15,11 @@ class Index extends ApiBase
         sleep(3);
         dump("hello");
         $this->response(['hello'=>"world",'test'=>"a"]);
+    }
+
+    public function mongo(){
+        $config = Config::get('mongo');
+        $test = Db::connect($config)->name('bridge')->select();
+        dump($test);
     }
 }
