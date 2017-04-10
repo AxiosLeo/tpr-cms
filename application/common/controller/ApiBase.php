@@ -254,8 +254,6 @@ class ApiBase extends Controller{
         Response::create($req, 'json', "200")->send();
         if(function_exists('fastcgi_finish_request')){
             fastcgi_finish_request();
-        }else{
-            die();
         }
         $this->middleware('after');
     }
