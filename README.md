@@ -11,7 +11,7 @@
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
 
 ## 文档地址
-> [看云：《restful接口风格框架使用文档(TPR)》](http://www.kancloud.cn/axios/tpr)
+> [看云：《TPR接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
 
 > 目前文档还在编写中，待完成
 
