@@ -10,41 +10,32 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-03-28 19:26:28
+Date: 2017-04-11 16:58:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for api_test
+-- Table structure for api_users
 -- ----------------------------
-DROP TABLE IF EXISTS `api_test`;
-CREATE TABLE `api_test` (
+DROP TABLE IF EXISTS `api_users`;
+CREATE TABLE `api_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` varchar(25) DEFAULT NULL,
+  `user_uniq` varchar(255) DEFAULT NULL,
+  `login_name` varchar(255) DEFAULT NULL,
+  `login_pass` varchar(255) DEFAULT NULL,
+  `realname` varchar(255) DEFAULT NULL,
+  `nickname` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `head_image` varchar(255) DEFAULT NULL,
+  `last_login_ip` varchar(255) DEFAULT NULL,
+  `last_login_time` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `disabled` tinyint(1) NOT NULL,
+  `created` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_test
+-- Records of api_users
 -- ----------------------------
-INSERT INTO `api_test` VALUES ('13', '2017-03-28 18:36:48');
-INSERT INTO `api_test` VALUES ('14', '2017-03-28 18:36:53');
-INSERT INTO `api_test` VALUES ('15', '2017-03-28 18:36:58');
-INSERT INTO `api_test` VALUES ('16', '2017-03-28 18:37:03');
-INSERT INTO `api_test` VALUES ('17', '2017-03-28 19:21:52');
-INSERT INTO `api_test` VALUES ('18', '2017-03-28 19:21:55');
-INSERT INTO `api_test` VALUES ('19', '2017-03-28 19:21:56');
-INSERT INTO `api_test` VALUES ('20', '2017-03-28 19:21:56');
-INSERT INTO `api_test` VALUES ('21', '2017-03-28 19:21:57');
-INSERT INTO `api_test` VALUES ('22', '2017-03-28 19:22:00');
-INSERT INTO `api_test` VALUES ('23', '2017-03-28 19:22:01');
-INSERT INTO `api_test` VALUES ('24', '2017-03-28 19:22:01');
-INSERT INTO `api_test` VALUES ('25', '2017-03-28 19:22:02');
-INSERT INTO `api_test` VALUES ('26', '2017-03-28 19:22:05');
-INSERT INTO `api_test` VALUES ('27', '2017-03-28 19:22:06');
-INSERT INTO `api_test` VALUES ('28', '2017-03-28 19:22:06');
-INSERT INTO `api_test` VALUES ('29', '2017-03-28 19:22:07');
-INSERT INTO `api_test` VALUES ('30', '2017-03-28 19:22:10');
-INSERT INTO `api_test` VALUES ('31', '2017-03-28 19:22:11');
-INSERT INTO `api_test` VALUES ('32', '2017-03-28 19:22:11');
