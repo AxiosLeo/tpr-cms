@@ -1,6 +1,10 @@
 基于thinkphp5的restful接口框架---TPR
 ===============
 
+[![Latest Unstable Version](https://github.com/AxiosCros/thinkphp5-restfulapi/last_version.svg)](https://codeload.github.com/AxiosCros/thinkphp5-restfulapi/zip/master)
+[![License](https://github.com/AxiosCros/thinkphp5-restfulapi/license.svg)](https://packagist.org/packages/laravel/framework)
+
+
 > 之前有用过phalapi和laravel5.3开发过接口，个人感觉都不是很称心称手，就用thinkphp5写了个通用的接口框架。
 
 > 专为接口开发而设计
