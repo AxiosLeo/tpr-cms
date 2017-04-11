@@ -21,7 +21,9 @@ return [
     'char'=>"字符",
 
 
-    "the function not exits"=>"方法不存在"
+    "the function not exits"=>"方法不存在",
+    "Have been landed in other places"=>"已在其它地方登陆",
+    "The login failed"=>"本次登陆失效",
 
 
 ];

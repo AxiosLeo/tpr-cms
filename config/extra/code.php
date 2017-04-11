@@ -14,4 +14,6 @@ return [
     "404"=>"the function not exits",
     "406"=>"wrong item",
 
+    "403100"=>"Have been landed in other places",
+    "403101"=>"The login failed",
 ];

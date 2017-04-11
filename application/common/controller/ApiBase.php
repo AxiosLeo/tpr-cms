@@ -95,6 +95,14 @@ class ApiBase extends Controller{
         $this->middleware('before');  //前置中间件
     }
 
+    protected function commonFilter($scene='logout'){
+        $Validate = validate("Common");
+        $check = $Validate->scene($scene)->check($this->param);
+        if(!$check){
+            $this->wrong(400,$Validate->getError());
+        }
+    }
+
     /**
      * 请求过滤
      * @return bool|mixed
