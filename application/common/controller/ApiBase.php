@@ -165,7 +165,7 @@ class ApiBase extends Controller{
             $Validate = validate($filter['validate']);
             $check = isset($filter['scene'])?$Validate->scene($filter['scene'])->check($this->param):$Validate->check($this->param);
             if(!$check){
-                return $this->wrong(400,$Validate->getError());
+                return $this->wrong(400,LangService::trans($Validate->getError()));
             }
         }
         return true;
