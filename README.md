@@ -1,7 +1,7 @@
 基于thinkphp5的restful接口框架---TPR
 ===============
 
-> 之前有用过phalapi和laravel5.3开发过接口，个人感觉都不是很称心称手，就用thinkphp5写了个通用的接口框架。
+> 基于thinkphp5的restful设计风格的接口框架。
 
 > 专为接口开发而设计
 
