@@ -99,8 +99,8 @@ class ApiBase extends Controller{
     protected function commonFilter($scene='logout'){
 //        $Validate = validate("Common");
         $setting = Config::get('setting.sign');
-        $timestamp_name = $setting['timestamp_name'];
-        $sign_name = $setting['sign_mame'];
+        $timestamp_name = isset($setting['timestamp_name'])&& !empty($setting['timestamp_name'])?$setting['timestamp_name']:"t";
+        $sign_name = isset($setting['sign_name'])&& !empty($setting['sign_name'])?$setting['sign_name']:"sign";
         $rules = [
             'lang' => ['in:zh-cn,en-us'],
             'token' =>['regex:/^([a-z]|[0-9])*$/i']
