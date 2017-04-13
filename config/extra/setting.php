@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: a3690
- * Date: 2017/4/2
- * Time: 14:06
+ * @author: Axios
+ *
+ * @email: axioscros@aliyun.com
+ * @blog:  http://hanxv.cn
+ * @datetime: 2017/4/2 14:06
  */
 return [
     'sign'=>[
