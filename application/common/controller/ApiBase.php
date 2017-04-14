@@ -272,9 +272,8 @@ class ApiBase extends Controller{
         $req['code'] = $code;
         $req['data'] = $data;
         $req['message'] = !empty($message)?LangService::trans($message):LangService::message($code);
-        $this->send($req);
         $this->cache($req);
-        die();
+        $this->send($req);
     }
 
     /**
@@ -287,6 +286,7 @@ class ApiBase extends Controller{
             fastcgi_finish_request();
         }
         $this->middleware('after');
+        die();
     }
 
     /**
