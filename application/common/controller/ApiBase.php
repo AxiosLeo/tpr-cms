@@ -40,13 +40,13 @@ class ApiBase extends Controller{
      * 当前路由信息
      * @var string
      */
-    protected $route;
+    protected $route='';
 
     /**
      * 当前访问路径
      * @var string
      */
-    protected $path;
+    protected $path='';
 
     /**
      * 当前请求是否缓存
@@ -72,6 +72,14 @@ class ApiBase extends Controller{
      */
     protected $debug = false;
 
+    protected $sign_status = false;
+
+    protected $sign_name = 'sign';
+
+    protected $timestamp_name = 't';
+
+    protected $sign_expire = 10;
+
     function __construct(Request $request = null)
     {
         parent::__construct($request);
@@ -91,13 +99,29 @@ class ApiBase extends Controller{
         $this->path    = $this->request->path();
         $this->debug   = Env::get("debug.status");
 
+        $this->sign_status = Env::get('auth.sign_status');
+        if(!empty($this->sign_status)){
+            $setting_sign = Config::get('setting.sign');
+            if(!empty($setting_sign)){
+                $setting_sign = ['timestamp_name'=>'t','sign_name'=>'sign','sign_expire'=>10];
+                if(isset($setting_sign['sign_mame'])){
+                    $this->sign_name = $setting_sign['sign_mame'];
+                }
+                if(isset($setting_sign['timestamp_name'])){
+                    $this->timestamp_name = $setting_sign['timestamp_name'];
+                }
+                if(isset($setting_sign['sign_expire'])){
+                    $this->sign_expire = $setting_sign['sign_expire'];
+                }
+            }
+        }
+
         $this->filter(); //请求过滤
 
         $this->middleware('before');  //前置中间件
     }
 
     protected function commonFilter($scene='logout'){
-//        $Validate = validate("Common");
         $setting = Config::get('setting.sign');
         $timestamp_name = isset($setting['timestamp_name'])&& !empty($setting['timestamp_name'])?$setting['timestamp_name']:"t";
         $sign_name = isset($setting['sign_name'])&& !empty($setting['sign_name'])?$setting['sign_name']:"sign";
@@ -147,7 +171,8 @@ class ApiBase extends Controller{
             /*** 接口缓存 ***/
             if(isset($filter['cache']) && !$this->debug){
                 $this->cache = true;
-                $param_md5 = md5(serialize($this->param));
+                $param = $this->request->except(['token',$this->sign_name,$this->timestamp_name]);
+                $param_md5 = md5(serialize($param));
                 $response_cache = Cache::get($this->filter_name.$param_md5);
                 if(!empty($response_cache)){
                     $this->send($response_cache);
@@ -196,33 +221,18 @@ class ApiBase extends Controller{
     }
 
     private function sign(){
-        $sign_status = Env::get('auth.sign_status');
-
-        if(!empty($sign_status)){
-            $setting_sign = Config::get('setting.sign');
-            if(empty($setting_sign)){
-                $setting_sign = ['timestamp_name'=>'t','sign_name'=>'s','sign_expire'=>10];
-            }
-            if(!isset($setting_sign['timestamp_name']) || empty($setting_sign['timestamp_name'])){
-                $setting_sign['timestamp_name'] = 'timestamp';
-            }
-            if(!isset($setting_sign['sign_name']) || empty($setting_sign['sign_name'])){
-                $setting_sign['sign_name'] = 'sign';
-            }
-            if(!isset($setting_sign['sign_expire']) || empty($setting_sign['sign_expire'])){
-                $setting_sign['sign_expire'] = 10;
-            }
-            if(!isset($this->param[$setting_sign['timestamp_name']])){
+        if($this->sign_status){
+            if(!isset($this->param[$this->timestamp_name])){
                 $this->wrong(401,'sign error');
             }
-            $timestamp = $this->param[$setting_sign['timestamp_name']];
+            $timestamp = $this->param[$this->timestamp_name];
 
-            if(!isset($this->param[$setting_sign['sign_name']])){
+            if(!isset($this->param[$this->sign_name])){
                 $this->wrong(401,'sign error');
             }
-            $sign = $this->param[$setting_sign['sign_name']];
+            $sign = $this->param[$this->sign_name];
 
-            if(time()-intval($timestamp) > intval($setting_sign['sign_expire'])){
+            if(time()-intval($timestamp) > intval($this->sign_expire)){
                 $this->wrong(401,'sign timeout');
             }
 
@@ -245,7 +255,8 @@ class ApiBase extends Controller{
     private function cache($req){
         if($this->cache && !$this->debug){
             $filter = $this->filter[$this->filter_name];
-            $cache_md5 = md5(serialize($this->param));
+            $param = $this->request->except(['token',$this->sign_name,$this->timestamp_name]);
+            $cache_md5 = md5(serialize($param));
             if(isset($filter['cache']) && $filter['cache']){
                 Cache::set($this->filter_name.$cache_md5,$req,$filter['cache']);
             }
