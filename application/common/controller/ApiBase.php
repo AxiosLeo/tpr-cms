@@ -9,6 +9,7 @@
 namespace app\common\controller;
 
 use app\common\service\LangService;
+use app\common\service\ToolService;
 use think\Cache;
 use think\Config;
 use think\Controller;
@@ -166,6 +167,7 @@ class ApiBase extends Controller{
         }else{
             $filter = [];
         }
+        $this->identify = ToolService::uuid($this->filter_name);
 
         if(!empty($filter)){
             /*** 接口缓存 ***/
