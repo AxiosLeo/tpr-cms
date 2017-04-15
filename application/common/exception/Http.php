@@ -25,7 +25,6 @@ class Http extends Handle{
             $req['message'] = "something error";
             $req['data'] = [];
             return Response::create($req,'json',"500")->send();
-            die();
         }
     }
 }
