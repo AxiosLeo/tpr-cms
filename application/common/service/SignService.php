@@ -19,7 +19,7 @@ class SignService {
         $sign = $this->makeSign($post_timestamp,$api_key);
         $result = $post_sign!=$sign?false:true;
         if(!$result){
-            Log::info($sign);
+            Log::record(['post_timestamp'=>$post_timestamp,'need'=>$sign]);
         }
         return $result;
     }
