@@ -10,7 +10,7 @@ return [
     'sign'=>[
         'timestamp_name'=>"timestamp",
         'sign_mame'=>'sign',
-        'sign_expire'=>10
+        'sign_expire'=>10000
     ],
     'token'=>[
         'token_expire'=>86400

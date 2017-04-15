@@ -103,17 +103,14 @@ class ApiBase extends Controller{
         $this->sign_status = Env::get('auth.sign_status');
         if(!empty($this->sign_status)){
             $setting_sign = Config::get('setting.sign');
-            if(!empty($setting_sign)){
-                $setting_sign = ['timestamp_name'=>'t','sign_name'=>'sign','sign_expire'=>10];
-                if(isset($setting_sign['sign_mame'])){
-                    $this->sign_name = $setting_sign['sign_mame'];
-                }
-                if(isset($setting_sign['timestamp_name'])){
-                    $this->timestamp_name = $setting_sign['timestamp_name'];
-                }
-                if(isset($setting_sign['sign_expire'])){
-                    $this->sign_expire = $setting_sign['sign_expire'];
-                }
+            if(isset($setting_sign['sign_mame'])){
+                $this->sign_name = $setting_sign['sign_mame'];
+            }
+            if(isset($setting_sign['timestamp_name'])){
+                $this->timestamp_name = $setting_sign['timestamp_name'];
+            }
+            if(isset($setting_sign['sign_expire'])){
+                $this->sign_expire = $setting_sign['sign_expire'];
             }
         }
 
@@ -225,17 +222,17 @@ class ApiBase extends Controller{
     private function sign(){
         if($this->sign_status){
             if(!isset($this->param[$this->timestamp_name])){
-                $this->wrong(401,'sign error');
+                $this->wrong(401,$this->timestamp_name.' not exits');
             }
             $timestamp = $this->param[$this->timestamp_name];
 
             if(!isset($this->param[$this->sign_name])){
-                $this->wrong(401,'sign error');
+                $this->wrong(401,$this->sign_name.' not exits');
             }
             $sign = $this->param[$this->sign_name];
 
             if(time()-intval($timestamp) > intval($this->sign_expire)){
-                $this->wrong(401,'sign timeout');
+                $this->wrong(401,'sign timeout'.time());
             }
 
             $SignService = middleware("SignService",'service');
