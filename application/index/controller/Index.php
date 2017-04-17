@@ -12,8 +12,6 @@ class Index extends ApiBase
     }
     public function hello()
     {
-        sleep(3);
-        dump("hello");
         $this->response(['hello'=>"world",'test'=>"a"]);
     }
 
