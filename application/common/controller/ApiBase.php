@@ -130,14 +130,12 @@ class ApiBase extends Controller{
         $message = [
             'token.regex'    =>'token@format@error ',
         ];
-        $message[$timestamp_name.".require"] = "timestamp@not@exits";
         $message[$timestamp_name.".length"] = "timestamp@length@error";
         $message[$timestamp_name.".number"] = "timestamp@is not@number";
-        $message[$sign_name.".require"] = "sign@not@exits";
         $message[$sign_name.".length"] = "sign@length@error";
         $message[$sign_name.".regex"] = "sign@regex@error";
-        $rules[$timestamp_name] = ['require','length:10','number'];
-        $rules[$sign_name] = ['require','length:32','regex:/^([a-z]|[0-9])*$/i'];
+        $rules[$timestamp_name] = ['length:10','number'];
+        $rules[$sign_name] = ['length:32','regex:/^([a-z]|[0-9])*$/i'];
         $Validate = new Validate($rules,$message);
         $Validate->scene('logout', [$timestamp_name,$sign_name,'lang']);
         $Validate->scene('login', [$timestamp_name,$sign_name,'lang','token']);
