@@ -100,7 +100,7 @@ class ApiBase extends Controller{
         $this->path    = $this->request->path();
         $this->debug   = Env::get("debug.status");
 
-        $this->sign_status = Env::get('auth.sign_status');
+        $this->sign_status =  empty(Env::get('auth.sign_status'))? 0:1;
         if(!empty($this->sign_status)){
             $setting_sign = Config::get('setting.sign');
             if(isset($setting_sign['sign_mame'])){
