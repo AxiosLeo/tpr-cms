@@ -9,7 +9,8 @@
  * Set:  GlobalService::set($name,$value);
  *
  * Get:  GlobalService::get($name);
- *       $Global = new GlobalService();
+ *
+ * Get:  $Global = new GlobalService();
  *       $Global($name);
  */
 namespace app\common\service;
