@@ -52,6 +52,7 @@ class ApiDocService{
                     $method_comment = self::trans($method->getDocComment());
                     $methods[$m]['title'] = $method_comment['title']=="@title"?$method->name:$method_comment['title'];
                     $methods[$m]['desc'] = $method_comment['desc']=="@desc"?"":$method_comment['desc'];
+                    $methods[$m]['method'] = $method_comment['method']=="@method"?"":$method_comment['method'];
                     $methods[$m]['parameter'] = $method_comment['parameter']=="@parameter"?"":$method_comment['parameter'];
                     $methods[$m]['return'] = $method_comment['return']=="@return"?"":$method_comment['return'];
                     $m++;
@@ -67,6 +68,7 @@ class ApiDocService{
         $desc   = '@desc';
         $package= '@package';
         $param  = '@parameter';
+        $method = '';
         $param_count  = 0;
         $return = '@return';
         $return_count = 0;
@@ -102,6 +104,13 @@ class ApiDocService{
                     $package = trim(substr($comment, $pos + 8));
                 }
 
+                //@method
+                $pos = stripos($comment, '@method');
+                if ($pos !== false) {
+                    $method = trim(substr($comment, $pos + 8));
+                }
+
+                //@return
                 $pos = stripos($comment, '@return');
                 if($pos !== false){
                     $temp = explode(" ",trim(substr($comment,$pos + 7)));
@@ -120,6 +129,8 @@ class ApiDocService{
                     $return[$return_count]['info'] = isset($temp[2]) ?$temp[2]:"";
                     $return_count++;
                 }
+
+                //@parameter
                 $pos = stripos($comment, '@parameter');
                 if($pos !== false){
                     $temp = explode(" ",trim(substr($comment,$pos + 10)));
@@ -147,6 +158,7 @@ class ApiDocService{
             'package'=>$package,
             'parameter' => $param,
             'return'=> $return,
+            'method'=>$method,
         ];
 
         return $comment;
