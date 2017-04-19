@@ -76,18 +76,6 @@ class ApiDocService{
         $return = '@return';
         $return_count = 0;
 
-        $typeMaps = array(
-            'string'  => '字符串',
-            'int'     => '整型',
-            'float'   => '浮点型',
-            'boolean' => '布尔型',
-            'date'    => '日期',
-            'array'   => '数组',
-            'fixed'   => '固定值',
-            'enum'    => '枚举类型',
-            'object'  => '对象',
-        );
-
         $docComment = $comment;
         if ($docComment !== false) {
             $docCommentArr = explode("\n", $docComment);
@@ -127,7 +115,7 @@ class ApiDocService{
                     }
                     $temp = $tt;
                     $return = [];
-                    $return[$return_count]['type'] = isset($temp[0]) && isset($typeMaps[$temp[0]]) ?$typeMaps[$temp[0]]:$temp[0];
+                    $return[$return_count]['type'] = isset($temp[0]) ?LangService::trans($temp[0]):"";
                     $return[$return_count]['name'] = isset($temp[1]) ?$temp[1]:"";
                     $return[$return_count]['info'] = isset($temp[2]) ?$temp[2]:"";
                     $return_count++;
@@ -147,7 +135,7 @@ class ApiDocService{
                     }
                     $temp = $tt;
                     $param = [];
-                    $param[$param_count]['type'] = isset($temp[0]) && isset($typeMaps[$temp[0]]) ?$typeMaps[$temp[0]]:$temp[0];
+                    $param[$param_count]['type'] = isset($temp[0]) ?LangService::trans($temp[0]):"";
                     $param[$param_count]['name'] = isset($temp[1]) ?$temp[1]:"";
                     $param[$param_count]['info'] = isset($temp[2]) ?$temp[2]:"";
                     $param_count++;

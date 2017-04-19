@@ -8,18 +8,26 @@
  */
 return [
 
-    "success"=>"成功",
-    "server error"=>"服务器异常",
+    "success"        =>"成功",
+    "server error"   =>"服务器异常",
     "arguments error"=>"参数异常",
-    "wrong item"=>"不支持该设备",
+    "wrong item"     =>"不支持该设备",
 
 
-    'test'=>"测试",
-    'name'=>"名称",
-    'require'=>"必须",
+    'test'    =>"测试",
+    'name'    =>"名称",
+    'require' =>"必须",
     'must be less than'=>"最多不能超过",
-    'char'=>"字符",
-
+    'char'    =>"字符",
+    'string'  => '字符串',
+    'int'     => '整型',
+    'float'   => '浮点型',
+    'boolean' => '布尔型',
+    'date'    => '日期',
+    'array'   => '数组',
+    'fixed'   => '固定值',
+    'enum'    => '枚举类型',
+    'object'  => '对象',
 
     "the function not exits"=>"方法不存在",
     "Have been landed in other places"=>"已在其它地方登陆",
