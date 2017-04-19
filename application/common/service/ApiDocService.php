@@ -52,7 +52,7 @@ class ApiDocService{
         $title  = '@title';
         $desc   = '@desc';
         $package= '@package';
-        $param  = '@paaram';
+        $param  = '@parameter';
         $param_count  = 0;
         $return = '@return';
         $return_count = 0;
@@ -101,7 +101,7 @@ class ApiDocService{
                     }
                     $temp = $tt;
                     $return = [];
-                    $return[$return_count]['type'] = isset($temp[0]) ?$typeMaps[$temp[0]]:"";
+                    $return[$return_count]['type'] = isset($temp[0]) && isset($typeMaps[$temp[0]]) ?$typeMaps[$temp[0]]:"";
                     $return[$return_count]['name'] = isset($temp[1]) ?$temp[1]:"";
                     $return[$return_count]['info'] = isset($temp[2]) ?$temp[2]:"";
                     $return_count++;
@@ -119,7 +119,7 @@ class ApiDocService{
                     }
                     $temp = $tt;
                     $param = [];
-                    $param[$param_count]['type'] = isset($temp[0]) ?$typeMaps[$temp[0]]:"";
+                    $param[$param_count]['type'] = isset($temp[0]) && isset($typeMaps[$temp[0]]) ?$typeMaps[$temp[0]]:"";
                     $param[$param_count]['name'] = isset($temp[1]) ?$temp[1]:"";
                     $param[$param_count]['info'] = isset($temp[2]) ?$temp[2]:"";
                     $param_count++;
