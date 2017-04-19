@@ -8,6 +8,8 @@
  */
 namespace app\common\service;
 
+use think\Route;
+
 class ApiDocService{
     public static function api($class=''){
         $ApiClass = self::scanApiClass();
@@ -31,6 +33,7 @@ class ApiDocService{
         if(class_exists($class)){
             $reflectionClass = new \ReflectionClass($class);
             $doc['name'] = $reflectionClass->name;
+            $temp = explode("\\",$doc['name']);
             $doc['file_name'] = $reflectionClass->getFileName();
             $doc['short_name'] = $reflectionClass->getShortName();
             $doc['class_comment'] = self::trans($reflectionClass->getDocComment());
@@ -39,11 +42,20 @@ class ApiDocService{
             foreach ($_getMethods as $key=>$method){
                 if($method->class==$class){
                     $methods[$m]['name']=$method->name;
+                    $methods[$m]['path'] = strtolower($temp[1])."/".strtolower($temp[3])."/".$method->name;
+                    $rule =  Route::name($methods[$m]['path']);
+                    $route = '';
+                    if(!empty($rule)){
+                        $route = $rule[0][0];
+                    }
+                    $methods[$m]['route'] = $route;
                     $methods[$m]['method_comment']=self::trans($method->getDocComment());
                     $m++;
                 }
             }
             $doc['methods'] = $methods;
+
+
         }
         return $doc;
     }
