@@ -49,13 +49,15 @@ class ApiDocService{
                         $route = $rule[0][0];
                     }
                     $methods[$m]['route'] = $route;
-                    $methods[$m]['method_comment']=self::trans($method->getDocComment());
+                    $method_comment = self::trans($method->getDocComment());
+                    $methods[$m]['title'] = $method_comment['title']=="@title"?$methods[$m]['path']:$method_comment['title'];
+                    $methods[$m]['desc'] = $method_comment['desc']=="@desc"?"":$method_comment['desc'];
+                    $methods[$m]['parameter'] = $method_comment['parameter']=="@parameter"?"":$method_comment['parameter'];
+                    $methods[$m]['return'] = $method_comment['return']=="@return"?"":$method_comment['return'];
                     $m++;
                 }
             }
             $doc['methods'] = $methods;
-
-
         }
         return $doc;
     }
@@ -143,7 +145,7 @@ class ApiDocService{
             'title' => $title,
             'desc'  => $desc,
             'package'=>$package,
-            'param' => $param,
+            'parameter' => $param,
             'return'=> $return,
         ];
 
