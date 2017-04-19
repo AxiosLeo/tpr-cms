@@ -36,7 +36,10 @@ class ApiDocService{
             $temp = explode("\\",$doc['name']);
             $doc['file_name'] = $reflectionClass->getFileName();
             $doc['short_name'] = $reflectionClass->getShortName();
-            $doc['class_comment'] = self::trans($reflectionClass->getDocComment());
+            $comment = self::trans($reflectionClass->getDocComment());
+            $doc['title'] = $comment['title'];
+            $doc['desc'] = $comment['desc'];
+            $doc['package']=$comment['package'];
             $_getMethods = $reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC);
             $methods = [];$m=0;
             foreach ($_getMethods as $key=>$method){
