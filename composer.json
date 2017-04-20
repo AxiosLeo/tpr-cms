@@ -19,7 +19,6 @@
         "php": ">=5.4.0",
         "topthink/framework": "^5.0",
         "topthink/think-mongo": "^1.6",
-        "5ini99/think-auth": "dev-master",
         "phpmailer/phpmailer": "^5.2"
     },
     "extra": {
