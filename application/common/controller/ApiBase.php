@@ -8,6 +8,7 @@
  */
 namespace app\common\controller;
 
+use app\common\service\GlobalService;
 use app\common\service\LangService;
 use app\common\service\ToolService;
 use think\Cache;
@@ -84,8 +85,11 @@ class ApiBase extends Controller{
     function __construct(Request $request = null)
     {
         parent::__construct($request);
+        GlobalService::set('request',$request);
         $this->method  = $this->request->method();
+        GlobalService::set('method',$this->method);
         $this->param   = $this->request->param();
+        GlobalService::set('param',$this->param);
         $this->route   = $this->request->route();
         $this->filter  = Config::get('filter');
         $route         = $this->request->routeInfo();
@@ -163,6 +167,7 @@ class ApiBase extends Controller{
             $filter = [];
         }
         $this->identify = ToolService::uuid($this->filter_name);
+        GlobalService::set('identify',$this->identify);
 
         if(!empty($filter)){
             /*** 接口缓存 ***/
@@ -293,6 +298,7 @@ class ApiBase extends Controller{
         if(function_exists('fastcgi_finish_request')){
             fastcgi_finish_request();
         }
+        GlobalService::set('response',$req);
         $this->middleware('after');
         die();
     }
