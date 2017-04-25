@@ -7,7 +7,7 @@
  * @datetime: 2017/3/27 11:12
  */
 namespace app\common\validate;
-
+use axios\tpr\validate\ValidateBase;
 class Hello extends ValidateBase {
     protected $rule =   [
         'name'  => 'require|max:25',
