@@ -8,9 +8,9 @@
  */
 namespace app\admin\controller;
 
-use app\common\controller\HomeBase;
+use app\common\controller\HomeLogin;
 
-class Index extends HomeBase {
+class Index extends HomeLogin {
     public function index(){
         return $this->fetch('index');
     }

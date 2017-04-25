@@ -73,7 +73,7 @@ class HomeBase extends Controller{
         }
         $Menu->join("__ROLE_NODE__ rn",'rn.menu_id=menu.id','left')
             ->field('menu.* ');
-        if($this->user['role_id']!=3){
+        if($this->user['username']!="admin"){
             $Menu->where('rn.role_id',$this->user['role_id']);
         }
 

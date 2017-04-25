@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>Bootstrap3响应式后台管理系统模版MeAdmin 用户登录页面</title>
+    <link href="/themes/default/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+    />
+    <link href="/themes/default/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/assets/css/responsive.css" rel="stylesheet" type="text/css"
+    />
+    <link href="/themes/default/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/themes/default/assets/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/themes/default/assets/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="/themes/default/assets/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="/themes/default/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <script type="text/javascript" src="/themes/default/assets/js/libs/jquery-1.10.2.min.js">
+    </script>
+    <script type="text/javascript" src="/themes/default/bootstrap/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript" src="/themes/default/assets/js/libs/lodash.compat.min.js">
+    </script>
+    <!--[if lt IE 9]>
+    <script src="/themes/default/assets/js/libs/html5shiv.js">
+    </script>
+    <![endif]-->
+    <script type="text/javascript" src="/themes/default/plugins/uniform/jquery.uniform.min.js">
+    </script>
+    <script type="text/javascript" src="/themes/default/plugins/validation/jquery.validate.min.js">
+    </script>
+    <script type="text/javascript" src="/themes/default/plugins/nprogress/nprogress.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            Login.init()
+        });
+    </script>
+    <script src="/themes/default/alert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/themes/default/alert/sweetalert.css">
+</head>
+
+<body class="login">
+<div class="logo">
+    <img src="/themes/default/assets/img/logo.png" alt="logo" />
+    <strong>
+        接口
+    </strong>管理系统</div>
+<div class="box">
+    <div class="content">
+        <form class="form-vertical login-form" id="login_form" method="post">
+            <h3 class="form-title">
+                登录
+            </h3>
+            <div class="alert fade in alert-danger" style="display: none;">
+                <i class="icon-remove close" data-dismiss="alert">
+                </i>
+                输入任何用户名密码进入.
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="icon-user">
+                    </i>
+                    <input type="text" name="username" class="form-control" placeholder="用户名"
+                           autofocus="autofocus" data-rule-required="true" data-msg-required="请输入用户名."
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="icon-lock">
+                    </i>
+                    <input type="password" name="password" class="form-control" placeholder="密码"
+                           data-rule-required="true" data-msg-required="请输入密码."
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="icon-lock">
+                    </i>
+                    <input type="text" name="verify" class="form-control" placeholder="验证码"
+                           data-rule-required="true" data-msg-required="请输入验证码."
+                    />
+                </div>
+            </div>
+            <div class="form-actions">
+                <img class="pull-left" id="captcha" src="{:captcha_src()}" alt="点击获取"  style="cursor: pointer; display: block;width: 130px;float: right;" title="点击获取" onclick="this.src='{:captcha_src()}?id='+Math.random()"  />
+                <button type="submit" class="submit btn btn-primary pull-right">
+                    登录  <i class="icon-angle-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    html模板--meAdmin
+</div>
+<script type="text/javascript">
+    var url = "{:url('admin/login/doLogin')}";
+    $("#login_form").submit(function (e) {
+        var obj = new Object();
+        $.each($('#login_form').serializeArray(),function(index,param){
+            if(!(param.name in obj)){
+                obj[param.name]=param.value;
+            }
+        });
+        $.post(url, obj, function(res){
+            if(!res.code){
+                $("#captcha").attr('src','{:captcha_src()}?id='+Math.random());
+                swal(">_<",  res.msg,"error");
+            }else{
+                swal({ title: "^_^", text: res.msg, type: "success", confirmButtonText: "点击前往", confirmButtonColor: "#5eb95e" }, function () {
+                    window.location.href = res.url;
+                });
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+
+</html>
