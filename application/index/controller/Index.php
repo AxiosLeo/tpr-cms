@@ -1,10 +1,9 @@
 <?php
 namespace app\index\controller;
 
-use app\common\controller\ApiBase;
-use app\common\service\ApiDocService;
-use app\common\service\MongoService;
-
+use axios\tpr\controller\ApiBase;
+use axios\tpr\service\ApiDocService;
+use axios\tpr\service\MongoService;
 /**
  * 接口类名
  * @desc 接口类描述
