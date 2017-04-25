@@ -20,7 +20,7 @@
         "topthink/framework": "^5.0",
         "topthink/think-mongo": "^1.6",
         "phpmailer/phpmailer": "^5.2",
-        "axios/tpr": "dev-master"
+        "axios/tpr": "^1.2"
     },
     "extra": {
         "think-path": "thinkphp"

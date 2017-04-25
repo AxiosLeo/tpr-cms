@@ -31,6 +31,10 @@ class Index extends ApiBase
         $this->response(ApiDocService::api());
     }
 
+    public function test(){
+        $this->response("hello");
+    }
+
     public function mongo(){
         $Mongo = MongoService::name('test');
         dump($Mongo);
