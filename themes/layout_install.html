@@ -14,4 +14,50 @@
         {__CONTENT__}
     </div>
 </div>
-{include file="default/public/foot" /}
+<script type="application/javascript">
+    $(".form-horizontal").submit(function (e) {
+        var url = $(".form-horizontal").attr('action');
+        var obj = new Object();
+        $.each($('.form-horizontal').serializeArray(),function(index,param){
+            if(!(param.name in obj)){
+                obj[param.name]=param.value;
+            }
+        });
+        postSomething(url,obj,false);
+        return false;
+    });
+    function postSomething(url,obj,isClose) {
+        isClose = isClose===undefined ? true : isClose ;
+        $.ajax({
+            type: "POST",
+            url:url,
+            enctype: 'multipart/form-data',
+            data:obj,
+            success:function (res) {
+                console.log(res);
+                if(res.code===1){
+                    swal({ title: "^_^", text: res.msg, type: "success", confirmButtonText: "确定", confirmButtonColor: "#5eb95e" }, function () {
+                        var layer_index = parent.layer.getFrameIndex(window.name);
+//                        console.log(layer_index);console.log(isClose);console.log('qqq');
+                        if(isClose!==undefined){
+                            if(layer_index!==undefined){
+                                parent.window.location.href = res.url;
+                            }else{
+                                window.location.href = res.url;
+                            }
+                        }else{
+                            if(layer_index){
+                                console.log(parent.layer.close(layer_index));
+                            }
+                        }
+                    });
+                }else{
+                    swal(">_<",  res.msg,"error");
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
