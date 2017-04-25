@@ -16,7 +16,7 @@ class Index extends ApiBase
      * @desc 接口描述
      * @method post | get
      * @parameter 参数类型 参数名称
-     * @return string param_name param_info
+     * @response string param_name param_info
      */
     public function index()
     {

@@ -32,3 +32,7 @@ function getLastUrl(){
 function make_password($password,$auth){
     return md5($auth.$password);
 }
+
+function trans($message){
+    return \axios\tpr\service\LangService::trans($message);
+}

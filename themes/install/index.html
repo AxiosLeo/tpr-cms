@@ -1,0 +1,102 @@
+{layout name="layout_install" /}
+<div class="row">
+    <div class="widget box">
+        <div class="widget-header">
+            <h4>
+                <i class="icon-reorder">
+                </i>
+                框架初始化安装
+            </h4>
+        </div>
+        <div class="widget-content">
+            <div class="alert alert-info">
+                安装TPR接口框架
+            </div>
+            <h3>
+                进度条
+            </h3>
+            <div class="progress progress progress-striped active">
+                <div class="progress-bar progress-bar-info" style="width: 20%">
+                </div>
+            </div>
+            <h4>
+                <i class="icon-reorder">
+                </i>
+                环境检测
+            </h4>
+            <table class="table table-hover table-striped table-bordered table-highlight-head">
+                <thead>
+                <tr>
+                    <th class="align-center">
+                        环境
+                    </th>
+                    <th class="align-center">
+                        状态
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="2" class="">
+                        <h4>系统环境:</h4>
+                    </td>
+                </tr>
+                {foreach name="system" item="s"}
+                <tr>
+                    <td class="align-center">
+                        <code>
+                            {:trans($key)}
+                        </code>
+                    </td>
+                    <td class="align-center">
+                        {$s}
+                    </td>
+                </tr>
+                {/foreach}
+                <tr>
+                    <td colspan="2" class="">
+                        <h4>目录可写:</h4>
+                    </td>
+                </tr>
+                {foreach name="dir" item="d"}
+                <tr>
+                    <td class="align-center">
+                        <code>
+                            {$key}
+                        </code>
+                    </td>
+                    <td class="align-center">
+                        {php}if($d){ {/php}
+                        <span class="label label-success">可写</span>
+                        {php}}else{{/php}
+                        <span class="label label-danger">不可写</span>
+                        {php}}{/php}
+                    </td>
+                </tr>
+                {/foreach}
+                <tr>
+                    <td colspan="2" class="">
+                        <h4>模块检测:</h4>
+                    </td>
+                </tr>
+                {foreach name="module" item="m"}
+                <tr>
+                    <td class="align-center">
+                        <code>
+                            {$key}
+                        </code>
+                    </td>
+                    <td class="align-center">
+                        {php}if($m){ {/php}
+                        <span class="label label-success">存在</span>
+                        {php}}else{{/php}
+                        <span class="label label-danger">不存在</span>
+                        {php}}{/php}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
