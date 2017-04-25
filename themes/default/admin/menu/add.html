@@ -1,0 +1,94 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="{:url('admin/menu/index')}">系统菜单</a></li>
+        <li role="presentation" class="active"><a href="javascript:void(0);">添加菜单</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>添加菜单
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal row-border" id="validate-3" action="{:url('admin/menu/add')}" method="post">
+                    <div class="form-group">
+                        <label for="title" class="col-md-3 control-label">
+                            菜单标题<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="title" type="text" name="title" value="" class="form-control required" />
+                            <span class="help-block">菜单的显示名称</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="icon" class="col-md-3 control-label">
+                            图标
+                        </label>
+                        <div class="col-md-9">
+                            <input id="icon" type="text" name="icon" value="" minlength="6" maxlength="16" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_id" class="col-md-3 control-label">
+                            父级菜单<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 clearfix">
+                            <select id="parent_id" name="parent_id" class="col-md-12 form-control full-width-fix required">
+                                <option value="0">父级</option>
+                                {foreach name="parent" item="p"}
+                                {php}$sub = $p['sub'];{/php}
+                                <option value="{$p['id']}"  >{$p['title']}</option>
+                                {foreach name="sub" item="s"}
+                                <option value="{$s['id']}"  >└─-{$s['title']}</option>
+                                {/foreach}
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="controller" class="col-md-3 control-label">
+                            控制器<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="controller" type="text" name="controller" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="func" class="col-md-3 control-label">
+                            方法<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="func" type="text" name="func" class="form-control " />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="show" class="col-md-3 control-label">
+                            是否显示
+                        </label>
+                        <div class="col-md-9 clearfix">
+                            <select id="show" name="show" class="col-md-12 form-control full-width-fix">
+                                <option value="0" selected>显示</option>
+                                <option value="1">不显示</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sort" class="col-md-3 control-label">
+                            排序<span class="required"></span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="sort" type="text" name="sort" class="form-control " />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" id="submit" data-loading-text="请求中..." value="确定" class="btn btn-primary pull-right">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

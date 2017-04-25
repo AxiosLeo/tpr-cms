@@ -7,13 +7,14 @@ use axios\tpr\service\MongoService;
 /**
  * 接口类名
  * @desc 接口类描述
- * @package 所属命名空间
+ * @package app\index\controller
  */
 class Index extends ApiBase
 {
     /**
      * 接口名称
      * @desc 接口描述
+     * @method post | get
      * @parameter 参数类型 参数名称
      * @return string param_name param_info
      */
@@ -22,6 +23,11 @@ class Index extends ApiBase
         $this->response(['name'=>"hello world1"]);
     }
 
+    /**
+     * hello
+     * @desc 测试接口
+     * @method get
+     */
     public function hello()
     {
         $this->response(['hello'=>"world",'test'=>"a"]);

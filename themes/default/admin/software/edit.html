@@ -1,0 +1,70 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="{:url('admin/software/index')}">应用列表</a></li>
+        <li role="presentation"><a href="{:url('admin/software/add')}">添加应用</a></li>
+        <li role="presentation" class="active"><a href="javascript:void(0);">编辑应用</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>添加应用
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal row-border" id="validate-3" action="{:url('admin/software/edit')}" method="post">
+                    <input type="hidden" name="id" value="{$data['id']}">
+                    <div class="form-group">
+                        <label for="platform" class="col-md-3 control-label">
+                            选择平台<span class="required">*</span>
+                        </label>
+                        {php}
+                        $show = ['ios-ipad'=>0,"ios-iphone"=>1,"android"=>2,"windows"=>3,"mac-os"=>4];
+                        $show_to = ["","","","",""];
+                        $show_to[$show[$data['platform']]] = "selected";
+                        {/php}
+                        <div class="col-md-9">
+                            <select id="platform" name="platform" class="col-md-12 form-control full-width-fix required">
+                                <option value="ios-ipad"  {$show_to[0]}>ios-ipad</option>
+                                <option value="ios-iphone" {$show_to[1]}>ios-iphone</option>
+                                <option value="android"  {$show_to[2]}>android</option>
+                                <option value="windows" {$show_to[3]}>windows</option>
+                                <option value="mac-os" {$show_to[4]}>mac-os</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="app_name" class="col-md-3 control-label">
+                            应用名称<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="app_name" type="text" name="app_name" value="{$data['app_name']}" autocomplete=off class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="base_version" class="col-md-3 control-label">
+                            主版本号<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="base_version" type="text" name="base_version" value="{$data['base_version']}" autocomplete=off class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-md-3 control-label">
+                            备注<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <textarea id="remark" type="text" name="remark" class="form-control required" >{$data['remark']}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" id="submit" data-loading-text="请求中..." value="确定" class="btn btn-primary pull-right">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

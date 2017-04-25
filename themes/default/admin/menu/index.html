@@ -1,0 +1,100 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="javascript:void(0);">系统菜单</a></li>
+        <li role="presentation"><a href="{:url('admin/menu/add')}">添加菜单</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>{$title}
+                </h4>
+                <div class="toolbar no-padding">
+                    <div class="btn-group">
+                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content no-padding">
+                <table class="table table-striped table-bordered table-hover table-checkable table-responsive">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">序号</th>
+                        <th>所属菜单</th>
+                        <th>菜单名称</th>
+                        <th class="hidden-xs">icon</th>
+                        <th>controller</th>
+                        <th class="hidden-xs">function</th>
+                        <th class="hidden-xs">是否显示</th>
+                        <th class="operation">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {php}$n=1;{/php}
+                    {foreach name="list" item = 'vo'}
+                    <tr>
+                        <td class="hidden-xs">{$n++}</td>
+                        <td>父级</td>
+                        <td>{$vo['title']}</td>
+                        <td>{$vo['icon']}</td>
+                        <td>{$vo['controller']}</td>
+                        <td>{$vo['func']}</td>
+                        <td>{$s['show']?"不显示":"显示"}</td>
+                        <td class="align-left">
+                            <ul class="table-controls">
+                                {php}$id = $vo['id'];{/php}
+                                <li><a href="{:url('admin/menu/edit')}?id={$id}" class="bs-tooltip" title="编辑"><i class="icon-pencil"></i></a></li>
+                                <li><a href="#" onclick="del('{$id}')" class="bs-tooltip" title="删除"><i class="icon-trash"></i></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {php}$sub = $vo['sub'];{/php}
+                    {foreach name="sub" item = 's'}
+                    <tr>
+                        <td class="hidden-xs">{$n++}</td>
+                        <td>{$vo['title']}</td>
+                        <td>{$s['title']}</td>
+                        <td>{$s['icon']}</td>
+                        <td>{$s['controller']}</td>
+                        <td>{$s['func']}</td>
+                        <td>{$s['show']?"不显示":"显示"}</td>
+                        <td class="align-left">
+                            <ul class="table-controls">
+                                {php}$id = $s['id'];{/php}
+                                <li><a href="{:url('admin/menu/edit')}?id={$id}" class="bs-tooltip" title="编辑"><i class="icon-pencil"></i></a></li>
+                                <li><a href="#" onclick="del('{$id}')" class="bs-tooltip" title="删除"><i class="icon-trash"></i></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    function operate(type,id){
+        var title,url,width,height;
+        switch (type){
+            case 'options':
+                title = "体检记录";url = "{:url('his/client/record')}?id="+id;width = '1000px';height='500px';
+                break;
+            case 'edit':
+                title = "编辑";url = "{:url('his/client/edit')}?id="+id;width = '800px';height='440px';
+                break;
+        }
+        openLayer(title,url,width,height);
+    }
+    function del(id) {
+        url = "{:url('admin/menu/delete')}";
+        $.post(url,{id:id}, function (res) {
+            layer.msg(res.msg);
+            window.location.href = res.url;
+        });
+    }
+</script>
