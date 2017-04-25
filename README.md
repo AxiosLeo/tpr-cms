@@ -7,8 +7,12 @@
 
 > 交流QQ群：521797692
 
-## Github地址
+## 完整案例
 > [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
+
+## 框架核心代码
+> [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
+>  composer require axios/tpr
 
 ## 文档地址
 > [看云：《TPR接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
