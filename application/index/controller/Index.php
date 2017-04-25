@@ -19,7 +19,7 @@ class Index extends ApiBase
      */
     public function index()
     {
-        $this->response(['name'=>"hello world"]);
+        $this->response(['name'=>"hello world1"]);
     }
 
     public function hello()
