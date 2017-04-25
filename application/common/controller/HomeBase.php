@@ -38,7 +38,6 @@ class HomeBase extends Controller{
     function __construct(Request $request = null)
     {
         parent::__construct($request);
-        Config::load(APP_PATH.BIND_MODULE."/config.php");
         $this->config = Config::get('setting.admin');
         $this->param = $request->param();
         $this->method = $request->method();
