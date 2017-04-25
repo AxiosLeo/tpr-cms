@@ -14,5 +14,8 @@ return [
     ],
     'token'=>[
         'token_expire'=>86400
+    ],
+    'admin'=>[
+        'themes'=>"default"
     ]
 ];

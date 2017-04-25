@@ -1,0 +1,65 @@
+<script type="text/javascript">
+    $(".form-horizontal").submit(function (e) {
+        var url = $(".form-horizontal").attr('action');
+        var obj = new Object();
+        $.each($('.form-horizontal').serializeArray(),function(index,param){
+            if(!(param.name in obj)){
+                obj[param.name]=param.value;
+            }
+        });
+        postSomething(url,obj);
+        return false;
+    });
+    function postSomething(url,obj,isClose) {
+        isClose = isClose===undefined ? true : isClose ;
+        $.ajax({
+            type: "POST",
+            url:url,
+            enctype: 'multipart/form-data',
+            data:obj,
+            success:function (res) {
+                console.log(res);
+                if(res.code===1){
+                    swal({ title: "^_^", text: res.msg, type: "success", confirmButtonText: "确定", confirmButtonColor: "#5eb95e" }, function () {
+                        var layer_index = parent.layer.getFrameIndex(window.name);
+//                        console.log(layer_index);console.log(isClose);console.log('qqq');
+                        if(isClose!==undefined){
+                            if(layer_index!==undefined){
+                                parent.window.location.href = res.url;
+                            }else{
+                                window.location.href = res.url;
+                            }
+                        }else{
+                            if(layer_index){
+                                console.log(parent.layer.close(layer_index));
+                            }
+                        }
+                    });
+                }else{
+                    swal(">_<",  res.msg,"error");
+                }
+            }
+        });
+    }
+    function swalAlert(status,msg,url) {
+        var title = status?"^_^":">_<";
+        swal({ title: title, text: msg, type: "success", confirmButtonText: "确定", confirmButtonColor: "#5eb95e" }, function () {
+            window.location.href = url;
+        });
+    }
+
+    function openLayer(title,url,width,height) {
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.8,
+            resize:true,
+            scrollbar:true,
+            area: [width, height],
+            content: url
+        });
+    }
+</script>
+</body>
+</html>

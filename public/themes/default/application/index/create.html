@@ -1,0 +1,57 @@
+{layout name="layout_input" /}
+
+<form class="form-horizontal" id="edit_teacher" action="{:url('application/index/create')}">
+    {:token()}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget box">
+                <div class="widget-content">
+                    <div class="form-group">
+                        <label for="title" class="col-md-2 control-label">
+                            应用名<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="title" type="text" name="title" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="platform" class="col-md-2 control-label">
+                            平台
+                        </label>
+                        <div class="col-md-9">
+                            <select id="platform" name="platform" class="col-md-12 form-control full-width-fix">
+                                <option value="ios-ipad">ios-ipad</option>
+                                <option value="ios-iphone">ios-iphone</option>
+                                <option value="web">web</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="version" class="col-md-2 control-label">
+                            版本号
+                        </label>
+                        <div class="col-md-9">
+                            <input id="version" type="text" name="version" class="form-control " />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks" class="col-md-2 control-label">
+                            备注
+                        </label>
+                        <div class="col-md-9">
+                            <textarea id="remarks" rows="3" cols="5" name="remarks" class="limited form-control" data-limit="100"></textarea>
+                            <span class="help-block" id="limit-text"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-default pull-right" onclick="cancel()">关闭</a>
+    <button type="submit" id="submit" class="btn btn-primary pull-right" data-loading-text="请求中...">保存</button>
+</form>
+<script type="application/javascript">
+    function cancel() {
+        parent.$(".layui-layer-close").click();
+    }
+</script>
