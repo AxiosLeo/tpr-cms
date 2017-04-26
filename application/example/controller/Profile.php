@@ -9,7 +9,7 @@
 namespace app\example\controller;
 
 use axios\tpr\controller\ApiLogin;
-use app\users\model\UserModel;
+use app\example\model\UserModel;
 use app\example\service\LoginService;
 
 /**
