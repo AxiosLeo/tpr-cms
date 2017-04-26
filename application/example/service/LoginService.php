@@ -29,7 +29,7 @@ class LoginService {
     }
 
     public static function doLogin($user_id,$token){
-        $user = UserModel::self()->findUser($user_id,'',"id , login_name  , nickname  , token,sex,mobile");
+        $user = UserModel::self()->findUser($user_id,'',"id , login_name  , nickname  , token");
         UserService::setToken($token,$user);
         unset($user['id']);
         return $user;
