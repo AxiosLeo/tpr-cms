@@ -60,7 +60,8 @@ class Version extends HomeLogin
         if(!empty($app) && isset($app[0])){
             $version = makeAppVersion($app[0],0);
         }else{
-            $version = makeVersion(1);
+//            $version = makeVersion(1);
+            $version = "应用不存在";
         }
         $this->assign('version',$version);
         return $this->fetch('add');
