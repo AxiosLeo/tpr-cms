@@ -12,6 +12,7 @@
 
 ## 框架核心代码
 > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
+
 >  composer require axios/tpr:dev-master
 
 ## 文档地址
