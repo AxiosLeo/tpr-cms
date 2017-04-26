@@ -37,5 +37,20 @@
 
 * 具有签名验证和令牌验证等功能
 
+## 安装
+``` shell
+git clone https://github.com/AxiosCros/thinkphp5-restfulapi.git
+cd thinkphp5-restfulapi
+composer install
+
+cp .env.example .env
+
+#编辑.env文件
+vim .env
+
+#手动导入api.sql至数据库
+
+```
+
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用。
