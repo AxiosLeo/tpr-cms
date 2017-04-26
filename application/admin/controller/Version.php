@@ -35,7 +35,7 @@ class Version extends HomeLogin
     public function add(){
         if($this->request->isPost()){
             $Validate = new AdminValidate();
-            if($Validate->scene('version.add')->check($this->param)){
+            if(!$Validate->scene('version.add')->check($this->param)){
                 $this->error($Validate->getError());
             }
             $insert = [

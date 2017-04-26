@@ -30,7 +30,7 @@ class Admin extends HomeLogin {
     public function add(){
         if($this->request->isPost()){
             $Validate = new AdminValidate();
-            if($Validate->scene('admin.add')->check($this->param)){
+            if(!$Validate->scene('admin.add')->check($this->param)){
                 $this->error($Validate->getError());
             }
             $insert = [
@@ -58,7 +58,7 @@ class Admin extends HomeLogin {
 
         if($this->request->isPost()){
             $Validate = new AdminValidate();
-            if($Validate->scene('admin.edit')->check($this->param)){
+            if(!$Validate->scene('admin.edit')->check($this->param)){
                 $this->error($Validate->getError());
             }
             $update = [

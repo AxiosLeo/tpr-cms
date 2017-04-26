@@ -27,7 +27,7 @@ class Software extends HomeLogin{
     public function add(){
         if($this->request->isPost()){
             $Validate = new AdminValidate();
-            if($Validate->scene('software.add')->check($this->param)){
+            if(!$Validate->scene('software.add')->check($this->param)){
                 $this->error($Validate->getError());
             }
             $insert = [
@@ -55,7 +55,7 @@ class Software extends HomeLogin{
 
         if($this->request->isPost()){
             $Validate = new AdminValidate();
-            if($Validate->scene('software.add')->check($this->param)){
+            if(!$Validate->scene('software.add')->check($this->param)){
                 $this->error($Validate->getError());
             }
             $update = [
