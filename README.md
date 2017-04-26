@@ -49,6 +49,7 @@ cp .env.example .env
 vim .env
 
 #手动导入api.sql至数据库
+#api.sql中主要是一些后台管理系统会用到的数据表,另外还有一个api_users的用户示例表
 
 ```
 
