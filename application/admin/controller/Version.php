@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
+use app\users\validate\AdminValidate;
 use axios\tpr\service\ToolService;
 use think\Db;
 use think\Request;
@@ -33,6 +34,10 @@ class Version extends HomeLogin
 
     public function add(){
         if($this->request->isPost()){
+            $Validate = new AdminValidate();
+            if($Validate->scene('version.add')->check($this->param)){
+                $this->error($Validate->getError());
+            }
             $insert = [
                 'app_id'=>$this->param['app_id'],
                 'app_version'=>$this->param['app_version'],

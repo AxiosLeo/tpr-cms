@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
+use app\users\validate\AdminValidate;
 use think\Request;
 use think\Db;
 class Admin extends HomeLogin {
@@ -28,6 +29,10 @@ class Admin extends HomeLogin {
 
     public function add(){
         if($this->request->isPost()){
+            $Validate = new AdminValidate();
+            if($Validate->scene('admin.add')->check($this->param)){
+                $this->error($Validate->getError());
+            }
             $insert = [
                 'security_id'=>strtoupper(uniqid()),
                 'role_id'=>$this->param['role_id'],
@@ -52,6 +57,10 @@ class Admin extends HomeLogin {
         $id = $this->param['id'];
 
         if($this->request->isPost()){
+            $Validate = new AdminValidate();
+            if($Validate->scene('admin.edit')->check($this->param)){
+                $this->error($Validate->getError());
+            }
             $update = [
                 'role_id'=>$this->param['role_id'],
                 'username'=>$this->param['username'],

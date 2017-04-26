@@ -29,12 +29,18 @@ return [
     'enum'    => '枚举类型',
     'object'  => '对象',
 
+    "must be"=>"只能为",
+    "must not be"=>"不能为",
+    "empty"=>"空",
+    "number"=>"数字",
+
     "the function not exits"=>"方法不存在",
     "Have been landed in other places"=>"已在其它地方登陆",
     "The login failed"=>"本次登陆失效",
     "operating system"=>"操作系统",
     "php version"=>"php版本",
-    "disk space"=>"磁盘空间"
+    "disk space"=>"磁盘空间",
+    "select at least one application"=>"至少选择一个应用"
 
 
 ];

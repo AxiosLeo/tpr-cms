@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-04-26 09:37:14
+Date: 2017-04-26 10:25:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '0', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '', '', '');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '', '', '');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -134,11 +134,12 @@ CREATE TABLE `api_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_role
 -- ----------------------------
+INSERT INTO `api_role` VALUES ('1', '超级管理员');
 
 -- ----------------------------
 -- Table structure for api_role_node
@@ -149,11 +150,19 @@ CREATE TABLE `api_role_node` (
   `role_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_role_node
 -- ----------------------------
+INSERT INTO `api_role_node` VALUES ('1', '1', '1');
+INSERT INTO `api_role_node` VALUES ('2', '1', '6');
+INSERT INTO `api_role_node` VALUES ('3', '1', '5');
+INSERT INTO `api_role_node` VALUES ('4', '1', '4');
+INSERT INTO `api_role_node` VALUES ('5', '1', '2');
+INSERT INTO `api_role_node` VALUES ('6', '1', '7');
+INSERT INTO `api_role_node` VALUES ('7', '1', '8');
+INSERT INTO `api_role_node` VALUES ('8', '1', '3');
 
 -- ----------------------------
 -- Table structure for api_users

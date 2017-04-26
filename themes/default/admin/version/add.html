@@ -24,6 +24,9 @@
                                 {foreach name="app" item="a"}
                                     <option value="{$a['app_id']}">{$a['app_name']}</option>
                                 {/foreach}
+                                {php}if(empty($app)){ {/php}
+                                <option value="0">请至少添加一个应用</option>
+                                {php}}{/php}
                             </select>
                         </div>
                     </div>

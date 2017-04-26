@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
+use app\users\validate\AdminValidate;
 use axios\tpr\service\ToolService;
 use think\Db;
 use think\Request;
@@ -25,6 +26,10 @@ class Software extends HomeLogin{
 
     public function add(){
         if($this->request->isPost()){
+            $Validate = new AdminValidate();
+            if($Validate->scene('software.add')->check($this->param)){
+                $this->error($Validate->getError());
+            }
             $insert = [
                 'app_name'=>$this->param['app_name'],
                 'platform'=>$this->param['platform'],
@@ -49,6 +54,10 @@ class Software extends HomeLogin{
         $id = $this->param['id'];
 
         if($this->request->isPost()){
+            $Validate = new AdminValidate();
+            if($Validate->scene('software.add')->check($this->param)){
+                $this->error($Validate->getError());
+            }
             $update = [
                 'app_name'=>$this->param['app_name'],
                 'platform'=>$this->param['platform'],
