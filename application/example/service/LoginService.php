@@ -10,7 +10,7 @@ namespace app\example\service;
 
 use axios\tpr\service\ToolService;
 use axios\tpr\service\UserService;
-use app\users\model\UserModel;
+use app\example\model\UserModel;
 
 class LoginService {
     public static function login($user){

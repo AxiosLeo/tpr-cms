@@ -6,7 +6,7 @@
  * @blog:  http://hanxv.cn
  * @datetime: 2017/4/26 10:45
  */
-namespace app\users\model;
+namespace app\example\model;
 
 use think\Model;
 
