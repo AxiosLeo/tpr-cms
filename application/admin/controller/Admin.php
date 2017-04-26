@@ -9,7 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
-use app\users\validate\AdminValidate;
+use app\admin\validate\AdminValidate;
 use think\Request;
 use think\Db;
 class Admin extends HomeLogin {

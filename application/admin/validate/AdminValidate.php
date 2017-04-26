@@ -6,7 +6,7 @@
  * @blog:  http://hanxv.cn
  * @datetime: 2017/4/26 10:14
  */
-namespace app\users\validate;
+namespace app\admin\validate;
 
 use axios\tpr\validate\ValidateBase;
 class AdminValidate extends ValidateBase{

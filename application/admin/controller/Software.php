@@ -9,7 +9,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
-use app\users\validate\AdminValidate;
+use app\admin\validate\AdminValidate;
 use axios\tpr\service\ToolService;
 use think\Db;
 use think\Request;
