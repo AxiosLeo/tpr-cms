@@ -1,0 +1,65 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="javascript:void(0);">版本发布列表</a></li>
+        <li role="presentation"><a href="{:url('admin/version/add')}">发布版本</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>{$title}
+                </h4>
+                <div class="toolbar no-padding">
+                    <div class="btn-group">
+                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content no-padding">
+                <table class="table table-striped table-bordered table-hover table-checkable table-responsive">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">序号</th>
+                        <th>应用名称</th>
+                        <th>平台</th>
+                        <th>版本号</th>
+                        <th>发布时间</th>
+                        <th>APP_KEY</th>
+                        <th class="operation">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {php}$n=1;{/php}
+                    {foreach name="list" item = 'vo'}
+                    <tr>
+                        <td class="hidden-xs">{$n++}</td>
+                        <td>{$vo['app_name']}</td>
+                        <td>{$vo['platform']}</td>
+                        <td>{$vo['app_version']}</td>
+                        <td>{$vo['publish_time']}</td>
+                        <td>{$vo['app_key']}</td>
+                        <td class="align-left">
+                            <ul class="table-controls">
+                                {php}$id = $vo['id'];{/php}
+                            </ul>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    function del(id,turn) {
+        url = "{:url('admin/software/turn')}";
+        $.post(url,{id:id,turn:turn}, function (res) {
+            layer.msg(res.msg);
+            window.location.href = res.url;
+        });
+    }
+</script>

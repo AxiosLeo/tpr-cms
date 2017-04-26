@@ -1,0 +1,49 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="{:url('admin/admin/index')}">用户列表</a></li>
+        <li role="presentation"><a href="{:url('admin/admin/add')}">添加用户</a></li>
+        <li role="presentation" class="active"><a href="javascript:void(0);">编辑用户</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>添加用户
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal row-border" id="validate-3" action="{:url('admin/admin/edit')}" method="post">
+                    <input type="hidden" name="id" value="{$data['id']}">
+                    <div class="form-group">
+                        <label for="role_id" class="col-md-3 control-label">
+                            选择角色<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <select id="role_id" name="role_id" class="col-md-12 form-control full-width-fix required">
+                                <option value="0">未选择</option>
+                                {foreach name="roles" item="r"}
+                                {php}$selected = $r['id']==$data['role_id']?"selected":"";{/php}
+                                <option value="{$r['id']}" {$selected} >{$r['role_name']}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="col-md-3 control-label">
+                            用户名<span class="required">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <input id="username" type="text" name="username" value="{$data['username']}" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" id="submit" data-loading-text="请求中..." value="确定" class="btn btn-primary pull-right">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

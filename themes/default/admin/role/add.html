@@ -1,0 +1,65 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="{:url('admin/role/index')}">角色列表</a></li>
+        <li role="presentation" class="active"><a href="javascript:void(0);">添加角色</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>添加角色
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal row-border" id="validate-2" action="{:url('admin/role/add')}" method="post">
+                    <div class="form-group">
+                        <label for="role_name" class="col-md-2 control-label">
+                            角色名称<span class="required">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input id="role_name" type="text" name="role_name" value="" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">
+                            管理权限:
+                        </label>
+                        <div class="col-md-10">
+                            <table class="table table-striped table-bordered table-hover table-checkable table-responsive">
+                                {php}$n=0;{/php}
+                                {foreach name="menu" item="m"}
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="menu[{$n}]" value="{$m['id']}" checked>{$m['title']}</th>
+                                    {php}$n++;{/php}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {php}$sub = $m['sub'];$count=1;{/php}
+                                    {foreach name="sub" item="s"}
+                                    {php}if($count%4==1){{/php}
+                                    <tr><td>{php}}{/php}
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="menu[{$n}]" value="{$s['id']}" checked>
+                                            {$s['title']}
+                                        </label>
+                                        {php}$count++;$n++;if($count%4==0){{/php}
+                                    </td></tr>
+                                    {php}}{/php}
+                                    {/foreach}
+                                </tbody>
+                                {/foreach}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" id="submit" data-loading-text="请求中..." value="确定" class="btn btn-primary pull-right">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
