@@ -8,7 +8,7 @@
  */
 return [
     'default'=>[
-        "type"              => \think\Env::get('mongo.type'),
+        "type"              => '\think\mongo\Connection',
         "hostname"          => \think\Env::get('mongo.hostname'),
         "database"          => \think\Env::get('mongo.database'),
         "username"          => \think\Env::get('mongo.username'),
