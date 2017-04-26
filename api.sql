@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-04-25 16:46:41
+Date: 2017-04-26 09:37:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '0', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '192.168.1.59', '1493109922', 'e2c35eeeb2ff8fcc89345be94a046860');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '0', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '', '', '');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -112,11 +112,19 @@ CREATE TABLE `api_menu` (
   `sort` int(11) NOT NULL,
   `show` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_menu
 -- ----------------------------
+INSERT INTO `api_menu` VALUES ('1', 'system', 'icon-cog', '系统管理', '0', 'admin', null, '', '0', '0');
+INSERT INTO `api_menu` VALUES ('2', 'application', 'icon-apple', '应用管理', '0', 'admin', null, '', '1', '0');
+INSERT INTO `api_menu` VALUES ('3', 'api', 'icon-cogs', '接口管理', '0', 'admin', 'api', 'index', '2', '0');
+INSERT INTO `api_menu` VALUES ('4', null, null, '系统用户', '1', 'admin', 'admin', 'index', '2', '0');
+INSERT INTO `api_menu` VALUES ('5', null, null, '角色列表', '1', 'admin', 'role', 'index', '1', '0');
+INSERT INTO `api_menu` VALUES ('6', null, null, '菜单管理', '1', 'admin', 'menu', 'index', '0', '0');
+INSERT INTO `api_menu` VALUES ('7', null, null, '应用列表', '2', 'admin', 'software', 'index', '0', '0');
+INSERT INTO `api_menu` VALUES ('8', null, null, '发布新版本', '2', 'admin', 'version', 'index', '1', '0');
 
 -- ----------------------------
 -- Table structure for api_role
@@ -146,61 +154,6 @@ CREATE TABLE `api_role_node` (
 -- ----------------------------
 -- Records of api_role_node
 -- ----------------------------
-
--- ----------------------------
--- Table structure for api_test
--- ----------------------------
-DROP TABLE IF EXISTS `api_test`;
-CREATE TABLE `api_test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` varchar(25) DEFAULT NULL,
-  `test` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of api_test
--- ----------------------------
-INSERT INTO `api_test` VALUES ('57', '2017-03-31 11:15:39', null);
-INSERT INTO `api_test` VALUES ('58', '2017-03-31 11:15:44', null);
-INSERT INTO `api_test` VALUES ('59', '2017-03-31 11:15:44', null);
-INSERT INTO `api_test` VALUES ('60', '2017-03-31 11:15:49', null);
-INSERT INTO `api_test` VALUES ('61', '2017-03-31 11:15:54', null);
-INSERT INTO `api_test` VALUES ('62', '2017-03-31 11:15:54', null);
-INSERT INTO `api_test` VALUES ('64', '2017-03-31 11:53:01', null);
-INSERT INTO `api_test` VALUES ('65', '2017-03-31 11:53:06', null);
-INSERT INTO `api_test` VALUES ('66', '2017-03-31 11:53:16', null);
-INSERT INTO `api_test` VALUES ('67', '2017-03-31 11:53:21', null);
-INSERT INTO `api_test` VALUES ('68', '2017-03-31 11:53:26', null);
-INSERT INTO `api_test` VALUES ('69', '2017-03-31 11:53:31', null);
-INSERT INTO `api_test` VALUES ('70', '2017-03-31 11:53:36', null);
-INSERT INTO `api_test` VALUES ('71', '2017-03-31 11:53:41', null);
-INSERT INTO `api_test` VALUES ('72', '2017-03-31 11:53:51', null);
-INSERT INTO `api_test` VALUES ('73', '2017-03-31 11:53:56', null);
-INSERT INTO `api_test` VALUES ('74', '2017-03-31 11:54:01', null);
-INSERT INTO `api_test` VALUES ('75', '2017-03-31 11:54:06', null);
-INSERT INTO `api_test` VALUES ('76', '2017-03-31 11:54:11', null);
-INSERT INTO `api_test` VALUES ('77', '2017-03-31 11:54:16', null);
-INSERT INTO `api_test` VALUES ('78', '2017-03-31 11:54:26', null);
-INSERT INTO `api_test` VALUES ('79', '2017-03-31 11:54:31', null);
-INSERT INTO `api_test` VALUES ('80', '2017-03-31 11:54:36', null);
-INSERT INTO `api_test` VALUES ('81', '2017-03-31 11:54:41', null);
-INSERT INTO `api_test` VALUES ('82', '2017-03-31 11:54:46', null);
-INSERT INTO `api_test` VALUES ('83', '2017-03-31 11:54:51', null);
-INSERT INTO `api_test` VALUES ('84', '2017-03-31 11:55:01', null);
-INSERT INTO `api_test` VALUES ('85', '2017-03-31 11:55:06', null);
-INSERT INTO `api_test` VALUES ('86', '2017-03-31 11:55:11', null);
-INSERT INTO `api_test` VALUES ('87', '2017-03-31 11:55:16', null);
-INSERT INTO `api_test` VALUES ('88', '2017-03-31 11:55:21', null);
-INSERT INTO `api_test` VALUES ('89', '2017-03-31 11:55:26', null);
-INSERT INTO `api_test` VALUES ('90', '2017-03-31 11:55:36', null);
-INSERT INTO `api_test` VALUES ('91', '2017-03-31 11:55:41', null);
-INSERT INTO `api_test` VALUES ('92', '2017-03-31 11:55:46', null);
-INSERT INTO `api_test` VALUES ('93', '2017-03-31 11:55:51', null);
-INSERT INTO `api_test` VALUES ('94', '2017-03-31 11:55:56', null);
-INSERT INTO `api_test` VALUES ('95', '2017-03-31 11:56:01', null);
-INSERT INTO `api_test` VALUES ('96', '2017-03-31 11:56:11', null);
-INSERT INTO `api_test` VALUES ('97', '2017-03-31 11:56:16', null);
 
 -- ----------------------------
 -- Table structure for api_users
