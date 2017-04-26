@@ -28,7 +28,7 @@ class Login extends HomeBase {
         $ip =  get_client_ip();
         $allow_ip = Env::get("auth.allow_ip");
         $allow_ip = explode(',',$allow_ip);
-        if(!in_array($ip,$allow_ip)){
+        if($allow_ip!="0.0.0.0" && !in_array($ip,$allow_ip)){
             $this->error("非法登陆\r\n请将".$ip."添加进白名单");
         }
         if(!captcha_check($this->request->param('verify'))){
