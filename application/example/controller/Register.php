@@ -20,8 +20,8 @@ class Register extends ApiLogout{
     /**
      * 注册接口
      * @method post
-     * @parameter string username
-     * @parameter string password
+     * @parameter string username 用户名
+     * @parameter string password 密码
      * @parameter string nickname 非必须
      */
     public function index(){

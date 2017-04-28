@@ -20,7 +20,7 @@ class Profile extends ApiLogin{
     /**
      * 获取用户信息接口
      * @method post
-     * @parameter string token
+     * @parameter string token 必须
      */
     public function index(){
         $user = $this->user;

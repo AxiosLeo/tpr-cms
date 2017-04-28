@@ -20,9 +20,9 @@ class Login extends ApiLogout{
      * 登陆接口
      * @desc 验证用户名密码
      * @method POST
-     * @parameter string username
-     * @parameter string password
-     * @response string token
+     * @parameter string username 用户名
+     * @parameter string password 密码
+     * @response string token 令牌
      */
     public function index(){
         $username = $this->param['username'];

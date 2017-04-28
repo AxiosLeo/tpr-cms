@@ -18,7 +18,7 @@ use axios\tpr\service\UserService;
 class Send extends ApiLogout{
     /**
      * 发送短信验证码接口
-     * @parameter string mobile
+     * @parameter string mobile 手机号
      * @method POST
      */
     public function send(){

@@ -28,6 +28,7 @@ class Api extends HomeLogin{
 
     public function detail(){
         $class = $this->param['class'];
+        $this->assign('class_name',$class);
         $method = $this->param['method'];
         $result = ApiDocService::makeMethodDoc($class,$method);
         $this->assign('domain',domain());
