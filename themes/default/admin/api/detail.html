@@ -1,0 +1,128 @@
+{layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="{:url('admin/api/index')}">接口列表</a></li>
+        <li role="presentation" class="active"><a href="javascript:void(0);">接口详情</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="widget box">
+        <div class="widget-header">
+            <h4>{$data['title']}--接口文档</h4>
+        </div>
+        <div class="widget-content">
+            <table class="table table-hover table-striped table-bordered table-highlight-head">
+                <tbody>
+                <tr>
+                    <td>接口方法名</td>
+                    <td>{$data['name']}</td>
+                </tr>
+                <tr>
+                    <td>
+                        访问路径
+                    </td>
+                    <td>
+                        {php}$url = empty($m['route'])? $domain.$data['path']: $domain.$data['route'];echo $url;{/php}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        接口描述
+                    </td>
+                    <td>
+                        {$data['desc']}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       请求方式
+                    </td>
+                    <td>
+                        {$data['method']}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="widget-header">
+                <h4>请求参数</h4>
+            </div>
+            {php}$param = $data['parameter'];$n=1;{/php}
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        参数名
+                    </th>
+                    <th>
+                        参数类型
+                    </th>
+                    <th class="hidden-xs">
+                        参数介绍
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name="param" item="p"}
+                <tr>
+                    <td>
+                        {$n++}
+                    </td>
+                    <td>
+                        {$p['name']}
+                    </td>
+                    <td>
+                        {$p['type']}
+                    </td>
+                    <td class="hidden-xs">
+                        {$p['info']}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <div class="widget-header">
+                <h4>回调数据</h4>
+            </div>
+            {php}$response = $data['response'];$n=1;{/php}
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        参数名
+                    </th>
+                    <th>
+                        参数类型
+                    </th>
+                    <th class="hidden-xs">
+                        参数介绍
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name="response" item="r"}
+                <tr>
+                    <td>
+                        {$n++}
+                    </td>
+                    <td>
+                        {$r['name']}
+                    </td>
+                    <td>
+                        {$r['type']}
+                    </td>
+                    <td class="hidden-xs">
+                        {$r['info']}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

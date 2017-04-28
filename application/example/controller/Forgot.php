@@ -21,6 +21,10 @@ class Forgot extends ApiLogout{
      * 忘记密码
      * @desc 用于用户找回密码
      * @method post
+     * @parameter string username 用户名
+     * @parameter string password 密码
+     * @response string login_name
+     * @response string token
      */
     public function index(){
         $username  = $this->param['username'];

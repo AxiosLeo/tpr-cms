@@ -67,3 +67,12 @@ function makeVersion($main,$next="0",$debug="0",$type="release")
 {
     return $main . "." . $next . "." . $debug . "." . date("ymd") . "_" . $type;
 }
+
+function domain(){
+    $domain = \think\Env::get('web.host');
+    $last_str = substr($domain,-1);
+    if($last_str!= "/"){
+        $domain .= "/";
+    }
+    return $domain;
+}
