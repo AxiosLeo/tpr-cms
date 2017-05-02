@@ -7,8 +7,7 @@
  * @datetime: 2017/4/26 10:50
  */
 namespace app\example\controller;
-use axios\tpr\controller\ApiLogout;
-//use axios\tpr\service\UserService;
+use axios\tpr\controller\ApiBase;
 use think\Db;
 use app\example\service\LoginService;
 
@@ -16,7 +15,7 @@ use app\example\service\LoginService;
  * Class Forgot
  * @package app\example\controller
  */
-class Forgot extends ApiLogout{
+class Forgot extends ApiBase {
     /**
      * 忘记密码
      * @desc 用于用户找回密码

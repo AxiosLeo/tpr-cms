@@ -8,14 +8,14 @@
  */
 namespace app\example\controller;
 
-use axios\tpr\controller\ApiLogout;
+use axios\tpr\controller\ApiBase;
 use app\example\model\UserModel;
 use app\example\service\LoginService;
 /**
  * Class Login
  * @package app\example\controller
  */
-class Login extends ApiLogout{
+class Login extends ApiBase {
     /**
      * 登陆接口
      * @desc 验证用户名密码

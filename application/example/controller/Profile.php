@@ -8,7 +8,7 @@
  */
 namespace app\example\controller;
 
-use axios\tpr\controller\ApiLogin;
+use app\common\controller\ApiLogin ;
 use app\example\model\UserModel;
 use app\example\service\LoginService;
 
@@ -16,7 +16,7 @@ use app\example\service\LoginService;
  * Class Profile
  * @package app\example\controller
  */
-class Profile extends ApiLogin{
+class Profile extends ApiLogin {
     /**
      * 获取用户信息接口
      * @method post

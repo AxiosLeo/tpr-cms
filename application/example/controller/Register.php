@@ -8,15 +8,14 @@
  */
 namespace app\example\controller;
 
-use axios\tpr\controller\ApiLogout;
-//use axios\tpr\service\UserService;
+use axios\tpr\controller\ApiBase;
 use think\Db;
 use app\example\service\LoginService;
 /**
  * Class Register
  * @package app\example\controller
  */
-class Register extends ApiLogout{
+class Register extends ApiBase {
     /**
      * 注册接口
      * @method post
