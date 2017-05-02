@@ -11,7 +11,7 @@ namespace app\example\service;
 use axios\tpr\service\ToolService;
 use axios\tpr\service\UserService;
 use app\example\model\UserModel;
-
+use think\Config;
 class LoginService {
     public static function login($user){
         $token = ToolService::token($user['login_name']);
@@ -30,7 +30,9 @@ class LoginService {
 
     public static function doLogin($user_id,$token){
         $user = UserModel::self()->findUser($user_id,'',"id , login_name  , nickname  , token");
-        UserService::setToken($token,$user);
+        $setting_token = Config::get('setting.token');
+        $expire = isset($setting_token['token_expire'])?$setting_token['token_expire']:3600;
+        UserService::setToken($token,$user,$expire);
         unset($user['id']);
         return $user;
     }
