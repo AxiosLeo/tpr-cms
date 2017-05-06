@@ -11,6 +11,6 @@ return [
     //route name
     'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false,'cache'=>300],  // cache : expire=> (int)second
 
-    //path
+    //module/controller/action
     'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false]
 ];

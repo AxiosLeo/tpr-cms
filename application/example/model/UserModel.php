@@ -32,7 +32,7 @@ class UserModel extends Model{
             $this->field($field);
         }
 
-        return $this->find();
+        return $this->find()->getData();
     }
 
     public function addUser($data){

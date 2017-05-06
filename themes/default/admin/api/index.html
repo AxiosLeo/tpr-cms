@@ -1,4 +1,9 @@
 {layout name="layout" /}
+<div class="page-header">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="javascript:void(0);">接口列表</a></li>
+    </ul>
+</div>
 <div class="alert alert-info">
     <p>
         <strong>类注释标识：</strong><br />
@@ -32,7 +37,7 @@
                         <th>所属命名空间</th>
                         <th>访问地址</th>
                         <th>请求方式</th>
-                        <th>查看信息</th>
+                        <th>查看详情</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,14 +50,29 @@
                         <td>{$m['title']}</td>
                         <td>{$m['desc']}</td>
                         <td>{$vo['package']}</td>
-                        <td>
+                        <td class="param">
                             {php}$url = empty($m['route'])?$m['path']:$m['route'];$url = $domain.$url; echo $url;{/php}
+                            <span class="param_all" style="display: none">
+                                {php}
+                                $param = $m['parameter'];
+                                if(!empty($param)){
+                                    echo "请求参数:<br />";
+                                    foreach($param as $p){
+                                        echo $p['name'].";".$p['type'].";".$p['info']."<br />";
+                                    }
+                                }else{
+                                    echo "未定义请求参数<br />";
+                                }
+                                {/php}
+                            </span>
                         </td>
                         <td>
                             {$m['method']}
                         </td>
                         <td>
-
+                            <ul class="table-controls">
+                                <li><a href="{:url('admin/api/detail')}?class={$vo['name']}&method={$m['name']}" class="bs-tooltip" title="查看详情" ><i class="icon-align-justify"></i></a></li>
+                            </ul>
                         </td>
                     </tr>
                     {/foreach}
@@ -63,3 +83,14 @@
         </div>
     </div>
 </div>
+<script type="application/javascript">
+    $(".datatable .param").on('mouseenter',function () {
+        if($(this).text().trim()!=''){
+            var param=$(this).find(".param_all").clone();
+//            console.log(param.html());
+            window.tips=layer.tips(
+                param.html().toString(), $(this),{time:4000,maxWidth:'200px'}
+            );
+        }
+    });
+</script>

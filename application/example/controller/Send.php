@@ -8,17 +8,17 @@
  */
 namespace app\example\controller;
 
-use axios\tpr\controller\ApiLogout;
+use axios\tpr\controller\ApiBase;
 use axios\tpr\service\UserService;
 
 /**
  * Class Send
  * @package app\example\controller
  */
-class Send extends ApiLogout{
+class Send extends ApiBase {
     /**
      * 发送短信验证码接口
-     * @parameter string mobile
+     * @parameter string mobile 手机号
      * @method POST
      */
     public function send(){

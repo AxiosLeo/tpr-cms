@@ -22,12 +22,16 @@ class Api extends HomeLogin{
 
     public function index(){
         $api = ApiDocService::api();
-        $domain = Env::get('web.host');
-        $last_str = substr($domain,-1);
-        if($last_str!= "/"){
-            $domain .= "/";
-        }
-        $this->assign('domain',$domain);
+        $this->assign('domain',domain());
         return $this->fetch('index',['list'=>$api]);
+    }
+
+    public function detail(){
+        $class = $this->param['class'];
+        $this->assign('class_name',$class);
+        $method = $this->param['method'];
+        $result = ApiDocService::makeMethodDoc($class,$method);
+        $this->assign('domain',domain());
+        return $this->fetch('detail',['data'=>$result]);
     }
 }
