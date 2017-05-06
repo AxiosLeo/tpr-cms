@@ -18,8 +18,6 @@
 ## 文档地址
 > [看云：《TPR接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
 
-> 目前文档还在编写中，待完成
-
 ## 项目简介
 > [个人博客：《基于thinkphp5的restful接口框架---TPR》](https://hanxv.cn/archives/88.html)
 
