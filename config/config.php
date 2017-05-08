@@ -166,11 +166,19 @@ return [
 
     'log'                    => [
         // 日志记录方式，内置 file socket 支持扩展
-        'type'  => 'File',
+        'type'  => 'axios\\tpr\\driver\\LogMongodb',
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        'level' => ['error','debug'],
+        'level' => ['error','debug','tpr_log'],
+        //MongoDB的连接配置
+        'connection'=>'default',
+        //日志数据库名称
+        'database'=>'log',
+        //日志时间日期格式
+        'time_format'=>"Y-m-d H:i:s",
+        //独立记录的日志级别
+        'apart_level' => ['tpr_log'],
     ],
 
     // +----------------------------------------------------------------------

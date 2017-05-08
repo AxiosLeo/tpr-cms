@@ -1,0 +1,74 @@
+{layout name="layout" /}
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder">
+                    </i>
+                    日志检索
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form id="search_log" class="form-horizontal row-border">
+                    <!--<div class="alert alert-info fade in">-->
+                        <!--<i class="icon-remove close" data-dismiss="alert">-->
+                        <!--</i>-->
+                    <!--</div>-->
+                    <div class="form-group">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>{$title}
+                </h4>
+                <div class="toolbar no-padding">
+                    <div class="btn-group">
+                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content no-padding">
+                <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">序号</th>
+                        <th>请求时间</th>
+                        <th>请求方式</th>
+                        <th>请求耗时</th>
+                        <th>访问接口</th>
+                        <th>查看详情</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {php}$n=1;{/php}
+                    {foreach name="list" item = 'vo'}
+                    <tr>
+                        <td class="hidden-xs">{$n++}</td>
+                        <td>{$vo['datetime']}</td>
+                        <td>{$vo['method']}</td>
+                        <td>{$vo['runtime']}</td>
+                        <td class="param">
+                            {$vo['module']}/{$vo['controller']}/{$vo['action']}
+                        </td>
+                        <td>
+                            <ul class="table-controls">
+                                <li><a href="{:url('admin/api/detailLog')}?class={$vo['name']}&method={$m['name']}" class="bs-tooltip" title="查看详情" ><i class="icon-align-justify"></i></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

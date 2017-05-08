@@ -10,7 +10,9 @@ namespace app\admin\controller;
 
 use app\common\controller\HomeLogin;
 use axios\tpr\service\ApiDocService;
+use axios\tpr\service\MongoService;
 use think\Env;
+use think\Log;
 use think\Request;
 
 class Api extends HomeLogin{
@@ -33,5 +35,14 @@ class Api extends HomeLogin{
         $result = ApiDocService::makeMethodDoc($class,$method);
         $this->assign('domain',domain());
         return $this->fetch('detail',['data'=>$result]);
+    }
+
+    public function log(){
+        return $this->fetch('log',['list'=>[]]);
+    }
+
+    public function getLogs(){
+        $page = isset($this->param['page'])?$this->param['page']:1;
+        $logs = MongoService::name('tpr_log')->page($page)->limit(15)->order('datetime')->select();
     }
 }
