@@ -5,6 +5,7 @@
         <li role="presentation" class="active"><a href="javascript:void(0);">添加菜单</a></li>
     </ul>
 </div>
+<script type="text/javascript" src="/themes/default/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
 <div class="row">
     <div class="col-md-8">
         <div class="widget box">
@@ -71,8 +72,19 @@
                         </label>
                         <div class="col-md-9 clearfix">
                             <select id="show" name="show" class="col-md-12 form-control full-width-fix">
-                                <option value="0" selected>显示</option>
-                                <option value="1">不显示</option>
+                                <option value="0" >显示</option>
+                                <option value="1" >不显示</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="menu_fast" class="col-md-3 control-label">
+                            快捷菜单
+                        </label>
+                        <div class="col-md-9 clearfix">
+                            <select id="menu_fast" name="menu_fast" class="col-md-12 form-control full-width-fix">
+                                <option value="0" >否</option>
+                                <option value="1" >是</option>
                             </select>
                         </div>
                     </div>
@@ -80,7 +92,7 @@
                         <label for="sort" class="col-md-3 control-label">
                             排序<span class="required"></span>
                         </label>
-                        <div class="col-md-9">
+                        <div class="col-md-2">
                             <input id="sort" type="text" name="sort" class="form-control " />
                         </div>
                     </div>

@@ -27,6 +27,9 @@ class Menu extends HomeLogin{
 
     public function add(){
         if($this->request->isPost()){
+            if($this->param['parent_id']==0 && $this->param['menu_fast']==1){
+                $this->error('父级菜单不能设置为快捷菜单');
+            }
             $insert = [
                 'title'=>$this->param['title'],
                 'icon'=>$this->param['icon'],
@@ -35,7 +38,8 @@ class Menu extends HomeLogin{
                 'func'=>$this->param['func'],
                 'show'=>$this->param['show'],
                 'sort'=>$this->param['sort'],
-                'module'=>"admin"
+                'module'=>"admin",
+                'menu_fast'=>$this->param['menu_fast']
             ];
             if(Db::name('menu')->insertGetId($insert)){
                 $this->success("操作成功",url("admin/menu/index"));
@@ -52,6 +56,9 @@ class Menu extends HomeLogin{
         $id=$this->param['id'];
 
         if($this->request->isPost()){
+            if($this->param['parent_id']==0 && $this->param['menu_fast']==1){
+                $this->error('父级菜单不能设置为快捷菜单');
+            }
             $update = [
                 'title'=>$this->param['title'],
                 'icon'=>$this->param['icon'],
@@ -60,6 +67,7 @@ class Menu extends HomeLogin{
                 'func'=>$this->param['func'],
                 'show'=>$this->param['show'],
                 'sort'=>$this->param['sort'],
+                'menu_fast'=>$this->param['menu_fast']
             ];
             if(Db::name('menu')->where('id',$id)->update($update)){
                 $this->success("操作成功",url("admin/menu/index"));

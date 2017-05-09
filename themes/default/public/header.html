@@ -22,24 +22,27 @@
         </a>
         <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
             <li>
-                <a href="/">
+                <a href="/admin.php">
                     首页
                 </a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    快捷菜单
-                    <i class="icon-caret-down small">
-                    </i>
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                    快捷菜单<i class="icon-caret-down small"></i>
                 </a>
                 <ul class="dropdown-menu">
+                    {foreach name="menu" item="m"}
+                    {php}$sub = $m['sub'];{/php}
+                    {foreach name="sub" item="s"}
+                    {php}if(!$s['menu_fast']){ continue;}$sub_url =  !empty($s['module']) ? url($s['module']."/".$s['controller']."/".$s['func']):"javascript:void(0);";{/php}
                     <li>
-                        <a href="{:url('admin/version/add')}">
-                            <i class="icon-apple">
-                            </i>
-                            发布新版本
+                        <a href="{$sub_url}">
+                            <i class="{$s['icon']}"></i>
+                            {$s['title']}
                         </a>
                     </li>
+                    {/foreach}
+                    {/foreach}
                 </ul>
             </li>
         </ul>
