@@ -11,7 +11,7 @@ return [
 
     'default' => [
         'host'          => \think\Env::get("redis.host"),
-        'auth'          => \think\Env::get("redis.auth"),
+        'auth'          => \think\Env::get("redis.password"),
         'port'          => \think\Env::get("redis.port"),
         'prefix'        => \think\Env::get("redis.prefix"),
         'database'      =>[
