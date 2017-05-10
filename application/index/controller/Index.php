@@ -20,7 +20,7 @@ class Index extends ApiBase
      */
     public function index()
     {
-        $this->response(['name'=>"hello world1"]);
+        $this->response(["hello world!"]);
     }
 
     /**
@@ -38,7 +38,7 @@ class Index extends ApiBase
     }
 
     public function test(){
-        $this->response("hello");
+        $this->response(['name'=>$this->param['name']]);
     }
 
     public function mongo(){

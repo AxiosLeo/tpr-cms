@@ -12,5 +12,5 @@ return [
     'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false,'cache'=>300],  // cache : expire=> (int)second
 
     //module/controller/action
-    'index/index/index'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false]
+    'index/index/test'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false]
 ];
