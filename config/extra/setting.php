@@ -17,9 +17,5 @@ return [
     ],
     'admin'=>[
         'themes'=>"default"
-    ],
-    'api_log'=>[
-        'status'=>\think\Env::get('log.status'),
-        'log_database'=>'tpr_log'
     ]
 ];

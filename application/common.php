@@ -76,3 +76,54 @@ function domain(){
     }
     return $domain;
 }
+
+function getMonthBeginEndDay($year,$month,$format='timestamp'){
+    $month = sprintf('%02d',$month);
+    $ymd = $year."-".$month."-01";
+    $begin = strtotime($ymd." 00:00:00");
+    $end   = strtotime("$ymd +1 month -1 seconds");
+    if($format=='timestamp'){
+        return [
+            'begin'=>$begin,
+            'end'=>$end
+        ];
+    }else{
+        return [
+            'begin'=>date($format,$begin),
+            'end'=>date($format,$end),
+        ];
+    }
+}
+
+function getDayBeginEndTime($date,$format='timestamp'){
+    $begin = strtotime($date." 00:00:00");
+    $end   = strtotime("$date +1 day -1 seconds");
+    if($format=='timestamp'){
+        return [
+            'begin'=>$begin,
+            'end'=>$end
+        ];
+    }else{
+        return [
+            'begin'=>date($format,$begin),
+            'end'=>date($format,$end),
+        ];
+    }
+}
+
+function getHourBeginEndTime($date ,$hour,$format='timestamp'){
+    $hour = sprintf('%02d',$hour);
+    $begin = strtotime($date." ".$hour.":00:00");
+    $end   = strtotime($date." ".$hour.":00:00 +1 hour -1 seconds");
+    if($format=='timestamp'){
+        return [
+            'begin'=>$begin,
+            'end'=>$end
+        ];
+    }else{
+        return [
+            'begin'=>date($format,$begin),
+            'end'=>date($format,$end),
+        ];
+    }
+}

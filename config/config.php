@@ -170,15 +170,15 @@ return [
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        'level' => ['error','debug','tpr_log'],
+        'level' => ['error','debug',\think\Env::get('log.database')],
         //MongoDB的连接配置
         'connection'=>'default',
-        //日志数据库名称
+        //默认日志数据库名称
         'database'=>'log',
         //日志时间日期格式
         'time_format'=>"Y-m-d H:i:s",
         //独立记录的日志级别
-        'apart_level' => ['tpr_log'],
+        'apart_level' => [\think\Env::get('log.database')],
     ],
 
     // +----------------------------------------------------------------------
