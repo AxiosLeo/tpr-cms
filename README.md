@@ -21,6 +21,12 @@
 ## 项目简介
 > [个人博客：《基于thinkphp5的restful接口框架---TPR》](https://hanxv.cn/archives/88.html)
 
+## 所需环境
+* php7.0+
+* mysql5.5+
+* redis , phpredis
+* mongodb
+
 ## 框架功能点
 * 基于thinkphp5开发，无缝衔接thinkphp5的功能，加快开发速度
 
