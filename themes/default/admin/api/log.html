@@ -9,9 +9,9 @@
                data-options="singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
             <thead>
             <tr>
-                <th  data-options="field:'datetime',width:100,align:'center'">日期时间</th>
-                <th data-options="field:'remote',width:100,align:'center'">请求IP</th>
-                <th data-options="field:'request',width:100,align:'center'">请求地址</th>
+                <th  data-options="field:'datetime',width:150,align:'center'">日期时间</th>
+                <th data-options="field:'remote',width:200,align:'center'">请求IP</th>
+                <th data-options="field:'request',width:200,align:'center'">请求地址</th>
                 <th data-options="field:'memory_use',width:100,align:'center'">消耗内存</th>
                 <th data-options="field:'runtime',width:100,align:'center'">请求耗时</th>
                 <th data-options="field:'log_type',width:100,align:'center'">日志类别</th>
@@ -19,13 +19,6 @@
             </thead>
         </table>
         <div id="tb" style="padding:5px;height:auto">
-            <div style="margin-bottom:5px">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
-            </div>
             <div>
                 开始日期: <input class="easyui-datebox col-md-1">
                 截止日期: <input class="easyui-datebox col-md-1">
