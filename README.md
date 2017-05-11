@@ -62,7 +62,7 @@ vim .env
 * 首页接口访问数据统计
 ![apidata.png](https://www.hanxv.cn/usr/uploads/2017/05/3341201899.png)
 
-* 接口文档
+* 接口文档(根据代码注释自动生成)
 ![apidoc.png](https://www.hanxv.cn/usr/uploads/2017/05/2489134567.png)
 
 
