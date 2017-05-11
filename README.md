@@ -58,5 +58,14 @@ vim .env
 
 ```
 
+## 后台管理系统预览
+* 首页接口访问数据统计
+![apidata.png](https://www.hanxv.cn/usr/uploads/2017/05/3341201899.png)
+
+* 接口文档(根据代码注释自动生成)
+![apidoc.png](https://www.hanxv.cn/usr/uploads/2017/05/2489134567.png)
+
+
+
 ## 开源协议
-> 遵循Apache2开源协议发布，并提供免费使用。
+> 遵循Apache2开源协议发布，并提供免费使用
