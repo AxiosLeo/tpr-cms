@@ -4,7 +4,6 @@
     $(document).ready(function() {
         var url = "{:url('admin/api/getVisitData')}";
         $.post(url,{year:(new Date()).getFullYear()},function (res) {
-            console.log(res);
             var a = [{
                 label: "Total Visit",
                 data: res.data,
