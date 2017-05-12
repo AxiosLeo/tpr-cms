@@ -22,7 +22,7 @@
 > [个人博客：《基于thinkphp5的restful接口框架---TPR》](https://hanxv.cn/archives/88.html)
 
 ## 所需环境
-* php7.0+
+* php7.0+ , 并且要以fast_cgi模式运行
 * mysql5.5+
 * redis , phpredis
 * mongodb
