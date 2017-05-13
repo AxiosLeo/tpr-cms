@@ -20,7 +20,11 @@
         "topthink/framework": "^5.0",
         "topthink/think-captcha": "^1.0",
         "php-ai/php-ml": "^0.4.1",
-        "axios/tpr": "dev-master"
+        "axios/tpr": "dev-master",
+        "topthink/think-testing": "^1.0",
+        "topthink/think-migration": "^1.1",
+        "topthink/think-image": "^1.0",
+        "topthink/think-worker": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"
