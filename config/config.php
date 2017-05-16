@@ -170,7 +170,7 @@ return [
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        'level' => ['error','debug',\think\Env::get('log.database')],
+        'level' => ['error','debug','info',\think\Env::get('log.database')],
         //MongoDB的连接配置
         'connection'=>'default',
         //默认日志数据库名称

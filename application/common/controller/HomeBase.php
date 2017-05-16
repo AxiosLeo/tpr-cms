@@ -50,13 +50,16 @@ class HomeBase extends Controller{
             $this->makePathMenu();
             Cache::set('path_menu',$this->menu_path,3600);
         }else{
-            $this->menu = Cache::get("menu");
-            if(empty($this->menu)){
+            $menu = Cache::get("menu");
+
+            if(empty($menu)){
                 $this->makeMenuTree(0,$this->menu);
                 Cache::set('menu',$this->menu,3600);
             }
+            $this->menu = $menu;
 
             $this->menu_path = Cache::get("path_menu");
+
             if(empty($this->menu_path)){
                 $this->makePathMenu();
                 Cache::set('path_menu',$this->menu_path,3600);

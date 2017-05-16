@@ -9,7 +9,7 @@
 
 return [
     //route name
-    'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false,'cache'=>300],  // cache : expire=> (int)second
+    'hello'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false],  // cache : expire=> (int)second ,'cache'=>300
 
     //module/controller/action
     'index/index/test'=>['validate'=>'Hello','scene'=>'scene-name','mobile'=>false]

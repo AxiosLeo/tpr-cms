@@ -41,6 +41,10 @@ class Api extends HomeLogin{
     }
 
     public function log(){
+//        MongoService::name('log')->where('request','start')->delete();
+//        $logs = MongoService::name('log')->where('_id','591510f7e1382305bf65b3e6')->select();
+//        $this->assign('logs',$logs);
+//        dump($logs);
         return $this->fetch('log',['list'=>[]]);
     }
 

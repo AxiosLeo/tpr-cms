@@ -2,40 +2,100 @@
 <link rel="stylesheet" type="text/css" href="/themes/default/easyui/themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="/themes/default/easyui/themes/icon.css">
 <script type="text/javascript" src="/themes/default/easyui/jquery.easyui.min.js"></script>
-
+<script type="text/javascript" src="/themes/default/easyui/locale/easyui-lang-zh_CN.js"></script>
 <div class="row">
     <div class="col-md-12">
-        <table class="easyui-datagrid col-md-12 col-xs-12 col-lg-12" title="日志检索" style="min-height:450px"
-               data-options="singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
+        {php}$url = url('admin/log/getLog');{/php}
+        <table id="api_log_table" class="easyui-datagrid col-md-12 col-xs-12 col-lg-12" title="日志检索" style="min-height:450px"
+               data-options="singleSelect:true,url:'{$url}',method:'post',toolbar:'#tb',
+               pagination:true,pagePosition:'bottom',pageSize:20,
+               fitClomns:false,fit:true,showFooter:true,nowrap:true,striped:true">
             <thead>
             <tr>
+                <th data-options="field:'_id',width:200,align:'center'" formatter="operation">操作</th>
+                <th data-options="field:'log_type',width:100,align:'center'">日志类别</th>
                 <th  data-options="field:'datetime',width:150,align:'center'">日期时间</th>
                 <th data-options="field:'remote',width:200,align:'center'">请求IP</th>
-                <th data-options="field:'request',width:200,align:'center'">请求地址</th>
+                <th data-options="field:'current_url',width:350,align:'center'">请求地址</th>
                 <th data-options="field:'memory_use',width:100,align:'center'">消耗内存</th>
                 <th data-options="field:'runtime',width:100,align:'center'">请求耗时</th>
-                <th data-options="field:'log_type',width:100,align:'center'">日志类别</th>
             </tr>
             </thead>
         </table>
         <div id="tb" style="padding:5px;height:auto">
-            <div>
-                开始日期: <input class="easyui-datebox col-md-1">
-                截止日期: <input class="easyui-datebox col-md-1">
-                接口选择:
-                <select class="easyui-combobox col-md-2" panelHeight="auto" >
-                    <option value="0">所有</option>
-                    <option value="index/index/index">index/index/index</option>
-                </select>
-                日志类型:
-                <select class="easyui-combobox col-md-1" panelHeight="auto" >
-                    <option value="0">所有</option>
-                    <option value="info">info</option>
-                    <option value="debug">debug</option>
-                    <option value="error">error</option>
-                </select>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
-            </div>
+            <form id="search_from">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="start_date" style="font-weight: 100">开始日期:</label> <input id="start_date" name="start_name" class="easyui-datetimebox" style="width: 150px">
+                        <label for="end_date" style="font-weight: 100">截止日期:</label> <input id="end_date" name="end_date" class="easyui-datetimebox col-md-2" style="width: 150px">
+                        <label for="select_api" style="font-weight: 100">接口选择:</label>
+                        <select id="select_api" name="select_api" class="easyui-combobox" plain="auto"  style="width: 150px">
+                            <option value="0">所有</option>
+                            <option value="index/index/index">index/index/index</option>
+                        </select>
+                        <label for="log_type" style="font-weight: 100">日志类型:</label>
+                        <select id="log_type" name="log_type" class="easyui-combobox col-md-1" plain="auto" >
+                            <option value="info">所有</option>
+                            <option value="debug">debug</option>
+                            <option value="error">error</option>
+                        </select>
+                        <label for="keyword" style="font-weight: 100">关键词:</label> <input id="keyword"  name="keyword" >
+                        <a href="javascript:void(0)" onclick="searchLog(this);" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function searchLog(obj){
+        var queryParams = $('#api_log_table').datagrid('options').queryParams;
+        console.log($('#search_from').serializeArray());
+        $.each($('#search_from').serializeArray(), function() {
+            queryParams[this['name']] = this['value'];
+        });
+        console.log(queryParams);
+        $('#api_log_table').datagrid('reload');
+    }
+    function operation(val,row) {
+        var btn = [];
+        var html = '<a href="javascript:void(0);" data-id="'+val.$oid+'" onclick="detailLog(this);" >完整数据</a>';
+        btn.push(html);
+
+        btn.push('<a href="javascript:void(0);" data-id="'+val.$oid+'" onclick="del(this)" ><font color="gray">删除</font></a>');
+        return btn.join(' | ');
+    }
+
+    function detailLog(obj) {
+        var id = $(obj).attr('data-id');
+        var url = "{:url('admin/log/detail')}?id="+id;
+        var width="1080px";
+        var height="625px";
+        var title = "日志数据";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.8,
+            resize:true,
+            scrollbar:true,
+            area: [width, height],
+            content: url
+        });
+    }
+    function del(obj) {
+        var id = $(obj).attr('data-id');
+        $(obj).parent().parent().parent().remove();
+//        $(obj).parent().parent().parent().remove();
+        var url = "{:url('admin/log/delete')}?id="+id;
+        $.post(url,{id:id}, function (res) {
+            layer.msg(res.msg);
+            $('#api_log_table').datagrid('reload');
+        });
+    }
+</script>
