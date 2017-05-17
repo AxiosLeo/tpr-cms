@@ -8,10 +8,10 @@
  */
 namespace admin\index\controller;
 
-use think\Controller;
+use admin\common\controller\HomeBase;
 
-class Index extends Controller{
+class Index extends HomeBase {
     public function index(){
-        echo "a";
+        return $this->fetch('index');
     }
 }
