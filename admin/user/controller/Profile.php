@@ -12,6 +12,6 @@ use admin\common\controller\HomeBase;
 
 class Profile extends HomeBase{
     public function index(){
-        echo "profile";
+        return $this->fetch('index');
     }
 }

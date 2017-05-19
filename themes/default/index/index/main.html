@@ -1,192 +1,194 @@
 {layout name="main" /}
 <script type="text/javascript" src="/static/vue/vue.js"></script>
-<div class="row state-overview">
-    <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol userblue"> <i class="iconpx-users"></i>
-            </div>
-            <div class="value">
-                <a href="#">
-                    <h1 id="count1">10</h1>
-                </a>
-                <p>用户总量</p>
-            </div>
-        </section>
+<section class="larry-wrapper">
+    <div class="row state-overview">
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol userblue"> <i class="iconpx-users"></i>
+                </div>
+                <div class="value">
+                    <a href="#">
+                        <h1 id="count1">10</h1>
+                    </a>
+                    <p>用户总量</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol commred"> <i class="iconpx-user-add"></i>
+                </div>
+                <div class="value">
+                    <a href="#">
+                        <h1 id="count2">1</h1>
+                    </a>
+                    <p>今日注册用户</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol articlegreen">
+                    <i class="iconpx-file-word-b"></i>
+                </div>
+                <div class="value">
+                    <a href="#">
+                        <h1 id="count3">50</h1>
+                    </a>
+                    <p>接口访问</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol rsswet">
+                    <i class="iconpx-file-word-o" style="content: '\e602'"></i>
+                </div>
+                <div class="value">
+                    <a href="#">
+                        <h1 id="count4">0</h1>
+                    </a>
+                    <p>错误报告</p>
+                </div>
+            </section>
+        </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol commred"> <i class="iconpx-user-add"></i>
-            </div>
-            <div class="value">
-                <a href="#">
-                    <h1 id="count2">1</h1>
-                </a>
-                <p>今日注册用户</p>
-            </div>
-        </section>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol articlegreen">
-                <i class="iconpx-file-word-b"></i>
-            </div>
-            <div class="value">
-                <a href="#">
-                    <h1 id="count3">50</h1>
-                </a>
-                <p>接口访问</p>
-            </div>
-        </section>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol rsswet">
-                <i class="iconpx-file-word-o" style="content: '\e602'"></i>
-            </div>
-            <div class="value">
-                <a href="#">
-                    <h1 id="count4">0</h1>
-                </a>
-                <p>错误报告</p>
-            </div>
-        </section>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <section class="panel" style="min-height: 392px;">
-            <header class="panel-heading bm0">
-                <span class='span-title'>系统概览</span>
-                <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-            </header>
-            <div class="panel-body" >
-                <table class="table table-hover personal-task">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/thinkphp5-restfulapi">TPR CMS</a> 版本号: v2.0.0_beta
-                        </td>
-                        <td>
+    <div class="row">
+        <div class="col-lg-6">
+            <section class="panel" style="min-height: 392px;">
+                <header class="panel-heading bm0">
+                    <span class='span-title'>系统概览</span>
+                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                </header>
+                <div class="panel-body" >
+                    <table class="table table-hover personal-task">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/thinkphp5-restfulapi">TPR CMS</a> 版本号: v2.0.0_beta
+                            </td>
+                            <td>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>开发作者</strong>：流水无痕(博客hanxv.cn)
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>网站域名</strong>：{{domain}}
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>网站目录</strong>：{{web_dir}}
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>服务器IP</strong>：{{server_ip}}
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>服务器环境</strong>：{{server_env}}
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>接口数</strong>：{{api_number}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>开发作者</strong>：流水无痕(博客hanxv.cn)
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>网站域名</strong>：{{domain}}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>网站目录</strong>：{{web_dir}}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>服务器IP</strong>：{{server_ip}}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>服务器环境</strong>：{{server_env}}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>接口数</strong>：{{api_number}}
 
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>最大上传限制</strong>：{{upload_limit}}
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>当前登录用户</strong>： <span class="current_user">{{username}}</span>
-                        </td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>最大上传限制</strong>：{{upload_limit}}
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>当前登录用户</strong>： <span class="current_user">{{username}}</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6" >
+            <!-- 网站信息统计｛SEO数据统计｝ -->
+            <section class="panel" style="min-height: 392px;">
+                <header class="panel-heading bm0">
+                    <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
+                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                </header>
+                <div class="panel-body laery-seo-box">
+                    <div class="larry-seo-stats" id="larry-seo-stats"></div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading bm0">
+                    <span class='span-title'>最新动态</span>
+                    <span class="badge" style="background-color:#FF3333;"> new </span>
+                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                </header>
+                <div class="panel-body">
+                    <table class="table table-hover personal-task">
+                        <tbody>
+                        <tr>
+                            <td>原创</td>
+                            <td>
+                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
+                            </td>
+                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
+                        </tr>
+                        <tr>
+                            <td>原创</td>
+                            <td>
+                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
+                            </td>
+                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
+                        </tr>
+                        <tr>
+                            <td>原创</td>
+                            <td>
+                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
+                            </td>
+                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
+                        </tr>
+                        <tr>
+                            <td>原创</td>
+                            <td>
+                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
+                            </td>
+                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
+                        </tr>
+                        <tr>
+                            <td>原创</td>
+                            <td>
+                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
+                            </td>
+                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
-    <div class="col-lg-6" >
-        <!-- 网站信息统计｛SEO数据统计｝ -->
-        <section class="panel" style="min-height: 392px;">
-            <header class="panel-heading bm0">
-                <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
-                <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-            </header>
-            <div class="panel-body laery-seo-box">
-                <div class="larry-seo-stats" id="larry-seo-stats"></div>
-            </div>
-        </section>
-    </div>
-    <div class="col-md-12">
-        <section class="panel">
-            <header class="panel-heading bm0">
-                <span class='span-title'>最新动态</span>
-                <span class="badge" style="background-color:#FF3333;"> new </span>
-                <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-            </header>
-            <div class="panel-body">
-                <table class="table table-hover personal-task">
-                    <tbody>
-                    <tr>
-                        <td>原创</td>
-                        <td>
-                            <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                        </td>
-                        <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                    </tr>
-                    <tr>
-                        <td>原创</td>
-                        <td>
-                            <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                        </td>
-                        <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                    </tr>
-                    <tr>
-                        <td>原创</td>
-                        <td>
-                            <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                        </td>
-                        <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                    </tr>
-                    <tr>
-                        <td>原创</td>
-                        <td>
-                            <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                        </td>
-                        <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                    </tr>
-                    <tr>
-                        <td>原创</td>
-                        <td>
-                            <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                        </td>
-                        <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-</div>
+</section>
 <script type="text/javascript">
     var vue = new Vue({
         el:".table",
@@ -200,4 +202,23 @@
             username:''
         }
     });
+    layui.use(['jquery','layer','element'],function(){
+        window.jQuery = window.$ = layui.jquery;
+        window.layer = layui.layer;
+        window.element = layui.element();
+
+        $('.panel .tools .iconpx-chevron-down').click(function(){
+            var el = $(this).parents(".panel").children(".panel-body");
+            if($(this).hasClass("iconpx-chevron-down")){
+                $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
+                el.slideUp(200);
+            }else{
+                $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
+                el.slideDown(200);
+            }
+        })
+
+    });
 </script>
+<script type="text/javascript" src="/static/jsplug/echarts.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>

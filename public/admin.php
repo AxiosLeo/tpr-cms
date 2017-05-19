@@ -22,7 +22,7 @@
 define('ROOT_PATH',__DIR__.'/../');
 define('APP_PATH', ROOT_PATH . 'admin/');
 define('CONF_PATH', ROOT_PATH.'config/');
-define('RUNTIME_PATH', ROOT_PATH . 'admin/runtime/');
+define('RUNTIME_PATH', ROOT_PATH . 'runtime/');
 define('APP_NAMESPACE','admin');
 
 // 加载框架引导文件
