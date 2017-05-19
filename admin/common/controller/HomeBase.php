@@ -19,8 +19,6 @@ use think\Env;
 class HomeBase extends Controller{
     protected $param;
 
-    protected $user;
-
     protected $themes;
 
     protected $config;

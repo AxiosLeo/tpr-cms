@@ -19,6 +19,9 @@ use think\Env;
 class Login extends HomeBase{
     private $ip;
     public function index(){
+        if(is_user_login()){
+            $this->redirect("index/index/index");
+        }
         return $this->fetch('login');
     }
 

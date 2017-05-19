@@ -1,11 +1,12 @@
 {layout name="main" /}
+<link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
 <section class="layui-larry-box">
     <div class="larry-personal">
         <header class="larry-personal-tit">
             <span>个人信息</span>
         </header><!-- /header -->
         <div class="larry-personal-body clearfix">
-            <form class="layui-form col-lg-5" action="" method="post">
+            <form class="layui-form col-lg-5" action="{:url('user/profile/update')}" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
@@ -71,3 +72,19 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    layui.upload({
+        url: '{:url("user/profile/avatar")}' ,//上传接口
+        before: function(input){
+            //返回的参数item，即为当前的input DOM对象
+            console.log('文件上传中');
+        },
+        error:function (res) {
+            console.log(res);
+        },
+        success: function(res){
+            //上传成功后的回调
+            console.log(res)
+        }
+    });
+</script>

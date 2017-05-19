@@ -1,5 +1,5 @@
 {layout name="main" /}
-<script type="text/javascript" src="/static/vue/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/main.css" media="all">
 <section class="larry-wrapper">
     <div class="row state-overview">
         <div class="col-lg-3 col-sm-6">
@@ -193,7 +193,7 @@
     var vue = new Vue({
         el:".table",
         data:{
-            domain:'123',
+            domain:'',
             web_dir:'',
             server_ip:'',
             server_env:'',
@@ -201,6 +201,9 @@
             upload_limit:'',
             username:''
         }
+    });
+    vue.$nextTick(function () {
+        vue.domain = "aaaaa";
     });
     layui.use(['jquery','layer','element'],function(){
         window.jQuery = window.$ = layui.jquery;

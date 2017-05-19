@@ -15,7 +15,7 @@
 define('ROOT_PATH',__DIR__.'/../');
 define('APP_PATH', ROOT_PATH . 'api/');
 define('CONF_PATH', ROOT_PATH.'config/');
-define('RUNTIME_PATH', ROOT_PATH . 'runtime/');
+define('RUNTIME_PATH', ROOT_PATH . 'runtime/api/');
 define('APP_NAMESPACE','api');
 
 require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Hook.php";

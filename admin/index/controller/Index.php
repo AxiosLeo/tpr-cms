@@ -17,6 +17,6 @@ class Index extends HomeLogin {
     }
 
     public function main(){
-        return $this->fetch('main');
+        return $this->fetch('test');
     }
 }

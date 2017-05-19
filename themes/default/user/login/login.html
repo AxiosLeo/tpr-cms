@@ -52,6 +52,12 @@
             background: "#141414",
             color: "#E6E6E6"
         });
+        $(".login_txtbx").keypress(function (res) {
+                if(res.keyCode === 13){
+                    $('.submit_btn').click();
+                }
+            }
+        );
         //登录链接测试，使用时可删除
         $(".submit_btn").click(function(){
             var username = $(".layui-user-icon .login_txtbx").val();

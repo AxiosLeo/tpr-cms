@@ -9,8 +9,8 @@
 namespace admin\common\controller;
 
 use axios\tpr\service\RedisService;
+use think\Env;
 use think\Request;
-use think\Config;
 
 class HomeLogin extends HomeBase{
     protected $user;
@@ -20,7 +20,7 @@ class HomeLogin extends HomeBase{
         parent::__construct($request);
 
         if(!is_user_login()){
-            $this->redirect("user/login/index");
+            $this->redirect(url("user/login/index"));
         }else{
             $this->user = user_info();
             $this->assign('user',$this->user);
@@ -31,7 +31,7 @@ class HomeLogin extends HomeBase{
         if($token!=$this->user['token']){
             $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
         }else{
-            $expire = Config::get('setting.token.token_expire');
+            $expire = Env::get('web.token',172800);
             RedisService::redis()->switchDB(1)->set("admin_login_token".$this->user['username'],$token,$expire);
         }
     }

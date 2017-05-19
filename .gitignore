@@ -3,5 +3,5 @@ composer.lock
 thinkphp
 .env
 /runtime
-log.txt
 test.html
+/public/uploads/
