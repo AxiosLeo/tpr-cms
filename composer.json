@@ -1,18 +1,20 @@
 {
-    "name": "topthink/think",
+    "name": "axios/tpr-admin",
     "description": "the new thinkphp framework",
     "type": "project",
+    "minimum-stability": "stable",
+    "version": "2.0.0",
     "keywords": [
-        "framework",
+        "restful",
         "thinkphp",
-        "ORM"
+        "api"
     ],
-    "homepage": "http://thinkphp.cn/",
+    "homepage": "https://github.com/AxiosCros/thinkphp5-restfulapi",
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
+            "name": "axios",
+            "email": "axioscros@aliyun.com"
         }
     ],
     "require": {

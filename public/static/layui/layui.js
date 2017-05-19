@@ -19,13 +19,11 @@ var Lay = function(){
 Lay.fn = Lay.prototype;
 
 var doc = document, config = Lay.fn.cache = {},
-
 //获取layui所在目录
 getPath = function(){
   var js = doc.scripts, jsPath = js[js.length - 1].src;
   return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);
 }(),
-
 //异常提示
 error = function(msg){
   win.console && console.error && console.error('Layui hint: ' + msg);

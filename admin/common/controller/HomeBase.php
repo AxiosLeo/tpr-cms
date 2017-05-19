@@ -8,7 +8,9 @@
  */
 namespace admin\common\controller;
 
+use admin\common\model\Menu;
 use think\Controller;
+use think\Db;
 use think\Request;
 use think\Session;
 use think\Config;
@@ -23,11 +25,25 @@ class HomeBase extends Controller{
 
     protected $config;
 
+    protected $menu;
+
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
         $this->themes = Env::get('web.themes','default');
         $this->param = $request->param();
+
+        $this->assign('module',$this->request->module());
+
+        $this->assign('current_url',$this->request->path());
+    }
+
+    public function menu($all=true){
+        $parent_menu = Menu::model()->menus(0,$all);
+        foreach ($parent_menu as &$m){
+            $m['sub'] = Menu::model()->menus($m['id'],$all);
+        }
+        return $parent_menu;
     }
 
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])

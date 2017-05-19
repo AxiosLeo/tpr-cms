@@ -20,7 +20,7 @@ class HomeLogin extends HomeBase{
         parent::__construct($request);
 
         if(!is_user_login()){
-            $this->redirect("admin/login/index");
+            $this->redirect("user/login/index");
         }else{
             $this->user = user_info();
             $this->assign('user',$this->user);
@@ -29,7 +29,7 @@ class HomeLogin extends HomeBase{
         $token = RedisService::redis()->switchDB(1)->get("admin_login_token".$this->user['username']);
 
         if($token!=$this->user['token']){
-            $this->error("您的账号已在其它地方登陆",url("admin/login/logout"));
+            $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
         }else{
             $expire = Config::get('setting.token.token_expire');
             RedisService::redis()->switchDB(1)->set("admin_login_token".$this->user['username'],$token,$expire);

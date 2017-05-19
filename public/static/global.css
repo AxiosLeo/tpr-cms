@@ -169,6 +169,11 @@ body .layui-layout-admin .layui-larry-foot .p-admin a{
 .iconpx-chevron-up:before {
   content: "\f077";
 }
+
+.iconpx-file-word-b:before{
+    content: "\e62a";
+}
+
 /* bs字体 */
 @font-face {
   font-family: 'FontAwesome';

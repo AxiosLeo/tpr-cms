@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/global.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" media="all">
+</head>
+<body>
+<section class="larry-wrapper">
+    {__CONTENT__}
+</section>
+<script type="text/javascript" src="/static/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['jquery','layer','element'],function(){
+        window.jQuery = window.$ = layui.jquery;
+        window.layer = layui.layer;
+        window.element = layui.element();
+
+        $('.panel .tools .iconpx-chevron-down').click(function(){
+            var el = $(this).parents(".panel").children(".panel-body");
+            if($(this).hasClass("iconpx-chevron-down")){
+                $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
+                el.slideUp(200);
+            }else{
+                $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
+                el.slideDown(200);
+            }
+        })
+
+    });
+</script>
+<script type="text/javascript" src="/static/jsplug/echarts.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+</body>
+</html>

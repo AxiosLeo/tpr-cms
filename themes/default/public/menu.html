@@ -1,0 +1,34 @@
+<div class="layui-side layui-side-bg layui-larry-side" id="larry-side">
+    <div class="layui-side-scroll" id="larry-nav-side" lay-filter="side">
+        <div class="user-photo">
+            <a class="img" title="我的头像" >
+                <img src="/static/images/user.jpg" class="userimg1"></a>
+            <p>你好！admin, 欢迎登录</p>
+        </div>
+        <!-- 左侧菜单 -->
+        <ul class="layui-nav layui-nav-tree">
+            {volist name="menu" id="m"}
+            {php}$selected = $m['module']==$module?"layui-this":"";{/php}
+            <li class="layui-nav-item {$selected}">
+                <a href="javascript:void(0);" data-url="main.html">
+                    <i class="iconfont {$m['icon']}" data-icon='icon-home1'></i>
+                    <span>{$m['title']}</span>
+                </a>
+                {php}$sub = $m['sub'];if(!empty($sub)){{/php}
+                <dl class="layui-nav-child">
+                    {volist name="sub" id="s"}
+                    {php}$url = url($s['module']."/".$s['controller']."/".$s['func']);{/php}
+                    <dd>
+                        <a href="javascript:void(0);" data-url="{$url}">
+                            <i class="iconfont {$s['icon']}" data-icon='icon-geren1'></i>
+                            <span>{$s['title']}</span>
+                        </a>
+                    </dd>
+                    {/volist}
+                </dl>
+                {php}}{/php}
+            </li>
+            {/volist}
+        </ul>
+    </div>
+</div>

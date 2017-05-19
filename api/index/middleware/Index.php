@@ -12,16 +12,20 @@ use axios\tpr\core\Middleware;
 use think\Request;
 
 class Index extends Middleware{
-    public function before(Request $request){
-//        $module = $request->module();
-//        $controller = $request->controller();
-//        $action = $request->controller();
-//
-//        $param = $this->param;
+    public function before(Request $request)
+    {
+        // TODO: Implement before() method.
 
+        $module = $request->module();
+        $controller = $request->controller();
+        $action = $request->controller();
+
+        $param = $this->param;
     }
 
-    public function after(Request $request,array $response){
-
+    public function after(Request $request, array $response)
+    {
+        // TODO: Implement after() method.
     }
+
 }

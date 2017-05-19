@@ -25,3 +25,7 @@ function user_current_id(){
 function getLastUrl(){
     return \think\Session::get('last_url');
 }
+
+function make_password($password,$auth=''){
+    return md5($auth.$password);
+}

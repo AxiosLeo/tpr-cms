@@ -1,53 +1,13 @@
 {layout name="layout" /}
-<div class="fly-home">
-    <img src="favicon.ico" alt="avatar">
-    <h1>
-        流水无痕
-    </h1>
-    <i class="iconfont icon-nan" ></i>
-    <span style="color:#c00;">（管理员）</span>
-</div>
-
-<div class="main fly-home-main">
-    <div class="layui-inline fly-home-jie">
-        <div class="fly-panel">
-            <h3 class="fly-panel-title">最近的提问</h3>
-            <ul class="jie-row">
-                {{# jie.forEach(function(item, index){ }}
-                <li>
-                    {{ item.status == 1 ? '<span class="fly-jing">精</span>' : ''}}
-                    <a href="/jie/{{item.id}}.html" class="jie-title">{{= item.title}}</a>
-                    <i>{{lay.time(item.time, 1)}}</i>
-                    <em>{{item.hits}}阅/{{item.comment}}答</em>
-                </li>
-                {{# }); }}
-
-                {{# if(jie.length === 0){ }}
-                <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div>
-                {{# } }}
-            </ul>
+<div class="layui-body" id="larry-body" style="bottom: 0;border-left: solid 2px #1AA094;">
+    <div class="layui-tab layui-tab-card larry-tab-box" id="larry-tab" lay-filter="demo" lay-allowclose="true">
+        <ul class="layui-tab-title">
+            <li class="layui-this" id="admin-home"><i class="iconfont icon-diannao1"></i><em>后台首页</em></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 150px; ">
+            <div class="layui-tab-item layui-show">
+                <iframe class="larry-iframe" data-id='0' src="{:url('index/index/main')}"></iframe>
+            </div>
         </div>
     </div>
-
-    <div class="layui-inline fly-home-da">
-        <div class="fly-panel">
-            <h3 class="fly-panel-title">{{info.username}} 最近的回答</h3>
-            <ul class="home-jieda">
-                {{# da.forEach(function(item, index){ }}
-                <li>
-                    <p>
-                        <span>{{lay.time(item.time)}}</span>
-                        在<a href="/jie/{{item.jid}}.html#item-{{item.time}}" target="_blank">{{= item.title||'求解'}}</a>中回答：
-                    </p>
-                    <div class="home-dacontent">{{d.content(item.content)}}</div>
-                </li>
-                {{# }); }}
-
-                {{# if(da.length === 0){ }}
-                <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div>
-                {{# }; }}
-            </ul>
-        </div>
-    </div>
-
 </div>
