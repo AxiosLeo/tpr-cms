@@ -13,8 +13,16 @@ use admin\common\controller\HomeLogin;
 class Index extends HomeLogin{
     public function profile(){
         if($this->request->isPost()){
-            $this->error();
+            $this->error("error");
         }
         return $this->fetch('profile');
+    }
+
+    public function password(){
+        if($this->request->isPost()){
+            $this->error(json_encode($this->param));
+        }
+
+        return $this->fetch('password');
     }
 }

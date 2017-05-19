@@ -11,10 +11,47 @@
     <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="/static/global.css" media="all">
     <script type="text/javascript" src="/static/layui/layui.js"></script>
-    <!--<script type="text/javascript" src="/static/vue/vue.min.js"></script>-->
+    <script type="text/javascript" src="/static/vue/vue.min.js"></script>
+
     <!--<script type="text/javascript" src="/static/vue/vue.js"></script>-->
 </head>
 <body>
 {__CONTENT__}
+<script type="text/javascript" src="/static/jsplug/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".layui-form").submit(function () {
+        var url = $(".layui-form").attr('action');
+        var obj = new Object();
+        $.each($('.layui-form').serializeArray(),function(index,param){
+            if(!(param.name in obj)){
+                obj[param.name]=param.value;
+            }
+        });
+        postSomething(url,obj);
+        return false;
+    });
+
+    function postSomething(url,obj) {
+        $.ajax({
+            type: "POST",
+            url:url,
+            enctype: 'multipart/form-data',
+            data:obj,
+            success:function (res) {
+                if(res.code === 1){
+                    layer.msg(res.msg);
+                }else{
+                    layer.alert(res.msg, {
+                        skin: 'layui-layer-' //样式类名
+                        ,closeBtn: 0,
+                        icon:2
+                        ,anim: 0 //动画类型
+                    });
+                }
+                console.log(res);
+            }
+        });
+    }
+</script>
 </body>
 </html>

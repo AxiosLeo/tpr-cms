@@ -41,7 +41,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改头像</label>
                     <div class="layui-input-block">
-                        <input type="file" name="file" class="layui-upload-file">
+                        <input type="file" lay-type="file" name="file" class="layui-upload-file">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -73,18 +73,21 @@
     </div>
 </section>
 <script type="text/javascript">
-    layui.upload({
-        url: '{:url("user/profile/avatar")}' ,//上传接口
-        before: function(input){
-            //返回的参数item，即为当前的input DOM对象
-            console.log('文件上传中');
-        },
-        error:function (res) {
-            console.log(res);
-        },
-        success: function(res){
-            //上传成功后的回调
-            console.log(res)
-        }
+    layui.use(['form','upload'],function(){
+        layui.upload({
+            url: '{:url("user/profile/avatar")}' ,//上传接口
+            method:'post',
+            ext: 'jpg|png',
+            before: function(input){
+                //返回的参数item，即为当前的input DOM对象
+                console.log('文件上传中');
+                console.log(input.value)
+            },
+            success: function(res,input){
+                //上传成功后的回调
+                console.log(res.data);
+                console.log(input.value);
+            }
+        });
     });
 </script>

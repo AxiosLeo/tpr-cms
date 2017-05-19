@@ -8,7 +8,6 @@
  */
 namespace admin\user\controller;
 
-use admin\common\controller\HomeBase;
 use admin\common\controller\HomeLogin;
 use axios\tpr\core\Result;
 use axios\tpr\service\ToolService;

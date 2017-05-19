@@ -2,8 +2,8 @@
     <div class="layui-side-scroll" id="larry-nav-side" lay-filter="side">
         <div class="user-photo">
             <a class="img" title="我的头像" >
-                <img src="/static/images/user.jpg" class="userimg1"></a>
-            <p>你好！admin, 欢迎登录</p>
+                <img v-if="" src="{$user['avatar']?$user['avatar']:'/static/images/user.jpg'}" class="userimg1"></a>
+            <p>你好！{$user['username']}, 欢迎登录</p>
         </div>
         <!-- 左侧菜单 -->
         <ul class="layui-nav layui-nav-tree">
