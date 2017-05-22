@@ -36,4 +36,18 @@ class Menu extends Model{
 
         return $list;
     }
+
+    public function getMenu($only_parent = false){
+        $menus = $this->where('parent_id',0)
+            ->field('id,title ,title as name ,icon,parent_id,module , controller , func , sort')->order('sort')->select();
+        if(!$only_parent){
+            foreach ($menus as &$m){
+                $m['children'] = $this->where('parent_id',$m['id'])
+                    ->field('id,title ,title as name ,parent_id,icon,module , controller , func , sort')->order('sort')->select();
+                $m['spread'] = true;
+            }
+        }
+
+        return $menus;
+    }
 }
