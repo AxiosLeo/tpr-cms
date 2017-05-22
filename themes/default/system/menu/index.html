@@ -2,89 +2,120 @@
 <link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
 <section class="layui-larry-box">
     <div class="larry-personal">
-        <div class="larry-personal-body clearfix ">
-            <div class="row">
-                <blockquote class="layui-elem-quote mylog-info-tit">
-                    <ul>
-                        <li id="addMenu" class="layui-btn layui-this"><i class="layui-icon">&#xe60a;</i>添加菜单</li>
-                        <li class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe63c;</i>功能节点</li>
-                    </ul>
-                </blockquote>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-4 col-lg-4 col-xs-3" style="min-height: 600px; display: inline-block;  border: 1px solid #ddd; overflow: auto;">
-                    <ul id="node"></ul>
+        <div class="layui-tab">
+            <blockquote class="layui-elem-quote mylog-info-tit">
+                <ul class="layui-tab-title">
+                    <li class="layui-btn layui-btn-normal layui-this"><i class="layui-icon">&#xe60a;</i>菜单管理</li>
+                    <li class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe63c;</i>功能节点</li>
+                    <a id="addMenu" class="layui-btn"><i class="layui-icon">&#xe654;</i>新增菜单</a>
+                </ul>
+            </blockquote>
+            <div class="larry-separate"></div>
+            <div class="layui-tab-content larry-personal-body clearfix mylog-info-box">
+                <div class="layui-tab-item layui-field-box layui-show">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-xs-3" style="min-height: 600px; display: inline-block;  border: 1px solid #ddd; overflow: auto;">
+                            <ul id="node"></ul>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xs-8" style="min-height: 600px; display: inline-block;   margin-left: 10px; vertical-align: top;">
+                            <fieldset class="layui-elem-field layui-field-title col-md-11 col-lg-11 col-xs-11">
+                                <legend class="larry-personal-tit"> <span>点击左侧菜单获取菜单详情</span></legend>
+                                <form id="menu" class="layui-form">
+                                    <div class="layui-field-box">
+                                        <input id="id" name="id" class="layui-input layui-hide">
+                                        <div class="layui-form-item">
+                                            <label for="parent_id" class="layui-form-label col-md-3">所属菜单: </label>
+                                            <div class="layui-input-block">
+                                                <select class="col-md-3" id="parent_id" name="parent_id" lay-filter="parent">
+                                                    <option value="0" selected>一级菜单</option>
+                                                    {foreach name="parent_menu" item="pm"}
+                                                    <option value="{$pm['id']}">{$pm['title']}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="name" class="layui-form-label col-md-3">名称: </label>
+                                            <div class="layui-input-block">
+                                                <input id="name" class="layui-input" v-model="name">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="icon" class="layui-form-label col-md-3">图标: </label>
+                                            <div class="layui-input-block">
+                                                <input id="icon" class="layui-input" v-model="icon">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="module" class="layui-form-label">模块: </label>
+                                            <div class="layui-input-block">
+                                                <input id="module" class="layui-input" v-model="module">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="controller" class="layui-form-label col-md-3">控制器: </label>
+                                            <div class="layui-input-block">
+                                                <input id="controller" class="layui-input " v-model="controller">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="func" class="layui-form-label col-md-3">方法: </label>
+                                            <div class="layui-input-block">
+                                                <input id="func" class="layui-input " v-model="func">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="sort" class="layui-form-label col-md-3">排序: </label>
+                                            <div class="layui-input-block">
+                                                <input id="sort" class="layui-input " v-model="sort">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-input-block pull-right">
+                                                <a id="add" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="add">新增</a>
+                                                <a id="update" class="layui-btn layui-hide" lay-submit="" lay-filter="update">更新</a>
+                                                <a id="delete" class="layui-btn layui-btn-danger layui-hide" lay-submit="" lay-filter="demo1">删除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xs-8" style="min-height: 600px; display: inline-block;   margin-left: 10px; vertical-align: top;">
-                    <fieldset class="layui-elem-field layui-field-title col-md-11 col-lg-11 col-xs-11">
-                        <legend class="larry-personal-tit"> <span>点击左侧菜单获取菜单详情</span></legend>
-                        <form id="menu" class="layui-form">
-                            <div class="layui-field-box">
-                                <!--<div class="layui-form-item">-->
-                                    <!--<label for="id" class="layui-form-label col-md-3">ID:</label>-->
-                                    <!--<div class="layui-input-block">-->
-                                        <!--<input id="id" name="id" class="layui-input layui-hide">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <input id="id" name="id" class="layui-input layui-hide">
-                                <div class="layui-form-item">
-                                    <label for="parent_id" class="layui-form-label col-md-3">所属菜单: </label>
-                                    <div class="layui-input-block">
-                                        <select class="col-md-3" id="parent_id" name="parent_id" lay-filter="parent">
-                                            <option value="0" selected>一级菜单</option>
-                                            {foreach name="parent_menu" item="pm"}
-                                            <option value="{$pm['id']}">{$pm['title']}</option>
-                                            {/foreach}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="name" class="layui-form-label col-md-3">名称: </label>
-                                    <div class="layui-input-block">
-                                        <input id="name" class="layui-input" v-model="name">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="icon" class="layui-form-label col-md-3">图标: </label>
-                                    <div class="layui-input-block">
-                                        <input id="icon" class="layui-input" v-model="icon">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="module" class="layui-form-label">模块: </label>
-                                    <div class="layui-input-block">
-                                        <input id="module" class="layui-input" v-model="module">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="controller" class="layui-form-label col-md-3">控制器: </label>
-                                    <div class="layui-input-block">
-                                        <input id="controller" class="layui-input " v-model="controller">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="func" class="layui-form-label col-md-3">方法: </label>
-                                    <div class="layui-input-block">
-                                        <input id="func" class="layui-input " v-model="func">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label for="sort" class="layui-form-label col-md-3">排序: </label>
-                                    <div class="layui-input-block">
-                                        <input id="sort" class="layui-input " v-model="sort">
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block pull-right">
-                                        <a id="add" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="add">新增</a>
-                                        <a id="update" class="layui-btn layui-hide" lay-submit="" lay-filter="update">更新</a>
-                                        <a id="delete" class="layui-btn layui-btn-danger layui-hide" lay-submit="" lay-filter="demo1">删除</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
+                <div class="layui-tab-item layui-field-box">
+                    <div class="row">
+                        <table class="layui-table table-hover" lay-even="" lay-skin="nob">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selected-all"></th>
+                                <th>ID</th>
+                                <th>管理员账号</th>
+                                <th>状态</th>
+                                <th>最后登录时间</th>
+                                <th>上次登录IP</th>
+                                <th>登录IP</th>
+                                <th>IP所在位置</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>110</td>
+                                <td>admin</td>
+                                <td>后台登录成功</td>
+                                <td>2016-12-19 14:26:03</td>
+                                <td>127.0.0.1</td>
+                                <td>127.0.0.1</td>
+                                <td>Unknown</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="larry-table-page clearfix">
+                            <a href="javascript:void(0);" class="layui-btn layui-btn-small"><i class="iconfont icon-shanchu1"></i>删除</a>
+                            <div id="page2" class="page"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,8 +124,12 @@
 
 <script type="text/javascript">
     var form;
-    layui.use(['form'],function(){
+    layui.use(['jquery','layer','element','laypage','form'],function(){
         form = layui.form();
+        window.jQuery = window.$ = layui.jquery;
+        window.layer = layui.layer;
+        var element = layui.element(),
+            laypage = layui.laypage;
     });
     var url = '{:url("system/menu/getMenu")}';
     var current_node = [] ;
