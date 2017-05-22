@@ -5,3 +5,4 @@ thinkphp
 /runtime
 test.html
 /public/uploads/
+phpunit.xml
