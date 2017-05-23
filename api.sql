@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-05-22 17:33:15
+Date: 2017-05-23 17:38:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '0', null, null, null, null, '', '192.168.1.59', '1495416980', '959325ad83aa413237cce8d10b4a9bd1');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '0', null, null, null, null, '', '192.168.1.59', '1495500039', '6590996f4531b8be84d768073a11761c');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -120,12 +120,12 @@ CREATE TABLE `api_menu` (
   `show` tinyint(1) NOT NULL,
   `update_at` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_menu
 -- ----------------------------
-INSERT INTO `api_menu` VALUES ('1', null, 'icon-home1', '后台首页', '0', 'index', 'index', 'main', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('1', null, 'icon-home1', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '1495530800');
 INSERT INTO `api_menu` VALUES ('2', null, 'icon-jiaoseguanli', '我的面板', '0', 'user', 'panel', 'default', '1', '0', null);
 INSERT INTO `api_menu` VALUES ('3', null, 'icon-geren1', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '1495441680');
 INSERT INTO `api_menu` VALUES ('4', null, 'icon-iconfuzhi01', '修改密码', '2', 'user', 'index', 'password', '1', '0', null);
