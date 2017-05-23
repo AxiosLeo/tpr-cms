@@ -14,10 +14,15 @@ use think\Db;
 
 class Menu extends HomeLogin{
     public function index(){
-//        $parent_menu = \admin\common\model\Menu::model()->getMenu(true);
         $Menu = new \admin\common\model\Menu();
         $parent_menu = $Menu->getMenu(true);
         $this->assign('parent_menu',$parent_menu);
+
+        $node_count = Db::name('menu')->count();
+        $limit = 10;
+        $pages = ($node_count%$limit)?1+$node_count/$limit:$node_count/$limit;
+        $this->assign('pages',$pages);
+
         return $this->fetch('index');
     }
 
@@ -26,38 +31,20 @@ class Menu extends HomeLogin{
     }
 
     public function updateMenu(){
-        $id = $this->param['id'];
+        $id = isset($this->param['id'])?$this->param['id']:0;
 
         if(!empty($id)){
-            $update = [
-                'parent_id'=>$this->param['parent_id'],
-                'title'=>$this->param['name'],
-                'icon'=>$this->param['icon'],
-                'module'=>$this->param['module'],
-                'controller'=>$this->param['controller'],
-                'func'=>$this->param['func'],
-                'sort'=>$this->param['sort'],
-                'update_at'=>time()
-            ];
+            $this->param['update_at'] = time();
 
-            if(Db::name('menu')->where('id',$id)->update($update)){
-                $this->success('更新成功');
+            if(Db::name('menu')->where('id',$id)->update($this->param)){
+                $this->success('更新成功','',$this->param);
             }else{
                 $this->error('更新失败');
             }
         }else{
-            $update = [
-                'parent_id'=>$this->param['parent_id'],
-                'title'=>$this->param['name'],
-                'icon'=>$this->param['icon'],
-                'module'=>$this->param['module'],
-                'controller'=>$this->param['controller'],
-                'func'=>$this->param['func'],
-                'sort'=>$this->param['sort'],
-                'update_at'=>time()
-            ];
+            $this->param['update_at'] = time();
 
-            if(Db::name('menu')->insertGetId($update)){
+            if(Db::name('menu')->insertGetId($this->param)){
                 $this->success('操作成功');
             }else{
                 $this->error('操作失败');
@@ -72,5 +59,24 @@ class Menu extends HomeLogin{
         }else{
             $this->error("操作失败");
         }
+    }
+
+    public function getAllMenu(){
+        $page  = isset($this->param['page'])&&!empty($this->param['page'])?$this->param['page']:1;
+        $limit =  isset($this->param['limit'])&&!empty($this->param['limit'])?$this->param['limit']:10;
+
+        $nodes = Db::name('menu')->page($page)->limit($limit)->select();
+        $node_count = Db::name('menu')->count();
+
+        $pages = ($node_count%$limit)?1+$node_count/$limit:$node_count/$limit;
+
+        $req = [
+            'total'=>$node_count,
+            'node'=>$nodes,
+            'page'=>$page,
+            'pages'=>$pages,
+            'limit'=>$limit
+        ];
+        Result::rep($req);
     }
 }

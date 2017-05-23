@@ -19,27 +19,46 @@
 <body>
 {__CONTENT__}
 <script type="text/javascript">
-    $(".layui-form").submit(function () {
-        var url = $(".layui-form").attr('action');
-        var obj = new Object();
-        $.each($('.layui-form').serializeArray(),function(index,param){
-            if(!(param.name in obj)){
-                obj[param.name]=param.value;
-            }
-        });
+    function submitForm(id) {
+        var form = $(id);
+        var url = form.attr('action');
+        var obj = serializeForm(id);
         postSomething(url,obj);
         return false;
-    });
+    }
 
-    function postSomething(url,obj) {
+    function serializeForm(obj) {
+        var params = [];
+        $.each($(obj).serializeArray(),function (index,param) {
+            if(!(param.name in params)){
+                params[param.name]=param.value;
+            }
+        });
+        return params;
+    }
+
+    function postSomething(url,obj,jump_to) {
+//        console.log(obj);
         $.ajax({
             type: "POST",
             url:url,
             enctype: 'multipart/form-data',
             data:obj,
             success:function (res) {
+//                console.log(res);
                 if(res.code === 1){
-                    layer.msg(res.msg);
+                    layer.alert(res.msg, {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                        ,anim: 0 //动画类型
+                    }, function(index){
+                        layer.close(index);
+                        if(jump_to===undefined){
+                            window.location.reload();
+                        }else if(jump_to!==false){
+                            window.location.href = jump_to;
+                        }
+                    });
                 }else{
                     layer.alert(res.msg, {
                         skin: 'layui-layer-' //样式类名
@@ -48,7 +67,6 @@
                         ,anim: 0 //动画类型
                     });
                 }
-                console.log(res);
             }
         });
     }
