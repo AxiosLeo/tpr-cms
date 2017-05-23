@@ -1,1 +1,35 @@
 {layout name="main" /}
+<link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
+<section class="layui-larry-box">
+    <div class="larry-personal">
+        <blockquote class="layui-elem-quote mylog-info-tit">
+            <ul class="layui-tab-title">
+                <a id="addMenu" class="layui-btn" ><i class="layui-icon">&#xe654;</i>新增用户</a>
+            </ul>
+        </blockquote>
+        <div class="larry-separate"></div>
+        <div class="layui-field-box layui-show">
+            <div class="row">
+                <table class="layui-table table-hover" lay-even="" lay-skin="nob">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selected-all"></th>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                        <th>最近登录IP</th>
+                        <th>最近登录时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="node_table_body">
+                    </tbody>
+                </table>
+                <div class="larry-table-page clearfix">
+                    <a href="javascript:void(0);" class="layui-btn layui-btn-small"><i class="iconfont icon-shanchu1"></i>删除</a>
+                    <div id="node_page" class="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
