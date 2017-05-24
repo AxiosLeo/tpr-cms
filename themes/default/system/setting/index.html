@@ -1,1 +1,246 @@
 {layout name="main" /}
+<link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
+<section class="layui-larry-box">
+    <div class="larry-personal">
+        <div class="layui-tab">
+            <blockquote class="layui-elem-quote mylog-info-tit">
+                <ul class="layui-tab-title">
+                    <li class="layui-btn layui-btn-normal layui-this">基本配置</li>
+                    <li class="layui-btn layui-btn-normal">数据库连接</li>
+                </ul>
+            </blockquote>
+            <div class="larry-separate"></div>
+            <div class="layui-tab-content larry-personal-body clearfix mylog-info-box">
+                <div class="layui-tab-item layui-field-box layui-show">
+                    <form class="layui-form" action="{:url('system/setting/env')}">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12">
+                                <fieldset class="layui-elem-field">
+                                    <legend>全局</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">调试模式</label>
+                                            <div class="layui-input-block">
+                                                <input type="radio" name="global.debug" value="true" title="开">
+                                                <input type="radio" name="global.debug" value="false" title="关" checked>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label for="api-key" class="layui-form-label col-md-2">ApiKey</label>
+                                            <div class="layui-input-inline">
+                                                <input id="api-key" type="text" class="layui-input" name="global.api_key" value="" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="layui-elem-field">
+                                    <legend>数字签名功能</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">是否开启</label>
+                                            <div class="layui-input-inline">
+                                                <input type="radio" name="sign.status" value="nan" title="开启">
+                                                <input type="radio" name="sign.status" value="nv" title="关闭" checked>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">有效时间</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="sign.expire" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="layui-elem-field">
+                                    <legend>日志功能</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">接口访问日志</label>
+                                            <div class="layui-input-inline">
+                                                <input type="radio" name="log.api" value="nan" title="开启">
+                                                <input type="radio" name="log.api" value="nv" title="关闭" checked>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">系统操作日志</label>
+                                            <div class="layui-input-inline">
+                                                <input type="radio" name="log.web" value="nan" title="开启">
+                                                <input type="radio" name="log.web" value="nv" title="关闭" checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-5 col-lg-5 col-xs-12">
+                                <fieldset class="layui-elem-field">
+                                    <legend>管理系统</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">访问地址</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="web.host" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">IP白名单</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="web.allow_ip" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">单点登录功能</label>
+                                            <div class="layui-input-inline">
+                                                <input type="radio" name="web.token" value="86400" title="开">
+                                                <input type="radio" name="web.token" value="0" title="关" >
+                                                <span class="help-block">需要redis服务</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="layui-elem-field">
+                                    <legend>接口</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">访问地址</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="api.host" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">数据回调格式</label>
+                                            <div class="layui-input-inline">
+                                                <select name="api.return_type">
+                                                    <option value="json">json</option>
+                                                    <option value="xml">xml</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-tab-item layui-field-box">
+                    <form class="layui-form" action="{:url('system/setting/env')}">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-xs-12">
+                                <fieldset class="layui-elem-field">
+                                    <legend>mysql</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">host</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mysql.host" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">port</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mysql.port" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">database</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mysql.database" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">username</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mysql.username" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">password</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mysql.password" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-5 col-lg-5 col-xs-12">
+                                <fieldset class="layui-elem-field">
+                                    <legend>mongodb</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">host</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mongo.host" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">port</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mongo.port" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">database</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mongo.database" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">username</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mongo.username" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">password</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="mongo.password" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-12">
+                                <fieldset class="layui-elem-field">
+                                    <legend>redis</legend>
+                                    <div class="layui-field-box">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">host</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="redis.host" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">port</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="redis.port" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">username</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="redis.username" value="">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label col-md-2">password</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" class="layui-input" name="redis.password" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    layui.use(['jquery','layer','laypage','element','form'],function(){
+        var form = layui.form();
+        var element = layui.element();
+        window.jQuery = window.$ = layui.jquery;
+        window.layer = layui.layer;
+    });
+</script>

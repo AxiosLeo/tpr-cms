@@ -2299,17 +2299,23 @@ fieldset {
   padding: 0;
   margin: 0;
   border: 0;
+  display: block;
+  -webkit-margin-start: 2px;
+  -webkit-margin-end: 2px;
+  -webkit-padding-before: 0.35em;
+  -webkit-padding-start: 0.75em;
+  -webkit-padding-end: 0.75em;
+  -webkit-padding-after: 0.625em;
 }
 legend {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 20px;
-  font-size: 21px;
-  line-height: inherit;
-  color: #333;
-  border: 0;
-  border-bottom: 1px solid #e5e5e5;
+  /*display: block;*/
+  /*width: 100%;*/
+  /*padding: 0;*/
+  /*margin-bottom: 20px;*/
+  /*font-size: 21px;*/
+  /*line-height: inherit;*/
+  /*color: #333;*/
+  /*border-bottom: 0px solid #e5e5e5;*/
 }
 label {
   display: inline-block;

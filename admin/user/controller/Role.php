@@ -9,9 +9,27 @@
 namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
+use axios\tpr\core\Result;
+use think\Db;
 
 class Role extends HomeLogin{
     public function index(){
+
+        $count = Db::name('role')->count();
+
+        $limit = 10;
+        $this->assign('pages',($count%$limit)?1+$count/$limit:$count/$limit);
+
         return $this->fetch('index');
+    }
+
+    public function getRoles(){
+        $roles = Db::name('role')->select();
+
+        foreach ($roles as &$r){
+            $r['admin_number'] = Db::name('admin')->where('role_id',$r['id'])->count();
+        }
+
+        Result::rep($roles);
     }
 }
