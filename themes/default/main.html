@@ -19,16 +19,16 @@
 <body>
 {__CONTENT__}
 <script type="text/javascript">
-    function submitForm(id) {
+    function submitForm(id,jump_to) {
         var form = $(id);
         var url = form.attr('action');
         var obj = serializeForm(id);
-        postSomething(url,obj);
+        postSomething(url,obj,jump_to);
         return false;
     }
 
     function serializeForm(obj) {
-        var params = [];
+        var params = {};
         $.each($(obj).serializeArray(),function (index,param) {
             if(!(param.name in params)){
                 params[param.name]=param.value;
@@ -37,7 +37,7 @@
         return params;
     }
 
-    function postSomething(url,obj,jump_to) {
+    function postSomething(url,obj,jump_to,alert) {
 //        console.log(obj);
         $.ajax({
             type: "POST",
@@ -46,6 +46,9 @@
             data:obj,
             success:function (res) {
 //                console.log(res);
+                if(alert===false){
+                    return false;
+                }
                 if(res.code === 1){
                     layer.alert(res.msg, {
                         skin: 'layui-layer-molv' //样式类名

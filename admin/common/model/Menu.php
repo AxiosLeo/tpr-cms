@@ -51,4 +51,24 @@ class Menu extends Model{
         return $menus;
     }
 
+    public function getMenuTree($parent_id=0,$role_id = 0){
+        return $this->menuTree($parent_id,$role_id);
+    }
+
+    private function menuTree($parent_id=0,$role_id = 0){
+        $this->where('parent_id',$parent_id);
+
+        if($role_id){
+            $this->join("__ROLE_NODE__ rn",'rn.menu_id=menu.id','left');
+        }
+        $this->field('id,title ,title as name ,icon,parent_id,module , controller , func , sort');
+
+        $menu = $this->order('sort asc')->select();
+        foreach ($menu as &$m){
+            $m['spread'] = true;
+            $m['children'] = $this->menuTree($m['id'],$role_id);
+        }
+        return $menu;
+    }
+
 }

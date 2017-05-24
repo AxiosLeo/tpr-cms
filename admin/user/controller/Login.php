@@ -58,9 +58,11 @@ class Login extends HomeBase{
         unset($user['password']);
         unset($user['security_id']);
         Session::set('user',$user);
-        $setting_token = Config::get('setting.token');
-        $expire = isset($setting_token['token_expire'])?$setting_token['token_expire']:36000;
-        RedisService::redis()->switchDB(1)->set("admin_login_token".$user['username'],$user['token'],$expire);
+
+        /*** 单点登录，记录token ***/
+//        $setting_token = Config::get('setting.token');
+//        $expire = isset($setting_token['token_expire'])?$setting_token['token_expire']:36000;
+//        RedisService::redis()->switchDB(1)->set("admin_login_token".$user['username'],$user['token'],$expire);
 
         $this->success("操作成功",'/admin.php');
     }

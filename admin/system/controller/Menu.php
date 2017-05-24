@@ -15,7 +15,7 @@ use think\Db;
 class Menu extends HomeLogin{
     public function index(){
         $Menu = new \admin\common\model\Menu();
-        $parent_menu = $Menu->getMenu(true);
+        $parent_menu = $Menu->getMenu();
         $this->assign('parent_menu',$parent_menu);
 
         $node_count = Db::name('menu')->count();
@@ -27,14 +27,16 @@ class Menu extends HomeLogin{
     }
 
     public function getMenu(){
-        Result::rep(\admin\common\model\Menu::model()->getMenu());
+        Result::rep(\admin\common\model\Menu::model()->getMenuTree());
     }
 
     public function updateMenu(){
         $id = isset($this->param['id'])?$this->param['id']:0;
-
         if(!empty($id)){
             $this->param['update_at'] = time();
+            if($this->param['parent_id']==$id){
+                $this->error("当前菜单与父级菜单相同<br />请选择其它父级菜单");
+            }
 
             if(Db::name('menu')->where('id',$id)->update($this->param)){
                 $this->success('更新成功','',$this->param);

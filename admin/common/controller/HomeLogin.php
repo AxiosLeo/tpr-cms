@@ -26,13 +26,19 @@ class HomeLogin extends HomeBase{
             $this->assign('user',$this->user);
         }
 
-        $token = RedisService::redis()->switchDB(1)->get("admin_login_token".$this->user['username']);
-
-        if($token!=$this->user['token']){
-            $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
-        }else{
-            $expire = Env::get('web.token',172800);
-            RedisService::redis()->switchDB(1)->set("admin_login_token".$this->user['username'],$token,$expire);
-        }
+        /***
+         * redis token 单点登录
+         * 因为有很多人不会用redis
+         * 所以这段用redis进行token判断的代码去掉
+         * 想
+         ***/
+//        $token = RedisService::redis()->switchDB(1)->get("admin_login_token".$this->user['username']);
+//
+//        if($token!=$this->user['token']){
+//            $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
+//        }else{
+//            $expire = Env::get('web.token',172800);
+//            RedisService::redis()->switchDB(1)->set("admin_login_token".$this->user['username'],$token,$expire);
+//        }
     }
 }
