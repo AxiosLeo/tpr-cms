@@ -13,7 +13,7 @@
 ## 框架核心代码
 > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
 
->  composer require axios/tpr
+> composer require axios/tpr:^1.1
 
 ## 文档地址
 > [看云：《TPR1.0接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
