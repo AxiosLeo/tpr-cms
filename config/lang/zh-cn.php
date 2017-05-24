@@ -41,7 +41,8 @@ return [
     "operating system"=>"操作系统",
     "php version"=>"php版本",
     "disk space"=>"磁盘空间",
-    "select at least one application"=>"至少选择一个应用"
+    "select at least one application"=>"至少选择一个应用",
 
-
+    "success!"=>"操作成功",
+    'error!'=>'操作失败',
 ];

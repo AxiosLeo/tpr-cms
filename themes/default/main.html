@@ -38,39 +38,42 @@
     }
 
     function postSomething(url,obj,jump_to,alert) {
-//        console.log(obj);
         $.ajax({
             type: "POST",
             url:url,
             enctype: 'multipart/form-data',
             data:obj,
             success:function (res) {
-//                console.log(res);
                 if(alert===false){
                     return false;
                 }
                 if(res.code === 1){
-                    layer.alert(res.msg, {
-                        skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                        ,anim: 0 //动画类型
-                    }, function(index){
-                        layer.close(index);
+                    parent.$(".layui-layer-close").click();
+                    parent.layer.msg(res.msg, {icon: 1, time: 1000},function(index){
                         if(jump_to===undefined){
                             window.location.reload();
                         }else if(jump_to!==false){
                             window.location.href = jump_to;
                         }
+                        layer.close(index);
                     });
                 }else{
-                    layer.alert(res.msg, {
-                        skin: 'layui-layer-' //样式类名
-                        ,closeBtn: 0,
-                        icon:2
-                        ,anim: 0 //动画类型
-                    });
+                    layer.alert(res.msg, {skin: 'layui-layer-molv', closeBtn: 0, icon:2, anim: 0});
                 }
             }
+        });
+    }
+
+    function openLayer(title,url,width,height) {
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.8,
+            resize:true,
+            scrollbar:true,
+            area: [width, height],
+            content: url
         });
     }
 </script>

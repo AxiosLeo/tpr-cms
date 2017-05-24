@@ -4,7 +4,7 @@
     <div class="larry-personal">
         <blockquote class="layui-elem-quote mylog-info-tit">
             <ul class="layui-tab-title">
-                <a id="addMenu" class="layui-btn" ><i class="layui-icon">&#xe654;</i>新增用户</a>
+                <a id="addAdmin" class="layui-btn" ><i class="layui-icon">&#xe654;</i>新增用户</a>
             </ul>
         </blockquote>
         <div class="larry-separate"></div>
@@ -13,7 +13,6 @@
                 <table class="layui-table table-hover" lay-even="" lay-skin="nob">
                     <thead>
                     <tr>
-                        <th><input type="checkbox" id="selected-all"></th>
                         <th>ID</th>
                         <th>用户名</th>
                         <th>角色</th>
@@ -22,14 +21,52 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-                    <tbody id="node_table_body">
+                    <tbody id="admin_table_body">
                     </tbody>
                 </table>
                 <div class="larry-table-page clearfix">
-                    <a href="javascript:void(0);" class="layui-btn layui-btn-small"><i class="iconfont icon-shanchu1"></i>删除</a>
                     <div id="node_page" class="page"></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    layui.use(['jquery','layer','laypage'],function () {
+        window.jQuery = window.$ = layui.jquery;
+
+        var lay_page = layui.laypage;
+        lay_page({
+            cont: 'node_page',
+            pages: '{$pages}',
+            groups: 3,
+            jump: function(obj, first) {
+                var url = '{:url("user/admin/getAdmin")}';
+                $.post(url,{page:obj.curr,limit:10},function (res) {
+                    $("#admin_table_body").empty();
+                    var admin_list = res.data;
+                    $.each(admin_list,function (index,data) {
+//                        console.log(data);
+                        var role_name = data.role_name?data.role_name:"";
+                        var html = '<tr data-id="'+data.id+'"> ' +
+                            '<td data-name="id">'+data.id+'</td> ' +
+                            '<td data-name="title">'+data.username+'</td> ' +
+                            '<td data-name="module">'+role_name+'</td>' +
+                            '<td data-name="controller">'+data.last_login_ip+'</td>' +
+                            '<td data-name="func">'+data.last_login_time+'</td>' +
+                            '<td >' +
+                            '<button class="layui-btn layui-btn-mini" onclick="edit(this);">编辑</button>' +
+                            '<button class="layui-btn layui-btn-mini layui-btn-danger" onclick="delete(this);">删除</button>' +
+                            '</td></tr>';
+                        $("#admin_table_body").append(html);
+                    })
+                });
+            }
+        });
+    });
+    function edit(obj) {
+        var id = $(obj).parent().parent().attr('data-id');
+        var url = "{:url('user/admin/edit')}?id="+id;
+        openLayer("编辑用户",url,"600px","484px")
+    }
+</script>
