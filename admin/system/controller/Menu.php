@@ -26,6 +26,10 @@ class Menu extends HomeLogin{
         return $this->fetch('index');
     }
 
+    public function test(){
+        dump(\admin\common\model\Menu::model()->getMenu());
+    }
+
     public function getMenu(){
         Result::rep(\admin\common\model\Menu::model()->getMenuTree());
     }
