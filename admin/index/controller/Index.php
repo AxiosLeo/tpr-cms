@@ -19,7 +19,7 @@ class Index extends HomeLogin {
 //        dump($result);
 //        \MongoClient::class;
 //        dump($result);
-//        $this->assign('menu',$this->menu());
+        $this->assign('menu',$this->menu());
         return $this->fetch('index');
     }
 
