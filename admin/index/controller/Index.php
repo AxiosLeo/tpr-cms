@@ -9,10 +9,17 @@
 namespace admin\index\controller;
 
 use admin\common\controller\HomeLogin;
+use axios\tpr\service\MongoService;
 
 class Index extends HomeLogin {
     public function index(){
-        $this->assign('menu',$this->menu());
+//        $test = MongoService::name('test')->select();
+//        dump($test);
+//        $result = MongoService::checkConnect();
+//        dump($result);
+//        \MongoClient::class;
+//        dump($result);
+//        $this->assign('menu',$this->menu());
         return $this->fetch('index');
     }
 
