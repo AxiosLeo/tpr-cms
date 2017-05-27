@@ -9,7 +9,7 @@
 namespace app\common\controller;
 
 use axios\tpr\controller\ApiBase;
-use axios\tpr\service\GlobalService;
+//use axios\tpr\service\GlobalService;
 use axios\tpr\service\LangService;
 use axios\tpr\service\UserService;
 use think\Validate;
@@ -67,7 +67,7 @@ class ApiLogin extends ApiBase{
         if(is_int($result)){
             $this->wrong($result);
         }
-        GlobalService::set('users_token',$token);
+//        GlobalService::set('users_token',$token);
         $this->user = $result;
 
         UserService::updateTokenExpire($token);
