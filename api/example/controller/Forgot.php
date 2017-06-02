@@ -22,7 +22,10 @@ class Forgot extends Api{
      * @a int test2
      * @single int a
      * @single a
-     * @singleString test
+     * @singleString a;
+     * @singleString b;
+     * @singleString c;
+     * @singleString d
      */
     public function index(){
         $username = $this->param['username'];

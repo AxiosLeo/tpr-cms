@@ -14,16 +14,16 @@ use axios\tpr\service\MongoService;
 
 class Index extends HomeLogin {
     public function index(){
-//        $doc = ApiDocService::dir(ROOT_PATH."api")->doc();
-//        dump($doc);
+        $doc = ApiDocService::dir(ROOT_PATH."api")->doc();
+        dump($doc);
 //        $test = MongoService::name('test')->select();
 //        dump($test);
 //        $result = MongoService::checkConnect();
 //        dump($result);
 //        \MongoClient::class;
 //        dump($result);
-        $this->assign('menu',$this->menu());
-        return $this->fetch('index');
+//        $this->assign('menu',$this->menu());
+//        return $this->fetch('index');
     }
 
     public function main(){
