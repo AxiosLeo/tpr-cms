@@ -10,10 +10,20 @@
 namespace api\example\controller;
 
 use axios\tpr\core\Api;
-use app\example\service\LoginService;
+use api\example\service\LoginService;
 use think\Db;
 
 class Forgot extends Api{
+    /**
+     * @title 忘记密码
+     * @parameter string username 用户名
+     * @parameter string password 密码
+     * @a string test
+     * @a int test2
+     * @single int a
+     * @single a
+     * @singleString test
+     */
     public function index(){
         $username = $this->param['username'];
         $password = $this->param['password'];

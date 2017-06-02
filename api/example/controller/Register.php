@@ -9,7 +9,7 @@
 
 namespace api\example\controller;
 
-use app\example\service\LoginService;
+use api\example\service\LoginService;
 use axios\tpr\core\Api;
 use think\Db;
 

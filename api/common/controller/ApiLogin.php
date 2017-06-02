@@ -15,6 +15,12 @@ use think\Validate;
 use think\Request;
 use think\Config;
 
+/**
+ * Class ApiLogin
+ * @package api\common\controller
+ * @function string commonFilter adf
+ * @function string commonFilter
+ */
 class ApiLogin extends Api{
     protected $user ;
 

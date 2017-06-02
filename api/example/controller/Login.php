@@ -10,7 +10,7 @@ namespace api\example\controller;
 
 use axios\tpr\core\Api;
 use api\example\model\UserModel;
-use app\example\service\LoginService;
+use api\example\service\LoginService;
 
 class Login extends Api{
     public function index(){
