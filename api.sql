@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-06-06 15:09:24
+Date: 2017-06-06 15:59:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', null, null, '0', null, null, '/uploads/images/20170606/4a46df65477d88398b8a06c5467dc0e0.png', null, '', '192.168.1.221', '1496728420', '07586ed58459501e74b953ec77cf5c2a');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', null, null, '0', null, null, '/static/images/user.jpg', null, '', '192.168.1.221', '1496728420', '07586ed58459501e74b953ec77cf5c2a');
 
 -- ----------------------------
 -- Table structure for api_app
