@@ -29,8 +29,7 @@ class HomeLogin extends HomeBase{
         /***
          * redis token 单点登录
          * 因为有很多人不会用redis
-         * 所以这段用redis进行token判断的代码去掉
-         * 想
+         * 所以这段用redis进行token判断的代码暂时去掉
          ***/
 //        $token = RedisService::redis()->switchDB(1)->get("admin_login_token".$this->user['username']);
 //

@@ -7,66 +7,75 @@
         </header>
         <!-- /header -->
         <div class="larry-personal-body clearfix">
-            <form class="layui-form col-lg-5" action="{:url('user/profile/update')}" method="post">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title"  autocomplete="off"  class="layui-input layui-disabled" value="admin" disabled="disabled" >
+            <form id="profile_form" class="layui-form" action="{:url('user/profile/update')}" method="post">
+                <div class="col-lg-5">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <img id="avatar" src="{$user['avatar']?$user['avatar']:'/static/images/avatar.png'}" style="width: 250px;" class="img-responsive" alt="Responsive image">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">修改头像</label>
+                        <div class="layui-input-block">
+                            <input type="file" lay-type="file" name="avatar" class="layui-upload-file">
+                            <input id="avatar-input" type="hidden" name="avatar" value="">
+                        </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">所属角色</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="username"  autocomplete="off" class="layui-input layui-disabled" value="超级管理员" disabled="disabled">
+                <div class="col-lg-5">
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="username" name="username"  autocomplete="off"  class="layui-input layui-disabled" value="{$user['username']}" disabled="disabled" >
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">真实姓名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="username"  autocomplete="off" class="layui-input" value="Larry">
+                    <div class="layui-form-item">
+                        <label for="role_name" class="layui-form-label">所属角色</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="role_name"  autocomplete="off" class="layui-input layui-disabled" value="{$role_name}" disabled="disabled">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">手机号码</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="username"  autocomplete="off" class="layui-input" placeholder="输入手机号码">
+                    <div class="layui-form-item">
+                        <label for="realname" class="layui-form-label">真实姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="realname" name="realname" autocomplete="off" class="layui-input" value="{$user['realname']}">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男" checked=""><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><span>男</span></div>
-                        <input type="radio" name="sex" value="女" title="女"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>女</span></div>
+                    <div class="layui-form-item">
+                        <label for="mobile" class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="mobile" name="mobile"  autocomplete="off" class="layui-input" value="{$user['mobile']}" placeholder="输入手机号码">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">修改头像</label>
-                    <div class="layui-input-block">
-                        <input type="file" lay-type="file" name="file" class="layui-upload-file">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            {php}$sex = [0=>"",1=>""];$sex[$user['sex']]="checked";{/php}
+                            <input type="radio" name="sex" value="0" title="男" {$sex[0]}><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><span>男</span></div>
+                            <input type="radio" name="sex" value="1" title="女" {$sex[1]}><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>女</span></div>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">界面语言</label>
-                    <div class="layui-input-block">
-                        <select name="interest" lay-filter="aihao">
-                            <option value=""></option>
-                            <option value="0" selected="selected">中文</option>
-                            <option value="1">英文</option>
-                        </select>
+                    <div class="layui-form-item">
+                        <label for="lang" class="layui-form-label">界面语言</label>
+                        <div class="layui-input-block">
+                            <select id="lang" name="lang" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0" selected="selected">中文</option>
+                                <option value="1">英文</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">座右铭</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" value="" class="layui-textarea"></textarea>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">座右铭</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" class="layui-textarea">{$user['motto']}</textarea>
+                        </div>
                     </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button id="upload" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -74,7 +83,7 @@
     </div>
 </section>
 <script type="text/javascript">
-    layui.use(['form','upload'],function(){
+    layui.use(['form','upload','layer'],function(){
         layui.upload({
             url: '{:url("user/profile/avatar")}' ,//上传接口
             method:'post',
@@ -86,9 +95,22 @@
             },
             success: function(res,input){
                 //上传成功后的回调
+                console.log(res);
+                if(res.code!=="200"){
+                    layer.msg(res.message, {icon: 2, time: 1500});
+                }else{
+                    layer.msg(res.message, {icon: 1, time: 1500});
+                    $("#avatar").attr('src',res.data);
+                    $("#avatar-input").attr('value',res.data);
+                }
                 console.log(res.data);
                 console.log(input.value);
             }
         });
+    });
+    $("#upload").click(function () {
+        submitForm("#profile_form",false);
+        console.log('test');
+        return false;
     });
 </script>

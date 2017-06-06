@@ -8,7 +8,7 @@
  */
 return [
     // 应用调试模式
-    'app_debug'              => \think\Env::get('debug.status'),
+    'app_debug'              => \think\Env::get('global.debug'),
     // 异常处理handle类 留空使用
     'exception_handle'       => '\\axios\\tpr\\core\\Http',
 

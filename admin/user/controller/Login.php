@@ -41,7 +41,7 @@ class Login extends HomeBase{
             $this->error("验证码不正确",captcha_src());
         };
 
-        $user = Db::name('admin')->where('username',$username)->field('id,username,password,security_id,role_id')->find();
+        $user = Db::name('admin')->where('username',$username)->find();
         if(empty($user)){
             $this->error("用户不存在",captcha_src());
         }
@@ -69,7 +69,7 @@ class Login extends HomeBase{
 
     public function checkIp(){
         $this->ip = get_client_ip();
-        $env_allow_ip = Env::get("auth.allow_ip");
+        $env_allow_ip = Env::get("web.allow_ip","0.0.0.0");
 
         $allow_ip = explode(',',$env_allow_ip);
 

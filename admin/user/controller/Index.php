@@ -9,12 +9,12 @@
 namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
+use think\Db;
 
 class Index extends HomeLogin{
     public function profile(){
-        if($this->request->isPost()){
-            $this->error("error");
-        }
+        $role = Db::name('role')->where('id',$this->user['role_id'])->find();
+        $this->assign('role_name',$role['role_name']);
         return $this->fetch('profile');
     }
 
@@ -22,7 +22,6 @@ class Index extends HomeLogin{
         if($this->request->isPost()){
             $this->error(json_encode($this->param));
         }
-
         return $this->fetch('password');
     }
 }
