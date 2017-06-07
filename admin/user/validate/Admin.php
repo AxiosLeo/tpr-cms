@@ -17,7 +17,10 @@ class Admin extends Validate{
         'email'    => ['regex:/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/'],
 
         'username' => ['require','length:5,32','regex:/^([a-z]|[0-9])*$/i'],
-        'password' => ['require','length:6,24','regex:/^([a-z]|[0-9])*$/i']
+        'password' => ['require','length:6,24','regex:/^([a-z]|[0-9])*$/i'],
+
+        'realname' => ['require','length:2,32'],
+        'nickname' => ['require','length:2,32']
     ];
 
     protected $message = [
@@ -31,11 +34,18 @@ class Admin extends Validate{
         'email.regex'=>'邮箱格式不正确',
         'password.require'=>"请输入用户密码",
         'password.length'=>'用户密码只能在6~24位之间',
-        'password.regex'=>'密码只能由数字和字母组成'
+        'password.regex'=>'密码只能由数字和字母组成',
+
+        'realname.require'=>'请输入真实姓名',
+        'realname.length'=>'姓名长度需在2~32位之间',
+        'nickname.require'=>'请输入昵称',
+        'nickname.length'=>'昵称长度需在2~32位之间',
     ];
 
     protected $scene = [
         'add'    =>['role_id','username','password','mobile','email'],
-        'update' =>['role_id','username','mobile','email']
+        'update' =>['role_id','username','mobile','email'],
+        'profile'=>['realname','mobile'],
+        'password'=>['password']
     ];
 }

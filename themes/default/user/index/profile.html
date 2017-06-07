@@ -18,7 +18,7 @@
                         <label class="layui-form-label">修改头像</label>
                         <div class="layui-input-block">
                             <input type="file" lay-type="file" name="avatar" class="layui-upload-file">
-                            <input id="avatar-input" type="hidden" name="avatar" value="">
+                            <input id="avatar-input" type="hidden" name="avatar" value="{$user['avatar']}">
                         </div>
                     </div>
                 </div>
@@ -55,20 +55,10 @@
                             <input type="radio" name="sex" value="1" title="女" {$sex[1]}><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>女</span></div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label for="lang" class="layui-form-label">界面语言</label>
-                        <div class="layui-input-block">
-                            <select id="lang" name="lang" lay-filter="aihao">
-                                <option value=""></option>
-                                <option value="0" selected="selected">中文</option>
-                                <option value="1">英文</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">座右铭</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" class="layui-textarea">{$user['motto']}</textarea>
+                            <textarea name="motto" placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" class="layui-textarea">{$user['motto']}</textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -107,10 +97,5 @@
                 console.log(input.value);
             }
         });
-    });
-    $("#upload").click(function () {
-        submitForm("#profile_form",false);
-        console.log('test');
-        return false;
     });
 </script>

@@ -9,15 +9,26 @@
 namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
+use admin\user\service\AdminService;
 use axios\tpr\core\Result;
 use axios\tpr\service\ToolService;
 use think\Db;
-use think\Session;
 
 class Profile extends HomeLogin {
     public function update(){
         if($this->request->isPost()){
-            $this->error('aaa','',$this->param);
+            $Validate = new \admin\user\validate\Admin();
+            if(!$Validate->scene('profile')->check($this->param)){
+                $this->error($Validate->getError());
+            }
+            $this->param['update_at'] = time();
+            $result = Db::name('admin')->where('id',$this->user['id'])->update($this->param);
+            if($result){
+                $this->user = AdminService::getSessionInfo($this->user['id']);
+                $this->success('操作成功');
+            }else{
+                $this->error('操作失败');
+            }
         }
         $this->error("error");
     }
@@ -36,22 +47,10 @@ class Profile extends HomeLogin {
             $pathname = $info->getPathname();
             $pathname = substr($pathname,strpos($pathname,"uploads"));
             $user = user_info();
-//            $data = [
-//                'file_ext'=>$info->getExtension(),
-//                'save_name'=>$info->getSaveName(),
-//                'file_name'=>$info->getFilename(),
-//                'file_path'=>$info->getPath(),
-//                'file_pathname'=>$pathname,
-//                'user'=>$user
-//            ];
             $user['avatar'] = '/'.$pathname;
-//            Db::name('admin')->where('id',$user['id'])->update($user);
-//            Session::set('user',$user);
             Result::rep($user['avatar']);
-//            $this->success($pathname);
         }else{
             Result::wrong(500,$file->getError());
-//            $this->error($file->getError());
         }
     }
 }

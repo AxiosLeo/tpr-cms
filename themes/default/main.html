@@ -19,11 +19,15 @@
 <body>
 {__CONTENT__}
 <script type="text/javascript">
-    function submitForm(id,jump_to) {
+    $(".layui-form").submit(function () {
+        submitForm(".layui-form");
+        return false;
+    });
+    function submitForm(id,jump_to,is_parent,alert) {
         var form = $(id);
         var url = form.attr('action');
         var obj = serializeForm(id);
-        postSomething(url,obj,jump_to);
+        postSomething(url,obj,jump_to,is_parent,alert);
         return false;
     }
 
@@ -37,7 +41,7 @@
         return params;
     }
 
-    function postSomething(url,obj,jump_to,alert) {
+    function postSomething(url,obj,jump_to,is_parent,alert) {
         $.ajax({
             type: "POST",
             url:url,
@@ -50,11 +54,15 @@
                 }
                 if(res.code === 1){
                     parent.$(".layui-layer-close").click();
-                    parent.layer.msg(res.msg, {icon: 1, time: 1000},function(index){
+                    parent.layer.msg(res.msg, {icon: 1, time: 1500},function(index){
                         if(jump_to===undefined){
                             window.location.reload();
                         }else if(jump_to!==false){
-                            window.location.href = jump_to;
+                            if(is_parent===true){
+                                parent.location.href = res.url;
+                            }else{
+                                window.location.href = res.url;
+                            }
                         }
                         layer.close(index);
                     });

@@ -36,10 +36,10 @@
         <input type="button" value="立即登陆" class="submit_btn"/>
     </div>
     <div class="layui-login-text">
-        <p>© 2017-2017 流水无痕</p>
+        <p>© 2017 流水无痕</p>
         <p>
-            <a href="http://www.qinshouwei.com" title="">后台模板 larryCms</a> |
-            <a href="http://www.hanxv.cn" title="">个人博客</a>
+            <a href="http://www.qinshouwei.com" title="" target="_blank">后台模板 larryCms</a> |
+            <a href="https://www.hanxv.cn" title="" target="_blank">个人博客</a>
         </p>
     </div>
 </div>
@@ -48,12 +48,13 @@
 <script type="text/javascript" src="/static/jsplug/jparticle.jquery.js"></script>
 <script type="text/javascript">
     $(function(){
+        var open_layer = 0;
         $(".layui-canvs").jParticle({
             background: "#141414",
             color: "#E6E6E6"
         });
         $(".login_txtbx").keypress(function (res) {
-                if(res.keyCode === 13){
+                if(res.keyCode === 13 && open_layer===0){
                     $('.submit_btn').click();
                 }
             }
@@ -68,6 +69,7 @@
 
             $.post(url,{username:username,password:password,verify:verify},function (res) {
                 if(!res.code){
+                    open_layer = 1;
                     layer.alert(res.msg, {
                         skin: 'layui-layer-molv' //样式类名
                         ,closeBtn: 0
@@ -75,6 +77,7 @@
                     }, function(index){
                         $(".layui-code-box .login_txtbx").val("");
                         $("#captcha").attr('src',res.url);
+                        open_layer = 0;
                         layer.close(index);
                     });
                 }else{
