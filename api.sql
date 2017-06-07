@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-06-06 15:59:13
+Date: 2017-06-07 10:11:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,13 +36,15 @@ CREATE TABLE `api_admin` (
   `last_login_ip` varchar(30) DEFAULT NULL,
   `last_login_time` varchar(15) DEFAULT NULL,
   `token` varchar(50) DEFAULT NULL,
+  `created_at` varchar(20) NOT NULL,
+  `update_at` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', null, null, '0', null, null, '/static/images/user.jpg', null, '', '192.168.1.221', '1496728420', '07586ed58459501e74b953ec77cf5c2a');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', 'c0c98c4b422a4267e15c91f4c7b3bfb6', '11', null, '1', '13312345679', null, '/static/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1496801424', 'a32d8574026924ad7f6904267d951f4d', '', '1496800930');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -141,7 +143,6 @@ INSERT INTO `api_menu` VALUES ('11', null, 'icon-zhandianguanli1', '接口管理
 INSERT INTO `api_menu` VALUES ('12', null, 'icon-anquanshezhi', '安全设置', '9', 'system', 'security', 'index', '30', '0', '1495441894');
 INSERT INTO `api_menu` VALUES ('13', null, 'icon-quanxian2', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', null);
 INSERT INTO `api_menu` VALUES ('14', null, 'icon-iconfuzhi01', '系统日志', '9', 'system', 'log', 'index', '50', '0', '1495441886');
-INSERT INTO `api_menu` VALUES ('15', null, 'icon-youqinglianjie', '导航设置', '9', 'system', 'nav', 'index', '10', '0', '1495441879');
 
 -- ----------------------------
 -- Table structure for api_nav
