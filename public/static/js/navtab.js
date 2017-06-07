@@ -74,7 +74,7 @@ layui.define(['element'], function(exports){
 			    var $em = $(this).children('em');
 			    if($em.text() === title) {
 				      tabIndex = i;
-			    };
+			    }
 		    });
 		    return tabIndex;
         };
