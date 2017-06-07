@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-06-07 10:11:55
+Date: 2017-06-07 16:59:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -129,20 +129,20 @@ CREATE TABLE `api_menu` (
 -- ----------------------------
 -- Records of api_menu
 -- ----------------------------
-INSERT INTO `api_menu` VALUES ('1', null, 'icon-home1', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '1495530800');
-INSERT INTO `api_menu` VALUES ('2', null, 'icon-jiaoseguanli', '我的面板', '0', 'user', 'panel', 'default', '1', '0', null);
-INSERT INTO `api_menu` VALUES ('3', null, 'icon-geren1', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '1495441680');
-INSERT INTO `api_menu` VALUES ('4', null, 'icon-iconfuzhi01', '修改密码', '2', 'user', 'index', 'password', '1', '0', null);
-INSERT INTO `api_menu` VALUES ('5', null, 'icon-piliangicon', '日志信息', '2', 'user', 'log', 'index', '2', '0', null);
-INSERT INTO `api_menu` VALUES ('6', null, 'icon-jiaoseguanli2', '用户管理', '0', 'user', 'admin', 'default', '2', '0', null);
-INSERT INTO `api_menu` VALUES ('7', null, 'icon-yonghu1', '用户列表', '6', 'user', 'admin', 'index', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('8', null, 'icon-jiaoseguanli4', '角色列表', '6', 'user', 'role', 'index', '0', '0', '1495441686');
-INSERT INTO `api_menu` VALUES ('9', null, 'icon-xitong', '系统设置', '0', 'system', 'setting', 'default', '3', '0', null);
-INSERT INTO `api_menu` VALUES ('10', null, 'icon-zhandianpeizhi', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '1495441890');
-INSERT INTO `api_menu` VALUES ('11', null, 'icon-zhandianguanli1', '接口管理', '9', 'system', 'api', 'index', '20', '0', '1495441898');
-INSERT INTO `api_menu` VALUES ('12', null, 'icon-anquanshezhi', '安全设置', '9', 'system', 'security', 'index', '30', '0', '1495441894');
-INSERT INTO `api_menu` VALUES ('13', null, 'icon-quanxian2', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('14', null, 'icon-iconfuzhi01', '系统日志', '9', 'system', 'log', 'index', '50', '0', '1495441886');
+INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '1495530800');
+INSERT INTO `api_menu` VALUES ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', null);
+INSERT INTO `api_menu` VALUES ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '1495441680');
+INSERT INTO `api_menu` VALUES ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', null);
+INSERT INTO `api_menu` VALUES ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', null);
+INSERT INTO `api_menu` VALUES ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', null);
+INSERT INTO `api_menu` VALUES ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '1495441686');
+INSERT INTO `api_menu` VALUES ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', null);
+INSERT INTO `api_menu` VALUES ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '1495441890');
+INSERT INTO `api_menu` VALUES ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '1495441898');
+INSERT INTO `api_menu` VALUES ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '1495441894');
+INSERT INTO `api_menu` VALUES ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '1495441886');
 
 -- ----------------------------
 -- Table structure for api_nav

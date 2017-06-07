@@ -12,7 +12,7 @@
             {php}$selected = $m['module']==$module?"layui-this":"";{/php}
             <li class="layui-nav-item {$selected}">
                 <a href="javascript:void(0);" data-url="main.html">
-                    <i class="iconfont {$m['icon']}" data-icon='icon-home1'></i>
+                    <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
                     <span>{$m['title']}</span>
                 </a>
                 {php}$sub = $m['sub'];if(!empty($sub)){{/php}
@@ -21,7 +21,7 @@
                     {php}$url = url($s['module']."/".$s['controller']."/".$s['func']);{/php}
                     <dd>
                         <a href="javascript:void(0);" data-url="{$url}">
-                            <i class="iconfont {$s['icon']}" data-icon="{$s['icon']}"></i>
+                            <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
                             <span>{$s['title']}</span>
                         </a>
                     </dd>

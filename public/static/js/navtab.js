@@ -93,11 +93,12 @@ layui.define(['element'], function(exports){
 			    var title = '';
 			    // 若icon有定义
 			    if(data.icon !== undefined){
-                    if(data.icon.indexOf('icon-') !== -1) {
-					    title += '<i class="iconfont ' + data.icon + '"></i>';
-				    } else {
-				    	title += '<i class="layui-icon ">' + data.icon + '</i>';
-				    }
+                    title += '<i class="' + data.icon + '"></i>';
+                    // if(data.icon.indexOf('icon-') !== -1) {
+					 //    title += '<i class="iconfont ' + data.icon + '"></i>';
+				    // } else {
+				    // 	title += '<i class="layui-icon ">' + data.icon + '</i>';
+				    // }
 			    }
 			    title += '<em>' + data.title + '</em>';
 			    if(_this.config.closed) {
