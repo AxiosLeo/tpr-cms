@@ -25,5 +25,9 @@ define('CONF_PATH', ROOT_PATH.'config/');
 define('RUNTIME_PATH', ROOT_PATH . 'runtime/admin/');
 define('APP_NAMESPACE','admin');
 
+// 加载公共语言包
+require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
+\think\Lang::load(CONF_PATH.'lang'.DIRECTORY_SEPARATOR);
+
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';

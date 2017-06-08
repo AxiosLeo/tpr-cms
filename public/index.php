@@ -18,10 +18,15 @@ define('CONF_PATH', ROOT_PATH.'config/');
 define('RUNTIME_PATH', ROOT_PATH . 'runtime/api/');
 define('APP_NAMESPACE','api');
 
+// 加载TPR-Behavior
 require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Hook.php";
 \think\Hook::add('app_init' ,'axios\\tpr\\behavior\\AppInit');
 \think\Hook::add('action_begin' ,'axios\\tpr\\behavior\\ActionBegin');
 \think\Hook::add('app_end' ,'axios\\tpr\\behavior\\AppEnd');
+
+// 加载公共语言包
+require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
+\think\Lang::load(CONF_PATH.'lang'.DIRECTORY_SEPARATOR);
 
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
