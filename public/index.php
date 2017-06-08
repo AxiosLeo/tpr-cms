@@ -28,5 +28,8 @@ require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."libra
 require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
 \think\Lang::load(CONF_PATH.'lang'.DIRECTORY_SEPARATOR);
 
+//引入公共方法文件
+include_once CONF_PATH.'common.php';
+
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
