@@ -54,17 +54,13 @@
                     return false;
                 }
                 if(res.code === 1){
-                    parent.$(".layui-layer-close").click();
                     parent.layer.msg(res.msg, {icon: 1, time: 1500},function(index){
-                        if(jump_to===undefined){
-                            window.location.reload();
+                        if(jump_to===undefined || jump_to===true){
+                            is_parent?parent.location.reload():window.location.reload();
                         }else if(jump_to!==false){
-                            if(is_parent===true){
-                                parent.location.href = res.url;
-                            }else{
-                                window.location.href = res.url;
-                            }
+                            is_parent?parent.location.href = res.url:window.location.href = res.url;
                         }
+                        parent.$(".layui-layer-close").click();
                         layer.close(index);
                     });
                 }else{
