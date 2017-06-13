@@ -7,19 +7,16 @@
 
 > 交流QQ群：521797692
 
-## 完整案例
-> [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
+## 简介
+> 本实例为后台管理系统版,默认分支是1.0-beta 
 
 ## 框架核心代码
 > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
 
->  composer require axios/tpr:dev-master
+> composer require axios/tpr:^1.1
 
 ## 文档地址
-> [看云：《TPR接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
-
-## 项目简介
-> [个人博客：《基于thinkphp5的restful接口框架---TPR》](https://hanxv.cn/archives/88.html)
+> [看云：《TPR1.0接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
 
 ## 所需环境
 * php7.0+ , 并且要以fast_cgi模式运行
@@ -64,8 +61,6 @@ vim .env
 
 * 接口文档(根据代码注释自动生成)
 ![apidoc.png](https://www.hanxv.cn/usr/uploads/2017/05/2925496754.png)
-
-
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
