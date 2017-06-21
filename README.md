@@ -12,7 +12,7 @@
 
 ### 2.0版
 > github分支： master
-> [看云：《TPR2.0接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr2)
+> [看云：《TPR2.0接口开发文档》](http://www.kancloud.cn/axios/tpr2)
 
 ## 所需环境
 * php7.0+ , 并且要以fast_cgi模式运行
