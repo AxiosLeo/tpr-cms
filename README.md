@@ -1,19 +1,13 @@
-基于thinkphp5的restful接口框架---TPR
+基于TPR的后台管理系统
 ===============
 
-> 基于thinkphp5的restful设计风格的接口框架。
-
-> 专为接口开发而设计
-
-> 交流QQ群：521797692
-
-## 完整案例
-> [AxiosCros/thinkphp5-restfulapi](https://github.com/AxiosCros/thinkphp5-restfulapi.git)
-
-## 框架核心代码
+## TPR框架代码地址
 > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
 
->  composer require axios/tpr:dev-master
+## 当前后台系统版本
+
+### 1.0+版
+> [看云：《TPR1.0接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
 
 ## 文档地址
 > [看云：《TPR接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
