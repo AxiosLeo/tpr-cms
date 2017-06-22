@@ -2,7 +2,11 @@
 ===============
 
 ## TPR框架代码地址
+* github
 > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
+
+* oschina
+> [http://git.oschina.net/AxiosCro/tpr-composer](http://git.oschina.net/AxiosCro/tpr-composer)
 
 ## 后台系统版本
 
@@ -39,7 +43,12 @@
 
 ## 安装
 ``` shell
+#github
 git clone https://github.com/AxiosCros/tpr-cms.git
+
+#oschina
+git clone https://git.oschina.net/AxiosCro/tpr-cms.git
+
 cd tpr-cms
 composer install
 
