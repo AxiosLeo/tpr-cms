@@ -15,6 +15,7 @@ use think\Config;
 use think\Db;
 use think\Session;
 use think\Env;
+use think\Cache;
 
 class Login extends HomeBase{
     private $ip;
@@ -60,9 +61,9 @@ class Login extends HomeBase{
         Session::set('user',$user);
 
         /*** 单点登录，记录token ***/
-//        $setting_token = Config::get('setting.token');
-//        $expire = isset($setting_token['token_expire'])?$setting_token['token_expire']:36000;
+        $expire = intval(Config::get('web.token',172800));
 //        RedisService::redis()->switchDB(1)->set("admin_login_token".$user['username'],$user['token'],$expire);
+        Cache::set("admin_login_token".$user['username'],$user['token'],$expire);
 
         $this->success("操作成功",'/admin.php');
     }

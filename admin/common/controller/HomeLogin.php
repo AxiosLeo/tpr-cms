@@ -8,9 +8,10 @@
  */
 namespace admin\common\controller;
 
-use axios\tpr\service\RedisService;
-use think\Env;
+//use axios\tpr\service\RedisService;
 use think\Request;
+use think\Cache;
+use think\Env;
 
 class HomeLogin extends HomeBase{
     protected $user;
@@ -32,12 +33,15 @@ class HomeLogin extends HomeBase{
          * 所以这段用redis进行token判断的代码暂时去掉
          ***/
 //        $token = RedisService::redis()->switchDB(1)->get("admin_login_token".$this->user['username']);
-//
-//        if($token!=$this->user['token']){
-//            $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
-//        }else{
-//            $expire = Env::get('web.token',172800);
+        $token_key = "admin_login_token".$this->user['username'];
+        $token = Cache::get($token_key,'');
+
+        if($token!=$this->user['token']){
+            $this->error("您的账号已在其它地方登陆",url("user/login/logout"));
+        }else{
+            $expire = intval(Env::get('web.token',172800));
+            Cache::set($token_key,$token,$expire);
 //            RedisService::redis()->switchDB(1)->set("admin_login_token".$this->user['username'],$token,$expire);
-//        }
+        }
     }
 }
