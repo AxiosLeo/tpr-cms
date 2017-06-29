@@ -7,10 +7,10 @@
 - TPR-composer组件地址
 > 兼容thinkphp5框架，可与thinkphp5框架共存
 
-  * github
+  > github:  
   > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
 
-  * oschina
+  > oschina:  
   > [http://git.oschina.net/AxiosCro/tpr-composer](http://git.oschina.net/AxiosCro/tpr-composer)
 
 -  基于thinkphp5的修订版框架
