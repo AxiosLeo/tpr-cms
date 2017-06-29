@@ -8,10 +8,10 @@
  */
 namespace api\index\controller;
 
-use axios\tpr\core\Api;
-use axios\tpr\service\ApiDocService;
+use think\Controller;
+use think\Doc;
 
-class Index extends Api {
+class Index extends Controller {
     public function index(){
         $this->response(["hello world!"]);
     }
@@ -27,6 +27,8 @@ class Index extends Api {
     }
 
     public function apiDoc(){
-        $this->response(ApiDocService::api());
+        $dir = APP_PATH.'index';
+        Doc::config($dir);
+        $this->response(Doc::doc());
     }
 }

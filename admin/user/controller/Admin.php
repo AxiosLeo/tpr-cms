@@ -9,7 +9,6 @@
 namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
-use axios\tpr\core\Result;
 use think\Db;
 
 class Admin extends HomeLogin{
@@ -30,7 +29,7 @@ class Admin extends HomeLogin{
         foreach ($admin as &$a){
             $a['last_login_time'] = date("Y-m-d H:i:s",$a['last_login_time']);
         }
-        Result::rep($admin);
+        $this->response($admin);
     }
 
     public function edit(){

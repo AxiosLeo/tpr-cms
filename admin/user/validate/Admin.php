@@ -8,9 +8,9 @@
  */
 namespace admin\user\validate;
 
-use axios\tpr\core\Validate;
+use think\Validate;
 
-class Admin extends Validate{
+class Admin extends Validate {
     protected $rule = [
         'role_id'  => ['require'],
         'mobile'   => ['number','length:11','regex:/^1[34578]{1}\d{9}$/'],

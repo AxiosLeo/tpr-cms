@@ -13,17 +13,18 @@
 
 // 定义应用目录
 define('ROOT_PATH',__DIR__.'/../');
-define('APP_PATH', ROOT_PATH . 'admin/');
-define('CONF_PATH', ROOT_PATH.'config/');
-define('RUNTIME_PATH', ROOT_PATH . 'runtime/admin/');
-define('APP_NAMESPACE','admin');
+define('APP_PATH', ROOT_PATH  . 'admin/');
+//define('CONF_PATH', ROOT_PATH.'config/');
+define('RUNTIME_PATH', ROOT_PATH  . 'runtime/admin/');
+define('APP_NAMESPACE' , 'admin');
+define('THINK_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
 
 // 加载公共语言包
-require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
-\think\Lang::load(CONF_PATH.'lang'.DIRECTORY_SEPARATOR);
+//require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
+//\think\Lang::load(CONF_PATH.'lang'.DIRECTORY_SEPARATOR);
 
 //引入公共方法文件
-include_once CONF_PATH.'common.php';
+//include_once CONF_PATH.'common.php';
 
 // 加载框架引导文件
-require __DIR__ . '/../thinkphp/start.php';
+require THINK_PATH  . 'start.php';

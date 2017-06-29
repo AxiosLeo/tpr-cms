@@ -9,8 +9,6 @@
 namespace admin\index\controller;
 
 use admin\common\controller\HomeLogin;
-use axios\tpr\service\ApiDocService;
-use axios\tpr\service\MongoService;
 
 class Index extends HomeLogin {
     public function index(){

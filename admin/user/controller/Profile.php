@@ -10,9 +10,8 @@ namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
 use admin\user\service\AdminService;
-use axios\tpr\core\Result;
-use axios\tpr\service\ToolService;
 use think\Db;
+use think\Tool;
 
 class Profile extends HomeLogin {
     public function update(){
@@ -35,10 +34,10 @@ class Profile extends HomeLogin {
 
     public function avatar(){
         $file = $this->request->file('avatar');
-        $save_name = ToolService::uuid();
+        $save_name = Tool::uuid();
 
         if(empty($file)){
-            Result::wrong(500,"上传失败");
+            $this->wrong(500,"上传失败");
         }
         $file->setSaveName($save_name);
         $info = $file->move(ROOT_PATH."/public/uploads/images/");
@@ -48,9 +47,9 @@ class Profile extends HomeLogin {
             $pathname = substr($pathname,strpos($pathname,"uploads"));
             $user = user_info();
             $user['avatar'] = '/'.$pathname;
-            Result::rep($user['avatar']);
+            $this->response($user['avatar']);
         }else{
-            Result::wrong(500,$file->getError());
+            $this->wrong(500,$file->getError());
         }
     }
 }

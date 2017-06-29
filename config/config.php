@@ -15,6 +15,10 @@ return [
     // 是否自动转换URL中的控制器和操作名
     'url_convert'            => false,
 
+    'admin'=>[
+        'themes'=>'default'
+    ],
+
     'log'                    => [
         // 日志记录方式，内置 file socket 支持扩展
         'type'  => 'File',

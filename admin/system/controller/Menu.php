@@ -31,7 +31,7 @@ class Menu extends HomeLogin{
     }
 
     public function getMenu(){
-        Result::rep(\admin\common\model\Menu::model()->getMenuTree());
+        $this->response(\admin\common\model\Menu::model()->getMenuTree());
     }
 
     public function updateMenu(){
@@ -83,6 +83,6 @@ class Menu extends HomeLogin{
             'pages'=>$pages,
             'limit'=>$limit
         ];
-        Result::rep($req);
+        $this->response($req);
     }
 }

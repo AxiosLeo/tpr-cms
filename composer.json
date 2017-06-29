@@ -19,10 +19,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "topthink/framework": "^5.0",
         "topthink/think-captcha": "^1.0",
-        "php-ai/php-ml": "^0.4.1",
-        "axios/tpr": "^2.1"
+        "axios/tpr-framework": "dev-master"
     },
     "extra": {
         "think-path": "thinkphp"

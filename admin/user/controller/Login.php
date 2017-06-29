@@ -16,6 +16,7 @@ use think\Db;
 use think\Session;
 use think\Env;
 use think\Cache;
+use think\Tool;
 
 class Login extends HomeBase{
     private $ip;
@@ -52,7 +53,7 @@ class Login extends HomeBase{
             $this->error('密码错误！'.$password,captcha_src());
         }
 
-        $user['token'] = ToolService::token();
+        $user['token'] = Tool::uuid();
         $user['last_login_ip'] = $this->ip;
         $user['last_login_time'] = time();
         Db::name('admin')->where('id',$user['id'])->update($user);
@@ -69,7 +70,7 @@ class Login extends HomeBase{
     }
 
     public function checkIp(){
-        $this->ip = get_client_ip();
+        $this->ip = Tool::getClientIp();
         $env_allow_ip = Env::get("web.allow_ip","0.0.0.0");
 
         $allow_ip = explode(',',$env_allow_ip);

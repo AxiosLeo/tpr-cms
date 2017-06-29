@@ -9,7 +9,6 @@
 namespace admin\user\controller;
 
 use admin\common\controller\HomeLogin;
-use axios\tpr\core\Result;
 use think\Db;
 
 class Role extends HomeLogin{
@@ -30,6 +29,6 @@ class Role extends HomeLogin{
             $r['admin_number'] = Db::name('admin')->where('role_id',$r['id'])->count();
         }
 
-        Result::rep($roles);
+        $this->response($roles);
     }
 }
