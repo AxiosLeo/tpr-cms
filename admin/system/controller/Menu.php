@@ -9,7 +9,6 @@
 namespace admin\system\controller;
 
 use admin\common\controller\HomeLogin;
-use axios\tpr\core\Result;
 use think\Db;
 
 class Menu extends HomeLogin{
