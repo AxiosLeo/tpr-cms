@@ -1,20 +1,28 @@
 基于TPR的后台管理系统
 ===============
 
-## TPR框架代码地址
-* github
-> [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
+> 交流QQ群：521797692
 
-* oschina
-> [http://git.oschina.net/AxiosCro/tpr-composer](http://git.oschina.net/AxiosCro/tpr-composer)
+## TPR核心代码
+- TPR-composer组件地址
+> 兼容thinkphp5框架，可与thinkphp5框架共存
 
-## 后台系统版本
+  * github
+  > [https://github.com/AxiosCros/tpr-composer/releases](https://github.com/AxiosCros/tpr-composer/releases)
+
+  * oschina
+  > [http://git.oschina.net/AxiosCro/tpr-composer](http://git.oschina.net/AxiosCro/tpr-composer)
+
+-  基于thinkphp5的修订版框架
+> 因为与thinkphp5官方版命名空间相同，所以不兼容不能共存。但是使用方法基本与thinkphp5相同
+
+> [https://github.com/AxiosCros/tpr-framework](https://github.com/AxiosCros/tpr-framework)
 
 ### 1.0+版
 > github分支： 1.0-beta
 > [看云：《TPR1.0接口开发框架使用文档》](http://www.kancloud.cn/axios/tpr)
 
-### 2.0版
+### 2.0版(开发中)
 > github分支： master
 > [看云：《TPR2.0接口开发文档》](http://www.kancloud.cn/axios/tpr2)
 
