@@ -21,7 +21,7 @@ class HomeLogin extends HomeBase{
         parent::__construct($request);
 
         if(!is_user_login()){
-            $this->redirect(url("user/login/index"));
+            $this->redirect("user/login/index");
         }else{
             $this->user = user_info();
             $this->assign('user',$this->user);
