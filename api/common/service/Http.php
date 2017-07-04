@@ -8,6 +8,7 @@
  */
 namespace api\common\service;
 
+use think\Response;
 use traits\controller\Jump;
 use think\exception\Handle;
 use think\Config;
@@ -23,8 +24,15 @@ class Http extends Handle{
         if(Config::get('app_debug')){
             return parent::render($e);
         }else{
-            $this->wrong(500);
+            $req['code']= "500";
+            $req['message'] = "something error";
+            $req['data'] = [];
+            $return_type = c('default_ajax_return','json');
+            if(empty($return_type)){
+                $return_type = "json";
+            }
+            Response::create($req,$return_type,"500")->send();
+            die();
         }
-        return false;
     }
 }
