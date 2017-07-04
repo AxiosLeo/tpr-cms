@@ -13,11 +13,17 @@
 
 // 定义应用目录
 define('ROOT_PATH',__DIR__.'/../');
-define('APP_PATH', ROOT_PATH  . 'admin/');
+define('APP_PATH', ROOT_PATH . 'api/');
 //define('CONF_PATH', ROOT_PATH.'config/');
-define('RUNTIME_PATH', ROOT_PATH  . 'runtime/admin/');
-define('APP_NAMESPACE' , 'admin');
+define('RUNTIME_PATH', ROOT_PATH . 'runtime/api/');
+define('APP_NAMESPACE','api');
 define('THINK_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
+
+// 加载TPR-Behavior
+//require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Hook.php";
+//\think\Hook::add('app_init' ,'axios\\tpr\\behavior\\AppInit');
+//\think\Hook::add('action_begin' ,'axios\\tpr\\behavior\\ActionBegin');
+//\think\Hook::add('app_end' ,'axios\\tpr\\behavior\\AppEnd');
 
 // 加载公共语言包
 //require_once ROOT_PATH.DIRECTORY_SEPARATOR."thinkphp".DIRECTORY_SEPARATOR."library".DIRECTORY_SEPARATOR."think".DIRECTORY_SEPARATOR."Lang.php";
