@@ -11,7 +11,7 @@ return [
         "token","sign","timestamp"
     ],
     "list"=>[
-        "index/index/index"=>300,
+        "index/index/cache"=>300,
         "test/a/index"=>30,
      ]
 ];
