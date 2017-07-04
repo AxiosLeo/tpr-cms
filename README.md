@@ -75,10 +75,10 @@ vim .env
 
 ## 访问
 * 接口
- > http://domain/index.php
+ > http://domain/api.php
  
 * 管理系统
- > http://domain/admin.php
+ > http://domain/index.php
  > admin
  > 123456
 

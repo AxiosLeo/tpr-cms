@@ -7,5 +7,7 @@
  * @datetime: 2017/6/29 15:23
  */
 return [
-    'test'=>'test'
+    'exception_handle'       => '\\api\\common\\service\\Http',
+
+    'default_ajax_return'    => 'json',
 ];
