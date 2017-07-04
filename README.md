@@ -73,5 +73,14 @@ vim .env
 
 ```
 
+## 访问
+* 接口
+ > http://domain/index.php
+ 
+* 管理系统
+ > http://domain/admin.php
+ > admin
+ > 123456
+
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
