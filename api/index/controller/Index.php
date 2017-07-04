@@ -8,13 +8,11 @@
  */
 namespace api\index\controller;
 
-use think\Config;
 use think\Controller;
 use think\Doc;
 
 class Index extends Controller {
     public function index(){
-        $test = new Test();
         $this->response(["hello world!"]);
     }
 
