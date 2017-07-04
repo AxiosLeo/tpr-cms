@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-06-07 16:59:23
+Date: 2017-07-04 17:10:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', 'c0c98c4b422a4267e15c91f4c7b3bfb6', '11', null, '1', '13312345679', null, '/static/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1496801424', 'a32d8574026924ad7f6904267d951f4d', '', '1496800930');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '11', null, '1', '13312345679', null, '/static/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1498718816', 'c558d44a9fdb0f18f9a9066dbf6c8f10', '', '1496969527');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -122,27 +122,28 @@ CREATE TABLE `api_menu` (
   `func` varchar(255) NOT NULL,
   `sort` int(11) NOT NULL,
   `show` tinyint(1) NOT NULL,
+  `menu_fast` tinyint(1) NOT NULL,
   `update_at` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_menu
 -- ----------------------------
-INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '1495530800');
-INSERT INTO `api_menu` VALUES ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', null);
-INSERT INTO `api_menu` VALUES ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '1495441680');
-INSERT INTO `api_menu` VALUES ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', null);
-INSERT INTO `api_menu` VALUES ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', null);
-INSERT INTO `api_menu` VALUES ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', null);
-INSERT INTO `api_menu` VALUES ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '1495441686');
-INSERT INTO `api_menu` VALUES ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', null);
-INSERT INTO `api_menu` VALUES ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '1495441890');
-INSERT INTO `api_menu` VALUES ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '1495441898');
-INSERT INTO `api_menu` VALUES ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '1495441894');
-INSERT INTO `api_menu` VALUES ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '1495441886');
+INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '0', '1495530800');
+INSERT INTO `api_menu` VALUES ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680');
+INSERT INTO `api_menu` VALUES ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686');
+INSERT INTO `api_menu` VALUES ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890');
+INSERT INTO `api_menu` VALUES ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898');
+INSERT INTO `api_menu` VALUES ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894');
+INSERT INTO `api_menu` VALUES ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null);
+INSERT INTO `api_menu` VALUES ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
 
 -- ----------------------------
 -- Table structure for api_nav
@@ -196,61 +197,6 @@ INSERT INTO `api_role_node` VALUES ('7', '1', '8');
 INSERT INTO `api_role_node` VALUES ('8', '1', '3');
 INSERT INTO `api_role_node` VALUES ('9', '1', '10');
 INSERT INTO `api_role_node` VALUES ('10', '1', '9');
-
--- ----------------------------
--- Table structure for api_test
--- ----------------------------
-DROP TABLE IF EXISTS `api_test`;
-CREATE TABLE `api_test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` varchar(25) DEFAULT NULL,
-  `test` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of api_test
--- ----------------------------
-INSERT INTO `api_test` VALUES ('57', '2017-03-31 11:15:39', null);
-INSERT INTO `api_test` VALUES ('58', '2017-03-31 11:15:44', null);
-INSERT INTO `api_test` VALUES ('59', '2017-03-31 11:15:44', null);
-INSERT INTO `api_test` VALUES ('60', '2017-03-31 11:15:49', null);
-INSERT INTO `api_test` VALUES ('61', '2017-03-31 11:15:54', null);
-INSERT INTO `api_test` VALUES ('62', '2017-03-31 11:15:54', null);
-INSERT INTO `api_test` VALUES ('64', '2017-03-31 11:53:01', null);
-INSERT INTO `api_test` VALUES ('65', '2017-03-31 11:53:06', null);
-INSERT INTO `api_test` VALUES ('66', '2017-03-31 11:53:16', null);
-INSERT INTO `api_test` VALUES ('67', '2017-03-31 11:53:21', null);
-INSERT INTO `api_test` VALUES ('68', '2017-03-31 11:53:26', null);
-INSERT INTO `api_test` VALUES ('69', '2017-03-31 11:53:31', null);
-INSERT INTO `api_test` VALUES ('70', '2017-03-31 11:53:36', null);
-INSERT INTO `api_test` VALUES ('71', '2017-03-31 11:53:41', null);
-INSERT INTO `api_test` VALUES ('72', '2017-03-31 11:53:51', null);
-INSERT INTO `api_test` VALUES ('73', '2017-03-31 11:53:56', null);
-INSERT INTO `api_test` VALUES ('74', '2017-03-31 11:54:01', null);
-INSERT INTO `api_test` VALUES ('75', '2017-03-31 11:54:06', null);
-INSERT INTO `api_test` VALUES ('76', '2017-03-31 11:54:11', null);
-INSERT INTO `api_test` VALUES ('77', '2017-03-31 11:54:16', null);
-INSERT INTO `api_test` VALUES ('78', '2017-03-31 11:54:26', null);
-INSERT INTO `api_test` VALUES ('79', '2017-03-31 11:54:31', null);
-INSERT INTO `api_test` VALUES ('80', '2017-03-31 11:54:36', null);
-INSERT INTO `api_test` VALUES ('81', '2017-03-31 11:54:41', null);
-INSERT INTO `api_test` VALUES ('82', '2017-03-31 11:54:46', null);
-INSERT INTO `api_test` VALUES ('83', '2017-03-31 11:54:51', null);
-INSERT INTO `api_test` VALUES ('84', '2017-03-31 11:55:01', null);
-INSERT INTO `api_test` VALUES ('85', '2017-03-31 11:55:06', null);
-INSERT INTO `api_test` VALUES ('86', '2017-03-31 11:55:11', null);
-INSERT INTO `api_test` VALUES ('87', '2017-03-31 11:55:16', null);
-INSERT INTO `api_test` VALUES ('88', '2017-03-31 11:55:21', null);
-INSERT INTO `api_test` VALUES ('89', '2017-03-31 11:55:26', null);
-INSERT INTO `api_test` VALUES ('90', '2017-03-31 11:55:36', null);
-INSERT INTO `api_test` VALUES ('91', '2017-03-31 11:55:41', null);
-INSERT INTO `api_test` VALUES ('92', '2017-03-31 11:55:46', null);
-INSERT INTO `api_test` VALUES ('93', '2017-03-31 11:55:51', null);
-INSERT INTO `api_test` VALUES ('94', '2017-03-31 11:55:56', null);
-INSERT INTO `api_test` VALUES ('95', '2017-03-31 11:56:01', null);
-INSERT INTO `api_test` VALUES ('96', '2017-03-31 11:56:11', null);
-INSERT INTO `api_test` VALUES ('97', '2017-03-31 11:56:16', null);
 
 -- ----------------------------
 -- Table structure for api_users
