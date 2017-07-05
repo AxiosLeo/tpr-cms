@@ -4,7 +4,6 @@
 <script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
 <section class="layui-larry-box">
     <div class="larry-personal">
-        {php}$url = u('system','api','index');{/php}
         <table class="easyui-datagrid" title="接口管理"
                data-options="singleSelect:true,method:'post',fitColumns:true,toolbar:'#tb'">
             <thead>
@@ -57,17 +56,5 @@
             {/foreach}
             </tbody>
         </table>
-        <div id="tb" style="height:auto">
-            <div>
-                接口分类:
-                <select class="easyui-combobox" panelHeight="auto">
-                    <option value="0">所有</option>
-                    <option value="info">info</option>
-                    <option value="debug">debug</option>
-                    <option value="error">error</option>
-                </select>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
-            </div>
-        </div>
     </div>
 </section>
