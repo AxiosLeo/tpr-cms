@@ -18,6 +18,8 @@ use think\Doc;
 class Index extends Controller {
     /**
      * hello world
+     * @desc example
+     * @method get
      */
     public function index(){
         $this->response(["hello world!"]);
@@ -25,6 +27,8 @@ class Index extends Controller {
 
     /**
      * send $name
+     * @desc example
+     * @method post|get
      */
     public function needName(){
         $this->response(["name"=>$this->param['name']]);
@@ -32,6 +36,8 @@ class Index extends Controller {
 
     /**
      * example for cache
+     * @desc example
+     * @method get
      */
     public function cache()
     {
@@ -41,6 +47,8 @@ class Index extends Controller {
 
     /**
      * get doc
+     * @desc example
+     * @method get
      */
     public function apiDoc(){
         $dir = APP_PATH.'index';
