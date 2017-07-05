@@ -29,3 +29,10 @@ function getLastUrl(){
 function make_password($password,$auth=''){
     return md5($auth.$password);
 }
+
+if (!function_exists('data')) {
+    function data($array, $index, $default = '')
+    {
+        return isset($array[$index]) ? $array[$index] : $default;
+    }
+}

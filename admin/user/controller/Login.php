@@ -66,7 +66,7 @@ class Login extends HomeBase{
 //        RedisService::redis()->switchDB(1)->set("admin_login_token".$user['username'],$user['token'],$expire);
         Cache::set("admin_login_token".$user['username'],$user['token'],$expire);
 
-        $this->success("操作成功",'/admin.php');
+        $this->success("操作成功",url('index/index/index'));
     }
 
     public function checkIp(){
