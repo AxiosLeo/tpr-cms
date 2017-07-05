@@ -4,56 +4,19 @@
 <script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
 <section class="layui-larry-box">
     <div class="larry-personal">
+        {php}$url = url('system/api/index','',false,true);{/php}
         <table class="easyui-datagrid" title="接口管理"
-               data-options="singleSelect:true,method:'post',fitColumns:true">
+               data-options="singleSelect:true,method:'post',url:'{$url}',fitColumns:true">
             <thead>
             <tr>
-                <th data-options="field:'order',align:'center'">序号</th>
-                <th data-options="field:'datetime',align:'center'">接口名称</th>
-                <th data-options="field:'remote',align:'center'">接口描述</th>
-                <th data-options="field:'request',align:'center'">所属类</th>
-                <th data-options="field:'memory_use',align:'center'">访问地址</th>
-                <th data-options="field:'runtime',align:'center'">请求方式</th>
-                <th data-options="field:'log_type',align:'center'">查看详情</th>
+                <th data-options="field:'api_name',width:100,align:'center'">接口名称</th>
+                <th data-options="field:'api_desc',width:100,align:'center',sortable:true">接口描述</th>
+                <th data-options="field:'class_name',width:100,align:'left',sortable:true">所属类</th>
+                <th data-options="field:'host',width:100,align:'left'">访问地址</th>
+                <th data-options="field:'method',width:100,align:'center'">请求方式</th>
             </tr>
             </thead>
             <tbody>
-            {php}$n=1;{/php}
-            {foreach name="list" item="vo"}
-            {php}$methods = $vo['methods'];{/php}
-            {foreach name="methods" item="m"}
-            <tr>
-                <td class="hidden-xs">{$n++}</td>
-                <td>{:data($m['comment'],'title')}</td>
-                <td>{:data($m['comment'],'desc','')}</td>
-                <td>{:data($vo,'name')}</td>
-                <td class="param">
-                    {php}$url = empty($m['route'])?$m['path']:$m['route'];$url = $domain.$url; echo $url;{/php}
-                    <span class="param_all" style="display: none">
-                                {php}
-                                $param = data($m['comment'],'parameter',[]);
-                                if(!empty($param)){
-                                    foreach($param as $p){
-                                        echo $p['name']." ; ".$p['type']." ; ".$p['desc']."<br/>";
-                                    }
-                                }else{
-                                    echo "未定义请求参数<br/>";
-                                }
-                                {/php}
-                            </span>
-                </td>
-                <td>
-                    {:data($m['comment'],'method')}
-                </td>
-                <td>
-                    <ul class="table-controls">
-                        <li><a href="{:url('admin/api/detail')}?class={$vo['name']}&method={$m['name']}"
-                               class="bs-tooltip" title="查看详情"><i class="icon-align-justify"></i></a></li>
-                    </ul>
-                </td>
-            </tr>
-            {/foreach}
-            {/foreach}
             </tbody>
         </table>
     </div>
