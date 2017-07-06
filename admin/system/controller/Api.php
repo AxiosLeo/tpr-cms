@@ -6,14 +6,17 @@
  * @blog:  http://hanxv.cn
  * @datetime: 2017/5/19 17:09
  */
+
 namespace admin\system\controller;
 
 use admin\common\controller\HomeLogin;
+use think\Tool;
 use think\Doc;
-use think\Response;
 
-class Api extends HomeLogin{
-    public function index(){
+class Api extends HomeLogin
+{
+    public function index()
+    {
         if ($this->request->isPost()) {
             $domain = env('api.host', '');
             $api_dir = [
@@ -40,9 +43,20 @@ class Api extends HomeLogin{
                     }
                 }
             }
-            \think\Log::record($this->param, 'debug');
 
-            Response::create($list, 'json')->header([])->send();
+            if (isset($this->param['sort'])) {
+                $sort = explode(',', $this->param['sort']);
+                $order = explode(',', $this->param['order']);
+                $rule = [];
+
+                foreach ($sort as $k => $v) {
+                    $rule[$v] = $order[$k];
+                }
+
+                $list = Tool::arraySort($list, $rule);
+            }
+
+            $this->ajaxReturn($list);
         }
         return $this->fetch('index');
     }
