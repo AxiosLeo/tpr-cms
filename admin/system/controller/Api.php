@@ -22,7 +22,7 @@ class Api extends HomeLogin
             $api_dir = [
                 ROOT_PATH . 'api/index/controller',
             ];
-            Doc::config($api_dir, ROOT_PATH . 'api');
+            Doc::config($api_dir, ROOT_PATH . 'api/common');
             $doc = Doc::doc();
             $list = [];
             foreach ($doc as $c) {
