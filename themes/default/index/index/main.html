@@ -4,7 +4,7 @@
     <div class="row state-overview">
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
-                <div class="symbol userblue"> <i class="iconpx-users"></i>
+                <div class="symbol userblue"><i class="iconpx-users"></i>
                 </div>
                 <div class="value">
                     <a href="#">
@@ -16,7 +16,7 @@
         </div>
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
-                <div class="symbol commred"> <i class="iconpx-user-add"></i>
+                <div class="symbol commred"><i class="iconpx-user-add"></i>
                 </div>
                 <div class="value">
                     <a href="#">
@@ -58,14 +58,15 @@
             <section class="panel" style="min-height: 392px;">
                 <header class="panel-heading bm0">
                     <span class='span-title'>系统概览</span>
-                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                    <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
                 </header>
-                <div class="panel-body" >
+                <div class="panel-body">
                     <table class="table table-hover personal-task">
                         <tbody>
                         <tr>
                             <td>
-                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/thinkphp5-restfulapi">TPR CMS</a> 版本号: v2.0.0_beta
+                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/thinkphp5-restfulapi">TPR
+                                CMS</a> 版本号: v2.0.0_beta
                             </td>
                             <td>
 
@@ -85,7 +86,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>网站目录</strong>：{{web_dir}}
+                                <strong>操作系统</strong>：{{os}}
                             </td>
                             <td></td>
                         </tr>
@@ -125,12 +126,12 @@
                 </div>
             </section>
         </div>
-        <div class="col-lg-6" >
+        <div class="col-lg-6">
             <!-- 网站信息统计｛SEO数据统计｝ -->
             <section class="panel" style="min-height: 392px;">
                 <header class="panel-heading bm0">
                     <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
-                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                    <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
                 </header>
                 <div class="panel-body laery-seo-box">
                     <div class="larry-seo-stats" id="larry-seo-stats"></div>
@@ -142,7 +143,7 @@
                 <header class="panel-heading bm0">
                     <span class='span-title'>最新动态</span>
                     <span class="badge" style="background-color:#FF3333;"> new </span>
-                    <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
+                    <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
                 </header>
                 <div class="panel-body">
                     <table class="table table-hover personal-task">
@@ -191,31 +192,40 @@
 </section>
 <script type="text/javascript">
     var vue = new Vue({
-        el:".table",
-        data:{
-            domain:'',
-            web_dir:'',
-            server_ip:'',
-            server_env:'',
-            api_number:'',
-            upload_limit:'',
-            username:''
+        el: ".table",
+        data: {
+            domain: '',
+            os: '',
+            server_ip: '',
+            server_env: '',
+            api_number: '',
+            upload_limit: '',
+            username: ''
         }
     });
     vue.$nextTick(function () {
-        vue.domain = "aaaaa";
+        var url = "{:url('index/index/env')}";
+        $.post(url, {}, function (res) {
+            vue.domain = res.domain;
+            vue.os = res.os;
+            vue.server_ip = res.server_ip;
+            vue.server_env = res.server_env;
+            vue.api_number = res.api_number;
+            vue.upload_limit = res.upload_limit;
+            vue.username = res.username;
+        });
     });
-    layui.use(['jquery','layer','element'],function(){
+    layui.use(['jquery', 'layer', 'element'], function () {
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
         window.element = layui.element();
 
-        $('.panel .tools .iconpx-chevron-down').click(function(){
+        $('.panel .tools .iconpx-chevron-down').click(function () {
             var el = $(this).parents(".panel").children(".panel-body");
-            if($(this).hasClass("iconpx-chevron-down")){
+            if ($(this).hasClass("iconpx-chevron-down")) {
                 $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
                 el.slideUp(200);
-            }else{
+            } else {
                 $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
                 el.slideDown(200);
             }
@@ -223,5 +233,7 @@
 
     });
 </script>
+
 <script type="text/javascript" src="/static/jsplug/echarts.min.js"></script>
+
 <script type="text/javascript" src="/static/js/main.js"></script>
