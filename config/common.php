@@ -82,3 +82,19 @@ if(!function_exists('array_sort')){
         return $array;
     }
 }
+
+function get_day_begin_end_time($date,$format='timestamp'){
+    $begin = strtotime($date." 00:00:00");
+    $end   = strtotime("$date +1 day -1 seconds");
+    if($format=='timestamp'){
+        return [
+            'begin'=>$begin,
+            'end'=>$end
+        ];
+    }else{
+        return [
+            'begin'=>date($format,$begin),
+            'end'=>date($format,$end),
+        ];
+    }
+}

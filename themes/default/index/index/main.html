@@ -80,44 +80,43 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>网站域名</strong>：{{domain}}
+                                <strong>网站域名</strong>：{{env.domain}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>操作系统</strong>：{{os}}
+                                <strong>操作系统</strong>：{{env.os}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>服务器IP</strong>：{{server_ip}}
+                                <strong>服务器IP</strong>：{{env.server_ip}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>服务器环境</strong>：{{server_env}}
+                                <strong>服务器环境</strong>：{{env.server_env}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>磁盘空间</strong>：{{disk}}
-
+                                <strong>磁盘空间</strong>：{{env.disk}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>最大上传限制</strong>：{{upload_limit}}
+                                <strong>最大上传限制</strong>：{{env.upload_limit}}
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>当前登录用户</strong>： <span class="current_user">{{username}}</span>
+                                <strong>当前登录用户</strong>： <span class="current_user">{{env.username}}</span>
                             </td>
                             <td></td>
                         </tr>
@@ -194,25 +193,21 @@
     var vue = new Vue({
         el: ".table",
         data: {
-            domain: '',
-            os: '',
-            server_ip: '',
-            server_env: '',
-            disk: '',
-            upload_limit: '',
-            username: ''
+            env:{
+                domain: '',
+                os: '',
+                server_ip: '',
+                server_env: '',
+                disk: '',
+                upload_limit: '',
+                username: ''
+            }
         }
     });
     vue.$nextTick(function () {
-        var url = "{:url('index/index/env')}";
+        var url = "{:url('index/index/main')}";
         $.post(url, {}, function (res) {
-            vue.domain = res.domain;
-            vue.os = res.os;
-            vue.server_ip = res.server_ip;
-            vue.server_env = res.server_env;
-            vue.disk = res.disk;
-            vue.upload_limit = res.upload_limit;
-            vue.username = res.username;
+            vue.env = res.env;
         });
     });
     layui.use(['jquery', 'layer', 'element'], function () {
