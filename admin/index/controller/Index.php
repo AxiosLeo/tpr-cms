@@ -26,12 +26,15 @@ class Index extends HomeLogin
 
     public function env()
     {
+        $disk_size = floor(disk_free_space(ROOT_PATH) / (1024 * 1024));
+        $disk_size = $disk_size < 100 ? '磁盘空间已小于100M' : $disk_size . 'M';
+
         $data = [
             'domain' => $this->request->domain(),
             'os' => PHP_OS,
             'server_ip' => $_SERVER['SERVER_ADDR'],
             'server_env' => PHP_VERSION,
-            'api_number' => '',
+            'disk' => $disk_size,
             'upload_limit' => ini_get('upload_max_filesize'),
             'username' => $this->user['username']
         ];
