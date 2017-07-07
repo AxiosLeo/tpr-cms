@@ -11,7 +11,6 @@ namespace admin\index\controller;
 
 use admin\common\controller\HomeLogin;
 use think\Db;
-use think\Tool;
 
 class Index extends HomeLogin
 {
@@ -36,6 +35,7 @@ class Index extends HomeLogin
                 'upload_limit' => ini_get('upload_max_filesize'),
                 'username' => $this->user['username']
             ];
+
             $today = get_day_begin_end_time(date("Y-m-d"));
             $req = [
                 'env'=>$data,
