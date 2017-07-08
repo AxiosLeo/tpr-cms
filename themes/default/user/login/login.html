@@ -29,7 +29,8 @@
     <div class="layui-val-icon larry-login">
         <div class="layui-code-box">
             <input type="text" id="code" name="code" placeholder="验证码" maxlength="5" class="login_txtbx">
-            <img id="captcha" src="{:captcha_src()}" alt="" class="verifyImg" onclick="this.src='{:captcha_src()}?id='+Math.random();">
+            <img id="captcha" src="{:captcha_src()}" alt="" class="verifyImg"
+                 onclick="this.src='{:captcha_src()}?id='+Math.random();">
         </div>
     </div>
     <div class="layui-submit larry-login">
@@ -47,40 +48,41 @@
 <script type="text/javascript" src="/static/js/login.js"></script>
 <script type="text/javascript" src="/static/jsplug/jparticle.jquery.js"></script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         var open_layer = 0;
         $(".layui-canvs").jParticle({
             background: "#141414",
             color: "#E6E6E6"
         });
         $(".login_txtbx").keypress(function (res) {
-                if(res.keyCode === 13 && open_layer===0){
+                if (res.keyCode === 13 && open_layer === 0) {
                     $('.submit_btn').click();
                 }
             }
         );
 
-        $(".submit_btn").click(function(){
+        $(".submit_btn").click(function () {
             var username = $(".layui-user-icon .login_txtbx").val();
             var password = $(".layui-pwd-icon .login_txtbx").val();
-            var verify =   $(".layui-code-box .login_txtbx").val();
+            var verify = $(".layui-code-box .login_txtbx").val();
 
             var url = "{:url('user/login/doLogin')}";
 
-            $.post(url,{username:username,password:password,verify:verify},function (res) {
-                if(!res.code){
+            $.post(url, {username: username, password: password, verify: verify}, function (res) {
+                if (!res.code) {
+                    console.log(res);
                     open_layer = 1;
                     layer.alert(res.msg, {
                         skin: 'layui-layer-molv' //样式类名
-                        ,closeBtn: 0
-                        ,anim: 0 //动画类型
-                    }, function(index){
+                        , closeBtn: 0
+                        , anim: 0 //动画类型
+                    }, function (index) {
                         $(".layui-code-box .login_txtbx").val("");
-                        $("#captcha").attr('src',res.url);
+                        $("#captcha").attr('src', res.url + '?id=' + Math.random());
                         open_layer = 0;
                         layer.close(index);
                     });
-                }else{
+                } else {
                     layer.msg('登陆成功', {icon: 1, time: 1500});
                     window.location.href = res.url;
                 }
