@@ -9,19 +9,21 @@
 // | Author: axios <axioscros@aliyun.com>
 // +----------------------------------------------------------------------
 
-namespace admin\common\service;
+namespace admin\index\controller;
 
-class File{
-    public static function save($filename,$content='default',$append=true){
-        if(is_array($content) || is_object($content)){
-            $content = dump($content,false);
-        }
-        $file_content = file_exists($filename)? file_get_contents($filename):'';
+use admin\common\controller\HomeBase;
+use think\Session;
 
-        if($append){
-            $content = $file_content.$content."\r\n\r\n";
-        }
+class Test extends HomeBase{
+    public function index(){
+        Session::set('test',123);
+        $test = Session::get('test');
+        dump($test);
 
-        return file_put_contents($filename,$content);
+        captcha();
+        $test_code = Session::get('test_code');
+        dump($test_code);
+        $result = captcha_check($test_code);
+        dump($result);
     }
 }

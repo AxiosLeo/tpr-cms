@@ -40,6 +40,13 @@ return [
         'expire' => 0,
     ],
     'session' => [
+        'id'             => '',
+        'var_session_id' => '',
+        'prefix'         => 'think',
+        'type'           => '',
+        'auto_start'     => true,
+        'httponly'       => true,
+        'secure'         => false,
         'path' => RUNTIME_PATH . 'session'
     ],
 
