@@ -20,7 +20,7 @@
     "require": {
         "php": ">=7.0",
         "topthink/think-captcha": "^1.0",
-        "axios/tpr-framework": "dev-master"
+        "axios/tpr-framework": "^1.0"
     },
     "require-dev": {
         "composer/composer": "1.0.*@dev"

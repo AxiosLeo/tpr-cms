@@ -14,9 +14,11 @@ namespace admin\index\controller;
 use admin\common\controller\HomeBase;
 use think\Session;
 
-class Test extends HomeBase{
-    public function index(){
-        Session::set('test',123);
+class Test extends HomeBase
+{
+    public function index()
+    {
+        Session::set('test', 123);
         $test = Session::get('test');
         dump($test);
 
