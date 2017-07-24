@@ -67,7 +67,6 @@ class Login extends HomeBase
 
         /*** 单点登录，记录token ***/
         $expire = intval(Config::get('web.token', 172800));
-//        RedisService::redis()->switchDB(1)->set("admin_login_token".$user['username'],$user['token'],$expire);
         Cache::set("admin_login_token" . $user['username'], $user['token'], $expire);
 
         $this->success("操作成功", url('index/index/index'));
