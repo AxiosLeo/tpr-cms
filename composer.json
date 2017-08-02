@@ -20,7 +20,8 @@
     "require": {
         "php": ">=7.0",
         "topthink/think-captcha": "^1.0",
-        "axios/tpr-framework": "^1.0"
+        "axios/tpr-framework": "^1.0",
+        "johnlui/aliyun-oss":"^2.2"
     },
     "require-dev": {
         "composer/composer": "1.0.*@dev"
