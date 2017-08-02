@@ -137,7 +137,7 @@ class RestService
     {
         $result = Tool::curl($url, $data, $type, $header);
 
-        if (isset($result['statusCode']) && $result['statusCode'] != '000000') {
+        if (isset($result['statusCode'])) {
             self::$code = $result['statusCode'];
             self::$msg  = $result['statusMsg'];
             return false;
