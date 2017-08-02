@@ -51,6 +51,9 @@ class RestService
 
     public static $config_index;
 
+    /**
+     * @var RestService
+     */
     public static $instance;
 
     public function __construct($config_index)
@@ -64,7 +67,7 @@ class RestService
      * @param string $config_index
      * @return static
      */
-    public function rest($config_index = 'default')
+    public static function rest($config_index = 'default')
     {
         if (self::$instance == null) {
             self::$instance = new static($config_index);
