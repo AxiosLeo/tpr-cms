@@ -24,11 +24,7 @@ class ApiBase extends Controller{
 
     protected static $debug = true;
 
-    protected $app_version = "";
-
-    protected $company = "yongdong";
-
-    protected $app_key ;
+    protected static $app_key , $timestamp , $sign;
 
     public function __construct(Request $request = null)
     {
@@ -40,17 +36,13 @@ class ApiBase extends Controller{
 
         $this->header = $this->request->header();
 
-        if($this->request->header('X-debug') == 'hailunclass'){
-            self::$debug = true;
-        }
+        self::$timestamp = $this->request->header('x-timestamp' , 0);
 
-        if(!empty($this->request->header('X-Company'))){
-            $company = ['hailun'];
-            $tmp = $this->request->header('X-Company');
-            $this->company = in_array($tmp , $company) ? $tmp :$this->company ;
-        }
+        self::$sign = $this->request->header('x-sign','');
 
-//        $this->checkSign();
+        self::$app_key = $this->request->header('x-app-key','');
+
+        $this->checkSign();
     }
 
     /**
@@ -95,23 +87,21 @@ class ApiBase extends Controller{
         if (self::$debug) {
             return false;
         }
-        if (!isset($this->param['timestamp']) || !isset($this->param['sign']) || !isset($this->param['from'])) {
+
+        if (empty($this->timestamp) || empty($this->sign)) {
             $this->wrong(406, 'sign error');
         }
 
-        if (empty($this->param['timestamp']) || empty($this->param['sign']) || empty($this->param['from'])) {
-            $this->wrong(406, 'sign error');
-        }
-
-        if (time() - $this->param['timestamp'] > 10) {
+        if (time() - $this->timestamp > 30) {
             $this->wrong(406, 'sign timeout');
         }
 
-        $sign = $this->param['sign'];
-        $sign_auth = $this->makeSign($this->param['timestamp']);
-        if ($sign != $sign_auth) {
-            Log::record(['t' => $this->param['timestamp'], 's' => $this->param['sign'], 'right' => $sign_auth], 'debug');
-            $this->wrong(406, 'wrong error');
+
+        $sign_auth = $this->makeSign(self::$timestamp);
+
+        if (self::$sign != $sign_auth) {
+            Log::record(['t' => self::$timestamp, 's' => self::$sign, 'right' => $sign_auth], 'debug');
+            $this->wrong(406, 'wrong sign');
         }
         return false;
     }
