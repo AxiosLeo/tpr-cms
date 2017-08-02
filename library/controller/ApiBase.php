@@ -14,15 +14,10 @@ use think\Log;
 use think\Request;
 
 class ApiBase extends Controller{
-    protected $get = [];
-
-    protected $post = [];
-
-    protected $header = [];
 
     protected static $rsa = PROJECT_NAME;
 
-    protected static $debug = true;
+    protected static $debug;
 
     protected static $app_key , $timestamp , $sign;
 
@@ -30,11 +25,7 @@ class ApiBase extends Controller{
     {
         parent::__construct($request);
 
-        $this->get = $this->request->get();
-
-        $this->post = $this->request->post();
-
-        $this->header = $this->request->header();
+        self::$debug = c('app_debug',true);
 
         self::$timestamp = $this->request->header('x-timestamp' , 0);
 
