@@ -9,9 +9,9 @@
 
 namespace tpr\admin\system\controller;
 
-use tpr\admin\common\controller\HomeLogin;
+use tpr\admin\common\controller\AdminLogin;
 
-class Setting extends HomeLogin
+class Setting extends AdminLogin
 {
     public function index()
     {

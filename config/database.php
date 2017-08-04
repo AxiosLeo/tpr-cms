@@ -8,15 +8,15 @@
  */
 return [
     // 服务器地址
-    'hostname'        => \think\Env::get("mysql.hostname"),
+    'hostname'        => \think\Env::get("mysql.hostname",'127.0.0.1'),
     // 数据库名
-    'database'        => \think\Env::get("mysql.database"),
+    'database'        => \think\Env::get("mysql.database",'api'),
     // 用户名
-    'username'        => \think\Env::get("mysql.username"),
+    'username'        => \think\Env::get("mysql.username",'root'),
     // 密码
-    'password'        => \think\Env::get("mysql.password"),
+    'password'        => \think\Env::get("mysql.password",'root'),
     // 端口
-    'hostport'        => \think\Env::get("mysql.hostport"),
+    'hostport'        => \think\Env::get("mysql.hostport",'3306'),
     // 数据库表前缀
-    'prefix'          => \think\Env::get("mysql.prefix"),
+    'prefix'          => \think\Env::get("mysql.prefix",'api_'),
 ];

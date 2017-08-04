@@ -8,9 +8,9 @@
  */
 namespace tpr\admin\user\controller;
 
-use tpr\admin\common\controller\HomeLogin;
+use tpr\admin\common\controller\AdminLogin;
 
-class Log extends HomeLogin{
+class Log extends AdminLogin{
     public function index(){
         return $this->fetch('index');
     }

@@ -9,11 +9,11 @@
 
 namespace tpr\admin\system\controller;
 
-use tpr\admin\common\controller\HomeLogin;
+use tpr\admin\common\controller\AdminLogin;
 use think\Tool;
 use think\Doc;
 
-class Api extends HomeLogin
+class Api extends AdminLogin
 {
     public function index()
     {

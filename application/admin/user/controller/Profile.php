@@ -9,12 +9,12 @@
 
 namespace tpr\admin\user\controller;
 
-use tpr\admin\common\controller\HomeLogin;
+use tpr\admin\common\controller\AdminLogin;
 use tpr\admin\user\service\AdminService;
 use think\Db;
 use think\Tool;
 
-class Profile extends HomeLogin
+class Profile extends AdminLogin
 {
     public function update()
     {

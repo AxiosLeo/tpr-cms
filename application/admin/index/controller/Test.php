@@ -11,10 +11,10 @@
 
 namespace tpr\admin\index\controller;
 
-use tpr\admin\common\controller\HomeBase;
+use tpr\admin\common\controller\AdminBase;
 use think\Session;
 
-class Test extends HomeBase
+class Test extends AdminBase
 {
     public function index()
     {

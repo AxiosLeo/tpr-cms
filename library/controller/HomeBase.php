@@ -13,7 +13,7 @@ namespace library\controller;
 use think\Controller;
 use think\Request;
 
-class AdminBase extends Controller
+class HomeBase extends Controller
 {
     protected $project = PROJECT_NAME;
 

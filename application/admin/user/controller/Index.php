@@ -9,10 +9,10 @@
 
 namespace tpr\admin\user\controller;
 
-use tpr\admin\common\controller\HomeLogin;
+use tpr\admin\common\controller\AdminLogin;
 use think\Db;
 
-class Index extends HomeLogin
+class Index extends AdminLogin
 {
     public function profile()
     {

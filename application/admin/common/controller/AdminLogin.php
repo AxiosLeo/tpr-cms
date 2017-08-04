@@ -13,7 +13,7 @@ use think\Request;
 use think\Cache;
 use think\Env;
 
-class HomeLogin extends HomeBase
+class AdminLogin extends AdminBase
 {
     protected $user;
 

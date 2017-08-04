@@ -9,7 +9,7 @@
 
 namespace tpr\admin\user\controller;
 
-use tpr\admin\common\controller\HomeBase;
+use tpr\admin\common\controller\AdminBase;
 use think\Config;
 use think\Db;
 use think\Session;
@@ -17,7 +17,7 @@ use think\Env;
 use think\Cache;
 use think\Tool;
 
-class Login extends HomeBase
+class Login extends AdminBase
 {
     private $ip;
 
