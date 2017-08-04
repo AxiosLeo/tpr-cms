@@ -60,4 +60,10 @@ class Index extends ApiBase
         Doc::config($dir);
         $this->response(Doc::doc());
     }
+
+    public function name(){
+        $name = $this->request->param('name','name is empty');
+
+        $this->response(['name'=>$name]);
+    }
 }
