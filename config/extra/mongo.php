@@ -8,11 +8,11 @@
  */
 return [
     "default"=>[
-        "hostname"          => \think\Env::get('mongo.hostname'),
-        "database"          => \think\Env::get('mongo.database'),
-        "username"          => \think\Env::get('mongo.username'),
-        "password"          => \think\Env::get('mongo.password'),
-        "hostport"          => \think\Env::get('mongo.hostport'),
-        "dsn"               => \think\Env::get('mongo.dsn'),
+        "hostname"          => \think\Env::get('mongo.hostname','127.0.0.1'),
+        "database"          => \think\Env::get('mongo.database','test'),
+        "username"          => \think\Env::get('mongo.username','test'),
+        "password"          => \think\Env::get('mongo.password','123456'),
+        "hostport"          => \think\Env::get('mongo.hostport','27017'),
+        "dsn"               => \think\Env::get('mongo.dsn',''),
     ]
 ];
