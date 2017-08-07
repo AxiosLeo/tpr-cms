@@ -12,6 +12,7 @@ return [
     // 异常处理handle类 留空使用
     'exception_handle' => 'library\\exception\\HttpException',
 
+
     // 是否自动转换URL中的控制器和操作名
     'url_convert' => false,
 
