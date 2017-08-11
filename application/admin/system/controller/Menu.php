@@ -40,10 +40,12 @@ class Menu extends AdminLogin
 
     public function updateMenu()
     {
-        $id = isset($this->param['id']) ? $this->param['id'] : 0;
+        $id        = $this->request->param('id', 0);
+        $parent_id = $this->request->param('parent_id' , 0);
+
         if (!empty($id)) {
             $this->param['update_at'] = time();
-            if ($this->param['parent_id'] == $id) {
+            if ($parent_id == $id) {
                 $this->error("当前菜单与父级菜单相同<br />请选择其它父级菜单");
             }
 
@@ -65,7 +67,7 @@ class Menu extends AdminLogin
 
     public function deleteMenu()
     {
-        $id = $this->param['id'];
+        $id = $this->request->param('id', 0);
         if (Db::name('menu')->where('id', $id)->delete()) {
             $this->success("删除成功");
         } else {
@@ -75,21 +77,22 @@ class Menu extends AdminLogin
 
     public function getAllMenu()
     {
-        $page = isset($this->param['page']) && !empty($this->param['page']) ? $this->param['page'] : 1;
-        $limit = isset($this->param['limit']) && !empty($this->param['limit']) ? $this->param['limit'] : 10;
+        $page  = $this->request->param('page' , 1);
+        $limit = $this->request->param('limit',10);
 
-        $nodes = Db::name('menu')->page($page)->limit($limit)->select();
+        $nodes      = Db::name('menu')->page($page)->limit($limit)->select();
         $node_count = Db::name('menu')->count();
 
         $pages = ($node_count % $limit) ? 1 + $node_count / $limit : $node_count / $limit;
 
         $req = [
             'total' => $node_count,
-            'node' => $nodes,
-            'page' => $page,
+            'node'  => $nodes,
+            'page'  => $page,
             'pages' => $pages,
             'limit' => $limit
         ];
+
         $this->response($req);
     }
 }

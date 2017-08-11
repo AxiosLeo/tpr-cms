@@ -25,29 +25,30 @@ class Api extends AdminLogin
             Doc::config($api_dir, ROOT_PATH . 'api/common');
             $doc = Doc::doc();
             $list = [];
+
             foreach ($doc as $c) {
                 $class_name = data($c, 'name');
                 if (!empty($c['methods'])) {
                     foreach ($c['methods'] as $m) {
                         $api_name = data($m['comment'], 'title');
                         $api_desc = data($m['comment'], 'desc');
-                        $host = $domain . data($m, 'path');
-                        $method = strtoupper(data($m['comment'], 'method'));
-                        $list[] = [
-                            'api_name' => $api_name,
-                            'api_desc' => $api_desc,
+                        $host     = $domain . data($m, 'path');
+                        $method   = strtoupper(data($m['comment'], 'method'));
+                        $list[]   = [
+                            'api_name'   => $api_name,
+                            'api_desc'   => $api_desc,
                             'class_name' => $class_name,
-                            'host' => $host,
-                            'method' => $method
+                            'host'       => $host,
+                            'method'     => $method
                         ];
                     }
                 }
             }
 
             if (isset($this->param['sort'])) {
-                $sort = explode(',', $this->param['sort']);
+                $sort  = explode(',', $this->param['sort']);
                 $order = explode(',', $this->param['order']);
-                $rule = [];
+                $rule  = [];
 
                 foreach ($sort as $k => $v) {
                     $rule[$v] = $order[$k];

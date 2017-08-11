@@ -16,8 +16,6 @@ use think\Session;
 
 class AdminBase extends HomeBase
 {
-    protected $themes;
-
     protected $config;
 
     protected $menu;
@@ -25,7 +23,6 @@ class AdminBase extends HomeBase
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        $this->themes = c('web.themes', 'default');
 
         $this->assign('module', $this->request->module());
 
