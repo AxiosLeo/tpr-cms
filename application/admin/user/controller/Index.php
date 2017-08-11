@@ -24,17 +24,17 @@ class Index extends AdminLogin
     public function password()
     {
         if ($this->request->isPost()) {
+            $Validate = new \tpr\admin\user\validate\Admin();
+            if (!$Validate->scene('password')->check($this->param)) {
+                $this->error($Validate->getError());
+            }
+
             //check password confirm
             if ($this->param['password'] != $this->param['password_confirm']) {
                 $this->error('确认密码与新密码不匹配');
             }
             if ($this->param['password'] == $this->param['old_password']) {
                 $this->error('新密码与旧密码不能相同');
-            }
-
-            $Validate = new \tpr\admin\user\validate\Admin();
-            if (!$Validate->scene('password')->check($this->param)) {
-                $this->error($Validate->getError());
             }
 
             //check old password
