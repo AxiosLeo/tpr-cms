@@ -48,7 +48,7 @@ return [
         'auto_start'     => true,
         'httponly'       => true,
         'secure'         => false,
-        'path' => RUNTIME_PATH . 'session'
+//        'path' => RUNTIME_PATH . 'session'
     ],
 
     'template' => [
