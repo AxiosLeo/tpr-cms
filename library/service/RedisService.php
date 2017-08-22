@@ -11,6 +11,11 @@ namespace library\service;
 
 use think\Config;
 
+/**
+ * Class RedisService
+ * @package library\service
+ * @desc install: https://hanxv.cn/archives/25.html#redis
+ */
 class RedisService extends \Redis
 {
     private $config = [
