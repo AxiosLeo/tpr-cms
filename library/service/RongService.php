@@ -47,7 +47,7 @@ class RongService
         self::config();
     }
 
-    private function config()
+    private static function config()
     {
         $config           = c('rong.' . self::$config_index, []);
         self::$config     = array_merge(self::$config, $config);
@@ -155,6 +155,7 @@ class RongService
             self::$code = $result['code'];
 
             if (self::$code != 200) {
+                self::$msg = $result['errorMessage'];
                 return false;
             }
             $ret = $result;
