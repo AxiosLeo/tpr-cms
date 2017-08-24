@@ -17,13 +17,13 @@
 * pcntl
 * posix 
 * mysql5.5+
-* redis , phpredis
-* mongodb
+* redis , phpredis  缓存建议使用redis
+* mongodb  日志驱动建议使用Mongo
 
 ## 框架特点
 * **高并发**。有子进程回收机制与并发数限制的多并发解决方案
 
-* 基于thinkphp5开发，无缝衔接thinkphp5的功能，加快开发速度
+* 框架核心(tpr-framework)基于thinkphp5.0.9开发，无缝衔接thinkphp5的功能，加快开发速度
 
 * 便捷的接口参数验证，可以在一定程度上保证接口访问的标准性
 
@@ -33,9 +33,8 @@
 
 * 支持多语言翻译，可以很方便的在中英文等多语言环境中切换
 
-* 有诸多方便接口开发的功能服务类，如MongoService,MailService,ApiDocService等等
+* 多应用多入口的架构模式，更易于多端接口的开发维护工作
 
-* 具有签名验证和令牌验证等功能
 
 ## 安装
 ``` shell
