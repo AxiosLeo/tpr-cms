@@ -64,7 +64,9 @@ vim .env
  
 * 管理系统
  > http://domain/index.php
+ 
  > admin
+ 
  > 123456
 
 ## 开源协议
