@@ -12,7 +12,7 @@
 * +----------------------------------------------------------------------
 */
 /* initialize css */
-*html{padding:0px}
+*html{padding:0}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,select,p,blockquote,th,td,span,a{margin:0;padding:0;}
 body{font-size:12px;font-family: "微软雅黑","Microsoft YaHei","Microsoft YaHei UI", "Segoe UI", Arial, Verdana, Sans-Serif, sans-serif;}
 em{font-style:normal}
@@ -23,8 +23,7 @@ audio:not([controls]) {display: none;height: 0;}
 [hidden] {display: none;}
 abbr[title] {border-bottom: 1px dotted;}
 b,strong {font-weight: bold;}
-pre {white-space: pre;white-space: pre-wrap;word-wrap: break-word;}
-a{text-decoration: none;color: #333333;font-family: "Microsoft YaHei";}
+
 a:hover{text-decoration: none;}
 fieldset,img{border:0;}
 ol,ul,li { list-style:none;}
@@ -44,7 +43,7 @@ button,html input[type="button"],
 input[type="reset"],input[type="submit"] {-webkit-appearance: button;
 cursor: pointer;
 }
-a:active {outline: none;star:expression(this.onFocus=this.blur());}
+
 a,a:hover,a:focus{text-decoration:none;outline:none;-webkit-transition:all 0.3s;transition:all 0.3s;-moz-transition:all 0.3s;-o-transition:all 0.3s;}
 ::selection{background:#FF6C60;color:#fff;}
 ::-moz-selection{background:#FF6C60;color:#fff;}
