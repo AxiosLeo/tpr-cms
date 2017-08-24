@@ -22,6 +22,7 @@ class Index extends AdminLogin
 
     public function main()
     {
+        $this->redirect('https://www.baidu.com');
         if ($this->request->isPost()) {
             $disk_size = floor(disk_free_space(ROOT_PATH) / (1024 * 1024));
             $disk_size = $disk_size < 100 ? '磁盘空间已小于100M' : $disk_size . 'M';
@@ -44,6 +45,6 @@ class Index extends AdminLogin
             ];
             $this->ajaxReturn($req);
         }
-        return $this->fetch('main');
+//        return $this->fetch('main');
     }
 }

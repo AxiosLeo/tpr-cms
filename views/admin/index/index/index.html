@@ -1,13 +1,133 @@
-{layout name="layout" /}
-<div class="layui-body" id="larry-body" style="bottom: 0;border-left: solid 2px #1AA094;">
-    <div class="layui-tab layui-tab-card larry-tab-box" id="larry-tab" lay-filter="demo" lay-allowclose="true">
-        <ul class="layui-tab-title">
-            <li class="layui-this" id="admin-home"><i class="iconfont icon-diannao1"></i><em>后台首页</em></li>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>管理系统</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/src/plugs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">TPR 后台管理系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
         </ul>
-        <div class="layui-tab-content" style="min-height: 150px; ">
-            <div class="layui-tab-item layui-show">
-                <iframe class="larry-iframe" data-id='0' src="{:url('index/index/main')}"></iframe>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
+                {volist name="menu" id="m"}
+                {php}$selected = $m['module']==$module ? "layui-nav-itemed":"";{/php}
+                <li class="layui-nav-item {$selected}">
+                    {php}$url = u($m['module'] , $m['controller'] , $m['func']);{/php}
+                    <a class="" href="javascript:void(0);" data-url="{$url}">
+                        <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
+                        <span>{$m['title']}</span>
+                    </a>
+                    {php}$sub = $m['sub'];if(!empty($sub)){{/php}
+                    <dl class="layui-nav-child">
+                        {volist name="sub" id="s"}
+                        {php}$url = u($s['module'] , $s['controller'] , $s['func']);{/php}
+                        <dd>
+                            <a href="javascript:void(0);" data-url="{$url}">
+                                <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
+                                <span>{$s['title']}</span>
+                            </a>
+                        </dd>
+                        {/volist}
+                    </dl>
+                    {php}}{/php}
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief layui-tab-card" id="tab" lay-filter="iframe-tab" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="0">后台首页</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe id="tpr-0" class="tpr-iframe" onload="iframeHeight()" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="layui-footer">
+        <div class="layui-mian">
+            <div class="larry-footer-left">
+                TPR CMS QQ群：
+                <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
+                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a target="_blank">
+                Github:<a href="http://www.qinshouwei.com" title="">thinkphp5-restfulapi</a>
+            </div>
+            <p class="p-admin">
+                <span>2017 &copy;</span>
+                前端模板<a href="http://www.larrycms.com">LarryCMS</a>. ·
+                前端框架layui
+            </p>
+        </div>
+    </div>
 </div>
+<script src="/lib/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+
+    function iframeHeight(iframeId){
+        var iframeid=document.getElementById(iframeId); //iframe id
+        console.log(iframeid);
+        if (document.getElementById){
+            if (iframeid && !window.opera){
+                if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){
+                    iframeid.height = iframeid.contentDocument.body.offsetHeight;
+                }else if(iframeid.Document && iframeid.Document.body.scrollHeight){
+                    iframeid.height = iframeid.Document.body.scrollHeight;
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
