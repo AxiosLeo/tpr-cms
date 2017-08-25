@@ -23,7 +23,7 @@ class Role extends AdminLogin
                 $r['admin_number'] = Db::name('admin')->where('role_id', $r['id'])->count();
             }
 
-            $this->response($roles);
+            $this->result($roles);
         }
 
         $count = Db::name('role')->count();
