@@ -20,9 +20,9 @@
         <div class="layui-logo">TPR 后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">控制台</a></li>
+            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">商品管理</a></li>
+            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">用户</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">其它系统</a>
                 <dl class="layui-nav-child">
@@ -82,7 +82,7 @@
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
             <ul class="layui-tab-title">
-                <li class="layui-this" lay-id="0"><i class="fa fa-home"></i>后台首页</li>
+                <li class="layui-this" lay-id="1"><i class="fa fa-home"></i>后台首页</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -134,13 +134,18 @@
 
         element.tabDelete('iframe-tab',id);
 
+        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight(this)" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
         element.tabAdd('iframe-tab', {
             title: '<i class="'+icon+'"></i>' + title,
-            href: url,
+            href: content,
             id: id
         });
 
         element.tabChange('iframe-tab',id);
+
+        var show = $(".layui-show");
+        show.empty();
+        show.append(content);
     }
 </script>
 </body>
