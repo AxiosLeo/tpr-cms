@@ -9,9 +9,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
-    <link rel="stylesheet" href="/lib/layui/css/layui.css">
-    <link rel="stylesheet" href="/src/plugs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/src/plugs/layui/css/layui.css">
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/src/css/global.css">
+    <script type="application/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -54,7 +55,7 @@
                 {php}$selected = $m['module']==$module ? "layui-nav-itemed":"";{/php}
                 <li class="layui-nav-item {$selected}">
                     {php}$url = u($m['module'] , $m['controller'] , $m['func']);{/php}
-                    <a class="" href="javascript:void(0);" data-url="{$url}">
+                    <a class="" href="javascript:void(0);" data-id="{$m['id']}" data-url="{$url}" data-icon="fa fa-{$m['icon']}" data-title="{$m['title']}">
                         <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
                         <span>{$m['title']}</span>
                     </a>
@@ -63,7 +64,7 @@
                         {volist name="sub" id="s"}
                         {php}$url = u($s['module'] , $s['controller'] , $s['func']);{/php}
                         <dd>
-                            <a href="javascript:void(0);" data-url="{$url}">
+                            <a href="javascript:void(0);" data-id="{$s['id']}" data-url="{$url}" data-icon="fa fa-{$s['icon']}" data-title="{$s['title']}">
                                 <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
                                 <span>{$s['title']}</span>
                             </a>
@@ -77,15 +78,15 @@
         </div>
     </div>
 
-    <div class="layui-body">
+    <div class="layui-body" style="padding-left: 10px;padding-right: 10px;">
         <!-- 内容主体区域 -->
-        <div class="layui-tab layui-tab-brief layui-tab-card" id="tab" lay-filter="iframe-tab" lay-allowClose="true">
+        <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
             <ul class="layui-tab-title">
-                <li class="layui-this" lay-id="0">后台首页</li>
+                <li class="layui-this" lay-id="0"><i class="fa fa-home"></i>后台首页</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="tpr-0" class="tpr-iframe" onload="iframeHeight()" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
+                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight(this)" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
                 </div>
             </div>
         </div>
@@ -93,40 +94,53 @@
 
     <div class="layui-footer">
         <div class="layui-mian">
-            <div class="larry-footer-left">
-                TPR CMS QQ群：
+            <div style="text-align: center">
                 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
-                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a target="_blank">
-                Github:<a href="http://www.qinshouwei.com" title="">thinkphp5-restfulapi</a>
+                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a>
+                <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
+                    前端框架<a href="http://www.layui.com/">layui</a>
+
             </div>
-            <p class="p-admin">
-                <span>2017 &copy;</span>
-                前端模板<a href="http://www.larrycms.com">LarryCMS</a>. ·
-                前端框架layui
-            </p>
         </div>
     </div>
 </div>
-<script src="/lib/layui/layui.js"></script>
+<script src="/src/plugs/layui/layui.js"></script>
 <script>
+    var element ;
     //JavaScript代码区域
     layui.use('element', function(){
-        var element = layui.element;
-
+        element = layui.element;
     });
 
-    function iframeHeight(iframeId){
-        var iframeid=document.getElementById(iframeId); //iframe id
-        console.log(iframeid);
-        if (document.getElementById){
-            if (iframeid && !window.opera){
-                if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){
-                    iframeid.height = iframeid.contentDocument.body.offsetHeight;
-                }else if(iframeid.Document && iframeid.Document.body.scrollHeight){
-                    iframeid.height = iframeid.Document.body.scrollHeight;
-                }
-            }
+    function iframeHeight(obj){
+        $(obj).height($(".layui-body").height()-86);
+    }
+
+    $(".layui-nav a").click(function () {
+        var obj = $(this).parent();
+        var hasChild = obj.find('dd').length;
+        console.log(hasChild);
+        if(!hasChild){
+            tabAdd(this);
         }
+    });
+
+    function tabAdd(obj) {
+        var $obj = $(obj);
+        var title = $obj.attr('data-title');
+        var url = $obj.attr('data-url');
+        var icon = $obj.attr('data-icon');
+        var id = $obj.attr('data-id');
+
+        element.tabDelete('iframe-tab',id);
+
+        element.tabAdd('iframe-tab', {
+            title: '<i class="'+icon+'"></i>' + title,
+            href: url,
+            id: id
+        });
+
+        element.tabChange('iframe-tab',id);
     }
 </script>
 </body>
