@@ -91,7 +91,7 @@
 <script type="text/javascript">
     var form;
     layui.use(['jquery','layer','form'],function(){
-        form = layui.form();
+        form = layui.form;
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
         var url = '{:url("system/menu/getMenu")}';

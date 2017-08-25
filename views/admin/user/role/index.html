@@ -31,30 +31,6 @@
 <script type="text/javascript">
     layui.use(['jquery','layer','laypage'],function () {
         window.jQuery = window.$ = layui.jquery;
-        var lay_page = layui.laypage;
-        lay_page({
-            cont: 'node_page',
-            pages: '{$pages}',
-            groups: 3,
-            jump: function(obj) {
-                var url = '{:url("user/role/getRoles")}';
-                $.post(url,{page:obj.curr,limit:10},function (res) {
-                    $(".table_body").empty();
-                    var list = res.data;
-                    $.each(list,function (index,data) {
-                        var html = '<tr data-id="'+data.id+'"> ' +
-                            '<td>'+data.id+'</td> ' +
-                            '<td>'+data.role_name+'</td> ' +
-                            '<td>'+data.admin_number+'</td>' +
-                            '<td>' +
-                            '<button class="layui-btn layui-btn-mini" onclick="edit(this);">编辑</button>' +
-                            '<button class="layui-btn layui-btn-mini layui-btn-danger" onclick="delete(this);">删除</button>' +
-                            '</td></tr>';
-                        $(".table_body").append(html);
-                    })
-                });
-            }
-        });
     });
     function edit(obj) {
         var id = $(obj).parent().parent().attr('data-id');

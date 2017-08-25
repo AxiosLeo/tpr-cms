@@ -33,35 +33,6 @@
 <script type="text/javascript">
     layui.use(['jquery','layer','laypage'],function () {
         window.jQuery = window.$ = layui.jquery;
-
-        var lay_page = layui.laypage;
-        lay_page({
-            cont: 'node_page',
-            pages: '{$pages}',
-            groups: 3,
-            jump: function(obj, first) {
-                var url = '{:url("user/admin/getAdmin")}';
-                $.post(url,{page:obj.curr,limit:10},function (res) {
-                    $("#admin_table_body").empty();
-                    var admin_list = res.data;
-                    $.each(admin_list,function (index,data) {
-//                        console.log(data);
-                        var role_name = data.role_name?data.role_name:"";
-                        var html = '<tr data-id="'+data.id+'"> ' +
-                            '<td data-name="id">'+data.id+'</td> ' +
-                            '<td data-name="title">'+data.username+'</td> ' +
-                            '<td data-name="module">'+role_name+'</td>' +
-                            '<td data-name="controller">'+data.last_login_ip+'</td>' +
-                            '<td data-name="func">'+data.last_login_time+'</td>' +
-                            '<td >' +
-                            '<button class="layui-btn layui-btn-mini" onclick="edit(this);">编辑</button>' +
-                            '<button class="layui-btn layui-btn-mini layui-btn-danger" onclick="delete(this);">删除</button>' +
-                            '</td></tr>';
-                        $("#admin_table_body").append(html);
-                    })
-                });
-            }
-        });
     });
     function edit(obj) {
         var id = $(obj).parent().parent().attr('data-id');
