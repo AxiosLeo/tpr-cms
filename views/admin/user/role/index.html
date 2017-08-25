@@ -1,67 +1,80 @@
 {layout name="main" /}
-<!--<div class="layui-main">-->
-    <!--<blockquote class="layui-elem-quote mylog-info-tit">-->
-        <!--<ul class="layui-tab-title">-->
-            <!--<li><a id="addRole" class="layui-btn" ><i class="layui-icon">&#xe654;</i>新增角色</a></li>-->
-        <!--</ul>-->
-    <!--</blockquote>-->
+<div class="layui-main">
+    <blockquote class="layui-elem-quote mylog-info-tit">
+        <ul class="layui-tab-title">
+            <li><a id="addRole" class="layui-btn"><i class="layui-icon">&#xe654;</i>新增角色</a></li>
+        </ul>
+    </blockquote>
 
-    <!--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">-->
-        <!--<legend>角色列表</legend>-->
-    <!--</fieldset>-->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>角色列表</legend>
+    </fieldset>
 
-    <!--<div class="search-bar">-->
-        <!--搜索：-->
-        <!--<div class="layui-inline">-->
-            <!--<input class="layui-input" name="id" id="keyword">-->
-        <!--</div>-->
-        <!--<button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>-->
-    <!--</div>-->
+    <div class="search-bar">
+        搜索：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="keyword">
+        </div>
+        <button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>
+    </div>
+    {php}$url = u('user','role','index');{/php}
+    <!--<table id="data_table" class="layui-table" lay-filter="data-table"></table>-->
+    <table class="layui-table" lay-data="{height:313, url:'{$url}'}">
+        <thead>
+        <tr>
+            <th lay-data="{field: 'id', width: 50, sort: true, title: 'ID'}">ID</th>
+            <th lay-data="{field: 'role_name', width: 150, title: '角色名'}">用户名</th>
+            <th lay-data="{field: 'admin_number', width: 100, sort: true, title: '用户数'}">性别</th>
+            <th lay-data="{width: 180, templet: '#operationTpl', title: '操作'}">城市</th>
+        </tr>
+        </thead>
+    </table>
+</div>
 
-    <!--<table id="data_table"  class="layui-table table-hover" lay-even="" lay-skin="nob"></table>-->
-<!--</div>-->
-
-
-{php}$url = u('user','role','index');{/php}
 <script type="text/javascript">
-    var form ,table;
-    layui.use(['jquery','form','table'],function(){
+    var form, table;
+    layui.use(['jquery', 'form', 'table'], function () {
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
-        form = layui.form ;
+        form = layui.form;
         table = layui.table;
-        reload();
+//        reload();
     });
+
     function reload() {
         var keyword = $("#keyword").val();
         table.init();
         table.render({
-            id:'data_table',
-            height:315,
-            elem:'#data_table',
+            id: 'data_table',
+            height: 315,
+            elem: '#data_table',
             url: '{$url}',
             where: {keyword: keyword},
             method: 'post',
-            page:true,
-            limits:[1,5,10,30,50,100],
+            page: true,
+            limits: [ 10, 30, 50, 100],
             limit: 10,
-            loading:true,
-            cols:  [[ //标题栏
-                {fixed: 'left',field:'id',width:30, sort: true, templet: '#numberTpl' ,title:'ID'},
-                {field:'app_name',width:150 ,title:'角色名'},
-                {field:'app_version',width:100, sort: true ,title:'用户数'},
-                {fixed: 'right', width:180 , templet: '#operationTpl' ,title:'操作'}
+            loading: true,
+            cols: [[ //标题栏
+                {field: 'id', width: 50, sort: true, title: 'ID'},
+                {field: 'role_name', width: 150, title: '角色名'},
+                {field: 'admin_number', width: 100, sort: true, title: '用户数'},
+                {width: 180, templet: '#operationTpl', title: '操作'}
             ]],
-            done: function(res, curr, count){
-
+            done: function (res, curr, count) {
+                console.log(res);
+                console.log(curr);
+                console.log(count);
             }
         });
     }
+
     function edit(obj) {
         var id = $(obj).parent().parent().attr('data-id');
-        var url = "{:url('user/admin/edit')}?id="+id;
-        openLayer("编辑角色",url,"600px","484px")
+        var url = "{:url('user/admin/edit')}?id=" + id;
+        openLayer("编辑角色", url, "600px", "484px")
     }
+
 </script>
 <script type="text/html" id="operationTpl">
     <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
