@@ -38,11 +38,12 @@ class Profile extends AdminLogin
     public function avatar()
     {
         $file = $this->request->file('avatar');
-        $save_name = Tool::uuid();
 
         if (empty($file)) {
             $this->wrong(500, "上传失败");
         }
+
+        $save_name = Tool::uuid();
         $file->setSaveName($save_name);
         $info = $file->move(ROOT_PATH . "/public/uploads/images/");
 
