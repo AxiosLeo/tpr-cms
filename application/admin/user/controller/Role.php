@@ -34,4 +34,25 @@ class Role extends AdminLogin
         return $this->fetch('index');
     }
 
+    public function edit(){
+        $id = $this->request->param('id',0);
+
+        if($this->request->isPost()){
+            $update = $this->param;
+
+            //tpr-framework1.0.18+ 会自动过滤无效字段
+            if(Db::name('role')->where('id',$id)->update($update)){
+                $this->success('成功');
+            }else{
+                $this->error("操作失败");
+            }
+        }
+
+        $role = Db::name('role')->where('id',$id)->find();
+
+        $this->assign('data' , $role);
+
+        return $this->fetch();
+    }
+
 }
