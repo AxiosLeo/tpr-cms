@@ -16,6 +16,15 @@ class Role extends AdminLogin
 {
     public function index()
     {
+        if($this->request->isPost()){
+            $roles = Db::name('role')->select();
+
+            foreach ($roles as &$r) {
+                $r['admin_number'] = Db::name('admin')->where('role_id', $r['id'])->count();
+            }
+
+            $this->response($roles);
+        }
 
         $count = Db::name('role')->count();
 
@@ -25,14 +34,4 @@ class Role extends AdminLogin
         return $this->fetch('index');
     }
 
-    public function getRoles()
-    {
-        $roles = Db::name('role')->select();
-
-        foreach ($roles as &$r) {
-            $r['admin_number'] = Db::name('admin')->where('role_id', $r['id'])->count();
-        }
-
-        $this->response($roles);
-    }
 }
