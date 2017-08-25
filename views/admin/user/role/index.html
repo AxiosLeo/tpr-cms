@@ -19,7 +19,7 @@
     </div>
     {php}$url = u('user','role','index');{/php}
     <!--<table id="data_table" class="layui-table" lay-filter="data-table"></table>-->
-    <table class="layui-table" lay-data="{height:313, url:'{$url}'}">
+    <table class="layui-table" id="data_table">
         <thead>
         <tr>
             <th lay-data="{field: 'id', width: 50, sort: true, title: 'ID'}">ID</th>
@@ -38,7 +38,7 @@
         window.layer = layui.layer;
         form = layui.form;
         table = layui.table;
-//        reload();
+        reload();
     });
 
     function reload() {
@@ -54,7 +54,7 @@
             page: true,
             limits: [ 10, 30, 50, 100],
             limit: 10,
-            loading: true,
+            loading: false,
             cols: [[ //标题栏
                 {field: 'id', width: 50, sort: true, title: 'ID'},
                 {field: 'role_name', width: 150, title: '角色名'},
