@@ -1,5 +1,4 @@
 {layout name="main" /}
-<link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
 <section class="layui-larry-box">
     <div class="larry-personal">
         <div class="layui-tab">
@@ -238,8 +237,8 @@
 </section>
 <script type="text/javascript">
     layui.use(['jquery','layer','laypage','element','form'],function(){
-        var form = layui.form();
-        var element = layui.element();
+        var form = layui.form;
+        var element = layui.element;
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
     });

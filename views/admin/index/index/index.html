@@ -10,9 +10,9 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <link rel="stylesheet" href="/src/plugs/layui/css/layui.css">
-    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/src/plugs/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/src/css/global.css">
-    <script type="application/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="application/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -20,23 +20,23 @@
         <div class="layui-logo">TPR 后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">控制台</a></li>
-            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">商品管理</a></li>
-            <li class="layui-nav-item" data-id="console"><a href="javascript:void(0);">用户</a></li>
+            <li class="layui-nav-item" ><a href="javascript:void(0);" onclick="refresh()">刷新</a></li>
+            <li class="layui-nav-item" ><a href="javascript:void(0);">接口调试</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:void(0);">其它系统</a>
+                <a href="javascript:void(0);">快捷链接</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
+                    <dd><a href="https://www.google.com">谷歌</a></dd>
+                    <dd><a href="javascript:void(0);">消息管理</a></dd>
+                    <dd><a href="javascript:void(0);">授权管理</a></dd>
                 </dl>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    {php}$avatar = $user['avatar'] ? $user['avatar'] : '/src/images/user.jpg';{/php}
+                    <img src="{$avatar}" class="layui-nav-img">
+                    {$user['username']}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -50,12 +50,12 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
+            <ul class="layui-nav layui-nav-tree" id="nav"  lay-filter="menu">
                 {volist name="menu" id="m"}
                 {php}$selected = $m['module']==$module ? "layui-nav-itemed":"";{/php}
                 <li class="layui-nav-item {$selected}">
                     {php}$url = u($m['module'] , $m['controller'] , $m['func']);{/php}
-                    <a class="" href="javascript:void(0);" data-id="{$m['id']}" data-url="{$url}" data-icon="fa fa-{$m['icon']}" data-title="{$m['title']}">
+                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{$m['id']}" data-url="{$url}" data-icon="fa fa-{$m['icon']}" data-title="{$m['title']}">
                         <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
                         <span>{$m['title']}</span>
                     </a>
@@ -64,7 +64,7 @@
                         {volist name="sub" id="s"}
                         {php}$url = u($s['module'] , $s['controller'] , $s['func']);{/php}
                         <dd>
-                            <a href="javascript:void(0);" data-id="{$s['id']}" data-url="{$url}" data-icon="fa fa-{$s['icon']}" data-title="{$s['title']}">
+                            <a class="menu menu-child" href="javascript:void(0);" data-id="{$s['id']}" data-url="{$url}" data-icon="fa fa-{$s['icon']}" data-title="{$s['title']}">
                                 <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
                                 <span>{$s['title']}</span>
                             </a>
@@ -115,8 +115,9 @@
     function iframeHeight(obj){
         $(obj).height($(".layui-body").height()-86);
     }
+    var nav = $(".menu");
 
-    $(".layui-nav a").click(function () {
+    nav.click(function () {
         var obj = $(this).parent();
         var hasChild = obj.find('dd').length;
         console.log(hasChild);
@@ -146,6 +147,12 @@
         var show = $(".layui-show");
         show.empty();
         show.append(content);
+    }
+
+    function refresh() {
+        var iframe = $(".layui-show").find('iframe');
+        var src = iframe.attr('src');
+        iframe.attr('src',src);
     }
 </script>
 </body>

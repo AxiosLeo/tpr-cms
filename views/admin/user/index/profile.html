@@ -1,5 +1,4 @@
 {layout name="main" /}
-<link rel="stylesheet" type="text/css" href="/static/css/personal.css" media="all">
 <section class="layui-larry-box">
     <div class="larry-personal">
         <header class="larry-personal-tit">
@@ -74,16 +73,19 @@
 </section>
 <script type="text/javascript">
     layui.use(['form','upload','layer'],function(){
-        layui.upload({
+        var upload = layui.upload;
+
+        upload.render({
+            elem:'#avatar',
             url: '{:url("user/profile/avatar")}' ,//上传接口
             method:'post',
             ext: 'jpg|png',
-            before: function(input){
+            before: function(obj){
                 //返回的参数item，即为当前的input DOM对象
                 console.log('文件上传中');
-                console.log(input.value)
+                console.log(obj)
             },
-            success: function(res,input){
+            done: function(res){
                 //上传成功后的回调
                 console.log(res);
                 if(res.code!=="200"){
@@ -95,6 +97,9 @@
                 }
                 console.log(res.data);
                 console.log(input.value);
+            },
+            error:function () {
+                
             }
         });
     });

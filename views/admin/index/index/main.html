@@ -1,5 +1,5 @@
 {layout name="main" /}
-<link rel="stylesheet" type="text/css" href="/static/css/main.css" media="all">
+<link rel="stylesheet" type="text/css" href="/src/css/main.css" media="all">
 <section class="larry-wrapper">
     <div class="row state-overview">
         <div class="col-lg-3 col-sm-6">
@@ -65,7 +65,7 @@
                         <tbody>
                         <tr>
                             <td>
-                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/thinkphp5-restfulapi">TPR
+                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/tpr-cms">TPR
                                 CMS</a> 版本号: v2.0.0_beta
                             </td>
                             <td>
@@ -132,8 +132,8 @@
                     <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
                     <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
                 </header>
-                <div class="panel-body laery-seo-box">
-                    <div class="larry-seo-stats" id="larry-seo-stats"></div>
+                <div class="panel-body" style="border-top: 1px dotted #E3E7EA;">
+                    <div style="display: block;padding: 15px;height: 300px;" id="echarts-example"></div>
                 </div>
             </section>
         </div>
@@ -213,7 +213,7 @@
     layui.use(['jquery', 'layer', 'element'], function () {
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
-        window.element = layui.element();
+        window.element = layui.element;
 
         $('.panel .tools .iconpx-chevron-down').click(function () {
             var el = $(this).parents(".panel").children(".panel-body");
@@ -229,6 +229,48 @@
     });
 </script>
 
-<script type="text/javascript" src="/src/plugs/echarts.min.js"></script>
+<script src="/src/plugs/echarts/echarts.min.js"></script>
 
-<script type="text/javascript" src="/src/js/main.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('echarts-example'));
+    option = {
+        title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:335, name:'直接访问'},
+                    {value:310, name:'邮件营销'},
+                    {value:234, name:'联盟广告'},
+                    {value:135, name:'视频广告'},
+                    {value:1548, name:'搜索引擎'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+</script>
