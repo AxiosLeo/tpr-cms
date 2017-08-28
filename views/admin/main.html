@@ -24,11 +24,11 @@
         return false;
     });
 
-    function submitForm(id, jump_to, is_parent, alert) {
+    function submitForm(id, callback) {
         var form = $(id);
         var url = form.attr('action');
         var obj = serializeForm(id);
-        postSomething(url, obj, jump_to, is_parent, alert);
+        postSomething(url, obj, callback);
         return false;
     }
 
@@ -42,7 +42,7 @@
         return params;
     }
 
-    function postSomething(url, obj, jump_to, is_parent, alert) {
+    function postSomething(url, obj, callback) {
         $.ajax({
             type: "POST",
             url: url,
@@ -50,22 +50,18 @@
             data: obj,
             success: function (res) {
                 console.log(res);
-                if (alert === false) {
-                    return false;
-                }
-                if (res.code === 1) {
-                    parent.layer.msg(res.msg, {icon: 1, time: 1500}, function (index) {
-                        if (jump_to === undefined || jump_to === true) {
-                            is_parent ? parent.location.reload() : window.location.reload();
-                        } else if (jump_to !== false) {
-                            is_parent ? parent.location.href = res.url : window.location.href = res.url;
+                if(callback === undefined){
+                    callback = function (res) {
+                        if(res.code){
+                            layer.msg(res.msg,{icon:1,time:1500},function () {
+                                window.location.href = res.url;
+                            });
+                        }else{
+                            layer.msg(res.msg,{icon:2,time:1500});
                         }
-                        parent.$(".layui-layer-close").click();
-                        layer.close(index);
-                    });
-                } else {
-                    layer.alert(res.msg, {skin: 'layui-layer-molv', closeBtn: 0, icon: 2, anim: 0});
+                    };
                 }
+                callback(res);
             }
         });
     }
