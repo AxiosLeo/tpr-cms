@@ -37,7 +37,7 @@ class Profile extends AdminLogin
 
     public function avatar()
     {
-        $file = $this->request->file('avatar');
+        $file = $this->request->file('file');
 
         if (empty($file)) {
             $this->wrong(500, "上传失败");

@@ -1,23 +1,20 @@
 {layout name="main" /}
 <section class="layui-larry-box">
     <div class="larry-personal">
-        <header class="larry-personal-tit">
-            <span>个人信息</span>
-        </header>
         <!-- /header -->
         <div class="larry-personal-body clearfix">
             <form id="profile_form" class="layui-form" action="{:url('user/profile/update')}" method="post">
                 <div class="col-lg-5">
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <img id="avatar" src="{$user['avatar']?$user['avatar']:'/static/images/avatar.png'}" style="width: 250px;" class="img-responsive" alt="Responsive image">
+                            {php}$avatar = get_user_avatar($user['avatar']);{/php}
+                            <img id="avatar-image" src="{$avatar}" style="width: 250px;" class="img-responsive avatar" alt="Responsive image">
+                            <input id="avatar-input" type="hidden" name="avatar" value="">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">修改头像</label>
                         <div class="layui-input-block">
-                            <input type="file" lay-type="file" name="avatar" class="layui-upload-file">
-                            <input id="avatar-input" type="hidden" name="avatar" value="{$user['avatar']}">
+                            <button type="button" class="layui-btn avatar"><i class="fa fa-cloud-upload"></i>上传图片</button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +73,7 @@
         var upload = layui.upload;
 
         upload.render({
-            elem:'#avatar',
+            elem:'.avatar',
             url: '{:url("user/profile/avatar")}' ,//上传接口
             method:'post',
             ext: 'jpg|png',
@@ -89,14 +86,13 @@
                 //上传成功后的回调
                 console.log(res);
                 if(res.code!=="200"){
-                    layer.msg(res.message, {icon: 2, time: 1500});
+                    layer.msg(res.msg, {icon: 2, time: 1500});
                 }else{
-                    layer.msg(res.message, {icon: 1, time: 1500});
-                    $("#avatar").attr('src',res.data);
+                    layer.msg(res.msg, {icon: 1, time: 1500});
+                    $("#avatar-image").attr('src',res.data);
                     $("#avatar-input").attr('value',res.data);
                 }
                 console.log(res.data);
-                console.log(input.value);
             },
             error:function () {
                 

@@ -34,7 +34,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">
-                    {php}$avatar = $user['avatar'] ? $user['avatar'] : '/src/images/user.jpg';{/php}
+                    {php}$avatar = get_user_avatar($user['avatar']);{/php}
                     <img src="{$avatar}" class="layui-nav-img">
                     {$user['username']}
                 </a>
@@ -98,7 +98,7 @@
                 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
                     <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a>
                 <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
-                    前端框架<a href="http://www.layui.com/">layui</a>
+                    前端框架<a href="http://www.layui.com/demo/">layui</a>
 
             </div>
         </div>
