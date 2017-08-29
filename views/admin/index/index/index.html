@@ -86,7 +86,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight(this)" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
+                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
                 </div>
             </div>
         </div>
@@ -111,9 +111,14 @@
     layui.use('element', function(){
         element = layui.element;
     });
+    $(window).resize(function () {
+        iframeHeight();
+    });
 
-    function iframeHeight(obj){
-        $(obj).height($(".layui-body").height()-86);
+    function iframeHeight(){
+        var lay_body = $(".layui-body");
+        $('iframe').height(lay_body.height()-86);
+        console.log('iframeHeight');
     }
     var nav = $(".menu");
 
@@ -132,18 +137,14 @@
         var url = $obj.attr('data-url');
         var icon = $obj.attr('data-icon');
         var id = $obj.attr('data-id');
-
         element.tabDelete('iframe-tab',id);
-
-        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight(this)" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
         element.tabAdd('iframe-tab', {
             title: '<i class="'+icon+'"></i>' + title,
             href: content,
             id: id
         });
-
         element.tabChange('iframe-tab',id);
-
         var show = $(".layui-show");
         show.empty();
         show.append(content);
