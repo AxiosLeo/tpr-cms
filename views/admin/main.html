@@ -32,7 +32,11 @@
         var form = $(id);
         var url = form.attr('action');console.log(form);
         var obj = serializeForm(id);
-        postSomething(url, obj, callback);
+        if(url!=='' && url!==undefined){
+            postSomething(url, obj, callback);
+        }else{
+            console.log('url empty');
+        }
         return false;
     }
 
@@ -63,6 +67,23 @@
                         }else{
                             layer.msg(res.msg,{icon:2,time:1500});
                         }
+                    };
+                }
+                callback(res);
+            }
+        });
+    }
+
+    function getFetch(url,callback) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            enctype: 'multipart/form-data',
+            data: {},
+            success: function (res) {
+                if(callback === undefined){
+                    callback = function (res) {
+                        console.log(res);
                     };
                 }
                 callback(res);
