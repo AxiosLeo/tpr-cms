@@ -53,24 +53,28 @@
 
         table.on('tool(data_table)',function (obj) {
             console.log(obj);
-            var url;
+            var url , id;
+            id = obj.data.id;
             if(obj.event === 'edit'){
-                var id = obj.data.id;
-                console.log(id);
                 url = "{:url('user/role/edit')}?id=" + id;
                 openLayer("编辑角色", url, "600px", "484px");
             }else if(obj.event === 'del'){
                 url = "{:u('user','role','del')}";
-                postSomething(url,data,function(res){
+                postSomething(url,{id:id},function(res){
                     if(res.code){
                         layer.msg(res.msg,{icon:1,time:1500});
-                        obj.dele
+                        obj.del();
                     }else{
                         layer.msg(res.msg,{icon:2,time:1500});
                     }
                 });
             }
         });
+    });
+    
+    $("#addRole").click(function () {
+        var url = "{:url('user/role/add')}";
+        openLayer("新增角色", url, "300px", "200px");
     });
 
 
