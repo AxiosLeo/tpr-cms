@@ -14,6 +14,10 @@ use think\Db;
 
 class Admin extends AdminLogin
 {
+    /**
+     * 用户管理
+     * @return mixed
+     */
     public function index()
     {
         $count = Db::name('admin')->count();
@@ -22,6 +26,9 @@ class Admin extends AdminLogin
         return $this->fetch('index');
     }
 
+    /**
+     * 获取管理员用户信息
+     */
     public function getAdmin()
     {
         $page = isset($this->param['page']) && !empty($this->param['page']) ? $this->param['page'] : 1;
@@ -36,6 +43,10 @@ class Admin extends AdminLogin
         $this->response($admin);
     }
 
+    /**
+     * 编辑管理员用户信息
+     * @return mixed
+     */
     public function edit()
     {
         $id = $this->param['id'];

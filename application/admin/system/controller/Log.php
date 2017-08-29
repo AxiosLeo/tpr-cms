@@ -13,6 +13,10 @@ use tpr\admin\common\controller\AdminLogin;
 
 class Log extends AdminLogin
 {
+    /**
+     * 日志管理
+     * @return mixed
+     */
     public function index()
     {
         return $this->fetch('index');

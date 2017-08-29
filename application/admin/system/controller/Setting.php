@@ -13,16 +13,17 @@ use tpr\admin\common\controller\AdminLogin;
 
 class Setting extends AdminLogin
 {
+    /**
+     * 参数设置
+     * @return mixed|string
+     */
     public function index()
     {
-        if (is_file(ROOT_PATH . '.env')) {
-            $env = parse_ini_file(ROOT_PATH . '.env', true);
-            $this->assign('env', $env);
-            return $this->fetch('index');
-        } else {
-            echo "没有找到.env文件<br />";
-            echo "请确认" . ROOT_PATH . ".env文件是否存在";
+        if (!is_file(ROOT_PATH . '.env')) {
+            file_put_contents(ROOT_PATH . '.env',file_get_contents(ROOT_PATH . '.env.example'));
         }
-        return "";
+        $env = parse_ini_file(ROOT_PATH . '.env', true);
+        $this->assign('env', $env);
+        return $this->fetch('index');
     }
 }

@@ -13,6 +13,9 @@ use tpr\admin\common\controller\AdminLogin;
 
 class Security extends AdminLogin
 {
+    /**
+     * 安全设置
+     */
     public function index()
     {
 

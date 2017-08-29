@@ -5,7 +5,7 @@ $(".layui-form").submit(function () {
 
 function submitForm(id, callback) {
     var form = $(id);
-    var url = form.attr('action');console.log(form);
+    var url = form.attr('action');
     var obj = serializeForm(id);
     if(url!=='' && url!==undefined){
         postSomething(url, obj, callback);

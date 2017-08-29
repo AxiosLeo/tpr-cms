@@ -15,6 +15,10 @@ use think\Doc;
 
 class Api extends AdminLogin
 {
+    /**
+     * 接口管理
+     * @return mixed
+     */
     public function index()
     {
         if ($this->request->isPost()) {

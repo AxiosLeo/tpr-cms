@@ -14,6 +14,10 @@ use think\Db;
 
 class Role extends AdminLogin
 {
+    /**
+     * 角色列表
+     * @return mixed
+     */
     public function index()
     {
         if($this->request->isPost()){
@@ -37,6 +41,10 @@ class Role extends AdminLogin
         return $this->fetch('index');
     }
 
+    /**
+     * 新增角色
+     * @return mixed
+     */
     public function add(){
         if($this->request->isPost()){
             $insert = [
@@ -50,6 +58,10 @@ class Role extends AdminLogin
         return $this->fetch();
     }
 
+    /**
+     * 编辑角色
+     * @return mixed
+     */
     public function edit(){
         $id = $this->request->param('id',0);
 
@@ -71,6 +83,9 @@ class Role extends AdminLogin
         return $this->fetch();
     }
 
+    /**
+     * 删除角色
+     */
     public function del(){
         $id = $this->request->param('id');
 
@@ -80,6 +95,22 @@ class Role extends AdminLogin
         }else{
             $this->error(lang('error'));
         }
+    }
+
+    /**
+     * 权限设置
+     * @return mixed
+     */
+    public function auth(){
+        $role_id = $this->request->param('role_id');
+        if($this->request->isPost()){
+            $menu = $this->request->param('node' , []);
+            foreach ($menu as $m){
+                $insert_node = ['role_id'=>$role_id,'menu_id'=>$m];
+                Db::name('role_node')->insert($insert_node);
+            }
+        }
+        return $this->fetch();
     }
 
 }

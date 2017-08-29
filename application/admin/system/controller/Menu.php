@@ -14,6 +14,10 @@ use think\Db;
 
 class Menu extends AdminLogin
 {
+    /**
+     * 菜单管理
+     * @return mixed
+     */
     public function index()
     {
         $Menu = new \tpr\admin\common\model\Menu();
@@ -28,16 +32,18 @@ class Menu extends AdminLogin
         return $this->fetch('index');
     }
 
-    public function test()
-    {
-        dump(\tpr\admin\common\model\Menu::model()->getMenu());
-    }
 
+    /**
+     * 获取菜单数据
+     */
     public function getMenu()
     {
         $this->response(\tpr\admin\common\model\Menu::model()->getMenuTree());
     }
 
+    /**
+     * 更新菜单信息
+     */
     public function updateMenu()
     {
         $id        = $this->request->param('id', 0);
@@ -65,6 +71,9 @@ class Menu extends AdminLogin
         }
     }
 
+    /**
+     * 删除菜单
+     */
     public function deleteMenu()
     {
         $id = $this->request->param('id', 0);
@@ -75,6 +84,9 @@ class Menu extends AdminLogin
         }
     }
 
+    /**
+     * 获取所有菜单
+     */
     public function getAllMenu()
     {
         $page  = $this->request->param('page' , 1);

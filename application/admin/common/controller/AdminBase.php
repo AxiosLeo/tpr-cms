@@ -29,7 +29,7 @@ class AdminBase extends HomeBase
         $this->assign('current_url', $this->request->path());
     }
 
-    public function menu($all = true)
+    protected function menu($all = true)
     {
         $parent_menu = Menu::model()->menus(0, $all);
         foreach ($parent_menu as &$m) {
@@ -38,7 +38,7 @@ class AdminBase extends HomeBase
         return $parent_menu;
     }
 
-    public function tableData($data, $count = 0, $msg='success'){
+    protected function tableData($data, $count = 0, $msg='success'){
         $result = [
             'code'  => 0,
             'msg'   => lang($msg),

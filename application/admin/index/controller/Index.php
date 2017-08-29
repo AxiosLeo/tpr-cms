@@ -14,12 +14,20 @@ use think\Db;
 
 class Index extends AdminLogin
 {
+    /**
+     * 后台系统主页面
+     * @return mixed
+     */
     public function index()
     {
         $this->assign('menu', $this->menu());
         return $this->fetch('index');
     }
 
+    /**
+     * 后台首页
+     * @return mixed
+     */
     public function main()
     {
         if ($this->request->isPost()) {

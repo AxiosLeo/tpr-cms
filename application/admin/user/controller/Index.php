@@ -14,6 +14,10 @@ use think\Db;
 
 class Index extends AdminLogin
 {
+    /**
+     * 用户信息
+     * @return mixed
+     */
     public function profile()
     {
         $role = Db::name('role')->where('id', $this->user['role_id'])->find();
@@ -21,6 +25,10 @@ class Index extends AdminLogin
         return $this->fetch('profile');
     }
 
+    /**
+     * 修改密码
+     * @return mixed
+     */
     public function password()
     {
         if ($this->request->isPost()) {

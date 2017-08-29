@@ -16,6 +16,9 @@ use think\Tool;
 
 class Profile extends AdminLogin
 {
+    /**
+     * 更新用户信息
+     */
     public function update()
     {
         if ($this->request->isPost()) {
@@ -35,6 +38,9 @@ class Profile extends AdminLogin
         $this->error("error");
     }
 
+    /**
+     * 上传头像文件
+     */
     public function avatar()
     {
         $file = $this->request->file('file');

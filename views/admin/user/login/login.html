@@ -66,7 +66,7 @@
             var password = $(".layui-pwd-icon .login_txtbx").val();
             var verify = $(".layui-code-box .login_txtbx").val();
 
-            var url = "{:url('user/login/doLogin')}";
+            var url = "{:url('user/login/index')}";
 
             $.post(url, {username: username, password: password, verify: verify}, function (res) {
                 if (!res.code) {

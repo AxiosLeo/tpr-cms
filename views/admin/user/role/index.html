@@ -1,6 +1,6 @@
 {layout name="main" /}
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+<fieldset class="layui-elem-field layui-field-title" >
     <legend>角色列表</legend>
 </fieldset>
 
@@ -68,13 +68,37 @@
                         layer.msg(res.msg,{icon:2,time:1500});
                     }
                 });
+            }else if(obj.event === 'auth'){
+                url = "{:url('user/role/auth')}?id=" + id;
+                openLayer(url,{
+                    title:"分配权限",
+                    width:"600px", height:"500px"
+                },{
+                    yes:function (index) {
+//                        submitForm('user_role_auth');
+                        layer.close(index);
+                    },btn2:function (index) {
+                        layer.close(index);
+                    }
+                });
             }
         });
     });
     
     $("#addRole").click(function () {
         var url = "{:url('user/role/add')}";
-        openLayer("新增角色", url, "300px", "200px");
+
+        openLayer(url,{
+            title:"新增角色",
+            width:"450px", height:"200px"
+        },{
+            yes:function (index) {
+                submitForm("#user_role_add");
+                layer.close(index);
+            },btn2:function (index) {
+                layer.close(index);
+            }
+        });
     });
 
 
@@ -98,6 +122,6 @@
 
 </script>
 <script type="text/html" id="operationTpl">
-    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="auth">分配权限</a>
     <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
 </script>
