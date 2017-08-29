@@ -66,17 +66,32 @@
         });
     }
 
-    function openLayer(title, url, width, height) {
-        layer.open({
-            type: 2,
-            title: title,
-            shadeClose: true,
-            shade: 0.8,
-            resize: true,
-            scrollbar: true,
-            area: [width, height],
-            content: url
-        });
+    function openLayer(config,btnFunction) {
+        var option = {
+            type: 2,title: '查看',closeBtn: 1
+            ,width: '400px',height:'400px',shade: 0.3,shadeClose:true
+            ,btn: ['保存','取消'],moveType: 1
+            ,url: '',maxmin: false
+        };
+
+        $.extend(option,config);
+
+        var layer_option = {
+            type: option.type
+            ,title: option.title
+            ,area: [option.width, option.height]
+            ,shade: option.shade
+            ,shadeClose: option.shadeClose
+            ,maxmin: option.maxmin
+            ,content: option.url
+            ,moveType:option.moveType
+            ,btn: option.btn //只是为了演示
+            ,success: function(index){
+                layer.setTop(index); //重点2
+            }
+        };
+        $.extend(layer_option , btnFunction);
+        layer.open(layer_option);
     }
 </script>
 </body>
