@@ -72,7 +72,9 @@ function openLayer(url , config, btnFunction) {
             type: 1,title: '查看',closeBtn: 1
             ,width: '400px',height:'400px',shade: 0.3,shadeClose:true
             ,btn: ['保存','取消'],moveType: 1
-            ,maxmin: false
+            ,maxmin: false,success: function(index){
+
+            }
         };
 
         $.extend(option,config);
@@ -87,9 +89,6 @@ function openLayer(url , config, btnFunction) {
             ,content: content
             ,moveType:option.moveType
             ,btn: option.btn
-            ,success: function(index){
-                layer.setTop(index);
-            }
         };
         $.extend(layer_option , btnFunction);
         layer.open(layer_option);

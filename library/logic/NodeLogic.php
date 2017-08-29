@@ -11,7 +11,7 @@ namespace library\logic;
 use think\Doc;
 
 class NodeLogic{
-    public static function adminNode($page , $limit ,$class_path = []){
+    public static function adminNode($class_path = [] ,$page = 1 , $limit = 10){
         Doc::config($class_path,APP_PATH);
         $doc = Doc::doc();
         $node_list = []; $n = 0;
@@ -29,7 +29,7 @@ class NodeLogic{
             }
         }
         return [
-            'list' => array_slice($node_list , ($page-1)*$limit,$limit),
+            'list' => $page ? array_slice($node_list , ($page-1)*$limit,$limit) : $node_list,
             'count'=>$n
         ];
     }
