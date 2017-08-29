@@ -38,6 +38,16 @@ class AdminBase extends HomeBase
         return $parent_menu;
     }
 
+    public function tableData($data, $count = 0, $msg='success'){
+        $result = [
+            'code'  => 0,
+            'msg'   => lang($msg),
+            'count' => $count,
+            'data'  => $data
+        ];
+        $this->ajaxReturn($result);
+    }
+
     public function _empty()
     {
         echo __FUNCTION__;

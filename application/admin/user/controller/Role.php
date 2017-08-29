@@ -18,18 +18,14 @@ class Role extends AdminLogin
     {
         if($this->request->isPost()){
             $roles = Db::name('role')->select();
+            $count = Db::name('role')->count();
 
             foreach ($roles as &$r) {
                 $r['admin_number'] = Db::name('admin')->where('role_id', $r['id'])->count();
             }
 
-            $this->result($roles);
+            $this->tableData($roles, $count);
         }
-
-        $count = Db::name('role')->count();
-
-        $limit = 10;
-        $this->assign('pages', ($count % $limit) ? 1 + $count / $limit : $count / $limit);
 
         return $this->fetch('index');
     }
