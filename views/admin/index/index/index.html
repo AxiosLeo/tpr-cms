@@ -117,7 +117,8 @@
 
     function iframeHeight(){
         var lay_body = $(".layui-body");
-        $('iframe').height(lay_body.height()-86);
+        var height = lay_body.height()-86;
+        $('iframe').height(height);
     }
     var nav = $(".menu");
 
