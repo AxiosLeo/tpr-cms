@@ -1,52 +1,97 @@
-/*
-* @Author: Larry
-* @Date:   2016-12-15 17:20:54
-* @Last Modified by:   qinsh
-* @Last Modified time: 2016-12-24 21:51:08
-* +----------------------------------------------------------------------
-* | LarryBlogCMS [ LarryCMS网站内容管理系统 ]
-* | Copyright (c) 2016-2017 http://www.larrycms.com All rights reserved.
-* | Licensed ( http://www.larrycms.com/licenses/ )
-* | Author: qinshouwei <313492783@qq.com>
-* +----------------------------------------------------------------------
-*/
-var myChart = echarts.init(document.getElementById('larry-seo-stats'));
-option = {
-    title : {
-        text: '用户访问来源',
-        subtext: '纯属虚构',
-        x:'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-    },
-    series : [
-        {
-            name: '访问来源',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:[
-                {value:335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:1548, name:'搜索引擎'}
-            ],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
+$(".layui-form").submit(function () {
+    submitForm(".layui-form");
+    return false;
+});
+
+function submitForm(id, callback) {
+    var form = $(id);
+    var url = form.attr('action');console.log(form);
+    var obj = serializeForm(id);
+    if(url!=='' && url!==undefined){
+        postSomething(url, obj, callback);
+    }else{
+        console.log('url empty');
+    }
+    return false;
+}
+
+function serializeForm(obj) {
+    var params = {};
+    $.each($(obj).serializeArray(), function (index, param) {
+        if (!(param.name in params)) {
+            params[param.name] = param.value;
         }
-    ]
-};
-myChart.setOption(option);
+    });
+    return params;
+}
+
+function postSomething(url, obj, callback) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        enctype: 'multipart/form-data',
+        data: obj,
+        success: function (res) {
+            console.log(res);
+            if(callback === undefined){
+                callback = function (res) {
+                    if(res.code){
+                        layer.msg(res.msg,{icon:1,time:1500},function () {
+                            window.location.href = res.url;
+                        });
+                    }else{
+                        layer.msg(res.msg,{icon:2,time:1500});
+                    }
+                };
+            }
+            callback(res);
+        }
+    });
+}
+
+function getFetch(url,callback) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        enctype: 'multipart/form-data',
+        data: {},
+        success: function (res) {
+            if(callback === undefined){
+                callback = function (res) {
+                    console.log(res);
+                };
+            }
+            callback(res);
+        }
+    });
+}
+
+function openLayer(url , config, btnFunction) {
+    getFetch(url,function (content) {
+        var option = {
+            type: 1,title: '查看',closeBtn: 1
+            ,width: '400px',height:'400px',shade: 0.3,shadeClose:true
+            ,btn: ['保存','取消'],moveType: 1
+            ,maxmin: false
+        };
+
+        $.extend(option,config);
+
+        var layer_option = {
+            type: option.type
+            ,title: option.title
+            ,area: [option.width, option.height]
+            ,shade: option.shade
+            ,shadeClose: option.shadeClose
+            ,maxmin: option.maxmin
+            ,content: content
+            ,moveType:option.moveType
+            ,btn: option.btn
+            ,success: function(index){
+                layer.setTop(index);
+            }
+        };
+        $.extend(layer_option , btnFunction);
+        layer.open(layer_option);
+    });
+}
