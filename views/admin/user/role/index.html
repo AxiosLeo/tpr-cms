@@ -42,18 +42,35 @@
             var url = "{:u('user','role','edit')}";
             data[field] = value; //更新缓存中的值
 
-            postSomething(url,data);
+            postSomething(url,data,function(res){
+                if(res.code){
+                    layer.msg(res.msg,{icon:1,time:1500});
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1500});
+                }
+            });
         });
 
-//        table.on('tool(data_table)',function (obj) {
-//            console.log(obj);
-//            if(obj.event === 'edit'){
-//                var id = obj.data.id;
-//                console.log(id);
-//                var url = "{:url('user/role/edit')}?id=" + id;
-//                openLayer("编辑角色", url, "600px", "484px");
-//            }
-//        });
+        table.on('tool(data_table)',function (obj) {
+            console.log(obj);
+            var url;
+            if(obj.event === 'edit'){
+                var id = obj.data.id;
+                console.log(id);
+                url = "{:url('user/role/edit')}?id=" + id;
+                openLayer("编辑角色", url, "600px", "484px");
+            }else if(obj.event === 'del'){
+                url = "{:u('user','role','del')}";
+                postSomething(url,data,function(res){
+                    if(res.code){
+                        layer.msg(res.msg,{icon:1,time:1500});
+                        obj.dele
+                    }else{
+                        layer.msg(res.msg,{icon:2,time:1500});
+                    }
+                });
+            }
+        });
     });
 
 
@@ -78,6 +95,5 @@
 </script>
 <script type="text/html" id="operationTpl">
     <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
 </script>
