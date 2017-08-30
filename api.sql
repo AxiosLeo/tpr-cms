@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-07-04 17:10:45
+Date: 2017-08-30 13:29:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `api_admin` (
 -- ----------------------------
 -- Records of api_admin
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', '11', null, '1', '13312345679', null, '/static/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1498718816', 'c558d44a9fdb0f18f9a9066dbf6c8f10', '', '1496969527');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '1', '13312345679', null, '/src/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1498718816', 'c558d44a9fdb0f18f9a9066dbf6c8f10', '', '1496969527');
 
 -- ----------------------------
 -- Table structure for api_app
@@ -146,19 +146,6 @@ INSERT INTO `api_menu` VALUES ('13', null, 'list', '菜单管理', '9', 'system'
 INSERT INTO `api_menu` VALUES ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
 
 -- ----------------------------
--- Table structure for api_nav
--- ----------------------------
-DROP TABLE IF EXISTS `api_nav`;
-CREATE TABLE `api_nav` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of api_nav
--- ----------------------------
-
--- ----------------------------
 -- Table structure for api_role
 -- ----------------------------
 DROP TABLE IF EXISTS `api_role`;
@@ -180,23 +167,13 @@ DROP TABLE IF EXISTS `api_role_node`;
 CREATE TABLE `api_role_node` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL,
+  `node_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of api_role_node
 -- ----------------------------
-INSERT INTO `api_role_node` VALUES ('1', '1', '1');
-INSERT INTO `api_role_node` VALUES ('2', '1', '6');
-INSERT INTO `api_role_node` VALUES ('3', '1', '5');
-INSERT INTO `api_role_node` VALUES ('4', '1', '4');
-INSERT INTO `api_role_node` VALUES ('5', '1', '2');
-INSERT INTO `api_role_node` VALUES ('6', '1', '7');
-INSERT INTO `api_role_node` VALUES ('7', '1', '8');
-INSERT INTO `api_role_node` VALUES ('8', '1', '3');
-INSERT INTO `api_role_node` VALUES ('9', '1', '10');
-INSERT INTO `api_role_node` VALUES ('10', '1', '9');
 
 -- ----------------------------
 -- Table structure for api_users
