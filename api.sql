@@ -11,7 +11,7 @@
  Target Server Version : 50552
  File Encoding         : utf-8
 
- Date: 08/30/2017 13:33:49 PM
+ Date: 08/30/2017 13:47:42 PM
 */
 
 SET NAMES utf8mb4;
@@ -129,7 +129,7 @@ CREATE TABLE `api_menu` (
 --  Records of `api_menu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '0', '1495530800'), ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null), ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680'), ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null), ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null), ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null), ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null), ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686'), ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null), ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890'), ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898'), ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894'), ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null), ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
+INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main', '0', '0', '0', '1495530800'), ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null), ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680'), ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null), ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null), ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null), ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null), ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686'), ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null), ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890'), ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898'), ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894'), ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null), ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
 COMMIT;
 
 -- ----------------------------

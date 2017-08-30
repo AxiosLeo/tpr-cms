@@ -2,86 +2,16 @@
 <section class="layui-larry-box">
     <div class="larry-personal">
         <blockquote class="layui-elem-quote mylog-info-tit">
-            <ul class="layui-tab-title">
-                <a id="addMenu" class="layui-btn layui-btn-normal" ><i class="layui-icon">&#xe654;</i>新增菜单</a>
+            <ul class="layui-tab-title" style="border: 0">
+                <a id="addMenu" class="layui-btn layui-btn-normal" ><i class="layui-icon">&#xe654;</i>添加菜单</a>
             </ul>
         </blockquote>
         <div class="larry-separate"></div>
         <div class="larry-personal-body clearfix mylog-info-box">
             <div class="layui-field-box layui-show">
                 <div class="row">
-                    <div class="col-md-4 col-lg-4 col-xs-3" style="min-height: 600px; display: inline-block;  border: 1px solid #ddd; overflow: auto;">
+                    <div class="col-md-12 col-lg-12 col-xs-12" style="min-height: 600px; display: inline-block;  border: 1px solid #ddd; overflow: auto;">
                         <ul id="node"></ul>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xs-8" style="min-height: 600px; display: inline-block;   margin-left: 10px; vertical-align: top;">
-                        <fieldset class="layui-elem-field layui-field-title col-md-11 col-lg-11 col-xs-11">
-                            <legend class="larry-personal-tit"> <span>点击左侧菜单获取菜单详情</span></legend>
-                            <form id="menu" class="layui-form" action="{:url('system/menu/updateMenu')}">
-                                <div class="layui-field-box">
-                                    <input id="id" name="id" class="layui-input layui-hide">
-                                    <div class="layui-form-item">
-                                        <label for="parent_id" class="layui-form-label col-md-3">父级菜单: </label>
-                                        <div class="layui-input-block">
-                                            <select class="col-md-3" id="parent_id" name="parent_id" lay-filter="parent">
-                                                <option value="0" selected>顶级菜单</option>
-                                                {foreach name="parent_menu" item="pm"}
-                                                <option value="{$pm['id']}">{$pm['title']}</option>
-                                                {php}$sub = $pm['children'];if(!empty($sub)){{/php}
-                                                {foreach name="sub" item="c"}
-                                                <option value="{$c['id']}">└─{$c['title']}</option>
-                                                {/foreach}
-                                                {php}}{/php}
-                                                {/foreach}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="title" class="layui-form-label col-md-3">名称: </label>
-                                        <div class="layui-input-block">
-                                            <input id="title" class="layui-input" name="title">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="icon" class="layui-form-label col-md-3">图标: </label>
-                                        <div class="layui-input-block">
-                                            <input id="icon" class="layui-input" name="icon">
-                                            <span class="help-block" ><a href="http://fontawesome.dashgame.com/" style="color: #999999" target="_blank">Font Awesome图标库</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="module" class="layui-form-label col-md-3">模块: </label>
-                                        <div class="layui-input-block">
-                                            <input id="module" class="layui-input" name="module">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="controller" class="layui-form-label col-md-3">控制器: </label>
-                                        <div class="layui-input-block">
-                                            <input id="controller" class="layui-input " name="controller">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="func" class="layui-form-label col-md-3">方法: </label>
-                                        <div class="layui-input-block">
-                                            <input id="func" class="layui-input " name="func">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label for="sort" class="layui-form-label col-md-3">排序: </label>
-                                        <div class="layui-input-block">
-                                            <input id="sort" class="layui-input " name="sort">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <div class="layui-input-block pull-right">
-                                            <a id="add" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="add">新增</a>
-                                            <a id="update" class="layui-btn layui-hide" lay-submit="" lay-filter="update">更新</a>
-                                            <a id="delete" class="layui-btn layui-btn-danger layui-hide" lay-submit="" lay-filter="demo1">删除</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </fieldset>
                     </div>
                 </div>
             </div>
@@ -95,49 +25,55 @@
         window.jQuery = window.$ = layui.jquery;
         window.layer = layui.layer;
         var url = '{:url("system/menu/getMenu")}';
-        var current_node = [] ;
+
         $.post(url,{},function (res) {
-//            console.log(res.data);
             layui.use('tree', function(){
                 layui.tree({
-                    elem: '#node' //传入元素选择器
+                    elem: '#node'
                     ,nodes: res.data,
                     click:function (node) {
-                        current_node = node;
+                        var id = node.id;
+                        var url = "{:url('system/menu/edit')}?id=" + id;
 
-                        $("#update").removeClass('layui-hide');
-                        $("#delete").removeClass('layui-hide');
-                        $("#add").addClass('layui-hide');
-
-                        $("#id").val(node.id);
-                        $("#title").val(node.name);
-                        $("#icon").val(node.icon);
-                        $("#module").val(node.module);
-                        $("#controller").val(node.controller);
-                        $("#func").val(node.func);
-                        $("#sort").val(node.sort);
-                        $("#parent_id").val(current_node.parent_id);
-                        form.render('select');
+                        openLayer(url,{
+                            title:"编辑菜单",width:"600px",height:"600px",
+                            btn:['保存','删除','取消']
+                        },{
+                            yes:function () {
+                                submitForm('#system_menu_edit_form');
+                            },btn2:function (index) {
+                                url = "{:url('system/menu/delete')}?id=" + id;
+                                postSomething(url);
+                                layer.close(index);
+                                return false;
+                            },btn3:function (index) {
+                                layer.close(index);
+                            },success:function () {
+                                form.render();
+                            }
+                        })
                     }
                 });
             });
         });
     });
 
-    $("#addMenu").click(function (e) {
-        $("#update").addClass('layui-hide');
-        $("#delete").addClass('layui-hide');
-        $("#add").removeClass('layui-hide');
+    $("#addMenu").click(function () {
+        var url = "{:url('system/menu/add')}";
 
-        $("#id").val("");
-        $("#title").val("");
-        $("#icon").val("");
-        $("#module").val("");
-        $("#controller").val("");
-        $("#func").val("");
-        $("#sort").val("");
-        $("#parent_id").val(0);
-        form.render('select');
+        openLayer(url,{
+            title:"添加菜单",width:"600px",height:"600px",
+            btn:['添加','取消']
+        },{
+            yes:function () {
+                submitForm('#system_menu_add_form');
+            },btn2:function (index) {
+                layer.close(index);
+                return false;
+            },success:function () {
+                form.render();
+            }
+        })
     });
 
     $("#update,#add").click(function () {

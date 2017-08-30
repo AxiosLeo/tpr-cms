@@ -10,9 +10,9 @@
 namespace tpr\admin\common\controller;
 
 use library\controller\HomeBase;
-use tpr\admin\common\model\Menu;
 use think\Request;
 use think\Session;
+use tpr\admin\common\model\MenuModel;
 
 class AdminBase extends HomeBase
 {
@@ -29,11 +29,11 @@ class AdminBase extends HomeBase
         $this->assign('current_url', $this->request->path());
     }
 
-    protected function menu($all = true)
+    protected function menu()
     {
-        $parent_menu = Menu::model()->menus(0, $all);
+        $parent_menu = MenuModel::model()->menus(0);
         foreach ($parent_menu as &$m) {
-            $m['sub'] = Menu::model()->menus($m['id'], $all);
+            $m['sub'] = MenuModel::model()->menus($m['id']);
         }
         return $parent_menu;
     }

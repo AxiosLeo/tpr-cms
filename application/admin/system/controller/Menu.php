@@ -9,7 +9,9 @@
 
 namespace tpr\admin\system\controller;
 
+use library\logic\NodeLogic;
 use tpr\admin\common\controller\AdminLogin;
+use tpr\admin\common\model\MenuModel;
 use think\Db;
 
 class Menu extends AdminLogin
@@ -20,7 +22,7 @@ class Menu extends AdminLogin
      */
     public function index()
     {
-        $Menu = new \tpr\admin\common\model\Menu();
+        $Menu = new MenuModel();
         $parent_menu = $Menu->getMenu();
         $this->assign('parent_menu', $parent_menu);
 
@@ -32,24 +34,62 @@ class Menu extends AdminLogin
         return $this->fetch('index');
     }
 
+    public function add()
+    {
+        if ($this->request->isPost()) {
+            $parent_id = $this->request->param('parent_id', 0);
+            $path = $this->param['node_path'];
+            list($this->param['module'], $this->param['controller'], $this->param['func']) = explode('/', $path);
+
+            $this->param['update_at'] = time();
+
+            $data = [
+                'icon' => $this->param['icon'],
+                'title' => $this->param['title'],
+                'parent_id' => $parent_id,
+                'module' => $this->param['module'],
+                'controller' => $this->param['controller'],
+                'func' => $this->param['func'],
+                'sort' => $this->param['sort']
+            ];
+
+            if (Db::name('menu')->insertGetId($data)) {
+                $this->success('操作成功');
+            } else {
+                $this->error('操作失败');
+            }
+        }
+
+        $parent_menu = MenuModel::model()->getMenu();
+        $this->assign('parent_menu', $parent_menu);
+
+        $result = NodeLogic::adminNode(false);
+        $node_list = $result['list'];
+        $this->assign('node_list', $node_list);
+
+        return $this->fetch();
+    }
+
 
     /**
      * 获取菜单数据
      */
     public function getMenu()
     {
-        $this->response(\tpr\admin\common\model\Menu::model()->getMenuTree());
+        $this->response(MenuModel::model()->getMenuTree());
     }
 
     /**
-     * 更新菜单信息
+     * 编辑菜单信息
      */
-    public function updateMenu()
+    public function edit()
     {
-        $id        = $this->request->param('id', 0);
-        $parent_id = $this->request->param('parent_id' , 0);
+        $id = $this->request->param('id', 0);
+        if ($this->request->isPost()) {
+            $parent_id = $this->request->param('parent_id', 0);
+            $path = $this->param['node_path'];
+            list($this->param['module'], $this->param['controller'], $this->param['func']) = explode('/', $path);
 
-        if (!empty($id)) {
             $this->param['update_at'] = time();
             if ($parent_id == $id) {
                 $this->error("当前菜单与父级菜单相同<br />请选择其它父级菜单");
@@ -60,21 +100,25 @@ class Menu extends AdminLogin
             } else {
                 $this->error('更新失败');
             }
-        } else {
-            $this->param['update_at'] = time();
-
-            if (Db::name('menu')->insertGetId($this->param)) {
-                $this->success('操作成功');
-            } else {
-                $this->error('操作失败');
-            }
         }
+
+        $menu = Db::name('menu')->where('id', $id)->find();
+        $this->assign('data', $menu);
+
+        $parent_menu = MenuModel::model()->getMenu();
+        $this->assign('parent_menu', $parent_menu);
+
+        $result = NodeLogic::adminNode(false);
+        $node_list = $result['list'];
+        $this->assign('node_list', $node_list);
+
+        return $this->fetch('edit');
     }
 
     /**
      * 删除菜单
      */
-    public function deleteMenu()
+    public function delete()
     {
         $id = $this->request->param('id', 0);
         if (Db::name('menu')->where('id', $id)->delete()) {
@@ -89,18 +133,18 @@ class Menu extends AdminLogin
      */
     public function getAllMenu()
     {
-        $page  = $this->request->param('page' , 1);
-        $limit = $this->request->param('limit',10);
+        $page = $this->request->param('page', 1);
+        $limit = $this->request->param('limit', 10);
 
-        $nodes      = Db::name('menu')->page($page)->limit($limit)->select();
+        $nodes = Db::name('menu')->page($page)->limit($limit)->select();
         $node_count = Db::name('menu')->count();
 
         $pages = ($node_count % $limit) ? 1 + $node_count / $limit : $node_count / $limit;
 
         $req = [
             'total' => $node_count,
-            'node'  => $nodes,
-            'page'  => $page,
+            'node' => $nodes,
+            'page' => $page,
             'pages' => $pages,
             'limit' => $limit
         ];

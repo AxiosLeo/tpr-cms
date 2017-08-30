@@ -1,17 +1,17 @@
 <?php
 /**
- * @author: Axios
+ * @author: axios
  *
  * @email: axioscros@aliyun.com
  * @blog:  http://hanxv.cn
- * @datetime: 2017/5/18 13:09
+ * @datetime: 2017/8/30 下午1:55
  */
 
 namespace tpr\admin\common\model;
 
 use think\Model;
 
-class Menu extends Model
+class MenuModel extends Model
 {
     public $name = 'menu';
 
@@ -25,13 +25,9 @@ class Menu extends Model
         return new self();
     }
 
-    public function menus($parent_id = 0, $all = true)
+    public function menus($parent_id = 0)
     {
         $this->alias('menu');
-
-        if (!$all) {
-            $this->where('show', 0);
-        }
 
         $this->field('menu.* ');
 
