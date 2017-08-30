@@ -11,7 +11,14 @@ namespace library\logic;
 use think\Doc;
 
 class NodeLogic{
-    public static function adminNode($class_path = [] ,$page = 1 , $limit = 10){
+    public static $class_path = [
+        APP_PATH . 'index/controller',
+        APP_PATH . 'system/controller',
+        APP_PATH . 'user/controller',
+    ];
+    public static function adminNode($page = 1 , $limit = 10){
+        $class_path = self::$class_path;
+
         Doc::config($class_path,APP_PATH);
         $doc = Doc::doc();
         $node_list = []; $n = 0;

@@ -9,6 +9,7 @@
 
 namespace tpr\admin\user\controller;
 
+use library\logic\NodeLogic;
 use tpr\admin\common\controller\AdminLogin;
 use think\Db;
 
@@ -104,11 +105,33 @@ class Role extends AdminLogin
     public function auth(){
         $role_id = $this->request->param('role_id');
         if($this->request->isPost()){
-            $menu = $this->request->param('node' , []);
-            foreach ($menu as $m){
-                $insert_node = ['role_id'=>$role_id,'menu_id'=>$m];
-                Db::name('role_node')->insert($insert_node);
+
+            $result = NodeLogic::adminNode(false);
+            $node_list = $result['list'];
+
+            $auth_node = $this->param['node'];
+            $temp = [];
+            foreach ($auth_node as $an){
+                $temp[$an['path']] = $an['LAY_CHECKED'];
             }
+            $auth_node = $temp;
+
+            foreach ($node_list as $n){
+
+                $exist = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->count();
+                if(isset($auth_node[$n['path']]) && !$exist){
+                    $data = [
+                        'role_id'=>$role_id,
+                        'node_path'=>$n['path']
+                    ];
+                    Db::name('role_node')->insert($data);
+                }else if(!isset($auth_node[$n['path']]) && $exist){
+                    Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->delete();
+                }
+
+            }
+
+            $this->success(lang('success'));
         }
         return $this->fetch();
     }

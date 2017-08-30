@@ -76,11 +76,18 @@
                 },{
                     yes:function (index) {
                         check_auth = table.checkStatus('user_role_auth_table');
-                        console.log(check_auth);
-                        layer.close(index);
+                        postSomething(url , {role_id:id,node:check_auth.data} ,function (res) {
+                            if(res.code){
+                                layer.msg(res.msg,{icon:1,time:1500},function () {
+                                    layer.close(index);
+                                });
+                            }else{
+                                layer.msg(res.msg,{icon:2,time:1500});
+                            }
+                        });
                     },btn2:function (index) {
                         layer.close(index);
-                    },success:function (data,index) {
+                    },success:function () {
                         table.render({
                             id: 'user_role_auth_table',
                             height: 550,
@@ -94,20 +101,8 @@
                                 {checkbox:true, fixed: true},
                                 {field: 'title', width: 250,title:'名称'},
                                 {field: 'path', width: 300, sort: true,title:'path'}
-                            ]],done:function (res,curr,content) {
-                                $.each(res.data,function (index,data) {
-                                    if(data.checked){
-//                                        data['checked'] = true;
-//                                        console.log("tr[data-index="+index+"]");
-//                                        console.log($("tr[data-index="+index+"]"));
-                                    }
-                                });
-                            }
+                            ]]
                         });
-                        table.on('checkbox(user_role_auth_table)', function(obj){
-                            console.log(obj)
-                        });
-
                     }
                 });
             }

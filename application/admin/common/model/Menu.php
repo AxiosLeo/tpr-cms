@@ -33,8 +33,7 @@ class Menu extends Model
             $this->where('show', 0);
         }
 
-        $this->join("__ROLE_NODE__ rn", 'rn.menu_id=menu.id', 'left')
-            ->field('menu.* ');
+        $this->field('menu.* ');
 
         $list = $this->where('parent_id', $parent_id)->order('sort asc')->select();
 
