@@ -23,6 +23,7 @@ class Index extends AdminLogin
     {
         $role = Db::name('role')->where('id', $this->user['role_id'])->find();
         $this->assign('role_name', $role['role_name']);
+        $this->assign('user',Db::name('admin')->where('id',user_current_id())->find());
         return $this->fetch('profile');
     }
 

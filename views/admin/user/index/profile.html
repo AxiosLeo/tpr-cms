@@ -9,7 +9,7 @@
                         <div class="layui-input-block">
                             {php}$avatar = get_user_avatar($user['avatar']);{/php}
                             <img id="avatar-image" src="{$avatar}" style="width: 250px;" class="img-responsive avatar layui-circle" alt="Responsive image">
-                            <input id="avatar-input" type="hidden" name="avatar" value="">
+                            <input id="avatar-input" type="hidden" name="avatar" value="{$user['avatar']}">
                         </div>
                     </div>
                     <div class="layui-form-item">

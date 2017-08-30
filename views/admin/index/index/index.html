@@ -21,7 +21,11 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item" ><a href="javascript:void(0);" onclick="refresh()">刷新</a></li>
-            <li class="layui-nav-item" ><a href="javascript:void(0);">接口调试</a></li>
+            <li class="layui-nav-item" >
+                <a href="javascript:void(0);"
+                 class="menu" data-id="api-test" data-url="{:url('api/index/index')}" data-icon="fa fa-cloud" data-title="接口调试"
+                >接口调试</a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">快捷链接</a>
                 <dl class="layui-nav-child">
@@ -33,15 +37,11 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:void(0);">
+                <a href="javascript:void(0);"  id="profile">
                     {php}$avatar = get_user_avatar($user['avatar']);{/php}
                     <img src="{$avatar}" class="layui-nav-img">
                     {$user['username']}
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
             </li>
             <li class="layui-nav-item"><a href="{:url('user/login/logout')}">退出</a></li>
         </ul>
@@ -130,6 +130,24 @@
             tabAdd(this);
         }
     });
+    $("#profile").click(function () {
+        var title = '基本资料';
+        var url = "{:url('user/index/profile')}";
+        var icon = "fa fa-user";
+        var id = 3;
+        element.tabDelete('iframe-tab',id);
+        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+        element.tabAdd('iframe-tab', {
+            title: '<i class="'+icon+'"></i>' + title,
+            href: content,
+            id: id
+        });
+        element.tabChange('iframe-tab',id);
+        var show = $(".layui-show");
+        show.empty();
+        show.append(content);
+    });
+
 
     function tabAdd(obj) {
         var $obj = $(obj);
@@ -137,6 +155,7 @@
         var url = $obj.attr('data-url');
         var icon = $obj.attr('data-icon');
         var id = $obj.attr('data-id');
+
         element.tabDelete('iframe-tab',id);
         var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
         element.tabAdd('iframe-tab', {
