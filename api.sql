@@ -1,22 +1,24 @@
 /*
-Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
-Source Server         : localvm
-Source Server Version : 50552
-Source Host           : 192.168.1.97:3306
-Source Database       : api
+ Source Server         : vm-yd
+ Source Server Type    : MySQL
+ Source Server Version : 50552
+ Source Host           : 192.168.1.106
+ Source Database       : api
 
-Target Server Type    : MYSQL
-Target Server Version : 50552
-File Encoding         : 65001
+ Target Server Type    : MySQL
+ Target Server Version : 50552
+ File Encoding         : utf-8
 
-Date: 2017-08-30 13:29:30
+ Date: 08/30/2017 13:33:49 PM
 */
 
-SET FOREIGN_KEY_CHECKS=0;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for api_admin
+--  Table structure for `api_admin`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_admin`;
 CREATE TABLE `api_admin` (
@@ -42,12 +44,14 @@ CREATE TABLE `api_admin` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_admin
+--  Records of `api_admin`
 -- ----------------------------
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '1', '13312345679', null, '/src/images/user.jpg', '', 'asdfasdf', '192.168.1.221', '1498718816', 'c558d44a9fdb0f18f9a9066dbf6c8f10', '', '1496969527');
+BEGIN;
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '1', '13312345679', null, '/src/images/user.jpg', '', 'asdfasdf', '192.168.1.105', '1504071019', '3689dc8d751583479d0ec8f57b9f17bf', '', '1496969527');
+COMMIT;
 
 -- ----------------------------
--- Table structure for api_app
+--  Table structure for `api_app`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_app`;
 CREATE TABLE `api_app` (
@@ -67,12 +71,14 @@ CREATE TABLE `api_app` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_app
+--  Records of `api_app`
 -- ----------------------------
+BEGIN;
 INSERT INTO `api_app` VALUES ('1', '某某应用一期', 'ios-ipad', '1', null, null, '962940cfbe94a64efcd1573cf6d7a175', '9c16c7eb192221c6fa0cd07822a16106', '1', '', '1493191395', null);
+COMMIT;
 
 -- ----------------------------
--- Table structure for api_app_setting
+--  Table structure for `api_app_setting`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_app_setting`;
 CREATE TABLE `api_app_setting` (
@@ -85,11 +91,7 @@ CREATE TABLE `api_app_setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_app_setting
--- ----------------------------
-
--- ----------------------------
--- Table structure for api_app_version
+--  Table structure for `api_app_version`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_app_version`;
 CREATE TABLE `api_app_version` (
@@ -104,11 +106,7 @@ CREATE TABLE `api_app_version` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_app_version
--- ----------------------------
-
--- ----------------------------
--- Table structure for api_menu
+--  Table structure for `api_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_menu`;
 CREATE TABLE `api_menu` (
@@ -128,25 +126,14 @@ CREATE TABLE `api_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_menu
+--  Records of `api_menu`
 -- ----------------------------
-INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '0', '1495530800');
-INSERT INTO `api_menu` VALUES ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680');
-INSERT INTO `api_menu` VALUES ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686');
-INSERT INTO `api_menu` VALUES ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890');
-INSERT INTO `api_menu` VALUES ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898');
-INSERT INTO `api_menu` VALUES ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894');
-INSERT INTO `api_menu` VALUES ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null);
-INSERT INTO `api_menu` VALUES ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
+BEGIN;
+INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main1', '0', '0', '0', '1495530800'), ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null), ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680'), ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null), ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null), ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null), ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null), ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686'), ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null), ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890'), ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898'), ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894'), ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null), ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
+COMMIT;
 
 -- ----------------------------
--- Table structure for api_role
+--  Table structure for `api_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_role`;
 CREATE TABLE `api_role` (
@@ -156,12 +143,14 @@ CREATE TABLE `api_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_role
+--  Records of `api_role`
 -- ----------------------------
+BEGIN;
 INSERT INTO `api_role` VALUES ('1', '超级管理员');
+COMMIT;
 
 -- ----------------------------
--- Table structure for api_role_node
+--  Table structure for `api_role_node`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_role_node`;
 CREATE TABLE `api_role_node` (
@@ -169,14 +158,17 @@ CREATE TABLE `api_role_node` (
   `role_id` int(11) NOT NULL,
   `node_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_role_node
+--  Records of `api_role_node`
 -- ----------------------------
+BEGIN;
+INSERT INTO `api_role_node` VALUES ('1', '1', 'admin/controller/index'), ('2', '1', 'admin/controller/main'), ('3', '1', 'admin/controller/getMenu'), ('4', '1', 'admin/controller/updateMenu'), ('5', '1', 'admin/controller/deleteMenu'), ('6', '1', 'admin/controller/getAllMenu'), ('7', '1', 'admin/controller/auth'), ('8', '1', 'admin/controller/add'), ('9', '1', 'admin/controller/edit'), ('10', '1', 'admin/controller/delete'), ('11', '1', 'admin/controller/profile'), ('12', '1', 'admin/controller/password'), ('13', '1', 'admin/controller/update'), ('14', '1', 'admin/controller/avatar'), ('15', '1', 'admin/controller/del');
+COMMIT;
 
 -- ----------------------------
--- Table structure for api_users
+--  Table structure for `api_users`
 -- ----------------------------
 DROP TABLE IF EXISTS `api_users`;
 CREATE TABLE `api_users` (
@@ -195,6 +187,10 @@ CREATE TABLE `api_users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of api_users
+--  Records of `api_users`
 -- ----------------------------
+BEGIN;
 INSERT INTO `api_users` VALUES ('1', 'test590057670218d', 'test', '350e930ef1415387a8747c8a0a154a94', null, '192.168.1.59', '1493194789', '3b3141cb3e3d3ea005ca64525ffd14d6', '0', '1493194599', null);
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
