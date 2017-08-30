@@ -9,6 +9,7 @@
 
 namespace tpr\admin\user\controller;
 
+use think\Tool;
 use tpr\admin\common\controller\AdminLogin;
 use think\Db;
 use tpr\admin\common\validate\AdminValidate;
@@ -41,7 +42,9 @@ class Admin extends AdminLogin
                 ->count();
 
             foreach ($admin as &$a) {
-                $a['last_login_time'] = date("Y-m-d H:i:s", $a['last_login_time']);
+                if(!empty($a['last_login_time'])){
+                    $a['last_login_time'] = date("Y-m-d H:i:s", $a['last_login_time']);
+                }
             }
 
             $this->tableData($admin , $count);
@@ -51,14 +54,28 @@ class Admin extends AdminLogin
 
     public function add(){
         if( $this->request->isPost()){
+
             $Validate = new AdminValidate();
             if (!$Validate->scene('add')->check($this->param)) {
                 $this->error($Validate->getError());
             }
             $time = time();
-            $this->param['created_at'] = $time;
-            $this->param['update_at'] = $time;
-            if (Db::name('admin')->insert($this->param)) {
+            $security_id = rand_upper(Tool::uuid());
+
+            if(Db::name('admin')->where('username',$this->param['username'])->count()){
+                $this->error('用户名已存在'.$this->param['role_id']);
+            }
+
+            $data = [
+                'security_id'=>$security_id,
+                'role_id'=>$this->param['role_id'],
+                'username'=>$this->param['username'],
+                'password'=>make_password($this->param['password'], $security_id),
+                'created_at'=>$time,
+                'update_at'=>$time
+            ];
+
+            if (Db::name('admin')->insert($data)) {
                 $this->success(lang('success!'));
             } else {
                 $this->error(lang('error!'));

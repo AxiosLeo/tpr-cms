@@ -49,3 +49,13 @@ if(!function_exists('get_avatar')){
         return !empty($avatar) && file_exists(ROOT_PATH . 'public/' . $avatar) ? $avatar : '/src/images/avatar.png';
     }
 }
+
+if(!function_exists('rand_upper')){
+    function rand_upper($str){
+        $len = strlen($str);
+        for ($i=0 ; $i<$len; $i++){
+            $str[$i] = mt_rand(0,1) ? strtoupper($str[$i]) : strtolower($str[$i]);
+        }
+        return $str;
+    }
+}
