@@ -12,7 +12,7 @@ use think\Validate;
 
 class AdminValidate extends Validate{
     protected $rule = [
-        'role_id' => ['require' ,'gt:1'],
+        'role_id' => ['require'],
         'mobile' => ['number', 'length:11', 'regex:/^1[34578]{1}\d{9}$/'],
         'email' => ['regex:/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/'],
 
@@ -25,7 +25,6 @@ class AdminValidate extends Validate{
 
     protected $message = [
         'role_id.require' => "请选择角色",
-        'role_id.gt' => "请选择角色",
 
         'username.require' => "请输入用户名",
         'username.length'  => "用户名只能在2~32位之间",

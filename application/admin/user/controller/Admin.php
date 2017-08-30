@@ -61,6 +61,9 @@ class Admin extends AdminLogin
             }
             $time = time();
             $security_id = rand_upper(Tool::uuid());
+            if($this->param['role_id'] == 0){
+                $this->error('请选择角色');
+            }
 
             if(Db::name('admin')->where('username',$this->param['username'])->count()){
                 $this->error('用户名已存在'.$this->param['role_id']);
