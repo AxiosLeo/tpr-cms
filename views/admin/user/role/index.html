@@ -54,10 +54,7 @@
         table.on('tool(data_table)',function (obj) {
             var url , id;
             id = obj.data.id;
-            if(obj.event === 'edit'){
-                url = "{:url('user/role/edit')}?id=" + id;
-                openLayer("编辑角色", url, "600px", "484px");
-            }else if(obj.event === 'del'){
+            if(obj.event === 'del'){
                 url = "{:u('user','role','del')}";
                 postSomething(url,{id:id},function(res){
                     if(res.code){

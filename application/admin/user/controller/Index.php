@@ -11,6 +11,7 @@ namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminLogin;
 use think\Db;
+use tpr\admin\common\validate\AdminValidate;
 
 class Index extends AdminLogin
 {
@@ -32,7 +33,7 @@ class Index extends AdminLogin
     public function password()
     {
         if ($this->request->isPost()) {
-            $Validate = new \tpr\admin\user\validate\Admin();
+            $Validate = new AdminValidate();
             if (!$Validate->scene('password')->check($this->param)) {
                 $this->error($Validate->getError());
             }

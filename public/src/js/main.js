@@ -5,8 +5,12 @@ $(".layui-form").submit(function () {
 
 function submitForm(id, callback) {
     var form = $(id);
+    submitFormIframe(form,callback)
+}
+
+function submitFormIframe(form,callback) {
     var url = form.attr('action');
-    var obj = serializeForm(id);
+    var obj = serializeForm(form);
     if(url!=='' && url!==undefined){
         postSomething(url, obj, callback);
     }else{
@@ -32,7 +36,6 @@ function postSomething(url, obj, callback) {
         enctype: 'multipart/form-data',
         data: obj,
         success: function (res) {
-            console.log(res);
             if(callback === undefined){
                 callback = function (res) {
                     if(res.code){
@@ -72,9 +75,7 @@ function openLayer(url , config, btnFunction) {
             type: 1,title: '查看',closeBtn: 1
             ,width: '400px',height:'400px',shade: 0.3,shadeClose:true
             ,btn: ['保存','取消'],moveType: 1
-            ,maxmin: false,success: function(index){
-
-            }
+            ,maxmin: false
         };
 
         $.extend(option,config);
@@ -91,6 +92,7 @@ function openLayer(url , config, btnFunction) {
             ,btn: option.btn
         };
         $.extend(layer_option , btnFunction);
+        console.log(layer_option);
         layer.open(layer_option);
     });
 }

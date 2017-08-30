@@ -1,0 +1,45 @@
+<div class="larry-personal">
+    <div class="layui-field-box layui-show">
+        <form id="user_admin_add_form" class="layui-form" action="{:url('user/admin/add')}">
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="role_id" class="layui-form-label col-xs-3 col-sm-3 col-md-3">选择角色: </label>
+                    <div class="layui-input-inline ">
+                        <select class="col-md-3" id="role_id" name="role_id" lay-filter="parent">
+                            <option value="0">未选择</option>
+                            {foreach name="roles" item="r"}
+                            <option value="{$r['id']}">{$r['role_name']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label col-xs-3 col-sm-3 col-md-3">用户名: </label>
+                    <div class="layui-input-inline ">
+                        <input id="username" class="layui-input" value="" name="username">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="password" class="layui-form-label col-xs-3 col-sm-3 col-md-3">密码: </label>
+                    <div class="layui-input-inline ">
+                        <input id="password" class="layui-input" name="password" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="password_confirm" class="layui-form-label col-xs-3 col-sm-3 col-md-3">确认密码: </label>
+                    <div class="layui-input-inline ">
+                        <input id="password_confirm" class="layui-input " name="password_confirm" value="">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

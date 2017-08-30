@@ -10,6 +10,7 @@
 namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminLogin;
+use tpr\admin\common\validate\AdminValidate;
 use tpr\admin\user\service\AdminService;
 use think\Db;
 use think\Tool;
@@ -22,7 +23,7 @@ class Profile extends AdminLogin
     public function update()
     {
         if ($this->request->isPost()) {
-            $Validate = new \tpr\admin\user\validate\Admin();
+            $Validate = new AdminValidate();
             if (!$Validate->scene('profile')->check($this->param)) {
                 $this->error($Validate->getError());
             }

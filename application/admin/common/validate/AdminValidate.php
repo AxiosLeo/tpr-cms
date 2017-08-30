@@ -4,15 +4,13 @@
  *
  * @email: axioscros@aliyun.com
  * @blog:  http://hanxv.cn
- * @datetime: 2017/5/24 13:43
+ * @datetime: 2017/8/30 11:08
  */
-
-namespace tpr\admin\user\validate;
+namespace tpr\admin\common\validate;
 
 use think\Validate;
 
-class Admin extends Validate
-{
+class AdminValidate extends Validate{
     protected $rule = [
         'role_id' => ['require'],
         'mobile' => ['number', 'length:11', 'regex:/^1[34578]{1}\d{9}$/'],

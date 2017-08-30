@@ -11,6 +11,7 @@ namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminLogin;
 use think\Db;
+use tpr\admin\common\validate\AdminValidate;
 
 class Admin extends AdminLogin
 {
@@ -20,27 +21,54 @@ class Admin extends AdminLogin
      */
     public function index()
     {
-        $count = Db::name('admin')->count();
-        $limit = 10;
-        $this->assign('pages', ($count % $limit) ? 1 + $count / $limit : $count / $limit);
+        if($this->request->isPost()){
+            $page = $this->request->param('page',1);
+            $limit = $this->request->param('limit',10);
+            $keyword = $this->request->param('keyword','');
+            $admin = Db::name('admin')->alias('admin')
+                ->join('__ROLE__ r', 'r.id=admin.role_id', 'left')
+                ->where('admin.username' , 'like','%' . $keyword . '%')
+                ->field('admin.* , r.role_name')
+                ->page($page)
+                ->limit($limit)
+                ->order('role_id , id')
+                ->select();
+
+            $count = Db::name('admin')->alias('admin')
+                ->join('__ROLE__ r', 'r.id=admin.role_id', 'left')
+                ->where('admin.username' , 'like','%' . $keyword . '%')
+                ->field('admin.* , r.role_name')
+                ->count();
+
+            foreach ($admin as &$a) {
+                $a['last_login_time'] = date("Y-m-d H:i:s", $a['last_login_time']);
+            }
+
+            $this->tableData($admin , $count);
+        }
         return $this->fetch('index');
     }
 
-    /**
-     * 获取管理员用户信息
-     */
-    public function getAdmin()
-    {
-        $page = isset($this->param['page']) && !empty($this->param['page']) ? $this->param['page'] : 1;
-        $limit = isset($this->param['limit']) && !empty($this->param['limit']) ? $this->param['limit'] : 10;
-
-        $admin = Db::name('admin')->alias('admin')
-            ->join('__ROLE__ r', 'r.id=admin.role_id', 'left')
-            ->field('admin.* , r.role_name')->page($page)->limit($limit)->order('role_id , id')->select();
-        foreach ($admin as &$a) {
-            $a['last_login_time'] = date("Y-m-d H:i:s", $a['last_login_time']);
+    public function add(){
+        if( $this->request->isPost()){
+            $Validate = new AdminValidate();
+            if (!$Validate->scene('add')->check($this->param)) {
+                $this->error($Validate->getError());
+            }
+            $time = time();
+            $this->param['created_at'] = $time;
+            $this->param['update_at'] = $time;
+            if (Db::name('admin')->insert($this->param)) {
+                $this->success(lang('success!'));
+            } else {
+                $this->error(lang('error!'));
+            }
         }
-        $this->response($admin);
+
+        $roles = Db::name('role')->select();
+        $this->assign('roles', $roles);
+
+        return $this->fetch();
     }
 
     /**
@@ -52,7 +80,7 @@ class Admin extends AdminLogin
         $id = $this->param['id'];
 
         if ($this->request->isPost()) {
-            $Validate = new \tpr\admin\user\validate\Admin();
+            $Validate = new AdminValidate();
             if (!$Validate->scene('update')->check($this->param)) {
                 $this->error($Validate->getError());
             }
@@ -72,4 +100,23 @@ class Admin extends AdminLogin
 
         return $this->fetch('edit');
     }
+
+    public function delete(){
+        $id = $this->request->param('id',0);
+        $exist = Db::name('admin')->where('id',$id)->count();
+
+        if(!$exist){
+            $this->error('用户不存在');
+        }
+
+        if($id==1){
+            $this->error("默认管理员账号不能删除<br>但可以修改username");
+        }
+
+        Db::name('admin')->where('id',$id)->delete();
+
+        $this->success('成功');
+    }
+
+
 }

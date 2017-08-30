@@ -3,40 +3,107 @@
     <div class="larry-personal">
         <blockquote class="layui-elem-quote mylog-info-tit">
             <ul class="layui-tab-title">
-                <a id="addAdmin" class="layui-btn" ><i class="layui-icon">&#xe654;</i>新增用户</a>
+                <li><a id="addAdmin" class="layui-btn"><i class="layui-icon">&#xe654;</i>新增用户</a></li>
+                <li>
+                    <div class="search-bar">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="id" id="keyword">
+                        </div>
+                        <button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>
+                    </div>
+                </li>
             </ul>
         </blockquote>
         <div class="larry-separate"></div>
         <div class="layui-field-box layui-show">
             <div class="row">
-                <table class="layui-table table-hover" lay-even="" lay-skin="nob">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>用户名</th>
-                        <th>角色</th>
-                        <th>最近登录IP</th>
-                        <th>最近登录时间</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody id="admin_table_body">
-                    </tbody>
-                </table>
-                <div class="larry-table-page clearfix">
-                    <div id="node_page" class="page"></div>
-                </div>
+                <table class="layui-table" id="data_table" lay-filter="data_table"></table>
             </div>
         </div>
     </div>
 </section>
+{php}$url = u('user','admin','index');{/php}
 <script type="text/javascript">
-    layui.use(['jquery','layer','laypage'],function () {
+    var form, table;
+    var cols = [[ //标题栏
+        {field: 'id', width: 100, sort: true, title: 'ID'},
+        {field: 'username', width: 150,  event: 'edit', title: '用户名'},
+        {field: 'role_name', width: 150, sort: true, title: '角色'},
+        {field: 'last_login_ip', width: 200, sort: true, title: '最近登录IP'},
+        {field: 'last_login_time', width: 200, sort: true, title: '最近登录时间'},
+        {width: 180, templet: '#operationTpl', title: '操作'}
+    ]];
+
+    layui.use(['jquery', 'form', 'table'],function () {
         window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        form  = layui.form;
+        table = layui.table;
+
+        reload();
+        table.on('tool(data_table)',function (obj) {
+            var id = obj.data.id;
+            if(obj.event === 'del'){
+                var url = "{:u('user','admin','delete')}?id=" + id;
+                postSomething(url,{})
+            }else if(obj.event === 'edit'){
+                edit(id);
+            }
+        });
     });
-    function edit(obj) {
-        var id = $(obj).parent().parent().attr('data-id');
-        var url = "{:url('user/admin/edit')}?id="+id;
-        openLayer("编辑用户",url,"600px","484px")
+
+    $("#addAdmin").click(function () {
+        var url = "{:url('user/admin/add')}";
+        openLayer(url,{
+            title:"新增用户",
+            width:"400px", height:"430px"
+        },{
+            yes:function () {
+                submitForm("#user_admin_add_form");
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        });
+    });
+
+    function edit(id) {
+        var url = "{:u('user','admin','edit')}?id=" + id;
+
+        openLayer(url,{
+            title:"编辑管理员用户",
+            width:"600px", height:"600px"
+        },{
+            yes:function () {
+                submitForm('#user_admin_edit_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        })
     }
+
+    function reload() {
+        var keyword = $("#keyword").val();
+        table.init();
+        table.render({
+            id: 'data_table',
+            height: 550,
+            elem: '#data_table',
+            url: '{$url}',
+            where: {keyword: keyword},
+            method: 'post',
+            page: true,
+            limits: [10, 30, 50, 100],
+            limit: 10,
+            loading: false,
+            cols: cols
+        });
+    }
+</script>
+<script type="text/html" id="operationTpl">
+    <a class="layui-btn layui-btn-default layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
 </script>
