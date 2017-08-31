@@ -45,7 +45,8 @@
             var id = obj.data.id;
             if(obj.event === 'del'){
                 var url = "{:u('user','admin','delete')}?id=" + id;
-                postSomething(url,{})
+                postSomething(url,{});
+                return false;
             }else if(obj.event === 'edit'){
                 edit(id);
             }

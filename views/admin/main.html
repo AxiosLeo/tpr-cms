@@ -7,11 +7,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css" href="/src/plugs/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/src/plugs/layui2.1/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="/src/plugs/bootstrap/dist/css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="/src/css/global.css" media="all">
     <link rel="stylesheet" type="text/css" href="/src/plugs/font-awesome/css/font-awesome.min.css">
-    <script type="text/javascript" src="/src/plugs/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/src/plugs/layui2.1/layui.all.js"></script>
     <script type="text/javascript" src="/src/plugs/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="/src/css/personal.css" media="all">-->
@@ -65,7 +65,8 @@
                     callback = function (res) {
                         if(res.code){
                             layer.msg(res.msg,{icon:1,time:1500},function () {
-                                window.location.href = res.url;
+                                table.reload('data_table');
+                                layer.closeAll();
                             });
                         }else{
                             layer.msg(res.msg,{icon:2,time:1500});

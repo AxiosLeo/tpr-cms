@@ -112,7 +112,7 @@ class Role extends AdminLogin
             $auth_node = $this->param['node'];
             $temp = [];
             foreach ($auth_node as $an){
-                $temp[$an['path']] = $an['LAY_CHECKED'];
+                $temp[$an['path']] = $an['path'];
             }
             $auth_node = $temp;
 

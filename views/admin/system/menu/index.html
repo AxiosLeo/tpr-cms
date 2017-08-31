@@ -40,10 +40,10 @@
                             btn:['保存','删除','取消']
                         },{
                             yes:function () {
-                                submitForm('#system_menu_edit_form');
+                                submitForm('#system_menu_edit_form',done);
                             },btn2:function (index) {
                                 url = "{:url('system/menu/delete')}?id=" + id;
-                                postSomething(url);
+                                postSomething(url,done);
                                 layer.close(index);
                                 return false;
                             },btn3:function (index) {
@@ -58,6 +58,16 @@
         });
     });
 
+    function done(res) {
+        if(res.code){
+            layer.msg(res.msg,{icon:1,time:1500},function () {
+                window.location.reload();
+            });
+        }else{
+            layer.msg(res.msg,{icon:2,time:1500});
+        }
+    }
+
     $("#addMenu").click(function () {
         var url = "{:url('system/menu/add')}";
 
@@ -66,7 +76,7 @@
             btn:['添加','取消']
         },{
             yes:function () {
-                submitForm('#system_menu_add_form');
+                submitForm('#system_menu_add_form',done);
             },btn2:function (index) {
                 layer.close(index);
                 return false;
@@ -76,24 +86,4 @@
         })
     });
 
-    $("#update,#add").click(function () {
-        submitForm("#menu");
-    });
-
-    $("#delete").click(function () {
-        layer.confirm("确定吗?",{
-            btn:['确定','点错了']
-        },function (index) {
-            var delete_url = '{:url("system/menu/deleteMenu")}';
-            var id   = $("#id").val();
-            postSomething(delete_url,{id:id});
-            layer.close(index);
-        },function (index) {
-            layer.msg('好的', {
-                time: 2000 //20s后自动关闭
-            });
-            layer.close(index);
-        });
-
-    });
 </script>
