@@ -52,7 +52,7 @@ class Profile extends AdminLogin
 
         $save_name = Tool::uuid();
         $file->setSaveName($save_name);
-        $info = $file->move(ROOT_PATH . "/public/uploads/images/");
+        $info = $file->move( PUBLIC_PATH . "/uploads/images/");
 
         if (!empty($info)) {
             $pathname = $info->getPathname();
