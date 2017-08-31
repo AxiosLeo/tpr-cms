@@ -63,7 +63,7 @@ class MenuModel extends Model
         if ($role_id) {
             $this->join("__ROLE_NODE__ rn", 'rn.menu_id=menu.id', 'left');
         }
-        $this->field('id,title ,title as name ,icon,parent_id,module , controller , func , sort');
+        $this->field('id,title ,title as name ,icon , parent_id,module , controller , func , sort');
 
         $menu = $this->order('sort asc')->select();
         foreach ($menu as &$m) {
