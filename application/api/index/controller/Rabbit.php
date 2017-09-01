@@ -44,6 +44,8 @@ class Rabbit extends Controller
     public function receive(){
         //接收者名称
         $receiver_name = uniqid();
+
+        //使用Fork类异步执行消息接收
         Fork::work($this , 'forkReceive',[$receiver_name]);
         $this->response($receiver_name);
     }
