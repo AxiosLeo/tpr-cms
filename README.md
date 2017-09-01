@@ -70,6 +70,11 @@ vim .env
  > admin
  
  > 123456
+ 
+ 
+## 预览
+
+![demo](public/demo.gif)
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
