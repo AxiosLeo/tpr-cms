@@ -73,6 +73,14 @@ vim .env
  
  > 123456
  
+* 演示版
+ 
+ > [http://cms.hanxv.cn](http://cms.hanxv.cn)
+ 
+ > admin
+ 
+ > 123456
+ 
  
 ## 预览
 
