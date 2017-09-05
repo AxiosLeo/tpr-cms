@@ -37,9 +37,6 @@
         form  = layui.form;
         table = layui.table;
         reload();
-        table.on('click(data_table)',function (obj) {
-            console.log(obj);
-        });
         table.on('edit(data_table)', function (obj) {
             var  data = obj.data;
             var url = "{:u('user','role','edit')}";
