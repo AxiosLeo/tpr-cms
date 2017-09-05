@@ -37,16 +37,20 @@
         form  = layui.form;
         table = layui.table;
         reload();
+        table.on('click(data_table)',function (obj) {
+            console.log(obj);
+        });
         table.on('edit(data_table)', function (obj) {
-            var value = obj.value, data = obj.data, field = obj.field;
+            var  data = obj.data;
             var url = "{:u('user','role','edit')}";
-            data[field] = value; //更新缓存中的值
 
             postSomething(url,data,function(res){
                 if(res.code){
                     layer.msg(res.msg,{icon:1,time:1500});
                 }else{
-                    layer.msg(res.msg,{icon:2,time:1500});
+                    layer.msg(res.msg,{icon:2,time:1500},function () {
+                        table.reload('data_table');
+                    });
                 }
             });
         });
@@ -120,7 +124,6 @@
             }
         });
     });
-
 
     function reload() {
         var keyword = $("#keyword").val();

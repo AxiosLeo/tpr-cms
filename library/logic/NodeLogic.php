@@ -8,6 +8,7 @@
  */
 namespace library\logic;
 
+use think\Db;
 use think\Doc;
 
 class NodeLogic{
@@ -16,6 +17,7 @@ class NodeLogic{
         APP_PATH . 'system/controller',
         APP_PATH . 'user/controller',
     ];
+
     public static function adminNode($page = 1 , $limit = 10){
         $class_path = self::$class_path;
 
@@ -35,8 +37,23 @@ class NodeLogic{
                 }
             }
         }
+
+        $node_list = $page ? array_slice($node_list , ($page-1)*$limit,$limit) : $node_list;
+
+        $menus = Db::name('menu')->field('title , module , controller , func')->select();
+        $menu_list = [];
+        foreach ($menus as &$m){
+            $path = $m['module'] .'/' . $m['controller'] . '/' . $m['func'];
+            $menu_list[$path] = $m['title'];
+        }
+
+        foreach ($node_list as &$nl){
+            if(isset($menu_list[$nl['path']])){
+                $nl['title'] = $menu_list[$nl['path']];
+            }
+        }
         return [
-            'list' => $page ? array_slice($node_list , ($page-1)*$limit,$limit) : $node_list,
+            'list' => $node_list,
             'count'=>$n
         ];
     }

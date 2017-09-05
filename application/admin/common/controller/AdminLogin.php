@@ -9,6 +9,7 @@
 
 namespace tpr\admin\common\controller;
 
+use think\Db;
 use think\Request;
 use think\Cache;
 use think\Env;
@@ -27,6 +28,7 @@ class AdminLogin extends AdminBase
             $this->user = user_info();
             $this->assign('user', $this->user);
         }
+        $this->checkAuth();
 
         /***
          * redis token 单点登录
@@ -39,6 +41,26 @@ class AdminLogin extends AdminBase
         } else {
             $expire = intval(Env::get('web.token', 172800));
             Cache::set($token_key, $token, $expire);
+        }
+    }
+
+    public function checkAuth(){
+        $path = $this->request->module() . '/' . strtolower($this->request->controller()) . '/' . $this->request->action();
+        if($path == 'index/index/index' || $path == 'index/index/main' ){
+            return true;
+        }
+
+        $role_id = user_info('role_id');
+        if($role_id === 1){
+            return true;
+        }
+
+        $exist = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$path)->count();
+
+        $auth = $exist ? 1 : 0;
+
+        if(!$auth){
+            $this->request->isPost() ? $this->error('操作无效','',$this->param) : $this->redirect('index/message/none');
         }
     }
 }

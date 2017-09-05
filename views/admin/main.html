@@ -55,26 +55,20 @@
     }
 
     function postSomething(url, obj, callback) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            enctype: 'multipart/form-data',
-            data: obj,
-            success: function (res) {
-                if(callback === undefined){
-                    callback = function (res) {
-                        if(res.code){
-                            layer.msg(res.msg,{icon:1,time:1500},function () {
-                                table.reload('data_table');
-                                layer.closeAll();
-                            });
-                        }else{
-                            layer.msg(res.msg,{icon:2,time:1500});
-                        }
-                    };
-                }
-                callback(res);
+        $.post(url,obj,function (res) {
+            if(callback === undefined){
+                callback = function (res) {
+                    if(res.code){
+                        layer.msg(res.msg,{icon:1,time:1500},function () {
+                            table.reload('data_table');
+                            layer.closeAll();
+                        });
+                    }else{
+                        layer.msg(res.msg,{icon:2,time:1500});
+                    }
+                };
             }
+            callback(res);
         });
     }
 
