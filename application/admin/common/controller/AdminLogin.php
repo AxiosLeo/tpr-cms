@@ -60,7 +60,7 @@ class AdminLogin extends AdminBase
         $auth = $exist ? 1 : 0;
 
         if(!$auth){
-            $this->request->isPost() ? $this->error('操作无效','',$this->param) : $this->redirect('index/message/none');
+            $this->request->isPost() ? $this->error('无操作权限','',$this->param) : $this->redirect('index/message/none');
         }
     }
 }
