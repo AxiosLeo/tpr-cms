@@ -12,14 +12,17 @@ use think\Db;
 use think\Doc;
 
 class NodeLogic{
-    public static $class_path = [
-        APP_PATH . 'index/controller',
-        APP_PATH . 'system/controller',
-        APP_PATH . 'user/controller',
-    ];
 
     public static function adminNode($page = 1 , $limit = 10){
-        $class_path = self::$class_path;
+        $class_path = [];
+        $dirHandle = opendir(APP_PATH);
+        while (false !== ($fileName = readdir($dirHandle))) {
+            $subFile = APP_PATH . $fileName;
+            if (is_dir($subFile) && str_replace('.', '', $fileName) != '' && !in_array($fileName , c('deny_module_list',['common']))) {
+                $class_path[] = $subFile . DS . 'controller';
+            }
+        }
+        closedir($dirHandle);
 
         Doc::config($class_path,APP_PATH);
         $doc = Doc::doc();
