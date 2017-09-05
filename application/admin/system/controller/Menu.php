@@ -34,6 +34,10 @@ class Menu extends AdminLogin
         return $this->fetch('index');
     }
 
+    /**
+     * 添加菜单
+     * @return mixed
+     */
     public function add()
     {
         if ($this->request->isPost()) {

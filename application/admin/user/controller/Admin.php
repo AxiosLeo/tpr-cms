@@ -52,6 +52,10 @@ class Admin extends AdminLogin
         return $this->fetch('index');
     }
 
+    /**
+     * 添加管理员
+     * @return mixed
+     */
     public function add(){
         if( $this->request->isPost()){
 

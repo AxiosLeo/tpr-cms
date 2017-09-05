@@ -34,6 +34,9 @@ class Node extends AdminLogin
         return $this->fetch();
     }
 
+    /**
+     * 获取权限节点数据
+     */
     public function auth(){
         $role_id = $this->request->param('role_id',0);
         if(empty($role_id)){

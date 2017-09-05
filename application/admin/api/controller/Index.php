@@ -11,6 +11,10 @@ namespace tpr\admin\api\controller;
 use tpr\admin\common\controller\AdminLogin;
 
 class Index extends AdminLogin{
+    /**
+     * 接口调试
+     * @return mixed
+     */
     public function index(){
         return $this->fetch();
     }
