@@ -43,7 +43,7 @@
                                 submitForm('#system_menu_edit_form',done);
                             },btn2:function (index) {
                                 url = "{:url('system/menu/delete')}?id=" + id;
-                                postSomething(url,done);
+                                postSomething(url,{},done);
                                 layer.close(index);
                                 return false;
                             },btn3:function (index) {
