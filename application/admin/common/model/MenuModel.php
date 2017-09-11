@@ -9,6 +9,8 @@
 
 namespace tpr\admin\common\model;
 
+use library\logic\NodeLogic;
+use think\Db;
 use think\Model;
 
 class MenuModel extends Model
@@ -25,13 +27,24 @@ class MenuModel extends Model
         return new self();
     }
 
-    public function menus($parent_id = 0)
+    public function menus($parent_id = 0 , $role_id)
     {
-        $this->alias('menu');
+        $tmp = Db::name('menu')->where('parent_id', $parent_id)
+            ->order('sort asc')
+            ->select();
+        $role_node_array = NodeLogic::roleNode($role_id);
 
-        $this->field('menu.* ');
-
-        $list = $this->where('parent_id', $parent_id)->order('sort asc')->select();
+        if($parent_id){
+            $list = [];
+            foreach ($tmp as $t){
+                $mca = $t['module'] . '/' . $t['controller'] . '/' . $t['func'];
+                if(in_array($mca , $role_node_array)){
+                    $list[] = $t;
+                }
+            }
+        }else{
+            $list = $tmp;
+        }
 
         return $list;
     }

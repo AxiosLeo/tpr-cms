@@ -12,7 +12,6 @@ namespace tpr\admin\common\controller;
 use library\controller\HomeBase;
 use think\Request;
 use think\Session;
-use tpr\admin\common\model\MenuModel;
 
 class AdminBase extends HomeBase
 {
@@ -27,15 +26,6 @@ class AdminBase extends HomeBase
         $this->assign('module', $this->request->module());
 
         $this->assign('current_url', $this->request->path());
-    }
-
-    protected function menu()
-    {
-        $parent_menu = MenuModel::model()->menus(0);
-        foreach ($parent_menu as &$m) {
-            $m['sub'] = MenuModel::model()->menus($m['id']);
-        }
-        return $parent_menu;
     }
 
     protected function tableData($data, $count = 0, $msg='success'){

@@ -13,6 +13,10 @@ use think\Doc;
 
 class NodeLogic{
 
+    public static $roleNode = [];
+
+    public static $roleId = 0;
+
     public static function adminNode($page = 1 , $limit = 10){
         $class_path = [];
         $dirHandle = opendir(APP_PATH);
@@ -59,5 +63,25 @@ class NodeLogic{
             'list' => $node_list,
             'count'=>$n
         ];
+    }
+
+    public static function roleNode($role_id){
+        if(self::$roleId == $role_id && !empty(self::$roleNode)){
+            return self::$roleNode;
+        }
+
+        self::$roleId = $role_id;
+
+        $role_node_list = Db::name('role_node')->where('role_id',self::$roleId)->select();
+
+        $role_node_array = [];
+
+        foreach ($role_node_list as $l){
+            array_push($role_node_array , $l['node_path']);
+        }
+
+        self::$roleNode = $role_node_array;
+
+        return self::$roleNode;
     }
 }

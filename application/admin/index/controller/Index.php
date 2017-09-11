@@ -11,6 +11,7 @@ namespace tpr\admin\index\controller;
 
 use tpr\admin\common\controller\AdminLogin;
 use think\Db;
+use tpr\admin\common\model\MenuModel;
 
 class Index extends AdminLogin
 {
@@ -20,8 +21,19 @@ class Index extends AdminLogin
      */
     public function index()
     {
-        $this->assign('menu', $this->menu());
+        $menu = $this->menu();
+        $this->assign('menu', $menu);
         return $this->fetch('index');
+    }
+
+    protected function menu()
+    {
+        $role_id = user_info('role_id');
+        $parent_menu = MenuModel::model()->menus(0 , $role_id);
+        foreach ($parent_menu as &$m) {
+            $m['sub'] = MenuModel::model()->menus($m['id'] , $role_id);
+        }
+        return $parent_menu;
     }
 
     /**
