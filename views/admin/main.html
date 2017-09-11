@@ -79,6 +79,10 @@
             enctype: 'multipart/form-data',
             data: {},
             success: function (res) {
+                if(res.code === 401){
+                    layer.msg(res.msg,{icon:2,time:1500});
+                    return false;
+                }
                 if(callback === undefined){
                     callback = function (res) {
                         console.log(res);
@@ -115,6 +119,25 @@
             // console.log(layer_option);
             layer.open(layer_option);
         });
+    }
+
+    function tabAdd(obj) {
+        var title = obj.title;
+        var url = obj.url;
+        var icon = obj.icon;
+        var id = obj.id;
+
+        parent.element.tabDelete('iframe-tab',id);
+        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+        parent.element.tabAdd('iframe-tab', {
+            title: '<i class="'+icon+'"></i>' + title,
+            href: content,
+            id: id
+        });
+        parent.element.tabChange('iframe-tab',id);
+        var show = parent.$(".layui-show");
+        show.empty();
+        show.append(content);
     }
 </script>
 </body>

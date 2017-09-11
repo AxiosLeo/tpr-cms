@@ -1,0 +1,11 @@
+{layout name="main" /}
+<script type="text/javascript" src="/src/plugs/layui2.1/layui.all.js"></script>
+<script type="application/javascript" >
+    layui.use(['jquery'], function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+    });
+    layer.msg("{$msg}",{icon:2,time:1500},function () {
+        layer.closeAll();
+    });
+</script>

@@ -107,9 +107,14 @@
 <script src="/src/plugs/layui2.1/layui.all.js"></script>
 <script>
     var element ;
+    var current_tab;
     //JavaScript代码区域
     layui.use('element', function(){
         element = layui.element;
+        element.on("tab(iframe-tab)",function (data) {
+            current_tab = data.index;
+            console.log(current_tab);
+        });
     });
     $(window).resize(function () {
         iframeHeight();

@@ -18,6 +18,9 @@ class Message extends Controller
      * @except
      */
     public function none(){
-        echo "无授权";
+        $this->ajaxReturn([
+            'code'=>401,
+            'msg'=>'无授权'
+        ]);
     }
 }
