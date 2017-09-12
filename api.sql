@@ -11,7 +11,7 @@
  Target Server Version : 50552
  File Encoding         : utf-8
 
- Date: 08/30/2017 13:47:42 PM
+ Date: 09/12/2017 17:40:46 PM
 */
 
 SET NAMES utf8mb4;
@@ -41,13 +41,13 @@ CREATE TABLE `api_admin` (
   `created_at` varchar(20) NOT NULL,
   `update_at` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `api_admin`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '1', '13312345679', null, '/src/images/user.jpg', '', 'asdfasdf', '192.168.1.105', '1504071019', '3689dc8d751583479d0ec8f57b9f17bf', '', '1496969527');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '0', '13312345679', '123@qq.com', '/uploads/images/20170905/92e6d4f90ee1e907d43e2d7fa8c8280f.jpg', '', '流水无痕', '192.168.1.105', '1505113849', '39edfca165b70a02b2cb12ef62ef8c86', '', '1504593733'), ('5', '4EA15AEcb00D4E862ED740CEe8692072', '2', 'aa', '48c035067128987f47d3bdbafc0a3166', null, null, '0', null, null, null, null, '', null, null, null, '1504145654', '1504145654');
 COMMIT;
 
 -- ----------------------------
@@ -111,7 +111,6 @@ CREATE TABLE `api_app_version` (
 DROP TABLE IF EXISTS `api_menu`;
 CREATE TABLE `api_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `symbol` varchar(60) DEFAULT NULL,
   `icon` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL,
@@ -119,17 +118,16 @@ CREATE TABLE `api_menu` (
   `controller` varchar(255) DEFAULT NULL,
   `func` varchar(255) NOT NULL,
   `sort` int(11) NOT NULL,
-  `show` tinyint(1) NOT NULL,
   `menu_fast` tinyint(1) NOT NULL,
   `update_at` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `api_menu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_menu` VALUES ('1', null, 'home', '后台首页', '0', 'index', 'index', 'main', '0', '0', '0', '1495530800'), ('2', null, 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', '0', null), ('3', null, 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '0', '1495441680'), ('4', null, 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', '0', null), ('5', null, 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', '0', null), ('6', null, 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', '0', null), ('7', null, 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', '0', null), ('8', null, 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '0', '1495441686'), ('9', null, 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', '0', null), ('10', null, 'cog', '参数设置', '9', 'system', 'setting', 'index', '40', '0', '0', '1495441890'), ('11', null, 'connectdevelop', '接口管理', '9', 'system', 'api', 'index', '20', '0', '0', '1495441898'), ('12', null, 'list', '安全设置', '9', 'system', 'security', 'index', '30', '0', '0', '1495441894'), ('13', null, 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', '0', null), ('14', null, 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '0', '1495441886');
+INSERT INTO `api_menu` VALUES ('1', 'home', '后台首页', '0', 'index', 'index', 'main', '0', '0', '1505117471'), ('2', 'dashboard', '我的面板', '0', 'user', 'panel', 'default', '1', '0', null), ('3', 'user', '个人信息', '2', 'user', 'index', 'profile', '0', '0', '1495441680'), ('4', 'lock', '修改密码', '2', 'user', 'index', 'password', '1', '0', null), ('5', 'file', '日志信息', '2', 'user', 'log', 'index', '2', '0', null), ('6', 'users', '用户管理', '0', 'user', 'admin', 'default', '2', '0', null), ('7', 'user-circle-o', '用户列表', '6', 'user', 'admin', 'index', '0', '0', null), ('8', 'user-o', '角色列表', '6', 'user', 'role', 'index', '0', '0', '1495441686'), ('9', 'cogs', '系统设置', '0', 'system', 'setting', 'default', '3', '0', null), ('13', 'list', '菜单管理', '9', 'system', 'menu', 'index', '0', '0', null), ('14', 'file-text-o', '系统日志', '9', 'system', 'log', 'index', '50', '0', '1495441886'), ('18', 'dot-circle-o', '权限节点', '9', 'system', 'node', 'index', '10', '0', null);
 COMMIT;
 
 -- ----------------------------
@@ -140,13 +138,13 @@ CREATE TABLE `api_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `api_role`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_role` VALUES ('1', '超级管理员');
+INSERT INTO `api_role` VALUES ('1', '超级管理员'), ('2', '12');
 COMMIT;
 
 -- ----------------------------
@@ -157,14 +155,16 @@ CREATE TABLE `api_role_node` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
   `node_path` varchar(255) NOT NULL,
+  `get` tinyint(1) NOT NULL,
+  `post` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `api_role_node`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_role_node` VALUES ('1', '1', 'admin/controller/index'), ('2', '1', 'admin/controller/main'), ('3', '1', 'admin/controller/getMenu'), ('4', '1', 'admin/controller/updateMenu'), ('5', '1', 'admin/controller/deleteMenu'), ('6', '1', 'admin/controller/getAllMenu'), ('7', '1', 'admin/controller/auth'), ('8', '1', 'admin/controller/add'), ('9', '1', 'admin/controller/edit'), ('10', '1', 'admin/controller/delete'), ('11', '1', 'admin/controller/profile'), ('12', '1', 'admin/controller/password'), ('13', '1', 'admin/controller/update'), ('14', '1', 'admin/controller/avatar'), ('15', '1', 'admin/controller/del');
+INSERT INTO `api_role_node` VALUES ('16', '2', 'index/index/index', '0', '0'), ('17', '2', 'index/index/main', '0', '0'), ('18', '2', 'index/test/index', '0', '0'), ('19', '2', 'system/api/index', '0', '0'), ('20', '2', 'system/log/index', '0', '0'), ('21', '2', 'system/menu/index', '0', '0'), ('22', '2', 'system/menu/add', '0', '0'), ('23', '2', 'system/menu/getMenu', '0', '0'), ('24', '2', 'system/menu/edit', '0', '0'), ('25', '2', 'system/menu/delete', '0', '0'), ('26', '2', 'system/menu/getAllMenu', '0', '0'), ('27', '2', 'system/node/index', '0', '0'), ('28', '2', 'system/node/auth', '0', '0'), ('29', '2', 'user/admin/index', '0', '0'), ('30', '2', 'user/admin/add', '0', '0'), ('31', '2', 'user/admin/edit', '0', '0'), ('32', '2', 'user/admin/delete', '0', '0'), ('33', '2', 'user/index/profile', '0', '0'), ('34', '2', 'user/index/password', '0', '0'), ('35', '2', 'user/log/index', '0', '0'), ('36', '2', 'user/profile/update', '0', '0'), ('37', '2', 'user/profile/avatar', '0', '0'), ('38', '2', 'user/role/index', '0', '0'), ('39', '2', 'user/role/add', '0', '0'), ('40', '2', 'user/role/edit', '0', '0'), ('41', '2', 'user/role/del', '0', '0'), ('42', '2', 'user/role/auth', '0', '0'), ('43', '1', 'index/index/index', '0', '0'), ('44', '1', 'index/index/main', '0', '0'), ('45', '1', 'index/message/none', '0', '0'), ('46', '1', 'index/test/index', '0', '0'), ('47', '1', 'system/api/index', '0', '0'), ('49', '1', 'system/menu/index', '0', '0'), ('50', '1', 'system/menu/add', '0', '0'), ('51', '1', 'system/menu/getMenu', '0', '0'), ('52', '1', 'system/menu/edit', '0', '0'), ('53', '1', 'system/menu/delete', '0', '0'), ('54', '1', 'system/menu/getAllMenu', '0', '0'), ('56', '1', 'system/node/auth', '0', '0'), ('57', '1', 'user/admin/index', '0', '0'), ('58', '1', 'user/admin/add', '0', '0'), ('59', '1', 'user/admin/edit', '0', '0'), ('60', '1', 'user/admin/delete', '0', '0'), ('61', '1', 'user/index/profile', '0', '0'), ('62', '1', 'user/index/password', '0', '0'), ('63', '1', 'user/log/index', '0', '0'), ('64', '1', 'user/profile/update', '0', '0'), ('65', '1', 'user/profile/avatar', '0', '0'), ('66', '1', 'user/role/index', '0', '0'), ('70', '1', 'user/role/auth', '0', '0'), ('71', '1', 'api/index/index', '0', '0'), ('74', '1', 'user/role/add', '0', '0'), ('75', '1', 'user/role/edit', '0', '0'), ('76', '1', 'user/role/del', '0', '0');
 COMMIT;
 
 -- ----------------------------
