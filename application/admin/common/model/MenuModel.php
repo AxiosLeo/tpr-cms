@@ -36,11 +36,15 @@ class MenuModel extends Model
 
         if($parent_id){
             $list = [];
-            foreach ($tmp as $t){
-                $mca = $t['module'] . '/' . $t['controller'] . '/' . $t['func'];
-                if(in_array($mca , $role_node_array)){
-                    $list[] = $t;
+            if($role_id != 1){
+                foreach ($tmp as $t){
+                    $mca = $t['module'] . '/' . $t['controller'] . '/' . $t['func'];
+                    if(in_array($mca , $role_node_array)){
+                        $list[] = $t;
+                    }
                 }
+            }else{
+                $list = $tmp;
             }
         }else{
             $list = $tmp;
