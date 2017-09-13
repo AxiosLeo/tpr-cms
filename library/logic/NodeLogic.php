@@ -17,19 +17,19 @@ class NodeLogic{
 
     public static $roleId = 0;
 
-    public static function adminNode($page = 1 , $limit = 10){
-        $class_path = [];
-        $dirHandle = opendir(APP_PATH);
-        while (false !== ($fileName = readdir($dirHandle))) {
-            $subFile = APP_PATH . $fileName;
-            if (is_dir($subFile) && str_replace('.', '', $fileName) != '' && !in_array($fileName , c('deny_module_list',['common']))) {
-                $class_path[] = $subFile . DS . 'controller';
-            }
-        }
-        closedir($dirHandle);
+    public static function adminNode($page = 1 , $limit = 10 ,$app_name = APP_NAMESPACE){
+        $class_path = Doc::getClassPathList();
+        $load_path  = [
+            ROOT_PATH . 'library',
+            APP_PATH
+        ];
 
-        Doc::config($class_path,APP_PATH);
-        $doc = Doc::doc();
+        $config = [
+            'doc_path'      => $class_path,
+            'load_path'     => $load_path,
+            'app_namespace' => $app_name,
+        ];
+        $doc = Doc::set($config)->doc();
         $node_list = []; $n = 0;
 
         foreach ($doc as $d){
