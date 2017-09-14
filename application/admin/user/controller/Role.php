@@ -121,7 +121,8 @@ class Role extends AdminLogin
                 if(isset($auth_node[$n['path']])){
                     $data = [
                         'role_id'=>$role_id,
-                        'node_path'=>$n['path']
+                        'node_path'=>$n['path'],
+                        'disabled'=>0
                     ];
                     if($exist){
                         $node = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->find();

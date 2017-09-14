@@ -34,17 +34,13 @@ class MenuModel extends Model
             ->select();
         $role_node_array = NodeLogic::roleNode($role_id);
 
-        if($parent_id){
-            $list = [];
-            if($role_id != 1){
-                foreach ($tmp as $t){
-                    $mca = $t['module'] . '/' . $t['controller'] . '/' . $t['func'];
-                    if(in_array($mca , $role_node_array)){
-                        $list[] = $t;
-                    }
+        $list = [];
+        if($role_id != 1){
+            foreach ($tmp as $t){
+                $mca = $t['module'] . '/' . $t['controller'] . '/' . $t['func'];
+                if(in_array($mca , $role_node_array) || $mca == 'index/index/index' || $mca=='index/index/main'){
+                    $list[] = $t;
                 }
-            }else{
-                $list = $tmp;
             }
         }else{
             $list = $tmp;

@@ -46,7 +46,7 @@
             <li class="layui-nav-item"><a href="{:url('user/login/logout')}">退出</a></li>
         </ul>
     </div>
-
+{php} if(!empty($menu)){{/php}
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
@@ -77,7 +77,7 @@
             </ul>
         </div>
     </div>
-
+{php}}{/php}
     <div class="layui-body" style="padding-left: 10px;padding-right: 10px;">
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
