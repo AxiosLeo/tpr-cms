@@ -46,7 +46,7 @@ class Node extends AdminLogin
         $result = NodeLogic::adminNode(false);
         $list = $result['list'];
 
-        $role_node = Db::name('role_node')->where('role_id',$role_id)->select();
+        $role_node = Db::name('role_node')->where('role_id',$role_id)->where('disabled' , 0)->select();
         $role_path_list = [];
         foreach ($role_node as $rn){
             array_push($role_path_list , $rn['node_path']);

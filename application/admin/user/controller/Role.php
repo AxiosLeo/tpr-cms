@@ -109,7 +109,7 @@ class Role extends AdminLogin
             $result = NodeLogic::adminNode(false);
             $node_list = $result['list'];
 
-            $auth_node = $this->param['node'];
+            $auth_node = isset($this->param['node']) ? $this->param['node']: [];
             $temp = [];
             foreach ($auth_node as $an){
                 $temp[$an['path']] = $an['path'];
@@ -117,16 +117,20 @@ class Role extends AdminLogin
             $auth_node = $temp;
 
             foreach ($node_list as $n){
-
                 $exist = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->count();
-                if(isset($auth_node[$n['path']]) && !$exist){
+                if(isset($auth_node[$n['path']])){
                     $data = [
                         'role_id'=>$role_id,
                         'node_path'=>$n['path']
                     ];
-                    Db::name('role_node')->insert($data);
+                    if($exist){
+                        $node = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->find();
+                        Db::name('role_node')->where('id',$node['id'])->update($data);
+                    }else{
+                        Db::name('role_node')->insert($data);
+                    }
                 }else if(!isset($auth_node[$n['path']]) && $exist){
-                    Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->delete();
+                    Db::name('role_node')->where('role_id',$role_id)->where('node_path',$n['path'])->setField('disabled',1);
                 }
 
             }
