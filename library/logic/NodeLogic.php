@@ -76,7 +76,7 @@ class NodeLogic
 
         self::$roleId = $role_id;
 
-        $role_node_list = Db::name('role_node')->where('role_id', self::$roleId)->select();
+        $role_node_list = Db::name('role_node')->where('role_id', self::$roleId)->where('disabled',0)->select();
 
         $role_node_array = [];
 
