@@ -19,11 +19,11 @@ class NodeLogic
 
     public static $roleId = 0;
 
-    public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE)
+    public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE , $app_path = APP_PATH)
     {
         $load_path = [
             ROOT_PATH . 'library',
-            APP_PATH
+            $app_path
         ];
 
         $config = [

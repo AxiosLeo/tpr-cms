@@ -23,11 +23,19 @@ class Api extends AdminLogin
     {
         if ($this->request->isPost()) {
             $domain = env('api.host', '');
-            $api_dir = [
-                ROOT_PATH . 'api/index/controller',
+
+            $load_path = [
+                ROOT_PATH . 'library',
+                ROOT_PATH . 'application/api/'
             ];
-            Doc::config($api_dir, ROOT_PATH . 'api/common');
-            $doc = Doc::doc();
+
+            $config = [
+                'doc_path' => Doc::getClassPathList(),
+                'load_path' => $load_path,
+                'app_namespace' => 'tpr\api',
+            ];
+
+            $doc = Doc::set($config)->doc();
             $list = [];
 
             foreach ($doc as $c) {
