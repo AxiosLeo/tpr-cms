@@ -49,11 +49,12 @@
 <script type="application/javascript">
     var form, table;
     var cols = [[ //标题栏
-        {field: 'name', width: 150,  event: 'edit', title: '接口名称'},
+        {width: 100, templet: '#operationTpl',fixed:true, title: '操作'},
+        {field: 'title', width: 150,  event: 'edit', title: '接口名称'},
+        {field: 'name', width: 150,  event: 'edit', title: '方法名'},
         {field: 'path', width: 250, sort: true, title: '接口地址'},
         {field: 'route', width: 200, sort: true, title: '路由'},
-        {field: 'file_name', width: 450, sort: true, title: '文件地址'},
-        {width: 180, templet: '#operationTpl', title: '操作'}
+        {field: 'file_name', width: 450, sort: true, title: '文件地址'}
     ]];
 
     layui.use(['jquery', 'form', 'table'],function () {
@@ -95,6 +96,20 @@
 
         reload();
         modules($("#app_path").val());
+
+        table.on('tool(data_table)',function (obj) {
+            var app_namespace = obj.data.app_namespace;
+            var class_name = obj.data.class_name;
+            var func_name = obj.data.name;
+            if(obj.event === 'debug'){
+                tabAdd({
+                    title:"调试",
+                    icon:"fa fa-bug",
+                    id:"debug",
+                    url:"{:url('api/debug/index')}?an="+app_namespace+"&cn=" + class_name + "&fn=" +func_name
+                });
+            }
+        });
     });
 
     function reload() {
