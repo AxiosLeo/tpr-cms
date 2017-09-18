@@ -1,0 +1,39 @@
+{layout name="main" /}
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>接口调试  --  {$title}</legend>
+</fieldset>
+
+<form class="layui-form layui-form-pane" action="" style="min-height: 600px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">接口地址</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="api_path" autocomplete="off" placeholder="接口地址为空" value="{$host}{$path}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">请求方式</label>
+        <div class="layui-input-inline">
+            <select name="post_method" lay-filter="aihao">
+                <option value="1">POST</option>
+                <option value="0">GET</option>
+            </select>
+
+        </div>
+        <button class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
+    </div>
+</form>
+<script>
+    layui.use(['form', 'layedit', 'laydate','form'], function(){
+        var form = layui.form,layer = layui.layer;
+
+        form.render();
+
+        //监听提交
+        form.on('submit(post)', function(data){
+            layer.msg("功能未开放");
+            return false;
+        });
+
+
+    });
+</script>
