@@ -12,6 +12,7 @@ return [
     "server error"   =>"服务器异常",
     "arguments error"=>"参数异常",
     "wrong item"     =>"不支持该设备",
+    "Undefined"      =>"未定义",
 
 
     'test'    =>"测试",
