@@ -11,10 +11,14 @@ namespace tpr\api\example\controller;
 
 use think\Controller;
 
+/**
+ * Example/Index
+ * @package tpr\api\example\controller
+ */
 class Index extends Controller
 {
     /**
-     *
+     * test
      */
     public function index(){
         $this->response('this is example!');
