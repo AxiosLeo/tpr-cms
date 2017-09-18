@@ -24,42 +24,47 @@ class DocLogic
 
     protected static $is_cache = false;
 
-    protected static $appMap = [];
+    public static $appMap = [];
 
     /**
      * check the path exist
      * @param string $path
      * @param string $type
      */
-    protected static function checkPath($path , $type = 'path'){
-        if(!is_dir($path)){
+    protected static function checkPath($path, $type = 'path')
+    {
+        if (!is_dir($path)) {
             throw new PathNotException("The " . $type . ": \"" . $path . "\" is not exist");
         }
     }
 
     /**
      * @param $app_path
+     * @return mixed
      */
-    protected static function checkNamespace($app_path){
-        if(empty(self::$appMap)){
+    protected static function checkNamespace($app_path)
+    {
+        if (empty(self::$appMap)) {
             $app_path = self::setAppPath($app_path);
             self::appList();
         }
-        if(!isset(self::$appMap[$app_path])){
+        if (!isset(self::$appMap[$app_path])) {
             throw new NamespaceException("namespace is not exist. app path is " . $app_path);
         }
+        return self::$appMap[$app_path];
     }
 
     /**
      * @param string $app_path
      * @return string
      */
-    public static function setAppPath($app_path){
-        if(is_dir($app_path)){
+    public static function setAppPath($app_path)
+    {
+        if (is_dir($app_path)) {
             self::$APP_PATH = $app_path;
         }
 
-        self::checkPath(self::$APP_PATH,'app path');
+        self::checkPath(self::$APP_PATH, 'app path');
 
         return self::$APP_PATH;
     }
@@ -68,22 +73,23 @@ class DocLogic
      * @param string $app_path
      * @return array|mixed
      */
-    private static function doc($app_path = null){
+    public static function doc($app_path = null)
+    {
         $app_path = self::setAppPath($app_path);
 
-        $cache = Cache::get('api_doc_'.$app_path);
-        if(!App::$debug && !empty($cache)){
+        $cache = Cache::get('api_doc_' . $app_path);
+        if (!App::$debug && !empty($cache)) {
             $doc = $cache;
             self::$is_cache = true;
-        }else{
+        } else {
             self::checkNamespace($app_path);
-            $app_namespace = data(self::$appMap , $app_path , null);
+            $app_namespace = data(self::$appMap, $app_path, null);
 
-            $doc_path =Doc::getClassPathList($app_path);
+            $doc_path = Doc::getClassPathList($app_path);
 
             $config = [
-                'doc_path'      => $doc_path,
-                'load_path'     => [
+                'doc_path' => $doc_path,
+                'load_path' => [
                     ROOT_PATH . 'library/',
                     $app_path
                 ],
@@ -92,7 +98,7 @@ class DocLogic
 
             $doc = Doc::set($config)->doc();
 
-            Cache::set('api_doc_' . $app_path , $doc,86400);
+            Cache::set('api_doc_' . $app_path, $doc, 86400);
             self::$is_cache = false;
         }
         return $doc;
@@ -104,7 +110,8 @@ class DocLogic
      * @param string $app_path
      * @return array
      */
-    public static function apiList($class = null ,$module = null , $app_path = null){
+    public static function apiList($class = null, $module = null, $app_path = null)
+    {
         $filter = !empty($module);
 
         $app_path = self::setAppPath($app_path);
@@ -115,20 +122,26 @@ class DocLogic
 
         $api_list = [];
 
-        foreach ($class_list as $d){
-            if($filter && strpos($d['name'] , $module)===false){
-                continue ;
-            }
-            $methods = $all || $d['name']==$class ? $d['methods'] : [];
+        $app_namespace = self::checkNamespace($app_path);
 
-            foreach ($methods as $m){
+        foreach ($class_list as $d) {
+            if ($filter && strpos($d['name'], $module) === false) {
+                continue;
+            }
+            $methods = $all || $d['name'] == $class ? $d['methods'] : [];
+
+            foreach ($methods as $m) {
+                $comment = $m['comment'];
                 $api = [
-                    'name'=>$m['name'],
-                    'path'=>$m['path'],
-                    'route'=>$m['route'],
-                    'file_name'=>$d['file_name']
+                    'title'      => data($comment,'title'),
+                    'name'       => $m['name'],
+                    'path'       => $m['path'],
+                    'route'      => $m['route'],
+                    'file_name'  => $d['file_name'],
+                    'class_name' => $d['name'],
+                    'app_namespace'   => $app_namespace
                 ];
-                array_push($api_list , $api);
+                array_push($api_list, $api);
             }
         }
 
@@ -140,26 +153,27 @@ class DocLogic
      * @param string $app_path
      * @return array
      */
-    public static function classList($module = null , $app_path=null){
+    public static function classList($module = null, $app_path = null)
+    {
         $filter = !empty($module);
 
         $doc = self::doc($app_path);
 
         $class_list = [];
-        foreach ($doc as $d){
-            if($filter && strpos($d['name'] , $module)===false){
-                continue ;
+        foreach ($doc as $d) {
+            if ($filter && strpos($d['name'], $module) === false) {
+                continue;
             }
 
             $comment = $d['comment'];
 
             $class = [
-                'title' => data($comment,'title',$d['name']),
-                'name'  => $d['name'],
-                'file_name'=>$d['file_name']
+                'title' => data($comment, 'title', $d['name']),
+                'name' => $d['name'],
+                'file_name' => $d['file_name']
             ];
 
-            array_push($class_list,$class);
+            array_push($class_list, $class);
         }
 
         return $class_list;
@@ -169,7 +183,8 @@ class DocLogic
      * @param string $app_path
      * @return array
      */
-    public static function moduleList($app_path){
+    public static function moduleList($app_path)
+    {
         $app_path = self::setAppPath($app_path);
 
         $dir = rtrim($app_path, '//');
@@ -183,11 +198,11 @@ class DocLogic
                 $subFile = $dir . DIRECTORY_SEPARATOR . $fileName;
                 if (is_dir($subFile) && str_replace('.', '', $fileName) != '') {
                     $data = [
-                        'path'=>$subFile,
-                        'name'=>$fileName,
-                        'namespace'=>BASE_NAMESPACE . "\\" . $app_name . "\\" . $fileName
+                        'path' => $subFile,
+                        'name' => $fileName,
+                        'namespace' => BASE_NAMESPACE . "\\" . $app_name . "\\" . $fileName
                     ];
-                    array_push($module_list , $data);
+                    array_push($module_list, $data);
                 }
             }
             closedir($dirHandle);
@@ -201,7 +216,8 @@ class DocLogic
      * @param array $exception
      * @return array
      */
-    public static function appList($dir = ROOT_PATH . 'application/' , $exception = []){
+    public static function appList($dir = ROOT_PATH . 'application/', $exception = [])
+    {
         $dir = rtrim($dir, '//');
 
         $app_list = [];
@@ -210,19 +226,19 @@ class DocLogic
             $dirHandle = opendir($dir);
             while (false !== ($fileName = readdir($dirHandle))) {
                 $subFile = $dir . DIRECTORY_SEPARATOR . $fileName;
-                if (is_dir($subFile) && str_replace('.', '', $fileName) != '' && !in_array($fileName , $exception)) {
+                if (is_dir($subFile) && str_replace('.', '', $fileName) != '' && !in_array($fileName, $exception)) {
                     $data = [
-                        'path'=>$subFile,
-                        'name'=>$fileName,
-                        'namespace'=>BASE_NAMESPACE . "\\" . $fileName
+                        'path' => $subFile,
+                        'name' => $fileName,
+                        'namespace' => BASE_NAMESPACE . "\\" . $fileName
                     ];
-                    array_push($app_list , $data);
+                    array_push($app_list, $data);
                 }
             }
             closedir($dirHandle);
         }
 
-        foreach ($app_list as $app){
+        foreach ($app_list as $app) {
             self::$appMap[$app['path']] = $app['namespace'];
         }
 
