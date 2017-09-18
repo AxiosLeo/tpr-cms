@@ -67,6 +67,7 @@
         form.on('select(app_path)',function (obj) {
             var app_path = obj.value;
             modules(app_path);
+            reload();
         });
 
         form.on('select(module_namespace)',function (obj) {
@@ -134,15 +135,17 @@
 
     function modules(app_path) {
         console.log(app_path);
+        var moduleObj = $("#module_namespace");
+        $("#class_name").empty();
+        moduleObj.empty();
         var url = "{:url('api/index/modules')}";
         $.post(url,{app_path:app_path},function (res) {
-            var moduleObj = $("#module_namespace");
-            moduleObj.empty();
             moduleObj.append("<option value=\"\">选择模块</option>");
             var module = res.data;
             $.each(module,function (index,data) {
                 moduleObj.append("<option value=\""+data.namespace+"\">"+data.name+"</option>");
             });
+
             form.render();
         });
     }
