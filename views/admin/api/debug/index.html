@@ -1,31 +1,98 @@
 {layout name="main" /}
 <fieldset class="layui-elem-field layui-field-title" >
-    <legend>接口调试  --  {$title}</legend>
+    <legend>{$title}</legend>
 </fieldset>
-
-<form class="layui-form layui-form-pane" action="" style="min-height: 600px;">
-    <div class="layui-form-item">
-        <label class="layui-form-label">接口地址</label>
-        <div class="layui-input-block">
-            <input type="text" readonly name="api_path" autocomplete="off" placeholder="接口地址为空" value="{$host}{$path}" class="layui-input">
+<form class="layui-form layui-form-pane" action="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="layui-form-item">
+                <label class="layui-form-label">接口地址</label>
+                <div class="layui-input-block">
+                    <input type="text" readonly name="api_path" autocomplete="off" placeholder="接口地址为空" value="{$host}{$path}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请求方式</label>
+                <div class="layui-input-inline">
+                    <select name="post_method" lay-filter="aihao">
+                        <option value="1">POST</option>
+                        <option value="0">GET</option>
+                    </select>
+                </div>
+                <button class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
+            </div>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">请求方式</label>
-        <div class="layui-input-inline">
-            <select name="post_method" lay-filter="aihao">
-                <option value="1">POST</option>
-                <option value="0">GET</option>
-            </select>
+    <div class="row">
+        <div class="col-md-5" style="height: 570px;margin:15px 15px;overflow-y: scroll; border: 1px solid #cccccc; ">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">param</li>
+                    <li>header</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-table" id="post_setting_table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>key</th>
+                                <th>value</th>
+                                <th>operation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach name="param" item="p"}
+                            <tr>
+                                <td>
+                                    <input class="layui-input" value="{$p['name']}" placeholder="New Key" >
+                                </td>
+                                <td>
+                                    <input class="layui-input" value="" placeholder="{$p['desc']?:'Value'}">
+                                </td>
+                                <td>
+                                    <input class="layui-btn layui-btn-danger" type="button" value="删除">
+                                </td>
+                            </tr>
+                            {/foreach}
+                            <tr>
+                                <td>
+                                    <input class="layui-input" value="" placeholder="New Key" onkeypress="addRow(this)">
+                                </td>
+                                <td>
+                                    <input class="layui-input" value="" placeholder="Value">
+                                </td>
+                                <td>
+                                    <input class="layui-btn layui-btn-danger" type="button" value="删除">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
 
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
+        <div class="col-md-5" style="height: 570px;margin:15px 15px;overflow-y: scroll; border: 1px solid #cccccc;"></div>
     </div>
 </form>
 <script>
-    layui.use(['form', 'layedit', 'laydate','form'], function(){
-        var form = layui.form,layer = layui.layer;
-
+    var form , table , layer;
+    var cols = [[ //标题栏
+        {templet: '#keyTpl', width: 100, fixed:true, title: 'Key'},
+        {templet: '#valueTpl', width: 150,  event: 'edit', title: 'Value'},
+        {templet: '#operationTpl', width: 150,  event: 'edit', title: 'Operation'}
+    ]];
+    layui.use(['form', 'layer','table'], function(){
+        form = layui.form;
+        layer = layui.layer;
+        table = layui.table;
         form.render();
 
         //监听提交
@@ -33,7 +100,9 @@
             layer.msg("功能未开放");
             return false;
         });
-
-
     });
+
+    function addRow(obj) {
+        console.log(obj)
+    }
 </script>

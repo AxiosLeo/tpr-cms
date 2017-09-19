@@ -31,6 +31,7 @@ class Index extends ApiBase
     /**
      * send $name
      * @desc example
+     * @parameter string name 名称
      * @method post|get
      */
     public function needName()
@@ -56,9 +57,12 @@ class Index extends ApiBase
      */
     public function apiDoc()
     {
-        $dir = APP_PATH . 'index';
-        Doc::config($dir);
-        $this->response(Doc::doc());
+        $config = [
+            'doc_path'      => Doc::getClassPathList(),
+            'load_path'     => [ROOT_PATH . 'library',APP_PATH],
+            'app_namespace' => 'tpr\api'
+        ];
+        $this->response(Doc::set($config)->doc());
     }
 
     public function name(){
