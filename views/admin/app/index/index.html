@@ -1,0 +1,137 @@
+{layout name="main" /}
+
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>创建应用</legend>
+</fieldset>
+
+<section class="layui-larry-box">
+    <div class="larry-personal">
+        <blockquote class="layui-elem-quote mylog-info-tit">
+            <ul class="layui-tab-title">
+                <li><a id="addApp" class="layui-btn"><i class="layui-icon">&#xe654;</i>创建应用</a></li>
+                <li>
+                    <div class="search-bar">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="id" id="keyword">
+                        </div>
+                        <button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>
+                    </div>
+                </li>
+            </ul>
+        </blockquote>
+        <div class="larry-separate"></div>
+        <div class="layui-field-box layui-show">
+            <div class="row">
+                <table class="layui-table" id="data_table" lay-filter="data_table"></table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{php}$url = u('app','index','index');{/php}
+<script type="text/javascript">
+    var form, table;
+    var cols = [[ //标题栏
+        {field: 'id', width: 100, sort: true, title: 'ID'},
+        {field: 'app_name', width: 150,  event: 'edit', title: '应用名称'},
+        {field: 'platform', width: 150, sort: true, title: '平台'},
+        {field: 'base_version', width: 150, title: '主版本号'},
+        {field: 'last_version', width: 200, title: '最新版本'},
+        {field: 'last_version_time', width: 200, sort: true, title: '最后发布时间'},
+        {width: 180, templet: '#operationTpl', title: '操作'}
+    ]];
+
+    layui.use(['jquery', 'form', 'table'],function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        form  = layui.form;
+        table = layui.table;
+
+        reload();
+        table.on('tool(data_table)',function (obj) {
+            var id = obj.data.id;
+            if(obj.event === 'create'){
+                create();
+            }else if(obj.event === 'view'){
+                view(id);
+            }else if(obj.event === 'publish'){
+                publish(id);
+            }
+        });
+    });
+
+    $("#addApp").click(function () {
+        create();
+    });
+
+    function view(id){
+        var url = "{:u('application','index','view')}?id=" + id;
+        openLayer(url,{
+            title:"查看版本信息",
+            width:"600px", height:"600px",
+            btn: ['取消']
+
+        },{
+            cancel:function (index) {
+                layer.close(index);
+            }
+        })
+    }
+
+    function create(){
+        var url = "{:url('application/app/create')}";
+        openLayer(url,{
+            title:'创建应用',
+            width:"500px", height:"600px"
+        },{
+            yes:function () {
+                submitForm('#app_create_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        });
+    }
+
+    function publish(id) {
+        var url = "{:u('application','version','publish')}?id=" + id;
+        openLayer(url,{
+            title:"版本发布",
+            width:"500px", height:"500px"
+        },{
+            yes:function () {
+                submitForm('#app_publish_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        })
+    }
+
+    function reload() {
+        var keyword = $("#keyword").val();
+        table.init();
+        table.render({
+            id: 'data_table',
+            height: 550,
+            elem: '#data_table',
+            url: '{$url}',
+            where: {keyword: keyword},
+
+            method: 'post',
+            page: true,
+            limits: [10, 30, 50, 100],
+            limit: 10,
+            loading: false,
+            cols: cols
+        });
+    }
+
+</script>
+<script type="text/html" id="operationTpl">
+    <a class="layui-btn layui-btn-default layui-btn-mini" lay-event="view">查看</a>
+    <a class="layui-btn layui-btn-default layui-btn-mini" lay-event="publish">发布新版</a>
+</script>
+
