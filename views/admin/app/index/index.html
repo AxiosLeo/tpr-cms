@@ -79,10 +79,10 @@
     }
 
     function create(){
-        var url = "{:url('application/app/create')}";
+        var url = "{:url('app/index/create')}";
         openLayer(url,{
             title:'创建应用',
-            width:"500px", height:"600px"
+            width:"500px", height:"500px"
         },{
             yes:function () {
                 submitForm('#app_create_form');

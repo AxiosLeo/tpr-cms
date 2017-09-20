@@ -9,6 +9,8 @@
 namespace tpr\admin\app\controller;
 
 use think\Db;
+use think\Tool;
+use tpr\admin\app\validate\Application;
 use tpr\admin\common\controller\AdminLogin;
 
 class Index extends AdminLogin{
@@ -55,6 +57,36 @@ class Index extends AdminLogin{
         }
 
         $this->assign('data', $app);
+
+        return $this->fetch();
+    }
+
+    public function create()
+    {
+        if ($this->request->isPost()) {
+
+            $Validate = new Application();
+            if (!$Validate->scene('software.add')->check($this->param)) {
+                $this->error($Validate->getError());
+            }
+
+            $insert = [
+                'platform' => $this->param['platform'],
+                'app_name' => $this->param['app_name'],
+                'base_version' => $this->param['base_version'],
+                'remark' => $this->param['remark'],
+                'app_status' => 1,
+                'created_at' => time(),
+                'app_id'   => Tool::uuid("app_id"),
+                'app_secret'=>Tool::uuid("app_secret")
+            ];
+
+            if (Db::name('app')->insertGetId($insert)) {
+                $this->success('Operation is successful');
+            } else {
+                $this->error('The operation failure');
+            }
+        }
 
         return $this->fetch();
     }
