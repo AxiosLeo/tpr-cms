@@ -69,7 +69,7 @@ vim .env
 * 管理系统
  > http://domain/index.php
  
- > test
+ > admin
  
  > 123456
  
@@ -77,7 +77,7 @@ vim .env
  
  > [http://cms.hanxv.cn](http://cms.hanxv.cn)
  
- > admin
+ > test
  
  > 123456
  
