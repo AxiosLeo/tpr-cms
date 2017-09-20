@@ -46,7 +46,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {php}$n=0;{/php}
                             {foreach name="param" item="p"}
+                            {php}$n++;{/php}
                             <tr>
                                 <td>
                                     <input class="layui-input" name="key[{$key}]" value="{$p['name']}" placeholder="New Key" >
@@ -61,10 +63,10 @@
                             {/foreach}
                             <tr>
                                 <td>
-                                    <input class="layui-input" name="key[{$key+1}]" value="" placeholder="New Key" onkeypress="addRow(this)">
+                                    <input class="layui-input" name="key[{$n+1}]" value="" placeholder="New Key" onkeypress="addRow(this)">
                                 </td>
                                 <td>
-                                    <input class="layui-input" name="value[{$key+1}]" value="" placeholder="Value">
+                                    <input class="layui-input" name="value[{$n+1}]" value="" placeholder="Value">
                                 </td>
                                 <td>
                                     <a class="layui-btn layui-btn-danger" >删除</a>
