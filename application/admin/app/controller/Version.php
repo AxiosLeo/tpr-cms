@@ -168,6 +168,12 @@ class Version extends AdminLogin
 
         $version = $this->makeAppVersion($app, $update_type, $version_type);
 
+        $count = Db::name('app_version')->where('app_id',$app_id)
+            ->where('app_build',$version['build'])->count();
+        if($count){
+            $version['build'] = $version['build'] . '_' . (++$count);
+        }
+
         $this->response($version);
     }
 

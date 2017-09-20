@@ -79,7 +79,6 @@
     function reload() {
         var keyword = $("#keyword").val();
         var app_id = $("#app_id").val();
-        console.log(keyword);
         table.render({
             id: 'data_table',
             height: 550,
@@ -96,7 +95,18 @@
     }
     
     $("#publish").click(function () {
-        
+        var url = "{:u('app','version','publish')}";
+        openLayer(url,{
+            title:"版本发布",width:"600px", height:"450px"
+        },{
+            yes:function () {
+                submitForm('#app_publish_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        })
     });
 
 </script>

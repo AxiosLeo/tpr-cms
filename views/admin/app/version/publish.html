@@ -3,9 +3,9 @@
         <form class="layui-form" id="app_publish_form" action="{:url('app/version/publish')}">
             <div class="layui-field-box">
                 <div class="layui-form-item">
-                    <label for="app_id" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-2">选择应用: </label>
+                    <label for="publish_app_id" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-2">选择应用: </label>
                     <div class="layui-input-inline">
-                        <select id="app_id" name="app_id">
+                        <select id="publish_app_id" name="app_id" lay-search="" lay-filter="publish_app_id">
                             <option value="">请选择</option>
                             {foreach name='apps' item='a'}
                             {php}$selected = $app_id==$a['id']?"selected":"";{/php}
@@ -64,23 +64,20 @@
     </div>
 </div>
 <script type="application/javascript">
-    layui.use(['jquery','element','form','layedit'],function() {
+    layui.use(['jquery','form'],function() {
         var form = layui.form;
-        var layedit = layui.layedit;
         window.jQuery = window.$ = layui.jquery;
         form.on('select', function () {
             getVersion();
-        });
-        var editIndex = layedit.build('remark', {
-            height: 200
         });
         form.render();
     });
     function getVersion() {
         var version_type = $("#version_type").val();
         var update_type  = $("#update_type").val();
-        var app_id = $("#app_id").val();
+        var app_id = $("#publish_app_id").val();
         var url = "{:url('app/version/getVersion')}";
+
         $.post(url,{app_id:app_id,version_type:version_type,update_type:update_type},function (res) {
             $("#app_version").val(res.data.version);
             $("#app_build").val(res.data.build);
