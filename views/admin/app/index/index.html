@@ -2,38 +2,33 @@
 
 <fieldset class="layui-elem-field layui-field-title" >
     <legend>创建应用</legend>
+    <div class="layui-field-box">
+        <form class="layui-form" id="form-admin-add" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <a id="addApp" class="layui-btn"><i class="layui-icon">&#xe654;</i>创建应用</a>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" id="keyword" name="keyword" placeholder="应用名称" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <span class="layui-btn" data-type="reload" onclick="reload()">搜索</span>
+                </div>
+            </div>
+        </form>
+        <table class="layui-table" id="data_table" lay-filter="data_table"></table>
+    </div>
 </fieldset>
 
-<section class="layui-larry-box">
-    <div class="larry-personal">
-        <blockquote class="layui-elem-quote mylog-info-tit">
-            <ul class="layui-tab-title">
-                <li><a id="addApp" class="layui-btn"><i class="layui-icon">&#xe654;</i>创建应用</a></li>
-                <li>
-                    <div class="search-bar">
-                        <div class="layui-inline">
-                            <input class="layui-input" name="id" id="keyword">
-                        </div>
-                        <button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>
-                    </div>
-                </li>
-            </ul>
-        </blockquote>
-        <div class="larry-separate"></div>
-        <div class="layui-field-box layui-show">
-            <div class="row">
-                <table class="layui-table" id="data_table" lay-filter="data_table"></table>
-            </div>
-        </div>
-    </div>
-</section>
-
 {php}$url = u('app','index','index');{/php}
+
 <script type="text/javascript">
     var form, table;
     var cols = [[
         {width: 180, templet: '#operationTpl', title: '操作',fixed:true},
-        {field: 'app_name', width: 150,  event: 'edit', title: '应用名称'},
+        {field: 'app_name', width: 150,  edit: 'text', title: '应用名称'},
         {field: 'platform', width: 150, sort: true, title: '平台'},
         {field: 'base_version', width: 150, title: '主版本号'},
         {field: 'last_version', width: 200, title: '最新版本'},
@@ -57,6 +52,21 @@
             }else if(obj.event === 'publish'){
                 publish(id);
             }
+        });
+
+        table.on('edit(data_table)', function (obj) {
+            var  data = obj.data;
+            var url = "{:u('app','index','edit')}";
+
+            postSomething(url,data,function(res){
+                if(res.code){
+                    layer.msg(res.msg,{icon:1,time:1500});
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1500},function () {
+                        table.reload('data_table');
+                    });
+                }
+            });
         });
     });
 
@@ -98,7 +108,7 @@
         var url = "{:u('app','version','publish')}?id=" + id;
         openLayer(url,{
             title:"版本发布",
-            width:"600px", height:"650px"
+            width:"600px", height:"450px"
         },{
             yes:function () {
                 submitForm('#app_publish_form');
