@@ -42,6 +42,10 @@ class Index extends AdminLogin{
         return $this->fetch();
     }
 
+    /**
+     * 编辑应用信息
+     * @return mixed
+     */
     public function edit(){
         $id = $this->param['id'];
 

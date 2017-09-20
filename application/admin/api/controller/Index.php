@@ -44,6 +44,9 @@ class Index extends AdminLogin{
         return $this->fetch();
     }
 
+    /**
+     * 获取应用的模块
+     */
     public function modules(){
         if($this->request->isPost()){
             $app_path = $this->request->param('app_path');
@@ -52,6 +55,9 @@ class Index extends AdminLogin{
         }
     }
 
+    /**
+     * 获取接口类
+     */
     public function classes(){
         if($this->request->isPost()){
             $app_path = $this->request->param('app_path');
@@ -61,6 +67,9 @@ class Index extends AdminLogin{
         }
     }
 
+    /**
+     * 获取接口数据
+     */
     public function api(){
         if($this->request->isPost()){
             $class_name = $this->request->param('class_name');

@@ -125,6 +125,9 @@ class Admin extends AdminLogin
         return $this->fetch('edit');
     }
 
+    /**
+     * 删除管理员用户
+     */
     public function delete(){
         $id = $this->request->param('id',0);
         $exist = Db::name('admin')->where('id',$id)->count();

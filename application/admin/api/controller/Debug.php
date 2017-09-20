@@ -16,6 +16,10 @@ use tpr\admin\common\controller\AdminLogin;
 
 class Debug extends AdminLogin
 {
+    /**
+     * 接口调试页
+     * @return mixed
+     */
     public function index(){
         $app_namespace = $this->request->param('an','');
         $class_name = $this->request->param('cn','');

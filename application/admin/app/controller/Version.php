@@ -177,6 +177,10 @@ class Version extends AdminLogin
         $this->response($version);
     }
 
+    /**
+     * 版本描述(未启用)
+     * @return mixed
+     */
     public function remark(){
         $id = $this->request->param('id',0);
 
