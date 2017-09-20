@@ -31,14 +31,14 @@
 {php}$url = u('app','index','index');{/php}
 <script type="text/javascript">
     var form, table;
-    var cols = [[ //标题栏
-        {field: 'id', width: 100, sort: true, title: 'ID'},
+    var cols = [[
+        {width: 180, templet: '#operationTpl', title: '操作',fixed:true},
         {field: 'app_name', width: 150,  event: 'edit', title: '应用名称'},
         {field: 'platform', width: 150, sort: true, title: '平台'},
         {field: 'base_version', width: 150, title: '主版本号'},
         {field: 'last_version', width: 200, title: '最新版本'},
-        {field: 'last_version_time', width: 200, sort: true, title: '最后发布时间'},
-        {width: 180, templet: '#operationTpl', title: '操作'}
+        {field: 'last_version_time', width: 200, sort: true, title: '最后发布时间'}
+
     ]];
 
     layui.use(['jquery', 'form', 'table'],function () {
@@ -95,10 +95,10 @@
     }
 
     function publish(id) {
-        var url = "{:u('application','version','publish')}?id=" + id;
+        var url = "{:u('app','version','publish')}?id=" + id;
         openLayer(url,{
             title:"版本发布",
-            width:"500px", height:"500px"
+            width:"600px", height:"650px"
         },{
             yes:function () {
                 submitForm('#app_publish_form');

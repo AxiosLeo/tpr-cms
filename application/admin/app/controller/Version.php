@@ -1,0 +1,149 @@
+<?php
+/**
+ * @author: axios
+ *
+ * @email: axioscros@aliyun.com
+ * @blog:  http://hanxv.cn
+ * @datetime: 2017/9/20 上午10:00
+ */
+
+namespace tpr\admin\app\controller;
+
+use think\Db;
+use think\Tool;
+use tpr\admin\app\validate\Application;
+use tpr\admin\common\controller\AdminLogin;
+
+class Version extends AdminLogin
+{
+    public function index(){
+        $list = Db::name('app_version')->alias('v')
+            ->join('__APP__ app' ,'app.app_id=v.app_id')
+            ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status,v.remark')
+            ->order('publish_time desc')
+            ->select();
+
+        $this->assign('version',$list);
+
+        return $this->fetch();
+    }
+    public function publish()
+    {
+        if ($this->request->isPost()) {
+            $Validate = new Application();
+
+            if (!$Validate->scene('version.add')->check($this->param)) {
+                $this->error($Validate->getError());
+            }
+
+            $app_version = !empty($this->param['app_build'])?$this->param['app_version'] . '.' . $this->param['app_build']:$this->param['app_version'];
+
+            $insert = [
+                'app_id' => $this->param['app_id'],
+                'app_version' => $this->param['app_version'],
+                'app_build' => $this->param['app_build'],
+                'app_key' => $this->param['app_key'],
+                'version_type' => $this->param['version_type'],
+                'update_type' => $this->param['update_type'],
+                'app_status' => 1,
+                'publish_time' => date("Y-m-d H:i:s"),
+                'remark'=>$this->param['remark']
+            ];
+
+            if (Db::name('app_version')->insertGetId($insert)) {
+                $app = Db::name('app')->where('app_id', $this->param['app_id'])->find();
+                $app['last_version'] = $app_version;
+                $app['last_version_time'] = time();
+                Db::name('app')->where('id', $app['id'])->update($app);
+
+                $this->success('success');
+            }
+
+            $this->error('error');
+        }
+
+        $id = $this->request->param('id' , '');
+        $this->assign('app_id',$id);
+        $apps = Db::name('app')->field('app_id , app_name, id')->select();
+
+        $this->assign('apps',$apps);
+
+        if(empty($id)){
+            $version['version'] = "请选择";
+            $version['build'] = '请选择';
+            $this->assign('app_key', Tool::uuid('app_key'));
+        }else{
+            $app = Db::name('app')->find($id);
+            $this->assign('app', $app);
+            $this->assign('app_key', Tool::uuid('app_key'));
+
+            if (!empty($app) && isset($app)) {
+                $version = $this->makeAppVersion($app, 0);
+            } else {
+                $version['version'] = "请选择";
+                $version['build'] = '请选择';
+            }
+        }
+
+
+        $this->assign('version', $version);
+
+        return $this->fetch('publish');
+    }
+
+    public function getVersion()
+    {
+        $app_id = $this->param['app_id'];
+        $version_type = $this->param['version_type'];
+        $update_type = $this->param['update_type'];
+
+        $app = Db::name('app')->where('app_id', $app_id)->find();
+        if (empty($app)) {
+            $app = ['version'=>'请选择', 'build'=>'请选择'];
+            $this->response($app);
+        }
+
+        $version = $this->makeAppVersion($app, $update_type, $version_type);
+
+        $this->response($version);
+    }
+
+    private function makeAppVersion($app, $update_type, $version_type = "release")
+    {
+        $temp_base = $app['base_version'];
+
+        if (!empty($app['last_version'])) {
+            list($temp_main, $temp_next, $temp_debug) = explode(".", $app['last_version']);
+        } else {
+            $temp_main = $temp_base;
+            $temp_next = 0;
+            $temp_debug = 0;
+        }
+        $main = $temp_main;
+        $next = 0;
+        $debug = 0;
+        switch ($update_type) {
+            case 2:
+                $main = ++$app['base_version'];
+                break;
+            case 1:
+                $next = ++$temp_next;
+                break;
+            case 0:
+                $next = $temp_next;
+                $debug = ++$temp_debug;
+                break;
+        }
+
+        return $this->makeVersion($main, $next, $debug, $version_type);
+    }
+
+    private function makeVersion($main, $next = "0", $debug = "0", $type = "release")
+    {
+        $app = [
+            'version' => $main . "." . $next . "." . $debug,
+            'build' => date("ymd") . "_" . $type
+        ];
+        return $app;
+    }
+}
