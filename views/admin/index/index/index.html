@@ -153,22 +153,28 @@
 
     function tabAdd(obj) {
         var $obj = $(obj);
-        var title = $obj.attr('data-title');
-        var url = $obj.attr('data-url');
-        var icon = $obj.attr('data-icon');
         var id = $obj.attr('data-id');
 
-        element.tabDelete('iframe-tab',id);
-        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
-        element.tabAdd('iframe-tab', {
-            title: '<i class="'+icon+'"></i>' + title,
-            href: content,
-            id: id
-        });
-        element.tabChange('iframe-tab',id);
-        var show = $(".layui-show");
-        show.empty();
-        show.append(content);
+        var exist = $(".layui-tab").find('iframe[data-id='+id+']');
+
+        if(exist.length){
+            element.tabChange('iframe-tab',id);
+        }else{
+            var title = $obj.attr('data-title');
+            var url = $obj.attr('data-url');
+            var icon = $obj.attr('data-icon');
+            element.tabDelete('iframe-tab',id);
+            var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="'+id+'" src="'+url+'" frameborder="0" ></iframe>';
+            element.tabAdd('iframe-tab', {
+                title: '<i class="'+icon+'"></i>' + title,
+                href: content,
+                id: id
+            });
+            element.tabChange('iframe-tab',id);
+            var show = $(".layui-show");
+            show.empty();
+            show.append(content);
+        }
     }
 
     function refresh() {
