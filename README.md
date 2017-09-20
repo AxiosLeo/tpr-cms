@@ -69,7 +69,7 @@ vim .env
 * 管理系统
  > http://domain/index.php
  
- > admin
+ > test
  
  > 123456
  
