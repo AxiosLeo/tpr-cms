@@ -89,7 +89,6 @@
             </div>
         </div>
     </div>
-
     <div class="layui-footer">
         <div class="layui-mian">
             <div style="text-align: center">
@@ -97,7 +96,6 @@
                     <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a>
                 <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
                     前端框架<a href="http://www.layui.com/demo/">layui</a>
-
             </div>
         </div>
     </div>
@@ -106,6 +104,7 @@
 <script>
     var element ;
     var current_tab;
+
     //JavaScript代码区域
     layui.use('element', function(){
         element = layui.element;
@@ -113,6 +112,7 @@
             current_tab = data.index;
         });
     });
+
     $(window).resize(function () {
         iframeHeight();
     });
