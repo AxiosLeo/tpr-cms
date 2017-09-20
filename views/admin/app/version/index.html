@@ -1,5 +1,4 @@
 {layout name="main" /}
-
 <fieldset class="layui-elem-field layui-field-title" >
     <legend>版本管理</legend>
     <div class="layui-field-box">
@@ -35,7 +34,7 @@
 <script type="text/javascript">
     var form, table;
     var cols = [[
-        {width: 120, templet: '#operationTpl', title: '操作',fixed:true},
+        {width: 100, templet: '#operationTpl', title: '操作',fixed:true},
         {field: 'app_status', templet: '#statusTpl', width: 100, title: '状态'},
         {field: 'app_name', width: 150,  edit: 'text', title: '应用名称'},
         {field: 'app_key', width: 350, sort: true, title: 'AppKey'},
@@ -43,9 +42,10 @@
         {field: 'publish_time', width: 200, sort: true, title: '发布时间'}
     ]];
 
-    layui.use(['jquery', 'form', 'table'],function () {
+    layui.use(['jquery', 'form', 'table','layedit'],function () {
         window.jQuery = window.$ = layui.jquery;
         window.layer  = layui.layer;
+        window.layedit = layui.layedit;
         form  = layui.form;
         table = layui.table;
         form.render();
@@ -54,6 +54,23 @@
 
         table.on('tool(data_table)',function (obj) {
             var id = obj.data.id;
+            if(obj.event === 'editRemark'){
+                var url = "{:url('app/version/remark')}?id=" + id;
+                openLayer(url,{
+                    title:false,height:"300px",maxmin:false
+                },{
+                    yes:function () {
+                        var remark = layedit.getText(layEditIndex);
+                        postSomething(url,{remark:remark})
+                    },btn2:function (index) {
+                        layer.close(index);
+                    },success:function () {
+                        window.layEditIndex = layedit.build('remark',{
+                            tool:[]
+                        });
+                    }
+                })
+            }
         });
 
         form.on('select(app_id)',function () {
@@ -109,13 +126,15 @@
         })
     });
 
+
 </script>
 <script type="text/html" id="operationTpl">
     {{# if(d.app_status==1){}}
-    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="stop">停用此版本</a>
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="stop"><i class="fa fa-stop-circle-o"></i></a>
     {{# }else{ }}
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="start">启用</a>
+    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="start"><i class="fa fa-chevron-circle-down"></i></a>
     {{#  } }}
+    <!--<a class="layui-btn layui-btn-default layui-btn-mini layer_tips" lay-event="editRemark" data-toggle="tooltip" title="编辑版本描述" ><i class="fa fa-pencil"></i></a>-->
 </script>
 <script type="text/html" id="statusTpl">
     {{# if(d.app_status==1){}}

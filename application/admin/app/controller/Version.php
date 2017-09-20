@@ -177,6 +177,31 @@ class Version extends AdminLogin
         $this->response($version);
     }
 
+    public function remark(){
+        $id = $this->request->param('id',0);
+
+        if($this->request->isPost()){
+            $remark = $this->request->param('remark','');
+            $remark = htmlspecialchars($remark);
+
+            Db::name('app_version')
+                ->where('id',$id)
+                ->setField('remark',$remark);
+
+            $this->success(lang('success'));
+        }
+
+        $this->assign('id',$id);
+        $version = Db::name('app_version')
+            ->where('id',$id)
+            ->field('id,remark')
+            ->find();
+
+        $this->assign('remark',htmlspecialchars_decode($version['remark']));
+
+        return $this->fetch();
+    }
+
 
     /**
      * @param $app
