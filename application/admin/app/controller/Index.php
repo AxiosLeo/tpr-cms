@@ -52,8 +52,8 @@ class Index extends AdminLogin{
 
         $app = Db::name('app')->where('id', $id)->find();
         if (!empty($app)) {
-            $app['last_version_time'] = date("Y-m-d H:i:s", $app['last_version_time']);
-            $app['created_at'] = date("Y-m-d H:i:s", $app['created_at']);
+            $app['last_version_time'] = trans2time($app['last_version_time']);
+            $app['created_at'] = trans2time($app['created_at']);
         }
 
         $this->assign('data', $app);
@@ -61,6 +61,10 @@ class Index extends AdminLogin{
         return $this->fetch();
     }
 
+    /**
+     * 创建应用
+     * @return mixed
+     */
     public function create()
     {
         if ($this->request->isPost()) {

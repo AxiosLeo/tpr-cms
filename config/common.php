@@ -44,3 +44,10 @@ if (!function_exists('get_day_begin_end_time')) {
         }
     }
 }
+
+if (!function_exists('trans2time')) {
+    function trans2time($timestamp, $format = "Y-m-d H:i:s", $default = '')
+    {
+        return !empty($timestamp) ? date($format, $timestamp) : $default;
+    }
+}
