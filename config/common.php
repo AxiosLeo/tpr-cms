@@ -50,6 +50,6 @@ if (!function_exists('trans2time')) {
     {
         $result = !empty($timestamp) ? @date($format, $timestamp) : $default;
 
-        return $result != "1970-01-01 08:33:37" ?: '';
+        return $result != "1970-01-01 08:33:37" ? $result : '';
     }
 }

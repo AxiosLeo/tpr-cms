@@ -14,5 +14,6 @@
 return [
     'default'=>'index/index/index',
 
-    'name/:name'=>'index/index/name'
+    'name/:name'=>'index/index/name',
+    'test'=>'index/test/index'
 ];
