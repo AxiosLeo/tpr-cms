@@ -16,9 +16,44 @@ use tpr\admin\common\controller\AdminLogin;
 
 class Version extends AdminLogin
 {
+    /**
+     * 版本列表
+     */
     public function index(){
 
+        if($this->request->isPost()){
+            $page = $this->param['page'];
+            $limit = $this->param['limit'];
+            $keyword = $this->request->param('keyword' , '');
+            $where = [];
+            if(!empty($keyword)){
+                $keyword = $keyword . '%';
+                $where['v.app_version'] = ['like',$keyword];
+            }
+            $list = Db::name('app_version')->alias('v')
+                ->join('__APP__ app' ,'app.app_id=v.app_id')
+                ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status')
+                ->order('publish_time desc')
+                ->where($where)
+                ->page($page)
+                ->limit($limit)
+                ->select();
+
+            foreach ($list as &$l){
+                $l['publish_time'] = trans2time($l['publish_time']);
+            }
+
+            $count = Db::name('app_version')->alias('v')->where($where)->count();
+            $this->tableData($list , $count);
+        }
+
+        return $this->fetch();
     }
+
+    /**
+     * 发布时间线
+     * @return mixed
+     */
     public function timeLine(){
         $list = Db::name('app_version')->alias('v')
             ->join('__APP__ app' ,'app.app_id=v.app_id')
@@ -31,6 +66,10 @@ class Version extends AdminLogin
         return $this->fetch('time_line');
     }
 
+    /**
+     * 发布新版本
+     * @return mixed
+     */
     public function publish()
     {
         if ($this->request->isPost()) {
@@ -94,6 +133,9 @@ class Version extends AdminLogin
         return $this->fetch('publish');
     }
 
+    /**
+     * 获取版本号
+     */
     public function getVersion()
     {
         $app_id = $this->param['app_id'];
@@ -111,6 +153,13 @@ class Version extends AdminLogin
         $this->response($version);
     }
 
+
+    /**
+     * @param $app
+     * @param $update_type
+     * @param string $version_type
+     * @return array
+     */
     private function makeAppVersion($app, $update_type, $version_type = "release")
     {
         $temp_base = $app['base_version'];
@@ -141,6 +190,13 @@ class Version extends AdminLogin
         return $this->makeVersion($main, $next, $debug, $version_type);
     }
 
+    /**
+     * @param $main
+     * @param string $next
+     * @param string $debug
+     * @param string $type
+     * @return array
+     */
     private function makeVersion($main, $next = "0", $debug = "0", $type = "release")
     {
         $app = [
