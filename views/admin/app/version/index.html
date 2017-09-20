@@ -9,17 +9,20 @@
                     <a id="publish" class="layui-btn"><i class="layui-icon">&#xe654;</i>发布版本</a>
                 </div>
                 <div class="layui-inline">
-                    <select name="type">
-                        <option value="">请选择应用</option>
+                    <select id="app_id" name="app_id" lay-search="" lay-filter="app_id">
+                        <option value="0">请选择应用</option>
+                        {foreach name="app" item="a"}
+                        <option value="{$a['app_id']}">{$a['app_name']}</option>
+                        {/foreach}
                     </select>
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline" style="width: 300px;">
-                        <input type="text" name="keyword" placeholder="AppKey | AppVersion" class="layui-input">
+                        <input type="text" id="keyword" name="keyword" placeholder="AppKey | AppVersion" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <span class="layui-btn sub">搜索</span>
+                    <span class="layui-btn" data-type="reload" onclick="reload()">搜索</span>
                 </div>
             </div>
         </form>
@@ -38,7 +41,6 @@
         {field: 'app_key', width: 350, sort: true, title: 'AppKey'},
         {field: 'app_version', templet:'#versionTpl', width: 200, sort: true, title: '版本号'},
         {field: 'publish_time', width: 200, sort: true, title: '发布时间'}
-
     ]];
 
     layui.use(['jquery', 'form', 'table'],function () {
@@ -49,15 +51,13 @@
         form.render();
 
         reload();
+
         table.on('tool(data_table)',function (obj) {
             var id = obj.data.id;
-            if(obj.event === 'create'){
-                create();
-            }else if(obj.event === 'view'){
-                view(id);
-            }else if(obj.event === 'publish'){
-                publish(id);
-            }
+        });
+
+        form.on('select(app_id)',function () {
+            reload();
         });
 
         table.on('edit(data_table)', function (obj) {
@@ -78,14 +78,14 @@
 
     function reload() {
         var keyword = $("#keyword").val();
-        table.init();
+        var app_id = $("#app_id").val();
+        console.log(keyword);
         table.render({
             id: 'data_table',
             height: 550,
             elem: '#data_table',
             url: '{$url}',
-            where: {keyword: keyword},
-
+            where: {keyword: keyword,app_id:app_id},
             method: 'post',
             page: true,
             limits: [10, 30, 50, 100],
@@ -102,16 +102,16 @@
 </script>
 <script type="text/html" id="operationTpl">
     {{# if(d.app_status==1){}}
-    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="view">停用此版本</a>
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="stop">停用此版本</a>
     {{# }else{ }}
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="view">启用</a>
+    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="start">启用</a>
     {{#  } }}
 </script>
 <script type="text/html" id="statusTpl">
     {{# if(d.app_status==1){}}
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="view">已上线</a>
+    <a class="layui-btn layui-btn-normal layui-btn-mini" >已上线</a>
     {{# }else{ }}
-    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="view">已停用</a>
+    <a class="layui-btn layui-btn-primary layui-btn-mini" >已停用</a>
     {{#  } }}
 </script>
 

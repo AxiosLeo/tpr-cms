@@ -20,24 +20,38 @@ class Version extends AdminLogin
      * 版本列表
      */
     public function index(){
-
         if($this->request->isPost()){
             $page = $this->param['page'];
             $limit = $this->param['limit'];
             $keyword = $this->request->param('keyword' , '');
+            $app_id = $this->request->param('app_id',0);
             $where = [];
-            if(!empty($keyword)){
-                $keyword = $keyword . '%';
-                $where['v.app_version'] = ['like',$keyword];
-            }
-            $list = Db::name('app_version')->alias('v')
+            $query = Db::name('app_version')->alias('v')
                 ->join('__APP__ app' ,'app.app_id=v.app_id')
                 ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status')
                 ->order('publish_time desc')
-                ->where($where)
                 ->page($page)
-                ->limit($limit)
-                ->select();
+                ->limit($limit);
+
+            if(!empty($keyword)){
+                if(strlen($keyword) === 32){
+                    $query = $query->whereOr('v.app_key',$keyword);
+                }else{
+                    if(strpos($keyword ,'-')!==false){
+                        list($version , $build) = explode('-',$keyword);
+                        $query = $query->where('v.app_version',$version)
+                            ->where('v.app_build',$build);
+                    }else{
+                        $query = $query->whereOr('v.app_version',$keyword)
+                            ->whereOr('v.app_build',$keyword);
+                    }
+                }
+            }
+            if(!empty($app_id)){
+                $where['v.app_id'] = $app_id;
+                $query = $query->whereOr('v.app_id',$app_id);
+            }
+            $list = $query->select();
 
             foreach ($list as &$l){
                 $l['publish_time'] = trans2time($l['publish_time']);
@@ -46,6 +60,10 @@ class Version extends AdminLogin
             $count = Db::name('app_version')->alias('v')->where($where)->count();
             $this->tableData($list , $count);
         }
+
+        $app = Db::name('app')->select();
+
+        $this->assign('app',$app);
 
         return $this->fetch();
     }
