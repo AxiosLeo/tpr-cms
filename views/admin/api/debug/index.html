@@ -49,25 +49,25 @@
                             {foreach name="param" item="p"}
                             <tr>
                                 <td>
-                                    <input class="layui-input" value="{$p['name']}" placeholder="New Key" >
+                                    <input class="layui-input" name="key[{$key}]" value="{$p['name']}" placeholder="New Key" >
                                 </td>
                                 <td>
-                                    <input class="layui-input" value="" placeholder="{$p['desc']?:'Value'}">
+                                    <input class="layui-input" name="value[{$key}]" value="" placeholder="{$p['desc']?:'Value'}">
                                 </td>
                                 <td>
-                                    <input class="layui-btn layui-btn-danger" type="button" value="删除">
+                                    <a class="layui-btn layui-btn-danger" >删除</a>
                                 </td>
                             </tr>
                             {/foreach}
                             <tr>
                                 <td>
-                                    <input class="layui-input" value="" placeholder="New Key" onkeypress="addRow(this)">
+                                    <input class="layui-input" name="key[{$key+1}]" value="" placeholder="New Key" onkeypress="addRow(this)">
                                 </td>
                                 <td>
-                                    <input class="layui-input" value="" placeholder="Value">
+                                    <input class="layui-input" name="value[{$key+1}]" value="" placeholder="Value">
                                 </td>
                                 <td>
-                                    <input class="layui-btn layui-btn-danger" type="button" value="删除">
+                                    <a class="layui-btn layui-btn-danger" >删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -100,9 +100,15 @@
             layer.msg("功能未开放");
             return false;
         });
+
+        table.on('tool(post_setting_table)',function (obj) {
+            if(obj.event === 'del'){
+                console.log('del');
+            }
+        });
     });
 
     function addRow(obj) {
-        console.log(obj)
+        console.log(obj);
     }
 </script>
