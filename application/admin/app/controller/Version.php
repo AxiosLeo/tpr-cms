@@ -17,6 +17,9 @@ use tpr\admin\common\controller\AdminLogin;
 class Version extends AdminLogin
 {
     public function index(){
+
+    }
+    public function timeLine(){
         $list = Db::name('app_version')->alias('v')
             ->join('__APP__ app' ,'app.app_id=v.app_id')
             ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status,v.remark')
@@ -25,8 +28,9 @@ class Version extends AdminLogin
 
         $this->assign('version',$list);
 
-        return $this->fetch();
+        return $this->fetch('time_line');
     }
+
     public function publish()
     {
         if ($this->request->isPost()) {
@@ -46,8 +50,7 @@ class Version extends AdminLogin
                 'version_type' => $this->param['version_type'],
                 'update_type' => $this->param['update_type'],
                 'app_status' => 1,
-                'publish_time' => date("Y-m-d H:i:s"),
-                'remark'=>$this->param['remark']
+                'publish_time' => date("Y-m-d H:i:s")
             ];
 
             if (Db::name('app_version')->insertGetId($insert)) {

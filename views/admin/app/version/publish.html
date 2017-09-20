@@ -3,7 +3,7 @@
         <form class="layui-form" id="app_publish_form" action="{:url('app/version/publish')}">
             <div class="layui-field-box">
                 <div class="layui-form-item">
-                    <label for="app_id" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">选择应用: </label>
+                    <label for="app_id" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-2">选择应用: </label>
                     <div class="layui-input-inline">
                         <select id="app_id" name="app_id">
                             <option value="">请选择</option>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="version_type" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">版本属性: </label>
+                    <label for="version_type" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本属性: </label>
                     <div class="layui-input-inline">
                         <select id="version_type" name="version_type">
                             <option value="release">正式版(release)</option>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="update_type" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">更新类别: </label>
+                    <label for="update_type" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">更新类别: </label>
                     <div class="layui-input-inline">
                         <select id="update_type" name="update_type" >
                             <option value="0">修订版更新(debug)</option>
@@ -36,35 +36,45 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="app_version" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">版本号预览: </label>
+                    <label for="app_version" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本号预览: </label>
                     <div class="layui-input-inline">
                         <input readonly id="app_version" class="layui-input " name="app_version" value="{$version['version']}">
-                        <input id="app_build" class="layui-input " style="margin-top: 10px;" name="app_build" value="{$version['build']}">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input id="app_build" class="layui-input" name="app_build" value="{$version['build']}">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="app_key" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">APP_KEY: </label>
+                    <label for="app_key" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">APP_KEY: </label>
                     <div class="layui-input-inline">
-                        <input readonly id="app_key" class="layui-input" style="width: 250px;" name="app_key" value="{$app_key}">
+                        <input readonly id="app_key" class="layui-input" style="width: 392px;" name="app_key" value="{$app_key}">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label for="app_key" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-4">版本描述: </label>
-                    <div class="layui-input-inline">
-                        <textarea id="remark" class="layui-input" style="width: 250px;height: 200px;" name="remark" ></textarea>
-                    </div>
-                </div>
+
+                    <!--<div class="col-xs-12 col-sm-12 col-md-8">
+                        <div class="layui-form-item">
+                            <label for="remark" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本描述: </label>
+                            <div class="layui-input-block col-xs-8 col-sm-10 col-md-10 ">
+                                <textarea class="layui-textarea layui-hide " name="remark" lay-verify="content" id="remark"></textarea>
+                            </div>
+                        </div>
+                    </div>-->
             </div>
         </form>
     </div>
 </div>
 <script type="application/javascript">
-    layui.use(['jquery','element','form'],function() {
+    layui.use(['jquery','element','form','layedit'],function() {
         var form = layui.form;
+        var layedit = layui.layedit;
         window.jQuery = window.$ = layui.jquery;
         form.on('select', function () {
             getVersion();
         });
+        var editIndex = layedit.build('remark', {
+            height: 200
+        });
+        form.render();
     });
     function getVersion() {
         var version_type = $("#version_type").val();
