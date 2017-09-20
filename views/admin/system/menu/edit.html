@@ -9,10 +9,12 @@
                         <select class="col-md-3" id="parent_id" name="parent_id" lay-filter="parent">
                             <option value="0" selected>顶级菜单</option>
                             {foreach name="parent_menu" item="pm"}
-                            <option value="{$pm['id']}">{$pm['title']}</option>
+                            {php}$selected = $pm['id']==$data['parent_id'] ? "selected":"";{/php}
+                            <option value="{$pm['id']}" {$selected}>{$pm['title']}</option>
                             {php}$sub = $pm['children'];if(!empty($sub)){{/php}
                             {foreach name="sub" item="c"}
-                            <option value="{$c['id']}">└─{$c['title']}</option>
+                            {php}$selected = $c['id']==$data['parent_id'] ? "selected":"";{/php}
+                            <option value="{$c['id']}" {$selected}>└─{$c['title']}</option>
                             {/foreach}
                             {php}}{/php}
                             {/foreach}
