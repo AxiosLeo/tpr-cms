@@ -35,7 +35,7 @@ class Version extends AdminLogin
 
             if(!empty($keyword)){
                 if(strlen($keyword) === 32){
-                    $query = $query->whereOr('v.app_key',$keyword);
+                    $query = $query->where('v.app_key',$keyword);
                 }else{
                     if(strpos($keyword ,'-')!==false){
                         list($version , $build) = explode('-',$keyword);
@@ -49,7 +49,7 @@ class Version extends AdminLogin
             }
             if(!empty($app_id)){
                 $where['v.app_id'] = $app_id;
-                $query = $query->whereOr('v.app_id',$app_id);
+                $query = $query->where('v.app_id',$app_id);
             }
             $list = $query->select();
 
