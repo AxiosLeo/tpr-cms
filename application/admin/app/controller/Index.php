@@ -32,13 +32,33 @@ class Index extends AdminLogin{
             }
             $list = Db::name('app')->page($page)->where($where)->limit($limit)->select();
             foreach($list as &$r){
-                $r['last_version_time'] = !empty($r['last_version_time'])?date('Y-m-d H:i:s',$r['last_version_time']):'';
+                $r['last_version_time'] = trans2time($r['last_version_time']);
             }
             unset($r);
             $count = Db::name('app')->where($where)->count();
 
             $this->tableData($list , $count);
         }
+        return $this->fetch();
+    }
+
+    public function edit(){
+        $id = $this->param['id'];
+
+        if($this->request->isPost()){
+
+            $update = [
+                'app_name'=>$this->param['app_name']
+            ];
+
+            $result = Db::name('app')->where('id',$id)->update($update);
+
+            $result ? $this->success(lang('success')) : $this->error(lang('error'));
+        }
+
+        $data = Db::name('app')->where('id',$id)->find();
+        $this->assign('data',$data);
+
         return $this->fetch();
     }
 
