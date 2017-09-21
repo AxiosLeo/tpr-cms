@@ -55,7 +55,11 @@ class AdminLogin extends AdminBase
             return true;
         }
 
-        $exist = Db::name('role_node')->where('role_id',$role_id)->where('node_path',$path)->count();
+        $exist = Db::name('role_node')
+            ->where('role_id',$role_id)
+            ->where('node_path',$path)
+            ->where('disabled',0)
+            ->count();
 
         $auth = $exist ? 1 : 0;
 
