@@ -10,6 +10,7 @@ namespace library\controller;
 
 use think\Controller;
 use think\Crypt;
+use think\Db;
 use think\Log;
 use think\Request;
 
@@ -19,7 +20,7 @@ class ApiBase extends Controller{
 
     protected static $debug;
 
-    protected static $app_key , $timestamp , $sign;
+    protected static $app_key , $timestamp , $sign , $app_status , $app_secret;
 
     public function __construct(Request $request = null)
     {
@@ -34,6 +35,27 @@ class ApiBase extends Controller{
         self::$app_key = $this->request->header('x-app-key','');
 
         $this->checkSign();
+
+        $this->checkAppKey();
+    }
+
+    /**
+     * 检验app_key的有效性
+     */
+    protected function checkAppKey(){
+        $app_version = Db::name('app_version')->where('app_key', self::$app_key)->find();
+        if(empty($app_version)){
+            $this->wrong(400 , 'app_key not exist');
+        }
+
+        self::$app_status = data($app_version,'app_status',0);
+
+        $app = Db::name('app')->where('app_id', $app_version['app_id'])->field('app_id, app_secret')->find();
+        if(empty($app)){
+            $this->wrong(400,'app not exist');
+        }
+
+        self::$app_secret = $app['app_secret'];
     }
 
     /**
