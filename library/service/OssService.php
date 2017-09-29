@@ -1,21 +1,17 @@
 <?php
 /**
- * @author: axios
+ * @author: Axios
  *
  * @email: axioscros@aliyun.com
  * @blog:  http://hanxv.cn
- * @datetime: 2017/8/2 上午8:48
+ * @datetime: 2017/7/26 13:33
  */
-
 namespace library\service;
 
+use Aliyun\OSS\Exceptions\OSSException;
 use JohnLui\AliyunOSS;
+use think\Config;
 
-/**
- * Class OssService
- * @package library\service
- * @composer johnlui/aliyun-oss
- */
 class OssService{
 
     /**
@@ -23,7 +19,7 @@ class OssService{
      */
     public static $oss;
 
-    protected $config = [
+    protected static $config = [
         'city'=>'杭州',
         'network_type'=>'经典网络',
         'is_internal'=>'',
@@ -33,19 +29,17 @@ class OssService{
 
     public static $instance ;
 
-    public static $config_index ;
+    protected static $select = '';
 
-    public function __construct($config_index = 'default')
+    public function __construct($select = 'default')
     {
-        self::$config_index = $config_index;
-
-        self::config();
+        self::config($select);
     }
-    private function config(){
 
-        $config = c('oss.' . self::$config_index, []);
-
-        $config = array_merge($this->config,$config);
+    private static function config($select){
+        $config = Config::get('oss.'.$select);
+        self::$select = $select;
+        $config = array_merge(self::$config,$config);
 
         $city         = $config['city'];
         $networkType  = $config['network_type'];
@@ -56,25 +50,29 @@ class OssService{
         self::$oss = new AliyunOSS($city, $networkType, $isInternal, $AccessKeyId, $AccessKeySecret);
     }
 
-    public static function oss($config_index = 'default'){
+    public static function oss($select = 'default'){
         if(self::$instance == null){
-            self::$instance = new static($config_index);
+            self::$instance = new static($select);
         }
 
-        if($config_index != self::$config_index){
-            self::$config_index = $config_index ;
-            self::config();
+        if(self::$select != $select){
+            self::config($select);
         }
 
-        return self::$instance;
+        return self::$oss;
     }
 
-
-    public static function bucket($bucket){
-        if(self::$instance == null){
-            self::$instance = new static();
+    public static function fileExist($key = '', $bucket = '',$select = 'default')
+    {
+        try {
+            $key = !empty($key) ? $key : 'empty';
+            self::oss($select)->getObjectMeta($bucket, $key);
+            return true;
+        } catch (OSSException $e) {
+            if ($e->getErrorCode() == 'NoSuchKey') {
+                return false;
+            }
         }
-        self::$oss->setBucket($bucket);
-        return self::$oss;
+        return true;
     }
 }
