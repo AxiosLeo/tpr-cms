@@ -47,8 +47,8 @@
                         <label class="layui-form-label">性别</label>
                         <div class="layui-input-block">
                             {php}$sex = [0=>"",1=>""];$sex[$user['sex']]="checked";{/php}
-                            <input type="radio" name="sex" value="0" title="男" {$sex[0]}><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><span>男</span></div>
-                            <input type="radio" name="sex" value="1" title="女" {$sex[1]}><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>女</span></div>
+                            <input type="radio" name="sex" value="0" title="男" {$sex[0]}>
+                            <input type="radio" name="sex" value="1" title="女" {$sex[1]}>
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text">
@@ -71,6 +71,8 @@
 <script type="text/javascript">
     layui.use(['form','upload','layer'],function(){
         var upload = layui.upload;
+        var form = layui.form;
+        form.render();
 
         upload.render({
             elem:'.avatar',
