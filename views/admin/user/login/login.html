@@ -45,9 +45,27 @@
     </div>
 </div>
 <script type="text/javascript" src="/src/plugs/layui/2.1.3/layui.all.js"></script>
-<script type="text/javascript" src="/src/js/login.js"></script>
+<script type="text/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/src/plugs/jparticle.jquery.js"></script>
 <script type="text/javascript">
+    layui.use(['jquery'],function(){
+        var canvas = $(".layui-canvs");
+        window.jQuery = window.$ = layui.jquery;
+        canvas.width($(window).width());
+        canvas.height($(window).height());
+        $(window).resize(function () {
+            canvas.width($(window).width());
+            canvas.height($(window).height());
+            var c =  $(".layui-canvs").find('canvas').eq(0);
+            c.width($(window).width());
+            c.height($(window).height());
+//            canvas.jParticle({
+//                background: "#141414",
+//                color: "#E6E6E6"
+//            });
+        });
+    });
+
     $(function () {
         var open_layer = 0;
         $(".layui-canvs").jParticle({

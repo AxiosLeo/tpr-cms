@@ -81,7 +81,7 @@ class RestService
         return self::$instance;
     }
 
-    private function config()
+    private static function config()
     {
         $config = c('rest.' . self::$config_index, []);
 
