@@ -8,7 +8,6 @@
  */
 
 namespace library\connector;
-use think\Db;
 
 /**
  * Class Example
@@ -19,20 +18,5 @@ class Example
 {
     protected static $connect = "mysql.example";  // config in "CONF_PATH/extra/mysql.php"  and config name is "example"
 
-    /**
-     * @param $name
-     * @return \think\db\Query
-     */
-    public static function name($name){
-        return Db::model(self::$connect . $name , self::$connect )->name($name);
-    }
-
-    /**
-     * @param $table
-     * @return \think\db\Query
-     */
-    public static function table($table)
-    {
-        return Db::model(self::$connect . $table, self::$connect)->table($table);
-    }
+    use Base;
 }
