@@ -8,25 +8,31 @@
  */
 
 namespace library\connector;
+use think\Db;
 
 /**
  * Class Example
  * @package library\connector
- * @use Example::name($name) ; Example::name($name)
+ * @example Example::name($name) ; Example::name($name)
  */
 class Example
 {
-    protected static $connect = "example";  // config in "CONF_PATH/extra/mysql.php"  and config name is "example"
-    /*
-    protected static $connect = [
-        'type'            => 'mysql',
-        'hostname'        => "",
-        'database'        => "",
-        'username'        => "",
-        'password'        => "",
-        'hostport'        => "",
-        'prefix'          => "",
-        'break_reconnect' => true
-    ];
-    */
+    protected static $connect = "mysql.example";  // config in "CONF_PATH/extra/mysql.php"  and config name is "example"
+
+    /**
+     * @param $name
+     * @return \think\db\Query
+     */
+    protected static function name($name){
+        return Db::model(self::$connect . $name , self::$connect )->name($name);
+    }
+
+    /**
+     * @param $table
+     * @return \think\db\Query
+     */
+    public static function table($table)
+    {
+        return Db::model(self::$connect . $table, self::$connect)->table($table);
+    }
 }
