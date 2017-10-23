@@ -23,7 +23,7 @@ class Example
      * @param $name
      * @return \think\db\Query
      */
-    protected static function name($name){
+    public static function name($name){
         return Db::model(self::$connect . $name , self::$connect )->name($name);
     }
 
