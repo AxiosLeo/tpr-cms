@@ -10,8 +10,6 @@ return [
     "except_param"=>[
         "token","sign","timestamp"
     ],
-    "list"=>[
-        "index/index/cache"=>300,
-        "test/a/index"=>30,
-     ]
+    "index/index/cache"=>300,
+    "test/a/index"=>30,
 ];
