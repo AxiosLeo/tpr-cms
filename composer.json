@@ -22,7 +22,8 @@
         "topthink/think-captcha": "^1.0",
         "axios/tpr-framework": "^1.0",
         "johnlui/aliyun-oss":"^2.2",
-        "php-amqplib/php-amqplib": "^2.6"
+        "php-amqplib/php-amqplib": "^2.6",
+        "workerman/workerman": "^3.5"
     },
     "require-dev": {
         "composer/composer": "1.0.*@dev"
