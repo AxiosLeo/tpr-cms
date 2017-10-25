@@ -81,6 +81,12 @@ vim .env
  
  > 123456
  
+ ## workman
+ 
+ ``` shell
+ php workman_server.php start
+ ```
+ 
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
