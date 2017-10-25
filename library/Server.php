@@ -25,10 +25,10 @@ class Server {
 
     protected static $config;
 
-    public static function run()
+    public static function run($server = "websocket://0.0.0.0:2346")
     {
         self::$config = App::initCommon();
-        self::$worker = new Worker("websocket://0.0.0.0:2346");
+        self::$worker = new Worker($server);
 
         self::$worker->count = 4;
 
