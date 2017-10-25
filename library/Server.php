@@ -9,6 +9,7 @@
 namespace think;
 
 use think\exception\HttpResponseException;
+use Workerman\Connection\ConnectionInterface;
 use Workerman\Connection\TcpConnection;
 use Workerman\Worker;
 
@@ -25,12 +26,22 @@ class Server {
 
     protected static $config;
 
-    public static function run($server = "websocket://0.0.0.0:2346")
+    public static function run($server = "websocket://0.0.0.0:2346" , $process_count = 4 , $ssl = false)
     {
         self::$config = App::initCommon();
+
         self::$worker = new Worker($server);
 
-        self::$worker->count = 4;
+        if($ssl){
+            self::$worker->transport = 'ssl';
+        }
+
+        self::$worker->count = $process_count;
+
+        self::$worker->onWorkerStart = function($task)
+        {
+            Server::task($task);
+        };
 
         self::$worker->onConnect = function ($connection) {
             Server::connect($connection);
@@ -44,7 +55,8 @@ class Server {
 
         self::$worker->onClose = function($connection)
         {
-            Server::close($connection);
+            self::$connector = $connection;
+            return self::response('success close');
         };
 
         Worker::runAll();
@@ -84,6 +96,13 @@ class Server {
     }
 
     /**
+     * @param Worker $task
+     */
+    public static function task(Worker $task){
+
+    }
+
+    /**
      * @param TcpConnection $connection
      */
     public static function connect($connection){
@@ -93,11 +112,11 @@ class Server {
     }
 
     /**
-     * @param TcpConnection $connection
+     * close connection
+     * @param ConnectionInterface $connection
      */
     public static function close($connection){
-        self::$connector = $connection;
-        self::response('success close');
+        $connection->close();
     }
 
     public static function error(\Exception $e){
