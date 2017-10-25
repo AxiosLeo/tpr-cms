@@ -121,7 +121,7 @@ class Server {
         $result = [
             'code' => $code,
             'msg'  => self::msg($message),
-            'time' => $_SERVER['REQUEST_TIME'],
+            'time' => time(),
             'data' => $data,
         ];
 
@@ -131,9 +131,11 @@ class Server {
     protected static function result($result = [], array $header = [])
     {
         $result = Tool::checkData2String($result);
+        if(isset($result['time'])){
+            $result['time'] = time();
+        }
         $type = c('default_ajax_return', 'json');
         $data = Response::create($result, $type)->header($header)->getContent();
-        dump($data);
         return self::$connector->send($data);
     }
 
