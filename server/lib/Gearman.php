@@ -12,9 +12,8 @@ namespace server\lib;
 use \GearmanWorker;
 use \GearmanJob;
 use server\traits\Jump;
-use think\Debug;
 
-require ROOT_PATH . 'server/traits/Jump.php';
+require  '../traits/Jump.php';
 
 class Gearman
 {
@@ -29,6 +28,8 @@ class Gearman
 
     public static function run($config = [], $job_name = "job")
     {
+        self::init();
+
         self::$gearman_config = array_merge(self::$gearman_config, $config);
 
         $worker = new GearmanWorker();
@@ -44,11 +45,11 @@ class Gearman
         while (@$worker->work() || $worker->returnCode() == GEARMAN_TIMEOUT) {
             if ($worker->returnCode() == GEARMAN_TIMEOUT) {
                 echo "Timeout. Waiting for next job...\n";
-                die();
+                continue;
             }
             if ($worker->returnCode() != GEARMAN_SUCCESS) {
                 echo "return_code: " . $worker->returnCode() . "\n";
-                die();
+                continue;
             }
         }
     }
@@ -61,7 +62,7 @@ class Gearman
 
         $data = self::data($data);
 
-        self::result($data);
+        self::result($data,['datetime'=>date("Y-m-d H:i:s")]);
     }
 
     protected static function result($result = [], array $header = [])
@@ -70,26 +71,17 @@ class Gearman
             $result['time'] = time();
         }
 
-        $str = " [handle] " . self::$handle . "\n";
-        self::text($header, $str, 'header');
+        $str =  "-----------------------------------------------------------------------------------\n\n";
 
+        $str = $str . " [handle] " . self::$handle . "\n";
 
-        self::text($result, $str, 'data');
+        $str = $str . dump($header,false , 'header');
 
-        $log_path = RUNTIME_PATH . 'gearman/' . date("Ym") . "/" . date("d") . "_gearman.log";
+        $str = $str . dump($result,false , 'data');
+
         $str .= "-----------------------------------------------------------------------------------\n\n";
 
-        Debug::save($log_path, $str);
+        echo $str;
     }
 
-    protected static function text($data, &$str = "", $type = "data")
-    {
-        foreach ($data as $k => $v) {
-            if (is_array($data)) {
-                self::text($v, $str);
-            } else {
-                $str .= " [" . $type . "]  " . $k . ":" . $v . "\n";
-            }
-        }
-    }
 }

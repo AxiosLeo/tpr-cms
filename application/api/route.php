@@ -12,8 +12,6 @@
  * 该路由定义文件仅对api应用有效
  */
 return [
-    'default'=>'index/index/index',
-
     'name/:name'=>'index/index/name',
     'test'=>'index/test/index'
 ];
