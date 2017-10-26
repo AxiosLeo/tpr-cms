@@ -12,3 +12,4 @@ vendor/
 node_modules/
 Test*
 nohup.out
+uploads
