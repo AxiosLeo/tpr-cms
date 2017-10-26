@@ -82,8 +82,6 @@ class Gearman
 
         $str .= "-----------------------------------------------------------------------------------\n\n";
 
-        echo $str;
-
         $runtime_path = RUNTIME_PATH . '../gearman/' . date("Ym") . "/";
 
         if (!file_exists($runtime_path)) {
