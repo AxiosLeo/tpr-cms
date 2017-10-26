@@ -4,16 +4,22 @@
  *
  * @email: axioscros@aliyun.com
  * @blog:  http://hanxv.cn
- * @datetime: 2017/10/25 下午1:09
+ * @datetime: 2017/10/26 上午9:11
  */
-namespace think;
+namespace server\lib;
 
-use think\exception\HttpResponseException;
+use server\traits\Jump;
+use think\Response;
+use think\Tool;
 use Workerman\Connection\ConnectionInterface;
 use Workerman\Connection\TcpConnection;
 use Workerman\Worker;
 
-class Server {
+require_once '../traits/Jump.php';
+
+class Workman {
+
+    use Jump;
 
     public static $worker;
 
@@ -24,11 +30,15 @@ class Server {
 
     protected $return_type;
 
-    protected static $config;
-
+    /**
+     * 启动workman
+     * @param string $server
+     * @param int $process_count
+     * @param bool $ssl
+     */
     public static function run($server = "websocket://0.0.0.0:2346" , $process_count = 4 , $ssl = false)
     {
-        self::$config = App::initCommon();
+        self::init();
 
         self::$worker = new Worker($server);
 
@@ -40,16 +50,16 @@ class Server {
 
         self::$worker->onWorkerStart = function($task)
         {
-            Server::task($task);
+            Workman::task($task);
         };
 
         self::$worker->onConnect = function ($connection) {
-            Server::connect($connection);
+            Workman::connect($connection);
         };
 
         self::$worker->onMessage = function($connection, $data)
         {
-            Server::receive($connection , $data);
+            Workman::receive($connection , $data);
 
         };
 
@@ -69,29 +79,8 @@ class Server {
      * @return bool|null
      */
     public static function receive($connection , $data){
-        Request::clear();
         self::$connector = $connection;
-        $data = json_decode($data ,true);
-        if(empty($data)){
-            return self::wrong(500, 'data format wrong');
-        }
-        $url = data($data , 's','index/index/index');
-        $params = data($data , 'params',[]);
-        $dispatch = Route::parseUrl($url);
-        try{
-            $request = Request::instance();
-            $request->setParam($params);
-            $data = App::module($dispatch['module'], self::$config , $convert = null , $request);
-        }catch (HttpResponseException $exception) {
-            $data = $exception->getResponse();
-        }catch (\Exception $e){
-            return self::error($e);
-        }
-
-        if ($data instanceof Response) {
-            $data = $data->getData();
-        }
-
+        $data = self::data($data);
         return self::result($data);
     }
 
@@ -119,33 +108,7 @@ class Server {
         $connection->close();
     }
 
-    public static function error(\Exception $e){
-        $data = [
-            'code'=>$e->getCode(),
-            'file'=>$e->getFile(),
-            'line'=>$e->getLine(),
-            'msg'=>$e->getMessage()
-        ];
-        return self::response($data, 500 , 'server error');
-    }
 
-    protected static function wrong( $code = 500,  $message = '', array $header = []){
-        return self::response([], $code, $message, $header);
-    }
-
-    protected static function response($data = [], $code = 200, $message = 'success', array $header = []){
-        if ($code != 200 && empty($message)) {
-            $message = c('code.' . strval($code), '');
-        }
-        $result = [
-            'code' => $code,
-            'msg'  => self::msg($message),
-            'time' => time(),
-            'data' => $data,
-        ];
-
-        return self::result($result, $header);
-    }
 
     protected static function result($result = [], array $header = [])
     {
@@ -156,15 +119,5 @@ class Server {
         $type = c('default_ajax_return', 'json');
         $data = Response::create($result, $type)->header($header)->getContent();
         return self::$connector->send($data);
-    }
-
-    private static function msg($message = '')
-    {
-        $message = lang($message);
-        if (is_array($message)) {
-            $message = '';
-        }
-
-        return $message;
     }
 }

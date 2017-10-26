@@ -366,3 +366,4 @@ public/uploads/
 runtime/
 test.*
 Test.*
+nohup.out
