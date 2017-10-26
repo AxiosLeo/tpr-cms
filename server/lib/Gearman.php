@@ -12,6 +12,7 @@ namespace server\lib;
 use \GearmanWorker;
 use \GearmanJob;
 use server\traits\Jump;
+use think\Debug;
 
 require  '../traits/Jump.php';
 
@@ -82,6 +83,20 @@ class Gearman
         $str .= "-----------------------------------------------------------------------------------\n\n";
 
         echo $str;
+
+        $runtime_path = RUNTIME_PATH . '../gearman/' . date("Ym") . "/";
+
+        if (!file_exists($runtime_path)) {
+            if (!mkdir($runtime_path, 0700, true)) {
+                return strval(file_exists($runtime_path)) . 'Failed to create folders:' . $runtime_path;
+            }
+        }
+
+        $log_path = $runtime_path . date("d") . "_gearman.log";
+
+        Debug::save($log_path , $str);
+
+        return true;
     }
 
 }
