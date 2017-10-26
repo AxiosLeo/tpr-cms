@@ -40,8 +40,9 @@
 
 * **多应用多入口**的架构模式，更易于多端接口的开发维护工作
 
-* 集成workman，实现长连接通信
+* 集成**workman**，实现长连接通信
 
+* 集成**geaqrman**，实现cgi模式到cli模式的转换
 
 ## 安装
 ``` shell
@@ -84,6 +85,7 @@ vim .env
  > 123456
  
  ## workman
+ > 需要tpr-framework > 1.1.6
  
  ``` shell
  cd server/bin
@@ -113,6 +115,8 @@ vim .env
  ```
  
  ## gearman
+  > 需要tpr-framework > 1.1.6
+  
  ``` shell
  cd server/bin
  sh gearman_run.sh 1
