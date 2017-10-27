@@ -17,6 +17,11 @@ use Workerman\Worker;
 
 require_once '../traits/Jump.php';
 
+/**
+ * Class Workman
+ * @package server\lib
+ * @desc workman manual:   https://www.kancloud.cn/walkor/workerman
+ */
 class Workman {
 
     use Jump;
