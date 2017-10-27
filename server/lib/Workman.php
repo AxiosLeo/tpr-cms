@@ -30,17 +30,32 @@ class Workman {
 
     protected $return_type;
 
+    protected static $config = [
+        'server' => "websocket://0.0.0.0:2346",
+        'process_count' => 4 ,
+        'ssl'=>false,
+        'context'=>[]
+    ];
+
     /**
      * 启动workman
-     * @param string $server
-     * @param int $process_count
-     * @param bool $ssl
+     * @param array $config
      */
-    public static function run($server = "websocket://0.0.0.0:2346" , $process_count = 4 , $ssl = false)
+    public static function run($config = [])
     {
         self::init();
 
-        self::$worker = new Worker($server);
+        self::$config = array_merge(self::$config , $config);
+
+        $server = self::$config['server'];
+
+        $context = self::$config['context'];
+
+        $ssl = self::$config['ssl'];
+
+        $process_count = self::$config['process_count'];
+
+        self::$worker = new Worker($server,$context);
 
         if($ssl){
             self::$worker->transport = 'ssl';
