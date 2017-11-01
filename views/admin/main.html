@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/src/plugs/bootstrap/dist/css/bootstrap.css" media="all">
     <link rel="stylesheet" type="text/css" href="/src/css/global.css" media="all">
     <link rel="stylesheet" type="text/css" href="/src/plugs/font-awesome/css/font-awesome.min.css">
-    <script type="text/javascript" src="/src/plugs/layui/2.1.3/layui.all.js"></script>
+    <script type="text/javascript" src="/src/plugs/layui/2.1.3/layui.js"></script>
     <script type="text/javascript" src="/src/plugs/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
     <!--<script type="text/javascript" src="/src/plugs/bootstrap/dist/js/bootstrap.min.js"></script>-->
@@ -24,6 +24,7 @@
         }
     </style>
     <script type="text/javascript">
+        window.currPage = 1;
         function submitForm(id, callback) {
             var form = $(id);
             submitFormIframe(form,callback)
@@ -56,7 +57,7 @@
                     callback = function (res) {
                         if(res.code){
                             layer.msg(res.msg,{icon:1,time:1500},function () {
-                                table.reload('data_table');
+                                reloadTable();
                                 layer.closeAll();
                             });
                         }else{
@@ -115,6 +116,40 @@
                 // console.log(layer_option);
                 layer.open(layer_option);
             });
+        }
+
+        function reloadTable() {
+            console.log(window.currPage);
+            console.log(window.tableIns);
+            if(window.tableIns === undefined){
+                table.reload('data_table',{curr:window.currPage});
+            }else{
+                window.tableIns.reload({curr:window.currPage});
+            }
+        }
+
+        function loadTable(config,cols) {
+            var option = {
+                id: 'data_table',
+                height: 600,
+                elem: '#data_table',
+                url:'',
+                where:{},
+                method: 'post',
+                page: true,
+                limits: [10, 30, 50, 100, 300, 500, 1000],
+                limit: 50,
+                loading: true,
+                cols:cols,
+                curr:window.currPage,
+                done:function (res, curr) {
+                    window.currPage = curr;
+                }
+            };
+
+            $.extend(option,config);
+
+            window.tableIns = table.render(option);
         }
 
         function tabAdd(obj) {
