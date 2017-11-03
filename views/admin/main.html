@@ -119,8 +119,6 @@
         }
 
         function reloadTable() {
-            console.log(window.currPage);
-            console.log(window.tableIns);
             if(window.tableIns === undefined){
                 table.reload('data_table',{curr:window.currPage});
             }else{
