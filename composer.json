@@ -5,9 +5,7 @@
     "minimum-stability": "stable",
     "version": "2.0.0",
     "keywords": [
-        "restful",
-        "thinkphp",
-        "api"
+        "restful", "thinkphp", "api"
     ],
     "homepage": "https://github.com/AxiosCros/thinkphp5-restfulapi",
     "license": "Apache-2.0",
