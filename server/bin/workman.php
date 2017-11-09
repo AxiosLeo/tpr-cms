@@ -16,7 +16,7 @@ use server\lib\Workman;
 date_default_timezone_set('Asia/Shanghai');
 
 define('PUBLIC_PATH',__DIR__);
-define('PROJECT_NAME', 'workman');
+define('PROJECT_NAME', 'server');
 
 require_once '../../init.php';
 require THINK_PATH . '/base.php';

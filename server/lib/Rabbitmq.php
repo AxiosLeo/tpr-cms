@@ -9,9 +9,11 @@
 
 namespace server\lib;
 
-use PhpAmqpLib\Connection\AMQPSocketConnection;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use server\traits\Jump;
 use think\Tool;
+
+require_once '../traits/Jump.php';
 
 class Rabbitmq
 {
@@ -40,23 +42,28 @@ class Rabbitmq
         'nowait'       => false
     ];
 
+    protected static $receive_name = '';
+
     public static function run($rabbit_config = [] , $channel_id = null , $queue_config = [] , $consume_config = [], $callback = null){
         self::init();
+        echo "框架初始化完成\n";
 
         self::$rabbit_config = array_merge(self::$rabbit_config , $rabbit_config);
         self::$queue_config = array_merge(self::$queue_config , $queue_config);
         self::$consume_config = array_merge(self::$consume_config , $consume_config);
 
-        $connection = new AMQPSocketConnection(
+        $connection = new AMQPStreamConnection(
             self::$rabbit_config['host'],
             self::$rabbit_config['port'],
             self::$rabbit_config['user'],
             self::$rabbit_config['password']);
+        echo "连接成功\n";
 
         //选择channel
         $channel = $connection->channel($channel_id);
+        echo "选择频道:$channel_id\n";
 
-        //选择队列,队列名: 'hello'
+        //选择队列
         $channel->queue_declare(
             self::$queue_config['name'],
             self::$queue_config['passive'],
@@ -64,12 +71,15 @@ class Rabbitmq
             self::$queue_config['exclusive'],
             self::$queue_config['auto_delete']
         );
+        echo "选择队列:".self::$queue_config['name']."\n";
 
         $receive_name = Tool::uuid();
+        self::$receive_name = $receive_name;
         if(is_null($callback) || !($callback instanceof \Closure)){
             $callback = function($msg) use ($receive_name) {
                 echo " [$receive_name] Received ", $msg->body, "\n";
-                self::data($msg->boday);
+                $request = (string)$msg->body;
+                self::result(self::data($request));
             };
         }
 
@@ -83,10 +93,30 @@ class Rabbitmq
             self::$consume_config['nowait'],
             $callback
         );
+        echo "开始监听\n";
         while(count($channel->callbacks)) {
             $channel->wait();
         }
         $channel->close();
         $connection->close();
+
+        echo "结束接收\n";
+    }
+
+    protected static function result($result = [])
+    {
+        if (isset($result['time'])) {
+            $result['time'] = time();
+        }
+
+        $str =  "-----------------------------------------------------------------------------------\n\n";
+
+        $str = $str . " [receive_name] " . self::$receive_name . "\n";
+
+        $str = $str . dump($result,false , 'data');
+
+        $str .= "-----------------------------------------------------------------------------------\n\n";
+
+        echo $str;
     }
 }

@@ -16,7 +16,7 @@ use server\lib\Gearman;
 
 date_default_timezone_set('Asia/Shanghai');
 
-define('PROJECT_NAME', 'apiv2');
+define('PROJECT_NAME', 'server');
 
 require_once '../../init.php';
 require THINK_PATH . '/base.php';
