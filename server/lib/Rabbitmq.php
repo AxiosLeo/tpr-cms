@@ -79,7 +79,7 @@ class Rabbitmq
             $callback = function($msg) use ($receive_name) {
                 echo " [$receive_name] Received ", $msg->body, "\n";
                 $request = (string)$msg->body;
-                self::result(self::data($request));
+                self::response(self::data($request));
             };
         }
 
@@ -103,8 +103,9 @@ class Rabbitmq
         echo "结束接收\n";
     }
 
-    protected static function result($result = [])
+    protected static function result($result = [],$header = [])
     {
+        unset($header);
         if (isset($result['time'])) {
             $result['time'] = time();
         }
