@@ -18,8 +18,8 @@ date_default_timezone_set('Asia/Shanghai');
 define('PUBLIC_PATH',__DIR__);
 define('PROJECT_NAME', 'server');
 
-require_once '../../init.php';
+require_once __DIR__ . '/../../init.php';
 require THINK_PATH . '/base.php';
-require '../lib/Workman.php';
+require __DIR__ . '/../lib/Workman.php';
 
 Workman::run();

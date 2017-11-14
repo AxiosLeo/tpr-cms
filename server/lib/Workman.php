@@ -15,7 +15,7 @@ use Workerman\Connection\ConnectionInterface;
 use Workerman\Connection\TcpConnection;
 use Workerman\Worker;
 
-require_once '../traits/Jump.php';
+require_once __DIR__ . '/../traits/Jump.php';
 
 /**
  * Class Workman

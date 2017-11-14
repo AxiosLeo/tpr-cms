@@ -14,7 +14,7 @@ use \GearmanJob;
 use server\traits\Jump;
 use think\Debug;
 
-require  '../traits/Jump.php';
+require  __DIR__ . '/../traits/Jump.php';
 
 class Gearman
 {

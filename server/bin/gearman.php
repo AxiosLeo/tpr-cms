@@ -14,12 +14,10 @@
 
 use server\lib\Gearman;
 
-date_default_timezone_set('Asia/Shanghai');
-
 define('PROJECT_NAME', 'server');
 
-require_once '../../init.php';
+require_once __DIR__ . '/../../init.php';
 require THINK_PATH . '/base.php';
-require '../lib/Gearman.php';
+require __DIR__ . '/../lib/Gearman.php';
 
 Gearman::run();

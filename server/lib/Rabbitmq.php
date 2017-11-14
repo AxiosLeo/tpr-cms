@@ -13,7 +13,7 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use server\traits\Jump;
 use think\Tool;
 
-require_once '../traits/Jump.php';
+require_once __DIR__ . '/../traits/Jump.php';
 
 class Rabbitmq
 {

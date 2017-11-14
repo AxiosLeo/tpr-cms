@@ -12,8 +12,8 @@ use server\lib\Rabbitmq;
 define('PUBLIC_PATH',__DIR__);
 define('PROJECT_NAME', 'server');
 
-require_once '../../init.php';
+require_once __DIR__ . '/../../init.php';
 require THINK_PATH . '/base.php';
-require '../lib/Rabbitmq.php';
+require __DIR__ . '/../lib/Rabbitmq.php';
 
 Rabbitmq::run();
