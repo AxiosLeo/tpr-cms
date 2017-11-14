@@ -23,5 +23,5 @@ fi
 sh stop.sh $server
 for k in $( seq 1 $times)
 do
-  nohup php  bin/$server.php > $runtime_path 2>&1 &
+  nohup php  bin/$server.php > /dev/null 2>&1 &
 done
