@@ -122,17 +122,17 @@
 </script>
 <script type="text/html" id="operationTpl">
     {{# if(d.app_status==1){}}
-    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="stop"><i class="fa fa-stop-circle-o"></i></a>
+    <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="stop"><i class="fa fa-stop-circle-o"></i></a>
     {{# }else{ }}
-    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="start"><i class="fa fa-chevron-circle-down"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="start"><i class="fa fa-chevron-circle-down"></i></a>
     {{#  } }}
-    <!--<a class="layui-btn layui-btn-default layui-btn-mini layer_tips" lay-event="editRemark" data-toggle="tooltip" title="编辑版本描述" ><i class="fa fa-pencil"></i></a>-->
+    <!--<a class="layui-btn layui-btn-default layui-btn-sm layer_tips" lay-event="editRemark" data-toggle="tooltip" title="编辑版本描述" ><i class="fa fa-pencil"></i></a>-->
 </script>
 <script type="text/html" id="statusTpl">
     {{# if(d.app_status==1){}}
-    <a class="layui-btn layui-btn-normal layui-btn-mini" >已上线</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" >已上线</a>
     {{# }else{ }}
-    <a class="layui-btn layui-btn-primary layui-btn-mini" >已停用</a>
+    <a class="layui-btn layui-btn-primary layui-btn-sm" >已停用</a>
     {{#  } }}
 </script>
 
