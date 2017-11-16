@@ -19,8 +19,6 @@ if [ ! -f "$runtime_path" ]; then
  touch "$runtime_path"
 fi
 
-
-sh stop.sh $server
 for k in $( seq 1 $times)
 do
   nohup php  bin/$server.php > /dev/null 2>&1 &
