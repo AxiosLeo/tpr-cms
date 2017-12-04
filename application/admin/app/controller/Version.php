@@ -100,21 +100,20 @@ class Version extends AdminLogin
             $app_version = !empty($this->param['app_build'])?$this->param['app_version'] . '.' . $this->param['app_build']:$this->param['app_version'];
 
             $insert = [
-                'app_id' => $this->param['app_id'],
-                'app_version' => $this->param['app_version'],
-                'app_build' => $this->param['app_build'],
-                'app_key' => $this->param['app_key'],
+                'app_id'       => $this->param['app_id'],
+                'app_version'  => $this->param['app_version'],
+                'app_build'    => $this->param['app_build'],
+                'app_key'      => $this->param['app_key'],
                 'version_type' => $this->param['version_type'],
-                'update_type' => $this->param['update_type'],
-                'app_status' => 1,
+                'update_type'  => $this->param['update_type'],
+                'app_status'   => 1,
                 'publish_time' => date("Y-m-d H:i:s")
             ];
 
             if (Db::name('app_version')->insertGetId($insert)) {
-                $app = Db::name('app')->where('app_id', $this->param['app_id'])->find();
                 $app['last_version'] = $app_version;
                 $app['last_version_time'] = time();
-                Db::name('app')->where('id', $app['id'])->update($app);
+                Db::name('app')->where('app_id', $this->param['app_id'])->update($app);
 
                 $this->success('success');
             }
