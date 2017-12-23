@@ -8,31 +8,31 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">接口地址</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly name="api_path" autocomplete="off" placeholder="接口地址为空" value="{$host}{$path}" class="layui-input">
+                    <input type="text" readonly id="api_path" name="api_path" autocomplete="off" placeholder="接口地址为空" value="{$host}{$path}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">请求方式</label>
                 <div class="layui-input-inline">
-                    <select name="post_method" lay-filter="aihao">
-                        <option value="1">POST</option>
-                        <option value="0">GET</option>
+                    <select id="post_method" name="post_method" lay-filter="aihao">
+                        <option value="post">POST</option>
+                        <option value="get">GET</option>
                     </select>
                 </div>
-                <button class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
+                <button id="send" class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5" style="height: 570px;margin:15px 15px;overflow-y: scroll; border: 1px solid #cccccc; ">
-            <div class="layui-tab layui-tab-brief">
+        <div class="col-md-12" style="min-height: 170px;margin:15px 15px;overflow-y: scroll; border: 1px solid #cccccc; ">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                 <ul class="layui-tab-title">
                     <li class="layui-this">param</li>
                     <li>header</li>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <table class="layui-table" id="post_setting_table">
+                        <table class="layui-table" id="post_setting_table" lay-filter="post_setting_table">
                             <colgroup>
                                 <col width="150">
                                 <col width="200">
@@ -45,7 +45,7 @@
                                 <th>operation</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="params">
                             {php}$n=0;{/php}
                             {foreach name="param" item="p"}
                             {php}$n++;{/php}
@@ -57,21 +57,10 @@
                                     <input class="layui-input" name="value[{$key}]" value="" placeholder="{$p['desc']?:'Value'}">
                                 </td>
                                 <td>
-                                    <a class="layui-btn layui-btn-danger" >删除</a>
+                                    <a class="layui-btn layui-btn-danger" lay-event="debug" >删除</a>
                                 </td>
                             </tr>
                             {/foreach}
-                            <tr>
-                                <td>
-                                    <input class="layui-input" name="key[{$n+1}]" value="" placeholder="New Key" onkeypress="addRow(this)">
-                                </td>
-                                <td>
-                                    <input class="layui-input" name="value[{$n+1}]" value="" placeholder="Value">
-                                </td>
-                                <td>
-                                    <a class="layui-btn layui-btn-danger" >删除</a>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -81,36 +70,65 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5" style="height: 570px;margin:15px 15px;overflow-y: scroll; border: 1px solid #cccccc;"></div>
+        <div class="col-md-12" id="json_output" style="min-height: 170px;margin:15px 15px;overflow-y: scroll;"></div>
     </div>
 </form>
 <script>
-    var form , table , layer;
-    var cols = [[ //标题栏
-        {templet: '#keyTpl', width: 100, fixed:true, title: 'Key'},
-        {templet: '#valueTpl', width: 150,  event: 'edit', title: 'Value'},
-        {templet: '#operationTpl', width: 150,  event: 'edit', title: 'Operation'}
-    ]];
-    layui.use(['form', 'layer','table'], function(){
+    var form , layer;
+    layui.use(['element','form', 'layer','table'], function(){
+        var element = layui.element;
         form = layui.form;
         layer = layui.layer;
-        table = layui.table;
         form.render();
-
-        //监听提交
-        form.on('submit(post)', function(data){
-            layer.msg("功能未开放");
-            return false;
-        });
-
-        table.on('tool(post_setting_table)',function (obj) {
-            if(obj.event === 'del'){
-                console.log('del');
+    });
+    $("#send").click(function () {
+        var url = $("#api_path").val();
+        var method = $("#post_method").val();
+        console.log(url);
+        console.log(method);
+//        return false;
+            var data = getData();
+            console.log(data);
+        $.ajax({
+            url: url,
+            type: method,
+            data: {},
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function(xhr,data) {
+                xhr.setRequestHeader("x-app-key", "34889c38e2d2293f94af63b30e4106a7");
+//                    console.log(xhr);
+                console.log(data);
+            },
+            success:function(res,status,xhr){
+                status = xhr.status + ' ' + xhr.statusText;
+                var header = xhr.getAllResponseHeaders();
+                var json_text = JSON.stringify(res, null, 4);    // 缩进4个空格
+                $("#json_output").html('<pre>' + status + '<br/>' + header + '<br/>' + json_text + '</pre>');
+            },
+            error:function(error){
+//                $("#json_output").html(error.responseText);
             }
         });
+        return false;
+
     });
+
+
 
     function addRow(obj) {
         console.log(obj);
+    }
+
+    function getData() {
+        var params = new FormData();
+        var objParam = $("#params");
+        var paramRow = objParam.find('tr');
+        $.each(paramRow,function (index,data) {
+            var param = $(data).find('td');
+            params[param.eq(0).find('input').eq(0).val()] = param.eq(1).find('input').eq(0).val();
+        });
+        return params;
     }
 </script>

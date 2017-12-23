@@ -64,6 +64,9 @@
         table = layui.table;
         form.render();
 
+        table.init();
+        reload();
+
         form.on('select(app_path)',function (obj) {
             var app_path = obj.value;
             modules(app_path);
@@ -94,8 +97,6 @@
             reload();
         });
 
-
-        reload();
         modules($("#app_path").val());
 
         table.on('tool(data_table)',function (obj) {
@@ -117,20 +118,13 @@
         var app_path = $("#app_path").val();
         var module_namespace = $("#module_namespace").val();
         var class_name = $("#class_name").val();
-        table.init();
-        table.render({
-            id: 'data_table',
-            height: 550,
-            elem: '#data_table',
+        loadTable({
             url: '{$url}',
             where: {class_name: class_name , app_path:app_path , module_namespace:module_namespace},
             method: 'post',
             page: false,
-            limits: [10, 30, 50, 100],
-            limit: 10,
-            loading: false,
-            cols: cols
-        });
+            loading: false
+        },cols)
     }
 
     function modules(app_path) {

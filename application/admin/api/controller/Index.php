@@ -77,4 +77,8 @@ class Index extends AdminLogin{
             $this->tableData($api_list);
         }
     }
+
+    public function test(){
+
+    }
 }

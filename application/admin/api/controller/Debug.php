@@ -48,7 +48,7 @@ class Debug extends AdminLogin
         $title = data($method_comment , 'title' , '未注释');
         $this->assign('title',$title);
 
-        $host = Env::get('web.host','http://cms.test.cn/');
+        $host = Env::get('api.host','http://cms.test.cn/');
         $this->assign('host', $host);
 
         $parameter = data($method_comment , 'parameter' , []);
