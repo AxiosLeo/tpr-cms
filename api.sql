@@ -3,15 +3,15 @@
 
  Source Server         : vm-yd
  Source Server Type    : MySQL
- Source Server Version : 50552
+ Source Server Version : 50556
  Source Host           : 192.168.1.106
  Source Database       : api
 
  Target Server Type    : MySQL
- Target Server Version : 50552
+ Target Server Version : 50556
  File Encoding         : utf-8
 
- Date: 09/20/2017 17:12:05 PM
+ Date: 12/25/2017 16:10:46 PM
 */
 
 SET NAMES utf8mb4;
@@ -47,7 +47,7 @@ CREATE TABLE `api_admin` (
 --  Records of `api_admin`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '0', '13312345679', '123@qq.com', '/uploads/images/20170905/92e6d4f90ee1e907d43e2d7fa8c8280f.jpg', '', '流水无痕', '192.168.1.63', '1505871637', '4b89ee3db070a751cbb4314742612967', '', '1504593733'), ('5', '4EA15AEcb00D4E862ED740CEe8692072', '2', 'test', 'ec84177d41729461bb3f5c34fb709049', null, null, '0', '', '', null, null, '', '192.168.1.63', '1505700678', 'f87c1d2ead8c8009f3734dd2f7a6b9b7', '1504145654', '1505378480');
+INSERT INTO `api_admin` VALUES ('1', '58FF097F6118F', '1', 'admin', '90b08242cef71e31b925f1e8c9d1ea55', 'admin', null, '0', '13312345679', '123@qq.com', '/uploads/images/20170905/92e6d4f90ee1e907d43e2d7fa8c8280f.jpg', '', '流水无痕', '192.168.1.63', '1505871637', '4b89ee3db070a751cbb4314742612967', '', '1504593733'), ('5', '4EA15AEcb00D4E862ED740CEe8692072', '2', 'test', 'ec84177d41729461bb3f5c34fb709049', 'test', null, '0', '', '', '', null, '', '192.168.1.63', '1505977647', '4e12ded3e7f4e43bb9ecd952f5230cf9', '1504145654', '1505977862');
 COMMIT;
 
 -- ----------------------------
@@ -175,7 +175,7 @@ CREATE TABLE `api_role_node` (
 --  Records of `api_role_node`
 -- ----------------------------
 BEGIN;
-INSERT INTO `api_role_node` VALUES ('16', '2', 'index/index/index', '0', '0', '0'), ('17', '2', 'index/index/main', '0', '0', '0'), ('18', '2', 'index/test/index', '0', '0', '0'), ('19', '2', 'system/api/index', '0', '0', '0'), ('20', '2', 'system/log/index', '0', '0', '0'), ('21', '2', 'system/menu/index', '0', '0', '0'), ('22', '2', 'system/menu/add', '0', '0', '0'), ('23', '2', 'system/menu/getMenu', '0', '0', '0'), ('24', '2', 'system/menu/edit', '0', '0', '0'), ('25', '2', 'system/menu/delete', '0', '0', '0'), ('26', '2', 'system/menu/getAllMenu', '0', '0', '0'), ('27', '2', 'system/node/index', '0', '0', '0'), ('28', '2', 'system/node/auth', '0', '0', '0'), ('29', '2', 'user/admin/index', '0', '0', '0'), ('30', '2', 'user/admin/add', '0', '0', '0'), ('31', '2', 'user/admin/edit', '0', '0', '0'), ('32', '2', 'user/admin/delete', '0', '0', '0'), ('33', '2', 'user/index/profile', '0', '0', '0'), ('34', '2', 'user/index/password', '0', '0', '0'), ('35', '2', 'user/log/index', '0', '0', '0'), ('36', '2', 'user/profile/update', '0', '0', '0'), ('37', '2', 'user/profile/avatar', '0', '0', '0'), ('38', '2', 'user/role/index', '0', '0', '0'), ('39', '2', 'user/role/add', '0', '0', '0'), ('40', '2', 'user/role/edit', '0', '0', '0'), ('41', '2', 'user/role/del', '0', '0', '0'), ('42', '2', 'user/role/auth', '0', '0', '0'), ('43', '1', 'index/index/index', '0', '0', '0'), ('44', '1', 'index/index/main', '0', '0', '0'), ('45', '1', 'index/message/none', '0', '0', '0'), ('46', '1', 'index/test/index', '0', '0', '0'), ('47', '1', 'system/api/index', '0', '0', '0'), ('49', '1', 'system/menu/index', '0', '0', '0'), ('50', '1', 'system/menu/add', '0', '0', '0'), ('51', '1', 'system/menu/getMenu', '0', '0', '0'), ('52', '1', 'system/menu/edit', '0', '0', '0'), ('53', '1', 'system/menu/delete', '0', '0', '0'), ('54', '1', 'system/menu/getAllMenu', '0', '0', '0'), ('56', '1', 'system/node/auth', '0', '0', '0'), ('57', '1', 'user/admin/index', '0', '0', '0'), ('58', '1', 'user/admin/add', '0', '0', '0'), ('59', '1', 'user/admin/edit', '0', '0', '0'), ('60', '1', 'user/admin/delete', '0', '0', '0'), ('61', '1', 'user/index/profile', '0', '0', '0'), ('62', '1', 'user/index/password', '0', '0', '0'), ('63', '1', 'user/log/index', '0', '0', '0'), ('64', '1', 'user/profile/update', '0', '0', '0'), ('65', '1', 'user/profile/avatar', '0', '0', '0'), ('66', '1', 'user/role/index', '0', '0', '0'), ('70', '1', 'user/role/auth', '0', '0', '0'), ('71', '1', 'api/index/index', '0', '0', '0'), ('74', '1', 'user/role/add', '0', '0', '0'), ('75', '1', 'user/role/edit', '0', '0', '0'), ('76', '1', 'user/role/del', '0', '0', '0'), ('77', '1', 'system/log/index', '0', '0', '0'), ('78', '1', 'system/node/index', '0', '0', '0'), ('79', '2', 'api/index/index', '0', '0', '0'), ('80', '1', 'api/debug/index', '0', '0', '0'), ('81', '1', 'api/document/index', '0', '0', '0'), ('82', '1', 'api/index/modules', '0', '0', '0'), ('83', '1', 'api/index/classes', '0', '0', '0'), ('84', '1', 'api/index/api', '0', '0', '0'), ('85', '1', 'app/index/index', '0', '0', '0');
+INSERT INTO `api_role_node` VALUES ('16', '2', 'index/index/index', '0', '0', '0'), ('17', '2', 'index/index/main', '0', '0', '0'), ('18', '2', 'index/test/index', '0', '0', '0'), ('19', '2', 'system/api/index', '0', '0', '0'), ('20', '2', 'system/log/index', '0', '0', '0'), ('21', '2', 'system/menu/index', '0', '0', '0'), ('22', '2', 'system/menu/add', '0', '0', '0'), ('23', '2', 'system/menu/getMenu', '0', '0', '0'), ('24', '2', 'system/menu/edit', '0', '0', '0'), ('25', '2', 'system/menu/delete', '0', '0', '0'), ('26', '2', 'system/menu/getAllMenu', '0', '0', '0'), ('27', '2', 'system/node/index', '0', '0', '0'), ('28', '2', 'system/node/auth', '0', '0', '0'), ('29', '2', 'user/admin/index', '0', '0', '0'), ('30', '2', 'user/admin/add', '0', '0', '0'), ('31', '2', 'user/admin/edit', '0', '0', '1'), ('32', '2', 'user/admin/delete', '0', '0', '1'), ('33', '2', 'user/index/profile', '0', '0', '0'), ('34', '2', 'user/index/password', '0', '0', '1'), ('35', '2', 'user/log/index', '0', '0', '0'), ('36', '2', 'user/profile/update', '0', '0', '1'), ('37', '2', 'user/profile/avatar', '0', '0', '1'), ('38', '2', 'user/role/index', '0', '0', '0'), ('39', '2', 'user/role/add', '0', '0', '0'), ('40', '2', 'user/role/edit', '0', '0', '0'), ('41', '2', 'user/role/del', '0', '0', '0'), ('42', '2', 'user/role/auth', '0', '0', '0'), ('43', '1', 'index/index/index', '0', '0', '0'), ('44', '1', 'index/index/main', '0', '0', '0'), ('45', '1', 'index/message/none', '0', '0', '0'), ('46', '1', 'index/test/index', '0', '0', '0'), ('47', '1', 'system/api/index', '0', '0', '0'), ('49', '1', 'system/menu/index', '0', '0', '0'), ('50', '1', 'system/menu/add', '0', '0', '0'), ('51', '1', 'system/menu/getMenu', '0', '0', '0'), ('52', '1', 'system/menu/edit', '0', '0', '0'), ('53', '1', 'system/menu/delete', '0', '0', '0'), ('54', '1', 'system/menu/getAllMenu', '0', '0', '0'), ('56', '1', 'system/node/auth', '0', '0', '0'), ('57', '1', 'user/admin/index', '0', '0', '0'), ('58', '1', 'user/admin/add', '0', '0', '0'), ('59', '1', 'user/admin/edit', '0', '0', '0'), ('60', '1', 'user/admin/delete', '0', '0', '0'), ('61', '1', 'user/index/profile', '0', '0', '0'), ('62', '1', 'user/index/password', '0', '0', '0'), ('63', '1', 'user/log/index', '0', '0', '0'), ('64', '1', 'user/profile/update', '0', '0', '0'), ('65', '1', 'user/profile/avatar', '0', '0', '0'), ('66', '1', 'user/role/index', '0', '0', '0'), ('70', '1', 'user/role/auth', '0', '0', '0'), ('71', '1', 'api/index/index', '0', '0', '0'), ('74', '1', 'user/role/add', '0', '0', '0'), ('75', '1', 'user/role/edit', '0', '0', '0'), ('76', '1', 'user/role/del', '0', '0', '0'), ('77', '1', 'system/log/index', '0', '0', '0'), ('78', '1', 'system/node/index', '0', '0', '0'), ('79', '2', 'api/index/index', '0', '0', '0'), ('80', '1', 'api/debug/index', '0', '0', '0'), ('81', '1', 'api/document/index', '0', '0', '0'), ('82', '1', 'api/index/modules', '0', '0', '0'), ('83', '1', 'api/index/classes', '0', '0', '0'), ('84', '1', 'api/index/api', '0', '0', '0'), ('85', '1', 'app/index/index', '0', '0', '0');
 COMMIT;
 
 -- ----------------------------
@@ -203,5 +203,33 @@ CREATE TABLE `api_users` (
 BEGIN;
 INSERT INTO `api_users` VALUES ('1', 'test590057670218d', 'test', '350e930ef1415387a8747c8a0a154a94', null, '192.168.1.59', '1493194789', '3b3141cb3e3d3ea005ca64525ffd14d6', '0', '1493194599', null);
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `api_users_wechat`
+-- ----------------------------
+DROP TABLE IF EXISTS `api_users_wechat`;
+CREATE TABLE `api_users_wechat` (
+  `openid` varchar(255) NOT NULL,
+  `user_uniq` varchar(255) NOT NULL,
+  `wechat` varchar(255) NOT NULL,
+  PRIMARY KEY (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `api_wx_userinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `api_wx_userinfo`;
+CREATE TABLE `api_wx_userinfo` (
+  `openid` varchar(64) NOT NULL,
+  `nickname` varchar(32) NOT NULL,
+  `sex` varchar(10) NOT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `headimgurl` varchar(128) NOT NULL,
+  `unionid` varchar(64) NOT NULL,
+  PRIMARY KEY (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
