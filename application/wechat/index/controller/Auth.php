@@ -31,10 +31,15 @@ class Auth extends WechatBase
 
     public function auth(){
         $this->redirect($this->Oauth->getOauthRedirect(
-            url('user/auth/authCallback', ['redirect'=>base64_encode($this->redirect)],'',$this->host), $this->state,"snsapi_userinfo"
+            url('index/auth/authCallback', ['redirect'=>base64_encode($this->redirect)],'',$this->host), $this->state,"snsapi_userinfo"
         ));
     }
 
+    /**
+     * @return int|mixed
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
     public function authCallback()
     {
         if($this->param['state'] === $this->state){

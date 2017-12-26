@@ -20,15 +20,15 @@ class WechatLogin extends WechatBase
         parent::__construct($request);
 
         if(empty($this->wechatInfo)){
-            $this->redirect('user/auth/auth',['redirect'=>base64_encode($this->url)]);
+            $this->redirect('index/auth/auth',['redirect'=>base64_encode($this->url)]);
         }
 
         if(empty($this->user)){
             $this->user = UserLogic::getUserInfoByOpenId($this->wechatInfo['openid'],$this->wechat);
         }
-
-        if(empty($this->user)){
-            $this->redirect('user/account/bind',['redirect'=>base64_encode($this->url)]);
-        }
+        // 跳转至账号绑定
+//        if(empty($this->user)){
+//            $this->redirect('user/account/bind',['redirect'=>base64_encode($this->url)]);
+//        }
     }
 }
