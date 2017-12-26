@@ -37,8 +37,9 @@ class Auth extends WechatBase
 
     /**
      * @return int|mixed
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function authCallback()
     {
@@ -63,16 +64,11 @@ class Auth extends WechatBase
                     'nickname'=>$wechatInfo['nickname'],
                     'sex'=>$wechatInfo['sex'],
                     'headimgurl'=>$wechatInfo['headimgurl'],
-                    'unionid'=>isset($wechatInfo['unionid'])?$wechatInfo['unionid']:""
+                    'unionid'=>isset($wechatInfo['unionid'])?$wechatInfo['unionid']:"",
+                    'openid'=>$wechatInfo['openid']
                 ];
-                if(Db::name('wx_userinfo')->where('openid',$wechatInfo['openid'])->count()){
-                    Db::name('wx_userinfo')->where('openid',$wechatInfo['openid'])->update($insert);
-                }else{
-                    $insert['openid'] = $wechatInfo['openid'];
-                    Db::name('wx_userinfo')->insert($insert);
-                }
+                Db::name('wx_userinfo')->insert($insert,true);
             }
-
 
             Session::set('wechat_info',$wechatInfo , PROJECT_NAME);
 
