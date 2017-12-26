@@ -31,7 +31,7 @@ class WechatBase extends HomeBase
 
     protected $wechat = '';
 
-    public function __construct(Request $request = null,$wechat_config = '')
+    public function __construct(Request $request = null,$wechat_config = 'default')
     {
         parent::__construct($request);
 

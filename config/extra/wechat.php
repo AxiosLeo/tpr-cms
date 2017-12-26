@@ -7,7 +7,7 @@
  * @datetime: 2017/12/25 16:01
  */
 return [
-    'example'=>[
+    'default'=>[
         'app_id'=>'',
         'app_secret'=>'',
         'encodingaeskey'=>'',
