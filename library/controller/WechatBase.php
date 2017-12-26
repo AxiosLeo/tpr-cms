@@ -9,7 +9,7 @@
 
 namespace library\controller;
 
-use http\Env\Request;
+use think\Request;
 use think\Session;
 use Wechat\WechatOauth;
 
