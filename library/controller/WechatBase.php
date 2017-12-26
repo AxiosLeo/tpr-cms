@@ -34,7 +34,9 @@ class WechatBase extends HomeBase
     public function __construct(Request $request = null,$wechat_config = '')
     {
         parent::__construct($request);
-        $this->wechat = $wechat_config;
+
+        // 配置环境变量，强制使用某一个微信公众号，比如"微信公众号测试平台"
+        $this->wechat = env('app.wechat',$wechat_config);
 
         $wechat_config = c('wechat.' . $wechat_config ,[]);
         $this->config = [
