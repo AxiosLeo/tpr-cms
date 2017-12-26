@@ -38,7 +38,7 @@
 
 * 支持**多语言翻译**，可以很方便的在中英文等多语言环境中切换
 
-* **多应用多入口**的架构模式，更易于多端接口的开发维护工作
+* **多应用多入口**的架构模式，更易于多应用接口的开发维护工作
 
 * 集成**workman**，实现长连接通信
 
@@ -84,45 +84,7 @@ vim .env
  
  > 123456
  
- ## workman
- > 需要tpr-framework > 1.1.6
  
- ``` shell
- cd server/bin
- 
- #以debug（调试）方式启动
- 
- php workman_server.php start
- 
- #以daemon（守护进程）方式启动
- 
- php workman_server.php start -d
- 
- #停止
- php workman_server.php stop
- 
- #重启
- php workman_server.php restart
- 
- #平滑重启
- php workman_server.php reload
- 
- #查看状态
- php workman_server.php status
- 
- #查看连接状态（需要Workerman版本>=3.5.0）
- php workman_server.php connections
- ```
- 
- ## gearman
-  > 需要tpr-framework > 1.1.6
-  
- ``` shell
- cd server/bin
- sh gearman_run.sh 1
- #数字1为创建一个gearman worker
- 
- ```
  
 
 ## 开源协议
