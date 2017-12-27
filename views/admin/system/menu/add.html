@@ -24,7 +24,7 @@
                 <div class="layui-form-item">
                     <label for="node_path" class="layui-form-label col-xs-3 col-sm-3 col-md-3">权限节点: </label>
                     <div class="layui-input-inline ">
-                        <select class="col-md-3" id="node_path" name="node_path" lay-filter="parent">
+                        <select class="col-md-3" id="node_path" lay-search="" name="node_path" lay-filter="parent">
                             {foreach name="node_list" item="n"}
                             <option value="{$n['path']}" >{$n['path']}</option>
                             {/foreach}
