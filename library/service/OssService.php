@@ -8,18 +8,18 @@
  */
 namespace library\service;
 
+use Aliyun\Common\Exceptions\ClientException;
 use Aliyun\OSS\Exceptions\OSSException;
 use JohnLui\AliyunOSS;
 use think\Config;
 
 class OssService{
-
     /**
      * @var AliyunOSS
      */
     public static $oss;
 
-    protected static $config = [
+    public static $config = [
         'city'=>'杭州',
         'network_type'=>'经典网络',
         'is_internal'=>'',
@@ -30,6 +30,10 @@ class OssService{
     public static $instance ;
 
     protected static $select = '';
+
+    public static $code = 404;
+
+    public static $msg = 'not exist';
 
     public function __construct($select = 'default')
     {
@@ -70,9 +74,20 @@ class OssService{
             return true;
         } catch (OSSException $e) {
             if ($e->getErrorCode() == 'NoSuchKey') {
+                self::$msg = $e->getErrorCode();
                 return false;
             }
+        } catch(ClientException $e){
+            self::$msg = $e->getMessage();
+            self::$code = 500;
+            return false;
         }
         return true;
+    }
+
+    public static function ossHost($select = 'default'){
+        $oss_config = config('oss.' . $select);
+        $oss_host = data($oss_config , 'custom_host' , 'http://oss-yd-pianobridge.pianobridge.cn/');
+        return $oss_host;
     }
 }
