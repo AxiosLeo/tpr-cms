@@ -22,7 +22,8 @@
         "johnlui/aliyun-oss":"^2.2",
         "php-amqplib/php-amqplib": "^2.6",
         "workerman/workerman": "^3.5",
-        "zoujingli/wechat-php-sdk": "^1.3"
+        "zoujingli/wechat-php-sdk": "^1.3",
+        "pfinal/aliyun-sms": "^1.0"
     },
     "require-dev": {
         "composer/composer": "1.0.*@dev"
