@@ -8,7 +8,7 @@
                 </div>
                 <div class="value">
                     <a href="#">
-                        <h1 id="count1">10</h1>
+                        <h1 id="count1">{$user_number}</h1>
                     </a>
                     <p>用户总量</p>
                 </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="value">
                     <a href="#">
-                        <h1 id="count2">1</h1>
+                        <h1 id="count2">{$register_today}</h1>
                     </a>
                     <p>今日注册用户</p>
                 </div>
@@ -126,64 +126,14 @@
             </section>
         </div>
         <div class="col-lg-6">
-            <!-- 网站信息统计｛SEO数据统计｝ -->
-            <section class="panel" style="min-height: 392px;">
-                <header class="panel-heading bm0">
-                    <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
-                    <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
-                </header>
-                <div class="panel-body" style="border-top: 1px dotted #E3E7EA;">
-                    <div style="display: block;padding: 15px;height: 300px;" id="echarts-example"></div>
-                </div>
-            </section>
-        </div>
-        <div class="col-md-12">
             <section class="panel">
                 <header class="panel-heading bm0">
-                    <span class='span-title'>最新动态</span>
-                    <span class="badge" style="background-color:#FF3333;"> new </span>
+                    <span class='span-title'>用户增长量</span>
+                    <!--<span class="badge" style="background-color:#FF3333;"> new </span>-->
                     <span class="tools pull-right"><a href="javascript:void(0);" class="iconpx-chevron-down"></a></span>
                 </header>
                 <div class="panel-body">
-                    <table class="table table-hover personal-task">
-                        <tbody>
-                        <tr>
-                            <td>原创</td>
-                            <td>
-                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                            </td>
-                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                        </tr>
-                        <tr>
-                            <td>原创</td>
-                            <td>
-                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                            </td>
-                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                        </tr>
-                        <tr>
-                            <td>原创</td>
-                            <td>
-                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                            </td>
-                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                        </tr>
-                        <tr>
-                            <td>原创</td>
-                            <td>
-                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                            </td>
-                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                        </tr>
-                        <tr>
-                            <td>原创</td>
-                            <td>
-                                <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                            </td>
-                            <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11 10:00:37</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div id="user-echart" style="min-height: 300px;"></div>
                 </div>
             </section>
         </div>
@@ -232,45 +182,74 @@
 <script src="/src/plugs/echarts/echarts.min.js"></script>
 
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('echarts-example'));
+    var userChart = echarts.init(document.getElementById('user-echart'));
     option = {
-        title : {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
-            x:'center'
+        title: {
+            text: ''
         },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        tooltip: {
+            trigger: 'axis'
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data:['用户增长量']
         },
-        series : [
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
             {
-                name: '访问来源',
-                type: 'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
+                name:'用户数',
+                type:'line',
+                stack: '增长量',
+                data:[]
             }
         ]
     };
-    myChart.setOption(option);
+
+    postSomething("{:url('index/index/userData')}",{},function (res) {
+        option.xAxis.data = res.data.day;
+        option.series[0].data = res.data.data;
+        userChart.setOption(option);
+    });
+
+    function postSomething(url, obj, callback) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            enctype: 'multipart/form-data',
+            data: obj,
+            success: function (res) {
+                if(callback === undefined){
+                    callback = function (res) {
+                        if(res.code){
+                            layer.msg(res.msg,{icon:1,time:1500},function () {
+                                reloadTable();
+                                layer.closeAll();
+                            });
+                        }else{
+                            layer.msg(res.msg,{icon:2,time:1500});
+                        }
+                    };
+                }
+                callback(res);
+            }
+        });
+    }
 
 </script>

@@ -53,3 +53,22 @@ if (!function_exists('trans2time')) {
         return $result != "1970-01-01 08:33:37" ? $result : '';
     }
 }
+
+if(!function_exists('getDayBeginEndTime')){
+    function getDayBeginEndTime($date,$format='timestamp'){
+        $begin = strtotime($date." 00:00:00");
+        $end   = strtotime("$date +1 day -1 seconds");
+        if($format=='timestamp'){
+            return [
+                'begin'=>$begin,
+                'end'=>$end
+            ];
+        }else{
+            return [
+                'begin'=>date($format,$begin),
+                'end'=>date($format,$end),
+            ];
+        }
+    }
+
+}

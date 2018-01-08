@@ -64,6 +64,47 @@ class Index extends AdminLogin
             ];
             $this->ajaxReturn($req);
         }
+
+        $user_number = Db::name('users')->count();
+        $this->assign('user_number',$user_number);
+        $register_today = Db::name('users')->whereTime('created_at','today')->count();
+        $this->assign('register_today',$register_today);
+
         return $this->fetch('main');
+    }
+
+    public function userData(){
+        $dayArr = $this->getLastSevenDay();
+
+        $day_list = []; $data = [];
+
+        foreach ($dayArr as $d){
+            $day_list[] = $d['day'];
+
+            $count = Db::name('users')->whereBetween('created_at',[$d['begin'],$d['end']],'and')
+                ->count();
+            $data[] = $count;
+        }
+
+        $this->response(['day'=>$day_list,'data'=>$data]);
+    }
+
+    private function getLastSevenDay(){
+        $time = time();
+
+        $dayArr = []; $n = 0;
+
+        $total = 7;
+
+        for($i = 0;$i<$total;$i++){
+            $timestamp = $time - ($total-$n)*3600*24;
+            $dayArr[$n]['day'] = date("Y-m-d",$timestamp);
+            $temp = getDayBeginEndTime($dayArr[$n]['day']);
+            $dayArr[$n]['begin'] = $temp['begin'];
+            $dayArr[$n]['end'] = $temp['end'];
+            $n++;
+        }
+
+        return $dayArr;
     }
 }
