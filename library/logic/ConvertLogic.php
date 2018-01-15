@@ -18,15 +18,22 @@ class ConvertLogic
 {
     public static $index = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public static function convert($str, $from, $to)
-    {
-        if ($from !== 10) {
-            $fromBase = self::convertTo10($str, $from);
-        } else {
+    public static function convert($str , $from, $to, $length = null){
+        if($from!==10){
+            $fromBase =  self::convertTo10($str, $from);
+        }else{
             $fromBase = $str;
         }
 
         $toBase = self::convert10($fromBase, $to);
+
+        if(!is_null($length)){
+            $strLength  = strlen($toBase);
+            while($strLength < $length){
+                $toBase = "0".$toBase;
+                $strLength++;
+            }
+        }
 
         return $toBase;
     }
