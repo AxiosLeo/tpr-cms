@@ -18,7 +18,7 @@ class ConvertLogic
 {
     public static $index = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public static function convert($str, $from, $to, $length = null)
+    public static function convert($str, $from, $to, $min_length = null)
     {
         if ($from !== 10) {
             $fromBase = self::convertTo10($str, $from);
@@ -28,9 +28,9 @@ class ConvertLogic
 
         $toBase = self::convert10($fromBase, $to);
 
-        if (!is_null($length)) {
+        if (!is_null($min_length)) {
             $strLength = strlen($toBase);
-            while ($strLength < $length) {
+            while ($strLength < $min_length) {
                 $toBase = "0" . $toBase;
                 $strLength++;
             }
