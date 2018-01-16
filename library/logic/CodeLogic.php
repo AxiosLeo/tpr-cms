@@ -135,7 +135,7 @@ class CodeLogic
     private static function ticket($category_uniq, $baseCount)
     {
         $key = 'code_ticket_' . $category_uniq;
-        RedisService::redis()->switchDB()->watch('code_ticket_' . $category_uniq);
+        RedisService::redis()->switchDB()->watch($key);
 
         $ret = RedisService::redis()->switchDB()->multi()
             ->incr($key)
