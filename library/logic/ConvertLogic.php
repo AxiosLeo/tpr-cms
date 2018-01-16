@@ -16,7 +16,14 @@ namespace library\logic;
  */
 class ConvertLogic
 {
-    public static $index = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static $dict = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    public static $patch = "0";
+
+    public static function set($dict, $patch){
+        self::$dict = $dict;
+        self::$patch = $patch;
+    }
 
     public static function convert($str, $from, $to, $min_length = null)
     {
@@ -31,7 +38,7 @@ class ConvertLogic
         if (!is_null($min_length)) {
             $strLength = strlen($toBase);
             while ($strLength < $min_length) {
-                $toBase = "0" . $toBase;
+                $toBase = self::$patch . $toBase;
                 $strLength++;
             }
         }
@@ -41,7 +48,7 @@ class ConvertLogic
 
     private static function convert10($num, $to = 62)
     {
-        $dict = self::$index;
+        $dict = self::$dict;
         $ret = '';
         do {
             $ret = $dict[bcmod($num, $to)] . $ret;
@@ -53,7 +60,7 @@ class ConvertLogic
     private static function convertTo10($num, $from = 62)
     {
         $num = strval($num);
-        $dict = self::$index;
+        $dict = self::$dict;
         $len = strlen($num);
         $dec = 0;
         for ($i = 0; $i < $len; $i++) {
