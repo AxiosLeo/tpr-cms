@@ -4,14 +4,16 @@
     <meta charset="utf-8">
     <title>socket测试</title>
     <script type="application/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="application/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        var ws;
-        var isClose;
-
+        var ws,isClose,socketUrl;
         startSocket();
         function startSocket() {
             isClose = 0;
-            ws = new WebSocket("wss://admin.pianobridge.pub:2346")
+            socketUrl = $("#socket_url").val();
+            ws = new WebSocket(socketUrl);
             // 打开一个 web socket
             ws.onopen = function()
             {
@@ -48,29 +50,31 @@
         }
 
         function input(str) {
-            $("#receive").append(str + "\n");
+            var textarea = $("#receive").append(str + "\n");
+            textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
         }
-
-        /*var timer = setInterval(function (e) {
-            // var str = Math.random().toString(36).substr(2);
-            if(!isClose){
-                send();
-            }
-        },15000);*/
     </script>
 
 </head>
 <body>
-
-<div id="sse">
-    <button onclick="send()" style="display: block">发送信息</button>
-    <button onclick="closeSocket()" style="display: block">关闭连接</button>
-    <button onclick="startSocket()" style="display: block">启动连接</button>
-    <br>
-    <label for="data">消息内容(json格式)</label><br>
-    <textarea id="data" style="width: 400px;height: 400px;">{"s":"index/index/index","params":{"a":"b"}}</textarea>
-    <textarea id="receive" style="width: 800px;height: 400px;"></textarea>
+<div class="row">
+    <div class="col-md-4"><button onclick="send()" style="display: block">发送信息</button></div>
+    <div class="col-md-4"><button onclick="closeSocket()" style="display: block">关闭连接</button></div>
+    <div class="col-md-4"><button onclick="startSocket()" style="display: block">启动连接</button></div>
 </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <input id="socket_url" class="form-control" type="text" name="socket_url" value="" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-lg-12 col-md-12"><label for="data">消息内容(json格式)</label><br></div>
+    <div class="col-xs-12 col-lg-12 col-md-6">
+        <textarea class="form-control" rows="20" id="data">{"s":"index/index/index","params":{"a":"b"}}</textarea>
+    </div>
+    <div class="col-xs-12 col-lg-12 col-md-6">
+        <textarea id="receive" class="form-control" rows="20"></textarea>
+    </div>
+</div>
 </body>
 </html>
