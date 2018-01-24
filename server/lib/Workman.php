@@ -9,10 +9,13 @@
 namespace server\lib;
 
 use server\traits\Jump;
+use think\Config;
+use think\Env;
 use think\Response;
 use think\Tool;
 use Workerman\Connection\ConnectionInterface;
 use Workerman\Connection\TcpConnection;
+use Workerman\Lib\Timer;
 use Workerman\Worker;
 
 require_once __DIR__ . '/../traits/Jump.php';
@@ -28,18 +31,13 @@ class Workman {
 
     public static $worker;
 
-    /**
-     * @var TcpConnection
-     */
-    public static $connector ;
-
     protected $return_type;
 
-    protected static $config = [
-        'server' => "websocket://0.0.0.0:2346",
+    protected static $workman_config = [
+        'server'        => "websocket://0.0.0.0:2346",
         'process_count' => 4 ,
-        'ssl'=>false,
-        'context'=>[]
+        'ssl'           => false,
+        'context'       => []
     ];
 
     /**
@@ -50,15 +48,22 @@ class Workman {
     {
         self::init();
 
-        self::$config = array_merge(self::$config , $config);
+        $env = Env::get('global.env' , 'product');
 
-        $server = self::$config['server'];
+        $workman_config = Config::get('workman.'.$env);
+        if(!empty($workman_config)){
+            self::$workman_config = array_merge(self::$workman_config , $workman_config);
+        }
 
-        $context = self::$config['context'];
+        self::$workman_config = array_merge(self::$workman_config , $config);
 
-        $ssl = self::$config['ssl'];
+        $server = self::$workman_config['server'];
 
-        $process_count = self::$config['process_count'];
+        $context = self::$workman_config['context'];
+
+        $ssl = self::$workman_config['ssl'];
+
+        $process_count = self::$workman_config['process_count'];
 
         self::$worker = new Worker($server,$context);
 
@@ -73,6 +78,9 @@ class Workman {
             Workman::task($task);
         };
 
+        /**
+         * @param TcpConnection $connection
+         */
         self::$worker->onConnect = function ($connection) {
             Workman::connect($connection);
         };
@@ -80,13 +88,15 @@ class Workman {
         self::$worker->onMessage = function($connection, $data)
         {
             Workman::receive($connection , $data);
-
         };
 
+        /**
+         * @param TcpConnection $connection
+         */
         self::$worker->onClose = function($connection)
         {
-            self::$connector = $connection;
-            return self::response('success close');
+            $data = self::response('success close');
+            $connection->send($data);
         };
 
         Worker::runAll();
@@ -94,30 +104,46 @@ class Workman {
     }
 
     /**
-     * @param $connection
+     * @param TcpConnection $connection
      * @param $data
-     * @return bool|null
      */
     public static function receive($connection , $data){
-        self::$connector = $connection;
+        $connection->lastMessageTime = time();
         $data = self::data($data);
-        return self::result($data);
+        if(!empty($data)){
+            $data = self::response($data);
+            $connection->send($data);
+        }
     }
 
     /**
-     * @param Worker $task
+     * @param Worker $worker
      */
-    public static function task(Worker $task){
-
+    public static function task(Worker $worker){
+        Timer::add(1, function()use($worker){
+            defined('HEARTBEAT_TIME') or define('HEARTBEAT_TIME',10);
+            $time_now = time();
+            foreach($worker->connections as $connection) {
+                /*** @var TcpConnection $connection ***/
+                // 有可能该connection还没收到过消息，则lastMessageTime设置为当前时间
+                if (empty($connection->lastMessageTime)) {
+                    $connection->lastMessageTime = $time_now;
+                    continue;
+                }
+                // 上次通讯时间间隔大于心跳间隔，则认为客户端已经下线，关闭连接
+                if ($time_now - $connection->lastMessageTime > HEARTBEAT_TIME) {
+                    $connection->close();
+                }
+            }
+        });
     }
 
     /**
      * @param TcpConnection $connection
      */
     public static function connect($connection){
-        self::$connector = $connection;
-
-        self::response('connect success');
+        $data = self::response('connect success');
+        $connection->send($data);
     }
 
     /**
@@ -128,7 +154,18 @@ class Workman {
         $connection->close();
     }
 
-
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public static function setToAll($data){
+        $connections = self::$worker->connections;
+        /*** @var TcpConnection $c***/
+        foreach ($connections as $c){
+            $c->send(self::response($data));
+        }
+        return $data;
+    }
 
     protected static function result($result = [], array $header = [])
     {
@@ -138,6 +175,6 @@ class Workman {
         }
         $type = c('default_ajax_return', 'json');
         $data = Response::create($result, $type)->header($header)->getContent();
-        return self::$connector->send($data);
+        return $data;
     }
 }
