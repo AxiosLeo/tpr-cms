@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>菜鸟教程(runoob.com)</title>
-    <script src="../public/src/plugs/jquery/dist/jquery.min.js"></script>
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-        var ws = new WebSocket("ws://test.cn:2346");
+        var ws = new WebSocket("wss://admin.pianobridge.pub:2346");
+
+        var close = 0;
         // 打开一个 web socket
         ws.onopen = function()
         {
@@ -21,14 +23,26 @@
 
         ws.onclose = function()
         {
+            close = 1;
             console.log("连接关闭")
         };
 
-        function send() {
+        function send(d) {
             var data = $("#data").val();
-            ws.send(data);
+            if(d !==undefined){
+                ws.send(d);
+            }else{
+                ws.send(data);
+            }
             console.log("发送数据" + data);
         }
+
+        var timer = setInterval(function (e) {
+            // var str = Math.random().toString(36).substr(2);
+            if(!close){
+                send();
+            }
+        },15000);
     </script>
 
 </head>

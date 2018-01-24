@@ -37,7 +37,8 @@ class Workman {
         'server'        => "websocket://0.0.0.0:2346",
         'process_count' => 4 ,
         'ssl'           => false,
-        'context'       => []
+        'context'       => [],
+        'heartbeat'     => 10
     ];
 
     /**
@@ -58,24 +59,36 @@ class Workman {
         self::$workman_config = array_merge(self::$workman_config , $config);
 
         $server = self::$workman_config['server'];
-
         $context = self::$workman_config['context'];
-
         $ssl = self::$workman_config['ssl'];
-
         $process_count = self::$workman_config['process_count'];
+        $heartbeat = self::$workman_config['heartbeat'];
+        define('HEARTBEAT_TIME',$heartbeat);
 
         self::$worker = new Worker($server,$context);
-
         if($ssl){
             self::$worker->transport = 'ssl';
         }
 
         self::$worker->count = $process_count;
 
-        self::$worker->onWorkerStart = function($task)
+        /**
+         * @param Worker $worker
+         * @throws \Exception
+         */
+        self::$worker->onWorkerStart = function($worker)
         {
-            Workman::task($task);
+            Workman::task($worker);
+        };
+
+        self::$worker->onWorkerReload = function($worker)
+        {
+            $data = self::wrong(302,'worker reloading');
+            /*** @var TcpConnection $connection ***/
+            foreach($worker->connections as $connection)
+            {
+                $connection->send($data);
+            }
         };
 
         /**
@@ -99,8 +112,35 @@ class Workman {
             $connection->send($data);
         };
 
-        Worker::runAll();
+        /**
+         * @param TcpConnection $connection
+         */
+        self::$worker->onBufferFull = function($connection)
+        {
+            $data = self::wrong(101,'bufferFull and do not send again');
+            $connection->send($data);
+        };
+        /**
+         * @param TcpConnection $connection
+         */
+        self::$worker->onBufferDrain = function($connection)
+        {
+            $data = self::wrong(102,'buffer drain and continue send');
+            $connection->send($data);
+        };
 
+        /**
+         * @param TcpConnection $connection
+         * @param $code
+         * @param $msg
+         */
+        self::$worker->onError = function($connection, $code, $msg)
+        {
+            $data = self::wrong($code,$msg);
+            $connection->send($data);
+        };
+
+        Worker::runAll();
     }
 
     /**
@@ -109,7 +149,12 @@ class Workman {
      */
     public static function receive($connection , $data){
         $connection->lastMessageTime = time();
-        $data = self::data($data);
+        $instance = [
+            'connection'=>$connection,
+            'remote_ip'=>$connection->getRemoteIp(),
+            'remote_port'=>$connection->getRemotePort()
+        ];
+        $data = self::data($data,$instance);
         if(!empty($data)){
             $data = self::response($data);
             $connection->send($data);
@@ -132,7 +177,12 @@ class Workman {
                 }
                 // 上次通讯时间间隔大于心跳间隔，则认为客户端已经下线，关闭连接
                 if ($time_now - $connection->lastMessageTime > HEARTBEAT_TIME) {
-                    $connection->close();
+                    $result = $connection->send(self::wrong(100,'timeout'));
+                    if($result !== true){
+                        $connection->close();
+                    }else{
+                        $connection->lastMessageTime = $time_now;
+                    }
                 }
             }
         });
