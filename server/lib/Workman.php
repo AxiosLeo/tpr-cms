@@ -156,7 +156,6 @@ class Workman {
         ];
         $data = self::data($data,$instance);
         if(!empty($data)){
-            $data = self::response($data);
             $connection->send($data);
         }
     }

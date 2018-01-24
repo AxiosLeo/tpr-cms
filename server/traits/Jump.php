@@ -28,7 +28,7 @@ trait Jump
         self::$config = App::initCommon();
     }
 
-    protected static function data($data){
+    protected static function data($data, $instance = []){
         Request::clear();
         $data = json_decode($data ,true);
         if(empty($data)){
@@ -40,6 +40,7 @@ trait Jump
         try{
             $request = Request::instance();
             $request->setParam($params);
+            $request->instance = $instance;
             $data = App::module($dispatch['module'], self::$config , $convert = null , $request);
         }catch (HttpResponseException $exception) {
             $data = $exception->getResponse();
@@ -50,7 +51,7 @@ trait Jump
         if ($data instanceof Response) {
             $data = $data->getData();
         }
-        return $data;
+        return self::response($data);
     }
 
     protected static function error(\Exception $e){
@@ -67,7 +68,7 @@ trait Jump
         return self::response([], $code, $message, $header);
     }
 
-    protected static function response($data = [], $code = 200, $message = 'success', array $header = []){
+    public static function response($data = [], $code = 200, $message = 'success', array $header = []){
         if ($code != 200 && empty($message)) {
             $message = c('code.' . strval($code), '');
         }
