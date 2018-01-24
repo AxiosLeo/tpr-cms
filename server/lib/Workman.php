@@ -110,6 +110,7 @@ class Workman {
         {
             $data = self::response('success close');
             $connection->send($data);
+            self::close($connection);
         };
 
         /**
