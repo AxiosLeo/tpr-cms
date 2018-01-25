@@ -8,15 +8,15 @@
  */
 namespace server\lib;
 
-use server\traits\Jump;
-use think\Config;
-use think\Env;
-use think\Response;
-use think\Tool;
 use Workerman\Connection\ConnectionInterface;
 use Workerman\Connection\TcpConnection;
 use Workerman\Lib\Timer;
+use server\traits\Jump;
 use Workerman\Worker;
+use think\Response;
+use think\Config;
+use think\Env;
+use think\Tool;
 
 require_once __DIR__ . '/../traits/Jump.php';
 
@@ -108,8 +108,6 @@ class Workman {
          */
         self::$worker->onClose = function($connection)
         {
-            $data = self::response('success close');
-            $connection->send($data);
             self::close($connection);
         };
 
@@ -157,8 +155,11 @@ class Workman {
         ];
         $data = self::data($data,$instance);
         if(!empty($data)){
-            $connection->send($data);
+            $data = self::result($data);
+        }else{
+            $data = self::wrong(self::$ret,self::$msg);
         }
+        $connection->send($data);
     }
 
     /**
@@ -177,7 +178,7 @@ class Workman {
                 }
                 // 上次通讯时间间隔大于心跳间隔，则认为客户端已经下线，关闭连接
                 if ($time_now - $connection->lastMessageTime > HEARTBEAT_TIME) {
-                    $result = $connection->send(self::wrong(100,'timeout'));
+                    $result = $connection->send(self::wrong(100,'timeout '.HEARTBEAT_TIME));
                     if($result !== true){
                         $connection->close();
                     }else{
@@ -226,5 +227,14 @@ class Workman {
         $type = c('default_ajax_return', 'json');
         $data = Response::create($result, $type)->header($header)->getContent();
         return $data;
+    }
+
+    public static function stop(){
+        Worker::stopAll();
+    }
+
+    public static function reload(){
+        self::stop();
+        self::run(self::$workman_config);
     }
 }

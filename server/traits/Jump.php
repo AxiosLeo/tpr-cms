@@ -24,6 +24,10 @@ trait Jump
 {
     protected static $config;
 
+    protected static $ret = 200;
+
+    protected static $msg = '';
+
     protected static function init(){
         self::$config = App::initCommon();
     }
@@ -32,7 +36,9 @@ trait Jump
         Request::clear();
         $data = json_decode($data ,true);
         if(empty($data)){
-            return self::wrong(500, 'data format wrong');
+            self::$ret = 500;
+            self::$msg = 'data format wrong';
+            return false;
         }
         $url = data($data , 's','index/index/index');
         $params = data($data , 'params',[]);
@@ -51,7 +57,7 @@ trait Jump
         if ($data instanceof Response) {
             $data = $data->getData();
         }
-        return self::response($data);
+        return $data;
     }
 
     protected static function error(\Exception $e){
