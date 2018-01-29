@@ -11,7 +11,6 @@
  * need tpr-framework:^1.1.6
  */
 
-use server\lib\Workman;
 
 date_default_timezone_set('Asia/Shanghai');
 
@@ -20,6 +19,6 @@ define('PROJECT_NAME', 'server');
 
 require_once __DIR__ . '/../../init.php';
 require THINK_PATH . '/base.php';
-require __DIR__ . '/../lib/Workman.php';
+require __DIR__ . '/../../library/extend/workman/Workman.php';
 
-Workman::run();
+\library\extend\workman\Workman::run();
