@@ -24,15 +24,21 @@ trait Jump
 {
     protected static $config;
 
+    protected static $ret = 200;
+
+    protected static $msg = '';
+
     protected static function init(){
         self::$config = App::initCommon();
     }
 
-    protected static function data($data){
+    protected static function data($data, $instance = []){
         Request::clear();
         $data = json_decode($data ,true);
         if(empty($data)){
-            return self::wrong(500, 'data format wrong');
+            self::$ret = 500;
+            self::$msg = 'data format wrong';
+            return false;
         }
         $url = data($data , 's','index/index/index');
         $params = data($data , 'params',[]);
@@ -40,6 +46,7 @@ trait Jump
         try{
             $request = Request::instance();
             $request->setParam($params);
+            $request->instance = $instance;
             $data = App::module($dispatch['module'], self::$config , $convert = null , $request);
         }catch (HttpResponseException $exception) {
             $data = $exception->getResponse();
@@ -67,7 +74,7 @@ trait Jump
         return self::response([], $code, $message, $header);
     }
 
-    protected static function response($data = [], $code = 200, $message = 'success', array $header = []){
+    public static function response($data = [], $code = 200, $message = 'success', array $header = []){
         if ($code != 200 && empty($message)) {
             $message = c('code.' . strval($code), '');
         }

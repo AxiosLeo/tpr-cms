@@ -68,6 +68,13 @@ class CodeLogic
         return self::$instance;
     }
 
+    /**
+     * @param $category_uniq
+     * @param $number
+     * @param $ticket_length
+     * @param $encoding_length
+     * @throws Exception
+     */
     protected function check($category_uniq, $number, $ticket_length, $encoding_length){
         if(is_null(self::$instance)){
             self::$instance = new self();
@@ -94,6 +101,7 @@ class CodeLogic
      * @param int $ticket_length 票码长度
      * @param int $encoding_length 随机字符长度
      * @return array 兑换码列表
+     * @throws Exception
      */
     public function create($category_uniq = '' , $number = 0, $ticket_length = null, $encoding_length = null)
     {
@@ -159,20 +167,27 @@ class CodeLogic
      */
     private static function countBase($length = 4)
     {
-        $min = "1";
-        for ($i = 0; $i < $length - 1; $i++) {
-            $min = $min . "0";
+        if(!empty(self::$minCode)){
+            $min = self::$minCode;
+        }else{
+            $min = "1";
+            for ($i = 0; $i < $length - 1; $i++) {
+                $min = $min . "0";
+            }
         }
         $min = ConvertLogic::convert($min, 62, 10);
 
-        $max = "";
-        for ($i = 0; $i < $length; $i++) {
-            $max = $max . "Z";
+        if(!empty(self::$maxCode)){
+            $max = self::$maxCode;
+        }else{
+            $max = "";
+            for ($i = 0; $i < $length; $i++) {
+                $max = $max . "Z";
+            }
         }
         $max = ConvertLogic::convert($max, 62, 10);
 
         return [intval($min), intval($max)];
-
     }
 
     /**

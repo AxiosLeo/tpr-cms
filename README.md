@@ -42,7 +42,9 @@
 
 * 集成**workman**，实现长连接通信
 
-* 集成**geaqrman**，实现cgi模式到cli模式的转换
+* 集成**gearman**，实现cgi模式到cli模式的转换
+
+* 集成**rabbitMq**
 
 ## 安装
 ``` shell
