@@ -20,6 +20,12 @@ function make_password($password, $auth = '')
 }
 
 if (!function_exists('data')) {
+    /**
+     * @param $array
+     * @param $index
+     * @param string $default
+     * @return string|array
+     */
     function data($array, $index, $default = '')
     {
         return isset($array[$index]) ? $array[$index] : $default;
