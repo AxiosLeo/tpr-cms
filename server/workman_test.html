@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <input id="socket_url" class="form-control" type="text" name="socket_url" value="" />
+        <input id="socket_url" class="form-control" type="text" name="socket_url" value="ws://192.168.1.106:2346" />
     </div>
 </div>
 <div class="row">
@@ -33,10 +33,10 @@
     var ws,isClose=1,socketUrl;
     startSocket();
     function startSocket() {
-        if(isClose === 0){
+        /*if(isClose === 0){
             input("已连接");
             return false;
-        }
+        }*/
         isClose = 0;
         socketUrl = $("#socket_url").val();
         ws = new WebSocket(socketUrl);

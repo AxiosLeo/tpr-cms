@@ -13,6 +13,6 @@ namespace library\extend\workman\lib;
 class Single
 {
     public static function send($connect_id,$data){
-
+        Client::getConnect($connect_id)->send($data);
     }
 }

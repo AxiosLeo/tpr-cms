@@ -8,11 +8,12 @@
  */
 namespace library\extend\workman\lib;
 
-use library\extend\workman\Workman;
-use think\App;
 use think\exception\HttpResponseException;
-use think\Route;
 use Workerman\Connection\TcpConnection;
+use library\extend\workman\Workman;
+use think\Loader;
+use think\Route;
+use think\App;
 
 class Request
 {
@@ -25,7 +26,6 @@ class Request
         $connection->lastMessageTime = time();
         $data = self::getResponse($data,$connection);
         if(!empty($data)){
-            $data = Response::result($data);
             $connection->send($data);
         }
     }
@@ -35,23 +35,26 @@ class Request
         if(empty($data)){
             return Response::wrong(500, 'data format wrong');
         }
-        $url = data($data , 's','index/index/index');
-        $params = data($data , 'params',[]);
-        $params = array_merge($params,['connection_id'=>$connection->connection_id]);
+
+        $url      = data($data , 's','index/index/index');
+        $params   = data($data , 'params',[]);
+        $params   = array_merge($params,['connection_id'=>$connection->connection_id]);
         $dispatch = Route::parseUrl($url);
-        $request = \think\Request::instance();
+        $request  = \think\Request::instance();
         $request->setParam($params);
+
         try{
             $data = App::module($dispatch['module'], Workman::$config , $convert = null , $request);
         }catch (HttpResponseException $exception) {
-            $data = $exception->getResponse();
+            $response = $exception->getResponse();
+            $data = $response->getContent();
         }catch (\Exception $e){
             return Response::error($e);
         }
 
-        if ($data instanceof Response) {
-            $data = $data->getData();
-        }
+        // 清空类的实例化
+        Loader::clearInstance();
+
         return $data;
     }
 }
