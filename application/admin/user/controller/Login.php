@@ -58,7 +58,7 @@ class Login extends AdminBase
             Db::name('admin')->where('id', $user['id'])->update($user);
             unset($user['password']);
             unset($user['security_id']);
-            Session::set('user', $user);
+            user_save($user);
 
             /*** 单点登录，记录token ***/
             $expire = intval(Config::get('web.token', 172800));

@@ -7,40 +7,6 @@
  * @datetime: 2017/8/28 下午1:36
  */
 
-function is_user_login(){
-    $user = \think\Session::has('user');
-    return  empty($user) ? false:true;
-}
-
-function user_info($field = ''){
-    $user = \think\Session::get('user');
-    if(empty($field)){
-        return $user;
-    }
-    $data = [];
-    if(is_string($field)){
-        if(strpos($field , ',')){
-            $keys = explode(',' , $field);
-            foreach ($keys as $k){
-                $data[$k] = data($user,$k);
-            }
-        }else{
-            return data($user,$field);
-        }
-    }elseif(is_array($field)){
-        foreach ($field as $k){
-            $data[$k] = data($user,$k);
-        }
-    }
-    $user = $data;
-    return $user;
-}
-
-function user_current_id(){
-    $user = user_info();
-    return $user['id'];
-}
-
 if(!function_exists('get_avatar')){
     function get_user_avatar($avatar = null){
         if(empty($avatar)){
