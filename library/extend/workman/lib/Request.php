@@ -12,7 +12,6 @@ use think\exception\HttpResponseException;
 use Workerman\Connection\TcpConnection;
 use library\extend\workman\Workman;
 use think\Loader;
-use think\Route;
 use think\App;
 
 class Request
@@ -31,20 +30,31 @@ class Request
     }
 
     private static function getResponse($data,$connection){
-        $data = json_decode($data ,true);
-        if(empty($data)){
+        $temp = json_decode($data ,true);
+        if(empty($temp)){
             return Response::wrong(500, 'data format wrong');
+        }else{
+            $data = $temp;
         }
+        $request = \think\Request::instance();
+        $config = Workman::$config;
+        $params = data($data , 'params',[]);
+        if(!is_array($params)){
+            $params = [$params];
+        }
+        if(!is_array($data)){
+            $data = [$data];
+        }
+        $url = data($data , 's' , 'index/index/index');
+        $request->setParam($params);
 
-        $url      = data($data , 's','index/index/index');
-        $params   = data($data , 'params',[]);
-        $params   = array_merge($params,['connection_id'=>$connection->connection_id]);
-        $dispatch = Route::parseUrl($url);
-        $request  = \think\Request::instance();
+        $params = array_merge($params,['connection_id'=>$connection->connection_id]);
+
         $request->setParam($params);
 
         try{
-            $data = App::module($dispatch['module'], Workman::$config , $convert = null , $request);
+            $dispatch = Run::request($url , $request,$config);
+            App::module($dispatch['module'],$config,$convert = null,$request);
         }catch (HttpResponseException $exception) {
             $response = $exception->getResponse();
             $data = $response->getContent();
