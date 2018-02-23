@@ -78,7 +78,7 @@ vim .env
  
  > 123456
  
-* 演示版
+* 演示版(非最新版)
  
  > [http://cms.hanxv.cn](http://cms.hanxv.cn)
  
