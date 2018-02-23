@@ -59,7 +59,6 @@
 ``` shell
 cd tpr-cms
 composer install
-
 cp .env.example .env
 
 #编辑.env文件
@@ -83,14 +82,7 @@ vim .env
  
 * 演示版(非最新版)
  
- > [http://cms.hanxv.cn](http://cms.hanxv.cn)
- 
- > test
- 
- > 123456
- 
- 
- 
+ > [http://cms.hanxv.cn](http://cms.hanxv.cn) 
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
