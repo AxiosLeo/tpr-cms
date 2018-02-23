@@ -15,8 +15,8 @@
                 <label class="layui-form-label">请求方式</label>
                 <div class="layui-input-inline">
                     <select id="post_method" name="post_method" lay-filter="aihao">
-                        <option value="post">POST</option>
-                        <option value="get">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="GET">GET</option>
                     </select>
                 </div>
                 <button id="send" class="layui-btn layui-input-inline" lay-submit="" lay-filter="post">Send</button>
@@ -32,6 +32,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
+                        <blockquote class="layui-elem-quote layui-quote-nm">参数值默认为空，需手动填写</blockquote>
                         <table class="layui-table" id="post_setting_table" lay-filter="post_setting_table">
                             <colgroup>
                                 <col width="150">
@@ -42,7 +43,6 @@
                             <tr>
                                 <th>key</th>
                                 <th>value</th>
-                                <th>operation</th>
                             </tr>
                             </thead>
                             <tbody id="params">
@@ -51,13 +51,10 @@
                             {php}$n++;{/php}
                             <tr>
                                 <td>
-                                    <input class="layui-input" name="key[{$key}]" value="{$p['name']}" placeholder="New Key" >
+                                    <input readonly class="layui-input" name="key[{$key}]" value="{$p['name']}" placeholder="New Key" >
                                 </td>
                                 <td>
                                     <input class="layui-input" name="value[{$key}]" value="" placeholder="{$p['desc']?:'Value'}">
-                                </td>
-                                <td>
-                                    <a class="layui-btn layui-btn-danger" lay-event="debug" >删除</a>
                                 </td>
                             </tr>
                             {/foreach}
@@ -65,7 +62,33 @@
                         </table>
                     </div>
                     <div class="layui-tab-item">
-
+                        <table class="layui-table" id="header_setting_table" lay-filter="header_setting_table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>key</th>
+                                <th>value</th>
+                            </tr>
+                            </thead>
+                            <tbody id="headers">
+                            {php}$n=0;{/php}
+                            {foreach name="headers" item="h"}
+                            {php}$n++;{/php}
+                            <tr>
+                                <td>
+                                    <input readonly class="layui-input" name="key[{$key}]" value="{$h['name']}" placeholder="New Key" >
+                                </td>
+                                <td>
+                                    <input class="layui-input" name="value[{$key}]" value="{$h['value']?:''}" placeholder="{$h['value']?:'Value'}">
+                                </td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -80,51 +103,45 @@
         form = layui.form;
         layer = layui.layer;
         form.render();
+        debug();
     });
     $("#send").click(function () {
-        var url = $("#api_path").val();
-        var method = $("#post_method").val();
-        console.log(url);
-        console.log(method);
-//        return false;
-            var data = getData();
-            console.log(data);
-        $.ajax({
-            url: url,
-            type: method,
-            data: {},
-            cache: false,
-            processData: false,
-            contentType: false,
-            beforeSend: function(xhr,data) {
-                xhr.setRequestHeader("x-app-key", "34889c38e2d2293f94af63b30e4106a7");
-//                    console.log(xhr);
-                console.log(data);
-            },
-            success:function(res,status,xhr){
-                status = xhr.status + ' ' + xhr.statusText;
-                var header = xhr.getAllResponseHeaders();
-                var json_text = JSON.stringify(res, null, 4);    // 缩进4个空格
-                $("#json_output").html('<pre>' + status + '<br/>' + header + '<br/>' + json_text + '</pre>');
-            },
-            error:function(error){
-//                $("#json_output").html(error.responseText);
-            }
-        });
-        return false;
-
+       debug();
     });
 
-
-
-    function addRow(obj) {
-        console.log(obj);
+    function debug() {
+        var url = $("#api_path").val();
+        var method = $("#post_method").val();
+        var headers = getHeader();
+        var form_data = getData();
+        $.post("{:url('api/debug/post')}",{
+            url: url,
+            params: form_data,
+            method: method,
+            headers: headers
+        },function (res) {
+            console.log(res);
+            var header = res.header;
+            var json = JSON.parse(res.content);    // 缩进4个空格
+            var text = JSON.stringify(json, null, 4);
+            $("#json_output").html('<pre>' + status + '<br/>' + header + '<br/>' + text + '</pre>');
+        });
+        return false;
     }
 
     function getData() {
-        var params = new FormData();
-        var objParam = $("#params");
-        var paramRow = objParam.find('tr');
+        var params = {};
+        var paramRow = $("#params").find('tr');
+        $.each(paramRow,function (index,data) {
+            var param = $(data).find('td');
+            params[param.eq(0).find('input').eq(0).val()] = param.eq(1).find('input').eq(0).val();
+        });
+        return params;
+    }
+
+    function getHeader() {
+        var params = {};
+        var paramRow = $("#headers").find('tr');
         $.each(paramRow,function (index,data) {
             var param = $(data).find('td');
             params[param.eq(0).find('input').eq(0).val()] = param.eq(1).find('input').eq(0).val();
