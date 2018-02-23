@@ -48,13 +48,13 @@
 
 ## 安装
 * github
-git clone https://github.com/AxiosCros/tpr-cms.git
+> git clone https://github.com/AxiosCros/tpr-cms.git
 
 * oschina
-git clone https://git.oschina.net/AxiosCro/tpr-cms.git
+> git clone https://git.oschina.net/AxiosCro/tpr-cms.git
 
 * coding
-git clone https://git.coding.net/axios/tpr-cms.git
+> git clone https://git.coding.net/axios/tpr-cms.git
 
 ``` shell
 cd tpr-cms
