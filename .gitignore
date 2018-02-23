@@ -7,7 +7,6 @@ log.txt
 test.html
 .vagrant/
 Vagrantfile
-runtime/
 vendor/
 node_modules/
 Test*
