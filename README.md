@@ -47,13 +47,16 @@
 * 集成**rabbitMq**
 
 ## 安装
-``` shell
-#github
+* github
 git clone https://github.com/AxiosCros/tpr-cms.git
 
-#oschina
+* oschina
 git clone https://git.oschina.net/AxiosCro/tpr-cms.git
 
+* coding
+git clone https://git.coding.net/axios/tpr-cms.git
+
+``` shell
 cd tpr-cms
 composer install
 
