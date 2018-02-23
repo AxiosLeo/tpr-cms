@@ -80,9 +80,9 @@ class Debug extends AdminLogin
 
     public function post(){
         $url = $this->request->param('url','');
-        $params = $this->param['params'];
+        $params = isset($this->param['params']) ? $this->param['params'] : [];
         $method = $this->request->param('method','GET');
-        $header = $this->param['headers'];
+        $header = isset($this->param['headers']) ? $this->param['headers'] : [];
 
         $result = $this->curl($url,$params,$method,$header);
         $this->ajaxReturn($result);
