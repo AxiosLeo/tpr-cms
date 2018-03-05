@@ -58,12 +58,13 @@ class CodeService
             '0' => $code, '1' => $time / 60
         ];
 
-        $result = RestService::rest(self::$rest)->sentMessage($to, $data, 'code');
+        $result = AliyunMessageService::instance(self::$rest)->sendCode($to, $data, 'code');
+
         if ($result) {
             RedisService::redis()->switchDB(0)->set($key, strval($code), $time);
         } else {
-            self::$code = RestService::$code;
-            self::$msg = RestService::$msg;
+            self::$code = "500";
+            self::$msg = "message send service error";
         }
         return $result;
     }
