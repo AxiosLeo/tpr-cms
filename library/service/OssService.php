@@ -8,85 +8,66 @@
  */
 namespace library\service;
 
-use Aliyun\Common\Exceptions\ClientException;
-use Aliyun\OSS\Exceptions\OSSException;
-use JohnLui\AliyunOSS;
+use aliyun\sdk\Aliyun;
+use aliyun\sdk\oss\Oss;
+use OSS\Core\OssException;
+use OSS\OssClient;
 use think\Config;
 
 class OssService{
-    /**
-     * @var AliyunOSS
-     */
-    public static $oss;
+    protected static $config_index = "default" ;
 
-    public static $config = [
-        'city'=>'杭州',
-        'network_type'=>'经典网络',
-        'is_internal'=>'',
+    protected static $config = [
         'access_key_id'=>'',
         'access_key_secret'=>'',
+        'region_id'=>''
     ];
 
-    public static $instance ;
+    /**
+     * @var OssClient
+     */
+    protected static $ossClient;
 
-    protected static $select = '';
+    protected static $instance;
 
-    public static $code = 404;
-
-    public static $msg = 'not exist';
-
-    public function __construct($select = 'default')
+    public function __construct($config_index)
     {
-        self::config($select);
+        self::config($config_index);
     }
 
-    private static function config($select){
-        $config = Config::get('oss.'.$select);
-        self::$select = $select;
+    public static function oss($config_index = "default"){
+        if(is_null(self::$instance) || self::$config_index != $config_index){
+            self::$instance = new static($config_index);
+        }
+
+        return self::$instance;
+    }
+
+    protected static function config($config_index){
+        $config = Config::get('oss.' . $config_index);
         $config = array_merge(self::$config,$config);
 
-        $city         = $config['city'];
-        $networkType  = $config['network_type'];
-        $isInternal   = $config['is_internal'];
-        $AccessKeyId  = $config['access_key_id'];
-        $AccessKeySecret = $config['access_key_secret'];
+        Aliyun::auth($config['access_key_id'], $config['access_key_secret']);
+        Aliyun::region($config['region_id']);
 
-        self::$oss = new AliyunOSS($city, $networkType, $isInternal, $AccessKeyId, $AccessKeySecret);
+        self::$ossClient = Oss::factory();
     }
 
-    public static function oss($select = 'default'){
-        if(self::$instance == null){
-            self::$instance = new static($select);
-        }
-
-        if(self::$select != $select){
-            self::config($select);
-        }
-
-        return self::$oss;
+    public function client(){
+        return self::$ossClient;
     }
 
-    public static function fileExist($key = '', $bucket = '',$select = 'default')
-    {
-        try {
-            $key = !empty($key) ? $key : 'empty';
-            self::oss($select)->getObjectMeta($bucket, $key);
+    public function fileExist($key, $bucket){
+        try{
+            self::$ossClient->getObjectMeta($bucket, $key);
             return true;
-        } catch (OSSException $e) {
-            if ($e->getErrorCode() == 'NoSuchKey') {
-                self::$msg = $e->getErrorCode();
-                return false;
-            }
-        } catch(ClientException $e){
-            self::$msg = $e->getMessage();
-            self::$code = 500;
+        }catch (OssException $e){
             return false;
         }
-        return true;
     }
 
-    public static function ossHost($select = 'default'){
-        $oss_config = config('oss.' . $select);
+    public static function ossHost($config_index = "default"){
+        $oss_config = config('oss.' . $config_index);
         $oss_host = data($oss_config , 'custom_host' , 'http://oss-yd-pianobridge.pianobridge.cn/');
         return $oss_host;
     }
