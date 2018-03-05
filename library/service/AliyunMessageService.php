@@ -59,10 +59,9 @@ class AliyunMessageService
     public function sendCode($mobile, $code, $template = 'code', $code_key = 'name')
     {
         if (isset(self::$template[$template])) {
-            self::$sms->setPhoneNumbers($mobile)
-                ->setTemplateCode(self::$template[$template])
-                ->setTemplateParam([$code_key => $code])
-                ->send();
+            $param = [$code_key => $code];
+            $this->sendMessage($mobile,'code',$param);
+            return true;
         }
         return false;
     }
@@ -73,7 +72,9 @@ class AliyunMessageService
             self::$sms->setPhoneNumbers($mobile)
                 ->setTemplateCode(self::$template[$template])
                 ->setTemplateParam($param)
+                ->setSignName(self::$config['signName'])
                 ->send();
+            return true;
         }
         return false;
     }
