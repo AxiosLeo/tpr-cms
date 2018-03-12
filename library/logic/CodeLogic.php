@@ -48,7 +48,7 @@ class CodeLogic
         return self::$instance;
     }
 
-    public function setMacCode($maxCode){
+    public function setMaxCode($maxCode){
         self::$maxCode = $maxCode;
         return self::$instance;
     }
