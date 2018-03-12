@@ -21,6 +21,10 @@ class Node extends AdminLogin
 {
     /**
      * 权限管理
+     * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index(){
         if($this->request->isPost()){
@@ -36,6 +40,9 @@ class Node extends AdminLogin
 
     /**
      * 获取权限节点数据
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function auth(){
         $role_id = $this->request->param('role_id',0);

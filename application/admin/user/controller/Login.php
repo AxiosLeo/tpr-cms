@@ -24,7 +24,11 @@ class Login extends AdminBase
     /**
      * 登陆
      * @return mixed
-     * @except
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function index()
     {

@@ -18,6 +18,9 @@ class Index extends AdminLogin
     /**
      * 后台系统主页面
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -26,6 +29,12 @@ class Index extends AdminLogin
         return $this->fetch('index');
     }
 
+    /**
+     * @return array|false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     protected function menu()
     {
         $role_id = user_info('role_id');

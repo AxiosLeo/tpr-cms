@@ -15,6 +15,13 @@ use think\Request;
 
 class WechatLogin extends WechatBase
 {
+    /**
+     * WechatLogin constructor.
+     * @param Request|null $request
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function __construct(Request $request = null)
     {
         parent::__construct($request);

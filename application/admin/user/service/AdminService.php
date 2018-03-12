@@ -14,6 +14,13 @@ use think\Db;
 
 class AdminService
 {
+    /**
+     * @param $id
+     * @return array|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function getSessionInfo($id)
     {
         $user = Db::name('admin')->where('id', $id)->find();

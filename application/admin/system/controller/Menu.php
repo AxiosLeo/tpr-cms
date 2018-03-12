@@ -19,6 +19,9 @@ class Menu extends AdminLogin
     /**
      * 菜单管理
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -37,6 +40,9 @@ class Menu extends AdminLogin
     /**
      * 添加菜单
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function add()
     {
@@ -77,6 +83,9 @@ class Menu extends AdminLogin
 
     /**
      * 获取菜单数据
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getMenu()
     {
@@ -85,6 +94,12 @@ class Menu extends AdminLogin
 
     /**
      * 编辑菜单信息
+     * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function edit()
     {
@@ -121,6 +136,8 @@ class Menu extends AdminLogin
 
     /**
      * 删除菜单
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function delete()
     {
@@ -134,6 +151,9 @@ class Menu extends AdminLogin
 
     /**
      * 获取所有菜单
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getAllMenu()
     {

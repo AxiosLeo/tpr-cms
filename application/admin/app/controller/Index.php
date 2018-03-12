@@ -17,6 +17,9 @@ class Index extends AdminLogin{
     /**
      * 应用列表
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -45,6 +48,11 @@ class Index extends AdminLogin{
     /**
      * 编辑应用信息
      * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function edit(){
         $id = $this->param['id'];
@@ -69,6 +77,9 @@ class Index extends AdminLogin{
     /**
      * 查看应用详细信息
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function view()
     {

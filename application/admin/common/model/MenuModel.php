@@ -27,6 +27,14 @@ class MenuModel extends Model
         return new self();
     }
 
+    /**
+     * @param int $parent_id
+     * @param $role_id
+     * @return array|false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function menus($parent_id = 0 , $role_id)
     {
         $tmp = Db::name('menu')->where('parent_id', $parent_id)
@@ -49,6 +57,13 @@ class MenuModel extends Model
         return $list;
     }
 
+    /**
+     * @param bool $only_parent
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function getMenu($only_parent = false)
     {
         $menus = $this->where('parent_id', 0)
@@ -64,11 +79,27 @@ class MenuModel extends Model
         return $menus;
     }
 
+    /**
+     * @param int $parent_id
+     * @param int $role_id
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function getMenuTree($parent_id = 0, $role_id = 0)
     {
         return $this->menuTree($parent_id, $role_id);
     }
 
+    /**
+     * @param int $parent_id
+     * @param int $role_id
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     private function menuTree($parent_id = 0, $role_id = 0)
     {
         $this->where('parent_id', $parent_id);

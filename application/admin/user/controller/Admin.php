@@ -19,6 +19,9 @@ class Admin extends AdminLogin
     /**
      * 用户管理
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -55,6 +58,9 @@ class Admin extends AdminLogin
     /**
      * 添加管理员
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function add(){
         if( $this->request->isPost()){
@@ -98,6 +104,11 @@ class Admin extends AdminLogin
     /**
      * 编辑管理员用户信息
      * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function edit()
     {
@@ -127,6 +138,8 @@ class Admin extends AdminLogin
 
     /**
      * 删除管理员用户
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function delete(){
         $id = $this->request->param('id',0);

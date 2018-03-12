@@ -22,6 +22,13 @@ class ApiBase extends Controller{
 
     protected static $app_key , $timestamp , $sign , $app_status , $app_secret;
 
+    /**
+     * ApiBase constructor.
+     * @param Request|null $request
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
@@ -41,6 +48,9 @@ class ApiBase extends Controller{
 
     /**
      * 检验app_key的有效性
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     protected function checkAppKey(){
         $app_version = Db::name('app_version')->where('app_key', self::$app_key)->find();

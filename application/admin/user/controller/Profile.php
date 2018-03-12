@@ -19,6 +19,8 @@ class Profile extends AdminLogin
 {
     /**
      * 更新用户信息
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function update()
     {

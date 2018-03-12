@@ -18,6 +18,9 @@ class Index extends AdminLogin
     /**
      * 用户信息
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function profile()
     {
@@ -30,6 +33,11 @@ class Index extends AdminLogin
     /**
      * 修改密码
      * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function password()
     {

@@ -19,6 +19,16 @@ class NodeLogic
 
     public static $roleId = 0;
 
+    /**
+     * @param int $page
+     * @param int $limit
+     * @param string $app_name
+     * @param string $app_path
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE , $app_path = APP_PATH)
     {
         $load_path = [
@@ -68,6 +78,13 @@ class NodeLogic
         ];
     }
 
+    /**
+     * @param $role_id
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function roleNode($role_id)
     {
         if (self::$roleId == $role_id && !empty(self::$roleNode)) {

@@ -18,6 +18,10 @@ class Version extends AdminLogin
 {
     /**
      * 版本列表
+     * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index(){
         if($this->request->isPost()){
@@ -71,6 +75,9 @@ class Version extends AdminLogin
     /**
      * 发布时间线
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function timeLine(){
         $list = Db::name('app_version')->alias('v')
@@ -87,6 +94,11 @@ class Version extends AdminLogin
     /**
      * 发布新版本
      * @return mixed
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @throws \think\exception\PDOException
      */
     public function publish()
     {
@@ -152,6 +164,9 @@ class Version extends AdminLogin
 
     /**
      * 获取版本号
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getVersion()
     {
@@ -179,6 +194,9 @@ class Version extends AdminLogin
     /**
      * 版本描述(未启用)
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function remark(){
         $id = $this->request->param('id',0);
