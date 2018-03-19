@@ -20,16 +20,16 @@ class MailService extends PHPMailer
     private static $instance;
 
     private static $config = [
-        'is_smtp'    =>true,
-        'host'       =>'smtp.qq.com',
-        'port'       =>465,
-        'smtp_auth'  =>true,
-        'username'   =>'',
-        'password'   =>'',
-        'email'      =>'',
-        'from_name'  =>'',
-        'smtp_secure'=>'ssl',
-        'char_set'   =>'UTF-8'
+        'is_smtp'    => true,
+        'host'       => 'smtp.qq.com',
+        'port'       => 465,
+        'smtp_auth'  => true,
+        'username'   => '',
+        'password'   => '',
+        'email'      => '',
+        'from_name'  => '',
+        'smtp_secure'=> 'ssl',
+        'char_set'   => 'UTF-8'
     ];
 
     public static function mail($config = 'default', $isHtml = true, $debug = false)
