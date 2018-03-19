@@ -41,6 +41,8 @@ class MailService extends PHPMailer
             self::$config = array_merge(self::$config,$config);
         }
 
+        $config = self::$config;
+
         self::$instance = new self();
 
         if (isset($config['is_smtp']) && $config['is_smtp']) {
