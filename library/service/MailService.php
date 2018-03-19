@@ -12,55 +12,83 @@ namespace library\service;
 use PHPMailer\PHPMailer\PHPMailer;
 use think\Config;
 
-class MailService
+class MailService extends PHPMailer
 {
+    /**
+     * @var $this
+     */
+    private static $instance;
 
-    private static $debug = false;
+    private static $config = [
+        'is_smtp'    =>true,
+        'host'       =>'smtp.qq.com',
+        'port'       =>465,
+        'smtp_auth'  =>true,
+        'username'   =>'',
+        'password'   =>'',
+        'email'      =>'',
+        'from_name'  =>'',
+        'smtp_secure'=>'ssl',
+        'char_set'   =>'UTF-8'
+    ];
 
-    public static function mail($config_index = 'default', $from = '', $isHtml = true)
+    public static function mail($config = 'default', $isHtml = true, $debug = false)
     {
-        $config = Config::get('mail.' . $config_index);
-        if (empty($config)) {
-            return false;
+        if (is_string($config)) {
+            $config = Config::get('mail.' . $config, []);
+            self::$config = array_merge(self::$config,$config);
+        }else if(is_array($config)){
+            self::$config = array_merge(self::$config,$config);
         }
-        $mail = new PHPMailer();
+
+        self::$instance = new self();
+
         if (isset($config['is_smtp']) && $config['is_smtp']) {
-            $mail->isSMTP();
-            $mail->SMTPAuth = true;
+            self::$instance->isSMTP();
+            self::$instance->SMTPAuth = true;
         }
-        if (self::$debug) {
-            $mail->SMTPDebug = 1;
+
+        if ($debug) {
+            self::$instance->SMTPDebug = 1;
         }
+
         //smtp服务器地址
-        $mail->Host = $config['host'];
+        self::$instance->Host = $config['host'];
+
         //设置ssl连接smtp服务器的远程服务器端口号
-        $mail->Port = $config['port'];
-        $mail->SMTPAuth = $config['smtp_auth'];
+        self::$instance->Port = $config['port'];
+        self::$instance->SMTPAuth = $config['smtp_auth'];
+
         //设置使用ssl加密方式登录鉴权
-        $mail->SMTPSecure = $config['smtp_secure'];
+        self::$instance->SMTPSecure = $config['smtp_secure'];
+
         //smtp登录的账号
-        $mail->Username = $config['username'];
+        self::$instance->Username = $config['username'];
+
         //smtp登录的密码
-        $mail->Password = $config['password'];
+        self::$instance->Password = $config['password'];
+
         //设置发件人邮箱地址
-        $mail->From = empty($from) ? $config['email'] : $from;
-        $mail->FromName = $config['from_name'];
+        self::$instance->From = empty($from) ? $config['email'] : $from;
+        self::$instance->FromName = $config['from_name'];
+
         if ($isHtml) {
             //邮件正文是否为html编码
-            $mail->isHTML(true);
+            self::$instance->isHTML(true);
         }
+
         //设置发送的邮件的编码
-        $mail->CharSet = $config['char_set'];
-        return $mail;
+        self::$instance->CharSet = $config['char_set'];
+        return self::$instance;
     }
 
-    public static function mailContent(PHPMailer $mail, $subject, $body, $altBody = '')
+    public function setContent($subject, $body, $altBody = '')
     {
-        $mail->Subject = $subject;
-        $mail->Body = $body;
+        self::$instance->Subject = $subject;
+        self::$instance->Body = $body;
         if (!empty($altBody)) {
-            $mail->AltBody = $altBody;
+            self::$instance->AltBody = $altBody;
         }
-        return $mail;
+        return self::$instance;
     }
 }
