@@ -8,15 +8,5 @@
  */
 
 return [
-    'aliyun_message'=>[
-        'accessKeyId'=>'',
-        'accessSecret'=>'',
-        'signName'=>'',
-        'templateCode'=>[
-            'code'=>'SMS_1111',
-            'forgot'=>'SMS_222',
-            'register'=>'SMS_333',
-            'birthday'=>'SMS_444'
-        ]
-    ]
+
 ];

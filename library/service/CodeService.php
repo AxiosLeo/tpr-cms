@@ -54,11 +54,7 @@ class CodeService
         $key = self::key($to);
         $code = mt_rand(100000, 999999);
 
-        $data = [
-            '0' => $code, '1' => $time / 60
-        ];
-
-        $result = AliyunMessageService::instance(self::$rest)->sendCode($to, $data, 'code');
+        $result = SmsService::instance('sms.'.self::$rest)->sendCode($to, $code, 'code');
 
         if ($result) {
             RedisService::redis()->switchDB(0)->set($key, strval($code), $time);

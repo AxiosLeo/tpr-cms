@@ -14,7 +14,7 @@ namespace library\service;
 use aliyun\sdk\sms\Sms;
 use think\Config;
 
-class AliyunMessageService
+class SmsService
 {
 
     public static $instance;
@@ -49,7 +49,7 @@ class AliyunMessageService
             self::$config_index = $config_index;
         }
 
-        self::$config = array_merge(self::$config, Config::get($config_index));
+        self::$config = array_merge(self::$config, Config::get($config_index,[]));
         self::$sms = Sms::factory(self::$config['accessKeyId'], self::$config['accessSecret']);
         self::$template = self::$config['templateCode'];
 

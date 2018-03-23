@@ -30,9 +30,10 @@ class Auth extends WechatBase
     }
 
     public function auth(){
-        $this->redirect($this->Oauth->getOauthRedirect(
+        $authRedirect = $this->Oauth->getOauthRedirect(
             url('index/auth/authCallback', ['redirect'=>base64_encode($this->redirect)],'',$this->host), $this->state,"snsapi_userinfo"
-        ));
+        );
+        $this->redirect($authRedirect);
     }
 
     /**
@@ -77,5 +78,26 @@ class Auth extends WechatBase
             $this->redirect($this->redirect);
         }
         return 0;
+    }
+
+    public function api(){
+        //1. 将timestamp , nonce , token 按照字典排序
+        $timestamp = $this->request->param('timestamp','');
+        $nonce = $this->request->param('nonce','');
+        $token = $this->config['token'];
+        $signature = $this->request->param('signature','');
+        $array = array($timestamp,$nonce,$token);
+        sort($array);
+
+        //2.将排序后的三个参数拼接后用sha1加密
+        $str = implode('',$array);
+        $str = sha1($str);
+
+        //3. 将加密后的字符串与 signature 进行对比, 判断该请求是否来自微信
+        if($str == $signature)
+        {
+            echo $this->request->param('echostr','echostr');
+        }
+        die();
     }
 }
