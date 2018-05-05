@@ -10,6 +10,7 @@ namespace library\exception;
 
 use Exception;
 use think\exception\Handle;
+use think\Response;
 use traits\controller\Jump;
 
 class HttpException extends Handle {
@@ -33,8 +34,12 @@ class HttpException extends Handle {
                 'time'=>$_SERVER['REQUEST_TIME']
             ];
 
-            $this->response($req);
+            $return_type = c('default_ajax_return','json');
+            if(empty($return_type)){
+                $return_type = "json";
+            }
+            Response::create($req,$return_type,"500")->send();
+            die();
         }
-        return null;
     }
 }
