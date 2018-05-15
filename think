@@ -10,8 +10,16 @@
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
 
-// 定义项目路径
-define('APP_PATH', __DIR__ . '/application/');
+define('BASE_NAMESPACE', 'tpr');
+
+define('PROJECT_NAME','command');
+define('ROOT_PATH', __DIR__ . '/');
+define('APP_PATH', ROOT_PATH . '/' . PROJECT_NAME . '/');
+define('CONF_PATH', ROOT_PATH . 'config/');
+define('RUNTIME_PATH', ROOT_PATH . 'runtime/' . PROJECT_NAME . '/');
+define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);
+define('THINK_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
+define('DS', DIRECTORY_SEPARATOR);
 
 // 加载框架引导文件
-require 'vendor/axios/tpr-framework/console.php';
+require THINK_PATH.'console.php';
