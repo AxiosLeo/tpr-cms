@@ -1,25 +1,10 @@
 #!/usr/bin/env php
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: yunwuxin <448901948@qq.com>
-// +----------------------------------------------------------------------
 
-define('BASE_NAMESPACE', 'tpr');
 
 define('PROJECT_NAME','command');
-define('ROOT_PATH', __DIR__ . '/');
-define('APP_PATH', ROOT_PATH . '/' . PROJECT_NAME . '/');
-define('CONF_PATH', ROOT_PATH . 'config/');
-define('RUNTIME_PATH', ROOT_PATH . 'runtime/' . PROJECT_NAME . '/');
-define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);
-define('THINK_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
-define('DS', DIRECTORY_SEPARATOR);
+
+require_once __DIR__ . '/init.php';
 
 // 加载框架引导文件
 require THINK_PATH.'console.php';
