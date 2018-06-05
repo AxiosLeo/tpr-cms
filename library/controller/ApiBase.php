@@ -10,7 +10,7 @@ namespace library\controller;
 
 use tpr\framework\Controller;
 use tpr\framework\Crypt;
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Log;
 use tpr\framework\Request;
 
@@ -56,14 +56,14 @@ class ApiBase extends Controller{
      * @throws \tpr\db\exception\PDOException
      */
     protected function checkAppKey(){
-        $app_version = Db::name('app_version')->where('app_key', self::$app_key)->find();
+        $app_version = Mysql::name('app_version')->where('app_key', self::$app_key)->find();
         if(empty($app_version)){
             $this->wrong(400 , 'app_key not exist');
         }
 
         self::$app_status = data($app_version,'app_status',0);
 
-        $app = Db::name('app')->where('app_id', $app_version['app_id'])->field('app_id, app_secret')->find();
+        $app = Mysql::name('app')->where('app_id', $app_version['app_id'])->field('app_id, app_secret')->find();
         if(empty($app)){
             $this->wrong(400,'app not exist');
         }

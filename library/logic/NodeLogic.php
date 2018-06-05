@@ -9,7 +9,7 @@
 
 namespace library\logic;
 
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Doc;
 
 class NodeLogic
@@ -61,7 +61,7 @@ class NodeLogic
 
         $node_list = $page ? array_slice($node_list, ($page - 1) * $limit, $limit) : $node_list;
 
-        $menus = Db::name('menu')->field('title , module , controller , func')->select();
+        $menus = Mysql::name('menu')->field('title , module , controller , func')->select();
         $menu_list = [];
         foreach ($menus as &$m) {
             $path = $m['module'] . '/' . $m['controller'] . '/' . $m['func'];
@@ -95,7 +95,7 @@ class NodeLogic
 
         self::$roleId = $role_id;
 
-        $role_node_list = Db::name('role_node')->where('role_id', self::$roleId)->where('disabled',0)->select();
+        $role_node_list = Mysql::name('role_node')->where('role_id', self::$roleId)->where('disabled',0)->select();
 
         $role_node_array = [];
 

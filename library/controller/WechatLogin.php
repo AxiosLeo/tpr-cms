@@ -9,7 +9,6 @@
 
 namespace library\controller;
 
-
 use library\logic\UserLogic;
 use tpr\framework\Request;
 
@@ -18,9 +17,11 @@ class WechatLogin extends WechatBase
     /**
      * WechatLogin constructor.
      * @param Request|null $request
-     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      * @throws \tpr\framework\Exception
-     * @throws \tpr\framework\exception\DbException
      */
     public function __construct(Request $request = null)
     {
