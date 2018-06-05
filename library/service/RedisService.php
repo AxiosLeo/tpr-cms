@@ -9,7 +9,7 @@
 
 namespace library\service;
 
-use think\Config;
+use tpr\framework\Config;
 
 /**
  * Class RedisService

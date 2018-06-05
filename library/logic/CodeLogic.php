@@ -10,8 +10,8 @@
 namespace library\logic;
 
 use library\service\RedisService;
-use think\Exception;
-use think\Tool;
+use tpr\framework\Exception;
+use tpr\framework\Tool;
 
 /**
  * 兑换码批量生成逻辑类

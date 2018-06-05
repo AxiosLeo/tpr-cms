@@ -9,11 +9,11 @@
 
 namespace server\traits;
 
-use think\App;
-use think\exception\HttpResponseException;
-use think\Request;
-use think\Response;
-use think\Route;
+use tpr\framework\App;
+use tpr\framework\exception\HttpResponseException;
+use tpr\framework\Request;
+use tpr\framework\Response;
+use tpr\framework\Route;
 
 /**
  * Trait Jump

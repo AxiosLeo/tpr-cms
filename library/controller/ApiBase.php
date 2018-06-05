@@ -8,11 +8,11 @@
  */
 namespace library\controller;
 
-use think\Controller;
-use think\Crypt;
-use think\Db;
-use think\Log;
-use think\Request;
+use tpr\framework\Controller;
+use tpr\framework\Crypt;
+use tpr\db\Db;
+use tpr\framework\Log;
+use tpr\framework\Request;
 
 class ApiBase extends Controller{
 
@@ -25,9 +25,11 @@ class ApiBase extends Controller{
     /**
      * ApiBase constructor.
      * @param Request|null $request
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function __construct(Request $request = null)
     {
@@ -48,9 +50,10 @@ class ApiBase extends Controller{
 
     /**
      * 检验app_key的有效性
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     protected function checkAppKey(){
         $app_version = Db::name('app_version')->where('app_key', self::$app_key)->find();

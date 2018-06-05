@@ -9,14 +9,14 @@
 
 namespace library\extend\workman\lib;
 
-use think\App;
-use think\exception\RouteNotFoundException;
-use think\Lang;
-use think\Route;
+use tpr\framework\App;
+use tpr\framework\exception\RouteNotFoundException;
+use tpr\framework\Lang;
+use tpr\framework\Route;
 
 class Run extends App
 {
-    public static function request($path,\think\Request $request , $config){
+    public static function request($path,\tpr\framework\Request $request , $config){
         if (defined('BIND_MODULE')) {
             // 模块/控制器绑定
             BIND_MODULE && Route::bind(BIND_MODULE);
@@ -60,7 +60,7 @@ class Run extends App
         return parent::exec($dispatch, $config);
     }
 
-    public static function checkRoute($path , \think\Request $request, array $config)
+    public static function checkRoute($path , \tpr\framework\Request $request, array $config)
     {
         $depr = $config['pathinfo_depr'];
         $result = false;

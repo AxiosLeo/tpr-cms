@@ -15,6 +15,7 @@ class Index extends AdminLogin{
     /**
      * 接口调试
      * @return mixed
+     * @throws \tpr\framework\Exception
      */
     public function index(){
 

@@ -10,14 +10,15 @@
 namespace tpr\admin\system\controller;
 
 use tpr\admin\common\controller\AdminLogin;
-use think\Tool;
-use think\Doc;
+use tpr\framework\Tool;
+use tpr\framework\Doc;
 
 class Api extends AdminLogin
 {
     /**
      * 接口管理
      * @return mixed
+     * @throws \tpr\framework\Exception
      */
     public function index()
     {

@@ -12,9 +12,9 @@ use library\extend\workman\lib\Connect;
 use library\extend\workman\lib\Request;
 use library\extend\workman\lib\Response;
 use library\extend\workman\lib\Task;
-use think\App;
-use think\Config;
-use think\Env;
+use tpr\framework\App;
+use tpr\framework\Config;
+use tpr\framework\Env;
 use Workerman\Worker;
 
 class Workman

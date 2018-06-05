@@ -12,16 +12,19 @@ namespace tpr\admin\system\controller;
 use library\logic\NodeLogic;
 use tpr\admin\common\controller\AdminLogin;
 use tpr\admin\common\model\MenuModel;
-use think\Db;
+use tpr\db\Db;
 
 class Menu extends AdminLogin
 {
     /**
      * 菜单管理
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\exception\DbException
      */
     public function index()
     {
@@ -40,9 +43,13 @@ class Menu extends AdminLogin
     /**
      * 添加菜单
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function add()
     {
@@ -83,9 +90,8 @@ class Menu extends AdminLogin
 
     /**
      * 获取菜单数据
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\framework\exception\DbException
      */
     public function getMenu()
     {
@@ -95,11 +101,13 @@ class Menu extends AdminLogin
     /**
      * 编辑菜单信息
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function edit()
     {
@@ -136,8 +144,11 @@ class Menu extends AdminLogin
 
     /**
      * 删除菜单
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function delete()
     {
@@ -151,9 +162,11 @@ class Menu extends AdminLogin
 
     /**
      * 获取所有菜单
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function getAllMenu()
     {

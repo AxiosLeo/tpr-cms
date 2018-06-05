@@ -10,7 +10,7 @@
 namespace tpr\admin\index\controller;
 
 
-use think\Controller;
+use tpr\framework\Controller;
 
 class Message extends Controller
 {

@@ -11,9 +11,9 @@ namespace library\logic;
 
 use library\exception\NamespaceException;
 use library\exception\PathNotException;
-use think\App;
-use think\Cache;
-use think\Doc;
+use tpr\framework\App;
+use tpr\framework\Cache;
+use tpr\framework\Doc;
 
 /**
  * @package library\logic

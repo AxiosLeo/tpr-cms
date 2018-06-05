@@ -12,7 +12,7 @@ namespace library\service;
 namespace library\service;
 
 use aliyun\sdk\sms\Sms;
-use think\Config;
+use tpr\framework\Config;
 
 class SmsService
 {

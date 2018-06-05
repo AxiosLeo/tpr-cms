@@ -9,8 +9,8 @@
 
 namespace tpr\admin\app\controller;
 
-use think\Db;
-use think\Tool;
+use tpr\db\Db;
+use tpr\framework\Tool;
 use tpr\admin\app\validate\Application;
 use tpr\admin\common\controller\AdminLogin;
 
@@ -19,9 +19,11 @@ class Version extends AdminLogin
     /**
      * 版本列表
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function index(){
         if($this->request->isPost()){
@@ -75,9 +77,10 @@ class Version extends AdminLogin
     /**
      * 发布时间线
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function timeLine(){
         $list = Db::name('app_version')->alias('v')
@@ -94,11 +97,11 @@ class Version extends AdminLogin
     /**
      * 发布新版本
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function publish()
     {
@@ -164,9 +167,10 @@ class Version extends AdminLogin
 
     /**
      * 获取版本号
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function getVersion()
     {
@@ -194,9 +198,11 @@ class Version extends AdminLogin
     /**
      * 版本描述(未启用)
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function remark(){
         $id = $this->request->param('id',0);

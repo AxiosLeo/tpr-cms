@@ -11,7 +11,7 @@ namespace tpr\server\index\controller;
 
 use library\extend\workman\lib\Connect;
 use library\extend\workman\lib\Single;
-use think\Controller;
+use tpr\framework\Controller;
 
 class Index extends Controller
 {

@@ -9,7 +9,9 @@
 
 namespace library\connector;
 
-use think\Db;
+use tpr\db\Db;
+use tpr\db\exception\InvalidArgumentException;
+use tpr\framework\Config;
 
 /**
  * Trait Common
@@ -19,20 +21,32 @@ trait Base
 {
     /**
      * @param $name
-     * @return \think\db\Query
+     * @return \tpr\db\core\Query
      */
     public static function name($name)
     {
-        return Db::model(self::$connect . $name , self::$connect )->name($name);
+        try{
+            $db = Db::model(self::$connect)->name($name);
+        }catch (InvalidArgumentException $e){
+            $config = Config::get(self::$connect);
+            $db = Db::connect($config,self::$connect)->name($name);
+        }
+        return $db;
     }
 
     /**
      * @param $table
-     * @return \think\db\Query
+     * @return \tpr\db\core\Query
      */
     public static function table($table)
     {
-        return Db::model(self::$connect . $table, self::$connect)->table($table);
+        try{
+            $db = Db::model(self::$connect)->table($table);
+        }catch (InvalidArgumentException $e){
+            $config = Config::get(self::$connect);
+            $db = Db::connect($config,self::$connect)->table($table);
+        }
+        return $db;
     }
 
 }

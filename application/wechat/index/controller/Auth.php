@@ -11,10 +11,10 @@ namespace tpr\wechat\index\controller;
 
 use library\controller\WechatBase;
 use library\logic\UserLogic;
-use think\Cache;
-use think\Db;
-use think\Request;
-use think\Session;
+use tpr\framework\Cache;
+use tpr\db\Db;
+use tpr\framework\Request;
+use tpr\framework\Session;
 
 class Auth extends WechatBase
 {
@@ -38,9 +38,12 @@ class Auth extends WechatBase
 
     /**
      * @return int|mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\exception\DbException
      */
     public function authCallback()
     {

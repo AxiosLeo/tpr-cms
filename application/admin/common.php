@@ -10,14 +10,14 @@
 if (!function_exists('is_user_login')) {
     function is_user_login($prefix = PROJECT_NAME)
     {
-        $user = \think\Session::has($prefix . '_user');
+        $user = \tpr\framework\Session::has($prefix . '_user');
         return empty($user) ? false : true;
     }
 }
 
 if(!function_exists('clear_user_login')){
     function clear_user_login($prefix = PROJECT_NAME){
-        \think\Session::delete($prefix . '_user');
+        \tpr\framework\Session::delete($prefix . '_user');
         return true;
     }
 }
@@ -25,7 +25,7 @@ if(!function_exists('clear_user_login')){
 if (!function_exists('user_info')) {
     function user_info($field = '',$prefix = PROJECT_NAME)
     {
-        $user = \think\Session::get($prefix . '_user');
+        $user = \tpr\framework\Session::get($prefix . '_user');
         if (empty($field)) {
             return $user;
         }
@@ -52,7 +52,7 @@ if (!function_exists('user_info')) {
 if (!function_exists('user_save')) {
     function user_save($user,$prefix = PROJECT_NAME)
     {
-        \think\Session::set($prefix . '_user', $user);
+        \tpr\framework\Session::set($prefix . '_user', $user);
     }
 }
 
@@ -66,7 +66,7 @@ if (!function_exists('user_current_id')) {
 if (!function_exists('getLastUrl')) {
     function getLastUrl()
     {
-        return \think\Session::get('last_url');
+        return \tpr\framework\Session::get('last_url');
     }
 }
 

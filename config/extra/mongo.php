@@ -8,13 +8,13 @@
  */
 return [
     "default"=>[
-        "type"              => '\\library\\extend\\mongo\\Connection',
-        "hostname"          => \think\Env::get('mongo.hostname','127.0.0.1'),
-        "database"          => \think\Env::get('mongo.database','test'),
-        "username"          => \think\Env::get('mongo.username','test'),
-        "password"          => \think\Env::get('mongo.password','123456'),
-        "hostport"          => \think\Env::get('mongo.hostport','27017'),
-        "dsn"               => \think\Env::get('mongo.dsn',''),
+        "type"              => '\\tpr\\db\\connector\\MongoConnection',
+        "hostname"          => \tpr\framework\Env::get('mongo.hostname','127.0.0.1'),
+        "database"          => \tpr\framework\Env::get('mongo.database','test'),
+        "username"          => \tpr\framework\Env::get('mongo.username','test'),
+        "password"          => \tpr\framework\Env::get('mongo.password','123456'),
+        "hostport"          => \tpr\framework\Env::get('mongo.hostport','27017'),
+        "dsn"               => \tpr\framework\Env::get('mongo.dsn',''),
         "params"            => [],
         "charset"           => "utf8",
         "pk"                => "_id",
@@ -34,7 +34,7 @@ return [
         "type_map" => [
             "root" =>"array",
             "document"=>"array",
-            "query" =>"\\library\\extend\\mongo\\Query"
+            "query" =>"\\tpr\\db\\query\\MongoQuery"
         ]
     ]
 ];

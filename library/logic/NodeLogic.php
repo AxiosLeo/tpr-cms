@@ -9,8 +9,8 @@
 
 namespace library\logic;
 
-use think\Db;
-use think\Doc;
+use tpr\db\Db;
+use tpr\framework\Doc;
 
 class NodeLogic
 {
@@ -25,9 +25,10 @@ class NodeLogic
      * @param string $app_name
      * @param string $app_path
      * @return array
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE , $app_path = APP_PATH)
     {
@@ -81,9 +82,10 @@ class NodeLogic
     /**
      * @param $role_id
      * @return array
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public static function roleNode($role_id)
     {

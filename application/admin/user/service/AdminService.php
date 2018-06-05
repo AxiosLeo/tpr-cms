@@ -9,17 +9,18 @@
 
 namespace tpr\admin\user\service;
 
-use think\Session;
-use think\Db;
+use tpr\framework\Session;
+use tpr\db\Db;
 
 class AdminService
 {
     /**
      * @param $id
-     * @return array|false|\PDOStatement|string|\think\Model
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return array|false|\PDOStatement|string
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public static function getSessionInfo($id)
     {

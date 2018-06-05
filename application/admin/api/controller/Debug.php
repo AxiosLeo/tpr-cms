@@ -10,8 +10,8 @@
 namespace tpr\admin\api\controller;
 
 use library\logic\DocLogic;
-use think\Doc;
-use think\Env;
+use tpr\framework\Doc;
+use tpr\framework\Env;
 use tpr\admin\common\controller\AdminLogin;
 
 class Debug extends AdminLogin
@@ -19,6 +19,7 @@ class Debug extends AdminLogin
     /**
      * 接口调试页
      * @return mixed
+     * @throws \tpr\framework\Exception
      */
     public function index(){
         $app_namespace = $this->request->param('an','');

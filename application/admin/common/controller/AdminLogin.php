@@ -9,10 +9,10 @@
 
 namespace tpr\admin\common\controller;
 
-use think\Db;
-use think\Request;
-use think\Cache;
-use think\Env;
+use tpr\db\Db;
+use tpr\framework\Request;
+use tpr\framework\Cache;
+use tpr\framework\Env;
 
 class AdminLogin extends AdminBase
 {
@@ -44,6 +44,14 @@ class AdminLogin extends AdminBase
         }
     }
 
+    /**
+     * @return bool
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     */
     public function checkAuth(){
         $path = $this->request->module() . '/' . strtolower($this->request->controller()) . '/' . $this->request->action();
         if($path == 'index/index/index' || $path == 'index/index/main' ){
@@ -66,5 +74,6 @@ class AdminLogin extends AdminBase
         if(!$auth){
             $this->request->isPost() ? $this->error('无操作权限','',$this->param) : $this->redirect('index/message/none');
         }
+        return false;
     }
 }

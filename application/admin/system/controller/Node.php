@@ -10,7 +10,7 @@
 namespace tpr\admin\system\controller;
 
 use library\logic\NodeLogic;
-use think\Db;
+use tpr\db\Db;
 use tpr\admin\common\controller\AdminLogin;
 
 /**
@@ -22,9 +22,9 @@ class Node extends AdminLogin
     /**
      * 权限管理
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function index(){
         if($this->request->isPost()){
@@ -40,9 +40,13 @@ class Node extends AdminLogin
 
     /**
      * 获取权限节点数据
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function auth(){
         $role_id = $this->request->param('role_id',0);

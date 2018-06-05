@@ -10,8 +10,8 @@
 namespace tpr\admin\common\controller;
 
 use library\controller\HomeBase;
-use think\Request;
-use think\Session;
+use tpr\framework\Request;
+use tpr\framework\Session;
 
 class AdminBase extends HomeBase
 {

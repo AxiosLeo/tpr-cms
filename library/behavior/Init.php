@@ -8,7 +8,7 @@
  */
 namespace library\behavior;
 
-use think\Loader;
+use tpr\framework\Loader;
 
 class Init {
     public function run(){

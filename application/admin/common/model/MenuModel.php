@@ -10,17 +10,11 @@
 namespace tpr\admin\common\model;
 
 use library\logic\NodeLogic;
-use think\Db;
-use think\Model;
+use tpr\db\Db;
 
-class MenuModel extends Model
+class MenuModel
 {
     public $name = 'menu';
-
-    function __construct($data = [])
-    {
-        parent::__construct($data);
-    }
 
     public static function model()
     {
@@ -30,10 +24,13 @@ class MenuModel extends Model
     /**
      * @param int $parent_id
      * @param $role_id
-     * @return array|false|\PDOStatement|string|\think\Collection
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return array|bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\exception\DbException
      */
     public function menus($parent_id = 0 , $role_id)
     {
@@ -59,18 +56,19 @@ class MenuModel extends Model
 
     /**
      * @param bool $only_parent
-     * @return false|\PDOStatement|string|\think\Collection
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function getMenu($only_parent = false)
     {
-        $menus = $this->where('parent_id', 0)
+        $menus = Db::name('menu')->where('parent_id', 0)
             ->field('id,title ,title as name ,icon,parent_id,module , controller , func , sort')->order('sort')->select();
         if (!$only_parent) {
             foreach ($menus as &$m) {
-                $m['children'] = $this->where('parent_id', $m['id'])
+                $m['children'] = Db::name('menu')->where('parent_id', $m['id'])
                     ->field('id,title ,title as name ,parent_id,icon,module , controller , func , sort')->order('sort')->select();
                 $m['spread'] = true;
             }
@@ -82,10 +80,11 @@ class MenuModel extends Model
     /**
      * @param int $parent_id
      * @param int $role_id
-     * @return false|\PDOStatement|string|\think\Collection
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function getMenuTree($parent_id = 0, $role_id = 0)
     {
@@ -95,21 +94,22 @@ class MenuModel extends Model
     /**
      * @param int $parent_id
      * @param int $role_id
-     * @return false|\PDOStatement|string|\think\Collection
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     private function menuTree($parent_id = 0, $role_id = 0)
     {
-        $this->where('parent_id', $parent_id);
+        $query = Db::name('menu')->where('parent_id', $parent_id);
 
         if ($role_id) {
-            $this->join("__ROLE_NODE__ rn", 'rn.menu_id=menu.id', 'left');
+            $query->join("__ROLE_NODE__ rn", 'rn.menu_id=menu.id', 'left');
         }
-        $this->field('id,title ,title as name ,icon , parent_id,module , controller , func , sort');
+        $query->field('id,title ,title as name ,icon , parent_id,module , controller , func , sort');
 
-        $menu = $this->order('sort asc')->select();
+        $menu = $query->order('sort asc')->select();
         foreach ($menu as &$m) {
             $m['spread'] = true;
             $m['children'] = $this->menuTree($m['id'], $role_id);

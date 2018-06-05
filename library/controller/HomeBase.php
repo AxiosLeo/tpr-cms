@@ -10,8 +10,8 @@
 namespace library\controller;
 
 
-use think\Controller;
-use think\Request;
+use tpr\framework\Controller;
+use tpr\framework\Request;
 
 class HomeBase extends Controller
 {

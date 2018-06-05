@@ -12,15 +12,20 @@ namespace tpr\admin\user\controller;
 use tpr\admin\common\controller\AdminLogin;
 use tpr\admin\common\validate\AdminValidate;
 use tpr\admin\user\service\AdminService;
-use think\Db;
-use think\Tool;
+use tpr\db\Db;
+use tpr\framework\Tool;
 
 class Profile extends AdminLogin
 {
     /**
      * 更新用户信息
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function update()
     {

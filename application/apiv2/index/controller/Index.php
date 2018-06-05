@@ -8,7 +8,7 @@
  */
 namespace tpr\apiv2\index\controller;
 
-use think\Controller;
+use tpr\framework\Controller;
 
 class Index extends Controller{
 

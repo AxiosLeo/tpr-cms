@@ -9,7 +9,7 @@
 
 namespace library\extend\workman\lib;
 
-use think\Tool;
+use tpr\framework\Tool;
 
 class Response
 {
@@ -72,7 +72,7 @@ class Response
             $result['time'] = time();
         }
         $type = c('default_ajax_return', 'json');
-        $data = \think\Response::create($result, $type)->header($header)->getContent();
+        $data = \tpr\framework\Response::create($result, $type)->header($header)->getContent();
         return $data;
     }
 }

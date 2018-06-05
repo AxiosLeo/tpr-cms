@@ -10,7 +10,7 @@
 namespace library\service;
 
 
-use think\Tool;
+use tpr\framework\Tool;
 
 class DebugService
 {

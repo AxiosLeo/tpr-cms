@@ -10,8 +10,7 @@
 namespace tpr\api\index\controller;
 
 use library\controller\ApiBase;
-use think\Db;
-use think\Doc;
+use tpr\framework\Doc;
 
 /**
  * Class Index
@@ -72,41 +71,5 @@ class Index extends ApiBase
 
         $this->response(['name' => $name]);
     }
-
-    public function model()
-    {
-        $start = memory_get_usage();
-        dump('start:' . $start . 'byte');
-
-        Db::model('app');
-        dump(memory_get_usage() . 'byte');
-        Db::model('admin');
-        dump(memory_get_usage() . 'byte');
-        Db::model('menu','mongo.default');
-        dump(memory_get_usage() . 'byte');
-
-        $end = memory_get_usage();
-        dump('end:' . $end . 'byte');
-
-        dump('差值: ' . floor(($end - $start) / 1024) . 'KB');
-
-        echo "<br>------------------------------------<br>";
-
-        $start = memory_get_usage();
-        dump('start:' . $start . 'byte');
-
-        db('app');
-        dump(memory_get_usage() . 'byte');
-        db('admin');
-        dump(memory_get_usage() . 'byte');
-        db('menu');
-        dump(memory_get_usage() . 'byte');
-
-        $end = memory_get_usage();
-        dump('end:' . $end . 'byte');
-
-        dump('差值: ' . floor(($end - $start) / 1024) . 'KB');
-    }
-
 
 }

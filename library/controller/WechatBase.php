@@ -9,8 +9,8 @@
 
 namespace library\controller;
 
-use think\Request;
-use think\Session;
+use tpr\framework\Request;
+use tpr\framework\Session;
 use Wechat\WechatOauth;
 
 class WechatBase extends HomeBase

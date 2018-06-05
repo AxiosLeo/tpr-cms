@@ -9,7 +9,7 @@
 
 namespace tpr\api\example\controller;
 
-use think\Controller;
+use tpr\framework\Controller;
 
 /**
  * Example/Index

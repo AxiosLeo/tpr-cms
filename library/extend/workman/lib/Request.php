@@ -8,11 +8,11 @@
  */
 namespace library\extend\workman\lib;
 
-use think\exception\HttpResponseException;
+use tpr\framework\exception\HttpResponseException;
 use Workerman\Connection\TcpConnection;
 use library\extend\workman\Workman;
-use think\Loader;
-use think\App;
+use tpr\framework\Loader;
+use tpr\framework\App;
 
 class Request
 {
@@ -21,7 +21,7 @@ class Request
      * @param array $data
      */
     public static function run($connection,$data){
-        \think\Request::clear();
+        \tpr\framework\Request::clear();
         $connection->lastMessageTime = time();
         $data = self::getResponse($data,$connection);
         if(!empty($data)){
@@ -36,7 +36,7 @@ class Request
         }else{
             $data = $temp;
         }
-        $request = \think\Request::instance();
+        $request = \tpr\framework\Request::instance();
         $config = Workman::$config;
         $params = data($data , 'params',[]);
         if(!is_array($params)){

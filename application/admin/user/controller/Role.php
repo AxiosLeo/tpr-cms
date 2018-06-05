@@ -11,16 +11,17 @@ namespace tpr\admin\user\controller;
 
 use library\logic\NodeLogic;
 use tpr\admin\common\controller\AdminLogin;
-use think\Db;
+use tpr\db\Db;
 
 class Role extends AdminLogin
 {
     /**
      * 角色列表
-     * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function index()
     {
@@ -48,6 +49,11 @@ class Role extends AdminLogin
     /**
      * 新增角色
      * @return mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function add(){
         if($this->request->isPost()){
@@ -65,11 +71,11 @@ class Role extends AdminLogin
     /**
      * 编辑角色
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function edit(){
         $id = $this->request->param('id',0);
@@ -94,8 +100,11 @@ class Role extends AdminLogin
 
     /**
      * 删除角色
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function del(){
         $id = $this->request->param('id');
@@ -111,11 +120,13 @@ class Role extends AdminLogin
     /**
      * 权限设置
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
+     * @throws \tpr\framework\exception\DbException
      */
     public function auth(){
         $role_id = $this->request->param('role_id');

@@ -9,7 +9,7 @@
 
 namespace library\service;
 
-use think\Exception;
+use tpr\framework\Exception;
 
 /**
  * Class Rong

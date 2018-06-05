@@ -12,7 +12,7 @@ namespace server\lib;
 use \GearmanWorker;
 use \GearmanJob;
 use server\traits\Jump;
-use think\Debug;
+use tpr\framework\Debug;
 
 require  __DIR__ . '/../traits/Jump.php';
 

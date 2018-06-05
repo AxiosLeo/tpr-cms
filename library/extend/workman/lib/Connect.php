@@ -11,7 +11,7 @@ namespace library\extend\workman\lib;
 
 use library\extend\workman\WorkmanOption;
 use library\logic\ConvertLogic;
-use think\Tool;
+use tpr\framework\Tool;
 use Workerman\Worker;
 
 class Connect

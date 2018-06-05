@@ -8,9 +8,9 @@
  */
 namespace tpr\command;
 
-use think\console\Command;
-use think\console\Input;
-use think\console\Output;
+use tpr\framework\console\Command;
+use tpr\framework\console\Input;
+use tpr\framework\console\Output;
 
 class Index extends Command
 {

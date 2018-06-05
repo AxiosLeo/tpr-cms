@@ -12,7 +12,7 @@ use aliyun\sdk\Aliyun;
 use aliyun\sdk\oss\Oss;
 use OSS\Core\OssException;
 use OSS\OssClient;
-use think\Config;
+use tpr\framework\Config;
 
 class OssService{
     protected static $config_index = "default" ;

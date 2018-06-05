@@ -10,11 +10,11 @@
 namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminBase;
-use think\Config;
-use think\Db;
-use think\Env;
-use think\Cache;
-use think\Tool;
+use tpr\framework\Config;
+use tpr\db\Db;
+use tpr\framework\Env;
+use tpr\framework\Cache;
+use tpr\framework\Tool;
 
 class Login extends AdminBase
 {
@@ -23,11 +23,11 @@ class Login extends AdminBase
     /**
      * 登陆
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function index()
     {

@@ -10,7 +10,7 @@
 namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminLogin;
-use think\Db;
+use tpr\db\Db;
 use tpr\admin\common\validate\AdminValidate;
 
 class Index extends AdminLogin
@@ -18,9 +18,10 @@ class Index extends AdminLogin
     /**
      * 用户信息
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function profile()
     {
@@ -33,11 +34,11 @@ class Index extends AdminLogin
     /**
      * 修改密码
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function password()
     {

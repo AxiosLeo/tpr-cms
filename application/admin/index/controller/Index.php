@@ -10,7 +10,7 @@
 namespace tpr\admin\index\controller;
 
 use tpr\admin\common\controller\AdminLogin;
-use think\Db;
+use tpr\db\Db;
 use tpr\admin\common\model\MenuModel;
 
 class Index extends AdminLogin
@@ -18,9 +18,8 @@ class Index extends AdminLogin
     /**
      * 后台系统主页面
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\framework\exception\DbException
      */
     public function index()
     {
@@ -30,10 +29,9 @@ class Index extends AdminLogin
     }
 
     /**
-     * @return array|false|\PDOStatement|string|\think\Collection
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @return array|false|\PDOStatement|string
+     * @throws \tpr\db\exception\DataNotFoundException
+     * @throws \tpr\framework\exception\DbException
      */
     protected function menu()
     {
@@ -48,6 +46,11 @@ class Index extends AdminLogin
     /**
      * 后台首页
      * @return mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function main()
     {

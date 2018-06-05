@@ -10,7 +10,7 @@
 namespace library\service;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use think\Config;
+use tpr\framework\Config;
 
 class MailService extends PHPMailer
 {

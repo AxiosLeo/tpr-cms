@@ -9,9 +9,9 @@
 
 namespace tpr\admin\user\controller;
 
-use think\Tool;
+use tpr\framework\Tool;
 use tpr\admin\common\controller\AdminLogin;
-use think\Db;
+use tpr\db\Db;
 use tpr\admin\common\validate\AdminValidate;
 
 class Admin extends AdminLogin
@@ -19,9 +19,11 @@ class Admin extends AdminLogin
     /**
      * 用户管理
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function index()
     {
@@ -58,9 +60,11 @@ class Admin extends AdminLogin
     /**
      * 添加管理员
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function add(){
         if( $this->request->isPost()){
@@ -104,11 +108,11 @@ class Admin extends AdminLogin
     /**
      * 编辑管理员用户信息
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function edit()
     {
@@ -138,8 +142,11 @@ class Admin extends AdminLogin
 
     /**
      * 删除管理员用户
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     * @throws \tpr\framework\Exception
      */
     public function delete(){
         $id = $this->request->param('id',0);

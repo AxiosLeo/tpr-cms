@@ -9,9 +9,9 @@
 namespace library\exception;
 
 use Exception;
-use think\exception\Handle;
-use think\Response;
-use traits\controller\Jump;
+use tpr\framework\exception\Handle;
+use tpr\framework\Response;
+use tpr\traits\controller\Jump;
 
 class HttpException extends Handle {
     use Jump;

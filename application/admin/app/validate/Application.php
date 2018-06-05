@@ -9,7 +9,7 @@
 
 namespace tpr\admin\app\validate;
 
-use think\Validate;
+use tpr\framework\Validate;
 
 class Application extends Validate
 {

@@ -11,17 +11,17 @@ return [
         // 数据库类型
         'type'            => 'mysql',
         // 服务器地址
-        'hostname'        => \think\Env::get("mysql.hostname",'127.0.0.1'),
+        'hostname'        => \tpr\framework\Env::get("mysql.hostname",'127.0.0.1'),
         // 数据库名
-        'database'        => \think\Env::get("mysql.database",'api'),
+        'database'        => \tpr\framework\Env::get("mysql.database",'api'),
         // 用户名
-        'username'        => \think\Env::get("mysql.username",'root'),
+        'username'        => \tpr\framework\Env::get("mysql.username",'root'),
         // 密码
-        'password'        => \think\Env::get("mysql.password",'root'),
+        'password'        => \tpr\framework\Env::get("mysql.password",'root'),
         // 端口
-        'hostport'        => \think\Env::get("mysql.hostport",'3306'),
+        'hostport'        => \tpr\framework\Env::get("mysql.hostport",'3306'),
         // 数据库表前缀
-        'prefix'          => \think\Env::get("mysql.prefix",'api_'),
+        'prefix'          => \tpr\framework\Env::get("mysql.prefix",'api_'),
         // 连接dsn
         'dsn'             => '',
         // 数据库连接参数

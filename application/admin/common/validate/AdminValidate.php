@@ -8,7 +8,7 @@
  */
 namespace tpr\admin\common\validate;
 
-use think\Validate;
+use tpr\framework\Validate;
 
 class AdminValidate extends Validate{
     protected $rule = [

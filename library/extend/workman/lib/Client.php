@@ -27,7 +27,7 @@ class Client
         return Connect::$client[$connect_id];
     }
 
-    public static function getConnectionId(\think\Request $request){
+    public static function getConnectionId(\tpr\framework\Request $request){
         return $request->param('connection_id',null);
     }
 }

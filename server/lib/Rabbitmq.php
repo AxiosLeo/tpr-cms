@@ -11,7 +11,7 @@ namespace server\lib;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use server\traits\Jump;
-use think\Tool;
+use tpr\framework\Tool;
 
 require_once __DIR__ . '/../traits/Jump.php';
 

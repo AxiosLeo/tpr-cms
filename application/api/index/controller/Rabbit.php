@@ -11,9 +11,9 @@ namespace tpr\api\index\controller;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use think\Controller;
-use think\Debug;
-use think\Fork;
+use tpr\framework\Controller;
+use tpr\framework\Debug;
+use tpr\framework\Fork;
 
 class Rabbit extends Controller
 {
