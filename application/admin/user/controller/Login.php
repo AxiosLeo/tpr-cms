@@ -9,9 +9,9 @@
 
 namespace tpr\admin\user\controller;
 
+use library\connector\Mysql;
 use tpr\admin\common\controller\AdminBase;
 use tpr\framework\Config;
-use tpr\db\Db;
 use tpr\framework\Env;
 use tpr\framework\Cache;
 use tpr\framework\Tool;
@@ -45,7 +45,7 @@ class Login extends AdminBase
                 $this->error("验证码不正确", captcha_src());
             };
 
-            $user = Db::name('admin')->where('username', $username)->find();
+            $user = Mysql::name('admin')->where('username', $username)->find();
             if (empty($user)) {
                 $this->error("用户不存在", captcha_src());
             }
@@ -58,7 +58,7 @@ class Login extends AdminBase
             $user['token'] = Tool::uuid();
             $user['last_login_ip'] = $this->ip;
             $user['last_login_time'] = time();
-            Db::name('admin')->where('id', $user['id'])->update($user);
+            Mysql::name('admin')->where('id', $user['id'])->update($user);
             unset($user['password']);
             unset($user['security_id']);
             user_save($user);

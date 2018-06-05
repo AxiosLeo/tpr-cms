@@ -9,9 +9,9 @@
 
 namespace tpr\admin\user\controller;
 
+use library\connector\Mysql;
 use tpr\framework\Tool;
 use tpr\admin\common\controller\AdminLogin;
-use tpr\db\Db;
 use tpr\admin\common\validate\AdminValidate;
 
 class Admin extends AdminLogin
@@ -31,7 +31,7 @@ class Admin extends AdminLogin
             $page = $this->request->param('page',1);
             $limit = $this->request->param('limit',10);
             $keyword = $this->request->param('keyword','');
-            $admin = Db::name('admin')->alias('admin')
+            $admin = Mysql::name('admin')->alias('admin')
                 ->join('__ROLE__ r', 'r.id=admin.role_id', 'left')
                 ->where('admin.username' , 'like','%' . $keyword . '%')
                 ->field('admin.* , r.role_name')
@@ -40,7 +40,7 @@ class Admin extends AdminLogin
                 ->order('role_id , id')
                 ->select();
 
-            $count = Db::name('admin')->alias('admin')
+            $count = Mysql::name('admin')->alias('admin')
                 ->join('__ROLE__ r', 'r.id=admin.role_id', 'left')
                 ->where('admin.username' , 'like','%' . $keyword . '%')
                 ->field('admin.* , r.role_name')
@@ -79,7 +79,7 @@ class Admin extends AdminLogin
                 $this->error('请选择角色');
             }
 
-            if(Db::name('admin')->where('username',$this->param['username'])->count()){
+            if(Mysql::name('admin')->where('username',$this->param['username'])->count()){
                 $this->error('用户名已存在'.$this->param['role_id']);
             }
 
@@ -92,14 +92,14 @@ class Admin extends AdminLogin
                 'update_at'=>$time
             ];
 
-            if (Db::name('admin')->insert($data)) {
+            if (Mysql::name('admin')->insert($data)) {
                 $this->success(lang('success!'));
             } else {
                 $this->error(lang('error!'));
             }
         }
 
-        $roles = Db::name('role')->select();
+        $roles = Mysql::name('role')->select();
         $this->assign('roles', $roles);
 
         return $this->fetch();
@@ -124,17 +124,17 @@ class Admin extends AdminLogin
                 $this->error($Validate->getError());
             }
             $this->param['update_at'] = time();
-            if (Db::name('admin')->where('id', $id)->update($this->param)) {
+            if (Mysql::name('admin')->where('id', $id)->update($this->param)) {
                 $this->success(lang('success!'));
             } else {
                 $this->error(lang('error!'));
             }
         }
 
-        $admin = Db::name('admin')->where('id', $id)->find();
+        $admin = Mysql::name('admin')->where('id', $id)->find();
         $this->assign('data', $admin);
 
-        $roles = Db::name('role')->select();
+        $roles = Mysql::name('role')->select();
         $this->assign('roles', $roles);
 
         return $this->fetch('edit');
@@ -150,7 +150,7 @@ class Admin extends AdminLogin
      */
     public function delete(){
         $id = $this->request->param('id',0);
-        $exist = Db::name('admin')->where('id',$id)->count();
+        $exist = Mysql::name('admin')->where('id',$id)->count();
 
         if(!$exist){
             $this->error('用户不存在');
@@ -160,7 +160,7 @@ class Admin extends AdminLogin
             $this->error("默认管理员账号不能删除<br>但可以修改username");
         }
 
-        Db::name('admin')->where('id',$id)->delete();
+        Mysql::name('admin')->where('id',$id)->delete();
 
         $this->success('成功');
     }

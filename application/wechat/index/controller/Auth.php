@@ -12,7 +12,7 @@ namespace tpr\wechat\index\controller;
 use library\controller\WechatBase;
 use library\logic\UserLogic;
 use tpr\framework\Cache;
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Request;
 use tpr\framework\Session;
 
@@ -71,7 +71,7 @@ class Auth extends WechatBase
                     'unionid'=>isset($wechatInfo['unionid'])?$wechatInfo['unionid']:"",
                     'openid'=>$wechatInfo['openid']
                 ];
-                Db::name('wx_userinfo')->insert($insert,true);
+                Mysql::name('wx_userinfo')->insert($insert,true);
             }
 
             Session::set('wechat_info',$wechatInfo , PROJECT_NAME);

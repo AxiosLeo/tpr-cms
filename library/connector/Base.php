@@ -10,7 +10,6 @@
 namespace library\connector;
 
 use tpr\db\Db;
-use tpr\db\exception\InvalidArgumentException;
 use tpr\framework\Config;
 
 /**
@@ -25,13 +24,12 @@ trait Base
      */
     public static function name($name)
     {
-        try{
-            $db = Db::model(self::$connect)->name($name);
-        }catch (InvalidArgumentException $e){
+        $db = Db::model(self::$connect);
+        if (is_null($db)) {
             $config = Config::get(self::$connect);
-            $db = Db::connect($config,self::$connect)->name($name);
+            $db = Db::connect($config, self::$connect);
         }
-        return $db;
+        return $db->name($name);
     }
 
     /**
@@ -40,13 +38,12 @@ trait Base
      */
     public static function table($table)
     {
-        try{
-            $db = Db::model(self::$connect)->table($table);
-        }catch (InvalidArgumentException $e){
+        $db = Db::model(self::$connect);
+        if (is_null($db)) {
             $config = Config::get(self::$connect);
-            $db = Db::connect($config,self::$connect)->table($table);
+            $db = Db::connect($config, self::$connect);
         }
-        return $db;
+        return $db->table($table);
     }
 
 }

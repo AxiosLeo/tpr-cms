@@ -10,7 +10,7 @@
 namespace tpr\admin\user\service;
 
 use tpr\framework\Session;
-use tpr\db\Db;
+use library\connector\Mysql;
 
 class AdminService
 {
@@ -24,7 +24,7 @@ class AdminService
      */
     public static function getSessionInfo($id)
     {
-        $user = Db::name('admin')->where('id', $id)->find();
+        $user = Mysql::name('admin')->where('id', $id)->find();
         unset($user['security_id']);
         unset($user['password']);
         Session::set('user', $user);

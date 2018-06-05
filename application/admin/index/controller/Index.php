@@ -10,7 +10,7 @@
 namespace tpr\admin\index\controller;
 
 use tpr\admin\common\controller\AdminLogin;
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\admin\common\model\MenuModel;
 
 class Index extends AdminLogin
@@ -18,8 +18,10 @@ class Index extends AdminLogin
     /**
      * 后台系统主页面
      * @return mixed
-     * @throws \tpr\db\exception\DataNotFoundException
-     * @throws \tpr\framework\exception\DbException
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     public function index()
     {
@@ -29,9 +31,11 @@ class Index extends AdminLogin
     }
 
     /**
-     * @return array|false|\PDOStatement|string
-     * @throws \tpr\db\exception\DataNotFoundException
-     * @throws \tpr\framework\exception\DbException
+     * @return array|bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
      */
     protected function menu()
     {
@@ -71,15 +75,15 @@ class Index extends AdminLogin
             $today = get_day_begin_end_time(date("Y-m-d"));
             $req = [
                 'env'                => $data,
-                'users_number'       => Db::name('users')->count(),
-                'users_number_today' => Db::name('users')->where('created_at', 'between', [$today['begin'], $today['end']])
+                'users_number'       => Mysql::name('users')->count(),
+                'users_number_today' => Mysql::name('users')->where('created_at', 'between', [$today['begin'], $today['end']])
             ];
             $this->ajaxReturn($req);
         }
 
-        $user_number = Db::name('users')->count();
+        $user_number = Mysql::name('users')->count();
         $this->assign('user_number',$user_number);
-        $register_today = Db::name('users')->whereTime('created_at','today')->count();
+        $register_today = Mysql::name('users')->whereTime('created_at','today')->count();
         $this->assign('register_today',$register_today);
 
         return $this->fetch('main');
@@ -93,7 +97,7 @@ class Index extends AdminLogin
         foreach ($dayArr as $d){
             $day_list[] = $d['day'];
 
-            $count = Db::name('users')->whereBetween('created_at',[$d['begin'],$d['end']],'and')
+            $count = Mysql::name('users')->whereBetween('created_at',[$d['begin'],$d['end']],'and')
                 ->count();
             $data[] = $count;
         }

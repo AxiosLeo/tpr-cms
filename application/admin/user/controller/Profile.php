@@ -12,7 +12,7 @@ namespace tpr\admin\user\controller;
 use tpr\admin\common\controller\AdminLogin;
 use tpr\admin\common\validate\AdminValidate;
 use tpr\admin\user\service\AdminService;
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Tool;
 
 class Profile extends AdminLogin
@@ -21,11 +21,9 @@ class Profile extends AdminLogin
      * 更新用户信息
      * @throws \ErrorException
      * @throws \tpr\db\exception\BindParamException
-     * @throws \tpr\db\exception\DataNotFoundException
      * @throws \tpr\db\exception\Exception
      * @throws \tpr\db\exception\PDOException
      * @throws \tpr\framework\Exception
-     * @throws \tpr\framework\exception\DbException
      */
     public function update()
     {
@@ -35,7 +33,7 @@ class Profile extends AdminLogin
                 $this->error($Validate->getError());
             }
             $this->param['update_at'] = time();
-            $result = Db::name('admin')->where('id', $this->user['id'])->update($this->param);
+            $result = Mysql::name('admin')->where('id', $this->user['id'])->update($this->param);
             if ($result) {
                 $this->user = AdminService::getSessionInfo($this->user['id']);
                 $this->success('操作成功');

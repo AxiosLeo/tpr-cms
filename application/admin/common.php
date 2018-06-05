@@ -88,3 +88,45 @@ if(!function_exists('rand_upper')){
         return $str;
     }
 }
+
+\tpr\framework\Route::get('captcha/[:id]', "\\tpr\\controller\\CaptchaController@index");
+\tpr\framework\Validate::extend('captcha', function ($value, $id = '') {
+    return captcha_check($value, $id);
+});
+\tpr\framework\Validate::setTypeMsg('captcha', ':attribute错误!');
+/**
+ * @param string $id
+ * @param array  $config
+ * @return \tpr\framework\Response
+ */
+function captcha($id = '', $config = [])
+{
+    $captcha = new \tpr\framework\Captcha($config);
+    return $captcha->entry($id);
+}
+/**
+ * @param $id
+ * @return string
+ */
+function captcha_src($id = '')
+{
+    return \tpr\framework\Url::build('/captcha' . ($id ? "/{$id}" : ''));
+}
+/**
+ * @param $id
+ * @return mixed
+ */
+function captcha_img($id = '')
+{
+    return '<img src="' . captcha_src($id) . '" alt="captcha" />';
+}
+/**
+ * @param        $value
+ * @param string $id
+ * @return bool
+ */
+function captcha_check($value, $id = '')
+{
+    $captcha = new \tpr\framework\Captcha((array)\tpr\framework\Config::get('captcha'));
+    return $captcha->check($value, $id);
+}

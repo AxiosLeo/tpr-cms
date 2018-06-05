@@ -9,7 +9,7 @@
 
 namespace tpr\admin\common\controller;
 
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Request;
 use tpr\framework\Cache;
 use tpr\framework\Env;
@@ -63,7 +63,7 @@ class AdminLogin extends AdminBase
             return true;
         }
 
-        $exist = Db::name('role_node')
+        $exist = Mysql::name('role_node')
             ->where('role_id',$role_id)
             ->where('node_path',$path)
             ->where('disabled',0)

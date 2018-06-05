@@ -9,7 +9,7 @@
 
 namespace tpr\admin\app\controller;
 
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\framework\Tool;
 use tpr\admin\app\validate\Application;
 use tpr\admin\common\controller\AdminLogin;
@@ -32,7 +32,7 @@ class Version extends AdminLogin
             $keyword = $this->request->param('keyword' , '');
             $app_id = $this->request->param('app_id',0);
             $where = [];
-            $query = Db::name('app_version')->alias('v')
+            $query = Mysql::name('app_version')->alias('v')
                 ->join('__APP__ app' ,'app.app_id=v.app_id')
                 ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status')
                 ->order('publish_time desc')
@@ -63,11 +63,11 @@ class Version extends AdminLogin
                 $l['publish_time'] = trans2time($l['publish_time']);
             }
 
-            $count = Db::name('app_version')->alias('v')->where($where)->count();
+            $count = Mysql::name('app_version')->alias('v')->where($where)->count();
             $this->tableData($list , $count);
         }
 
-        $app = Db::name('app')->select();
+        $app = Mysql::name('app')->select();
 
         $this->assign('app',$app);
 
@@ -83,7 +83,7 @@ class Version extends AdminLogin
      * @throws \tpr\db\exception\PDOException
      */
     public function timeLine(){
-        $list = Db::name('app_version')->alias('v')
+        $list = Mysql::name('app_version')->alias('v')
             ->join('__APP__ app' ,'app.app_id=v.app_id')
             ->field('v.id , app.app_name , v.app_version , v.app_key ,v.publish_time ,v.version_type,v.app_build,v.app_status,v.remark')
             ->order('publish_time desc')
@@ -125,10 +125,10 @@ class Version extends AdminLogin
                 'publish_time' => date("Y-m-d H:i:s")
             ];
 
-            if (Db::name('app_version')->insertGetId($insert)) {
+            if (Mysql::name('app_version')->insertGetId($insert)) {
                 $app['last_version'] = $app_version;
                 $app['last_version_time'] = time();
-                Db::name('app')->where('app_id', $this->param['app_id'])->update($app);
+                Mysql::name('app')->where('app_id', $this->param['app_id'])->update($app);
 
                 $this->success('success');
             }
@@ -138,7 +138,7 @@ class Version extends AdminLogin
 
         $id = $this->request->param('id' , '');
         $this->assign('app_id',$id);
-        $apps = Db::name('app')->field('app_id , app_name, id')->select();
+        $apps = Mysql::name('app')->field('app_id , app_name, id')->select();
 
         $this->assign('apps',$apps);
 
@@ -147,7 +147,7 @@ class Version extends AdminLogin
             $version['build'] = '请选择';
             $this->assign('app_key', Tool::uuid('app_key'));
         }else{
-            $app = Db::name('app')->find($id);
+            $app = Mysql::name('app')->find($id);
             $this->assign('app', $app);
             $this->assign('app_key', Tool::uuid('app_key'));
 
@@ -178,7 +178,7 @@ class Version extends AdminLogin
         $version_type = $this->param['version_type'];
         $update_type = $this->param['update_type'];
 
-        $app = Db::name('app')->where('app_id', $app_id)->find();
+        $app = Mysql::name('app')->where('app_id', $app_id)->find();
         if (empty($app)) {
             $app = ['version'=>'请选择', 'build'=>'请选择'];
             $this->response($app);
@@ -186,7 +186,7 @@ class Version extends AdminLogin
 
         $version = $this->makeAppVersion($app, $update_type, $version_type);
 
-        $count = Db::name('app_version')->where('app_id',$app_id)
+        $count = Mysql::name('app_version')->where('app_id',$app_id)
             ->where('app_build',$version['build'])->count();
         if($count){
             $version['build'] = $version['build'] . '_' . (++$count);
@@ -211,7 +211,7 @@ class Version extends AdminLogin
             $remark = $this->request->param('remark','');
             $remark = htmlspecialchars($remark);
 
-            Db::name('app_version')
+            Mysql::name('app_version')
                 ->where('id',$id)
                 ->setField('remark',$remark);
 
@@ -219,7 +219,7 @@ class Version extends AdminLogin
         }
 
         $this->assign('id',$id);
-        $version = Db::name('app_version')
+        $version = Mysql::name('app_version')
             ->where('id',$id)
             ->field('id,remark')
             ->find();

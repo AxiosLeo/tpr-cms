@@ -10,7 +10,7 @@
 namespace tpr\admin\user\controller;
 
 use tpr\admin\common\controller\AdminLogin;
-use tpr\db\Db;
+use library\connector\Mysql;
 use tpr\admin\common\validate\AdminValidate;
 
 class Index extends AdminLogin
@@ -25,9 +25,9 @@ class Index extends AdminLogin
      */
     public function profile()
     {
-        $role = Db::name('role')->where('id', $this->user['role_id'])->find();
+        $role = Mysql::name('role')->where('id', $this->user['role_id'])->find();
         $this->assign('role_name', $role['role_name']);
-        $this->assign('user',Db::name('admin')->where('id',user_current_id())->find());
+        $this->assign('user',Mysql::name('admin')->where('id',user_current_id())->find());
         return $this->fetch('profile');
     }
 
@@ -57,7 +57,7 @@ class Index extends AdminLogin
             }
 
             //check old password
-            $user = Db::name('admin')->where('id', $this->user['id'])->find();
+            $user = Mysql::name('admin')->where('id', $this->user['id'])->find();
             $old_password = make_password($this->param['old_password'], $user['security_id']);
             if ($old_password != $user['password']) {
                 $this->error('密码不正确');
@@ -67,7 +67,7 @@ class Index extends AdminLogin
 
             $user['password'] = $password;
             $user['update_at'] = time();
-            $result = Db::name('admin')->where('id', $user['id'])->update($user);
+            $result = Mysql::name('admin')->where('id', $user['id'])->update($user);
             if ($result) {
                 $this->success('操作成功,请重新登录', url('user/login/logout'));
             } else {

@@ -10,7 +10,7 @@
 namespace tpr\admin\common\model;
 
 use library\logic\NodeLogic;
-use tpr\db\Db;
+use library\connector\Mysql;
 
 class MenuModel
 {
@@ -27,14 +27,12 @@ class MenuModel
      * @return array|bool|mixed
      * @throws \ErrorException
      * @throws \tpr\db\exception\BindParamException
-     * @throws \tpr\db\exception\DataNotFoundException
      * @throws \tpr\db\exception\Exception
      * @throws \tpr\db\exception\PDOException
-     * @throws \tpr\framework\exception\DbException
      */
     public function menus($parent_id = 0 , $role_id)
     {
-        $tmp = Db::name('menu')->where('parent_id', $parent_id)
+        $tmp = Mysql::name('menu')->where('parent_id', $parent_id)
             ->order('sort asc')
             ->select();
         $role_node_array = NodeLogic::roleNode($role_id);
@@ -64,11 +62,11 @@ class MenuModel
      */
     public function getMenu($only_parent = false)
     {
-        $menus = Db::name('menu')->where('parent_id', 0)
+        $menus = Mysql::name('menu')->where('parent_id', 0)
             ->field('id,title ,title as name ,icon,parent_id,module , controller , func , sort')->order('sort')->select();
         if (!$only_parent) {
             foreach ($menus as &$m) {
-                $m['children'] = Db::name('menu')->where('parent_id', $m['id'])
+                $m['children'] = Mysql::name('menu')->where('parent_id', $m['id'])
                     ->field('id,title ,title as name ,parent_id,icon,module , controller , func , sort')->order('sort')->select();
                 $m['spread'] = true;
             }
@@ -102,7 +100,7 @@ class MenuModel
      */
     private function menuTree($parent_id = 0, $role_id = 0)
     {
-        $query = Db::name('menu')->where('parent_id', $parent_id);
+        $query = Mysql::name('menu')->where('parent_id', $parent_id);
 
         if ($role_id) {
             $query->join("__ROLE_NODE__ rn", 'rn.menu_id=menu.id', 'left');
