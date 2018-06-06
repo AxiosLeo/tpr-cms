@@ -9,11 +9,11 @@
 
 namespace tpr\admin\common\controller;
 
-use library\controller\HomeBase;
+use tpr\framework\Controller;
 use tpr\framework\Request;
 use tpr\framework\Session;
 
-class AdminBase extends HomeBase
+class AdminBase extends Controller
 {
     protected $config;
 
