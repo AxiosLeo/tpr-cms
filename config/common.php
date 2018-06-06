@@ -7,17 +7,7 @@
  * @datetime: 2017/5/17 11:30
  */
 
-if(!function_exists('make_password')){
-    /**
-     * @param $password
-     * @param string $auth
-     * @return string
-     */
-    function make_password($password, $auth = '')
-    {
-        return md5($auth . $password);
-    }
-}
+
 
 
 if (!function_exists('data')) {
