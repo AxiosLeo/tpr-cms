@@ -11,4 +11,10 @@ return [
     'exception_handle' => '\\tpr\\framework\\exception\\HttpRestException',
 
     'default_ajax_return'    => 'json',
+
+    'request_cache'	=>	true,
+    'request_cache_expire'	=>	30,
+    'request_cache_except' =>	[
+        '/index/index/cache',
+    ],
 ];
