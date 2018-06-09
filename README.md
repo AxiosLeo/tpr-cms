@@ -11,7 +11,9 @@
 
 -  基于thinkphp5的修订版框架 tpr-framework
 
-> 因为tpr-framework基于thinkphp5.0.9开发,与thinkphp5官方版命名空间相同，所以不兼容不能共存。但是使用方法基本与thinkphp5相同
+> 因为tpr-framework基于thinkphp5.0.9开发, 所以早期版本与thinkphp5官方版命名空间相同，所以不兼容不能共存。但是使用方法基本与thinkphp5相同
+
+> tpr-framework2.0+ 修改了命名空间，可以与thinkphp5的framework composer扩展共存。
 
 > [https://github.com/AxiosCros/tpr-framework](https://github.com/AxiosCros/tpr-framework)
 
