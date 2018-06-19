@@ -31,9 +31,6 @@ class Login extends AdminBase
      */
     public function index()
     {
-        if (is_user_login()) {
-            $this->redirect("index/index/index");
-        }
         if($this->request->isPost()){
             $this->checkIp();
 
@@ -68,6 +65,9 @@ class Login extends AdminBase
             Cache::set("admin_login_token" . $user['username'], $user['token'], $expire);
 
             $this->success("操作成功", url('index/index/index'));
+        }
+        if (is_user_login()) {
+            $this->redirect("index/index/index");
         }
         return $this->fetch('login');
     }
