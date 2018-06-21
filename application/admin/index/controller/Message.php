@@ -18,9 +18,6 @@ class Message extends Controller
      * @except
      */
     public function none(){
-        $this->result([
-            'code'=>401,
-            'msg'=>'无授权'
-        ]);
+        $this->wrong(401,'无授权');
     }
 }

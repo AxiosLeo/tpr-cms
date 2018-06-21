@@ -28,14 +28,9 @@ class AdminBase extends Controller
         $this->assign('current_url', $this->request->path());
     }
 
-    protected function tableData($data, $count = 0, $msg='success'){
-        $result = [
-            'code'  => 0,
-            'msg'   => lang($msg),
-            'count' => $count,
-            'data'  => $data
-        ];
-        $this->result($result);
+    protected function tableData($data, $count = 0){
+        $this->setResult('count',$count);
+        $this->response($data);
     }
 
     public function _empty()

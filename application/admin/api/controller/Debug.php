@@ -21,18 +21,19 @@ class Debug extends AdminLogin
      * @return mixed
      * @throws \tpr\framework\Exception
      */
-    public function index(){
-        $app_namespace = $this->request->param('an','');
-        $class_name = $this->request->param('cn','');
-        $func_name = $this->request->param('fn','');
+    public function index()
+    {
+        $app_namespace = $this->request->param('an', '');
+        $class_name = $this->request->param('cn', '');
+        $func_name = $this->request->param('fn', '');
 
         $exception = ['admin'];
 
-        DocLogic::appList(ROOT_PATH . 'application/' , $exception);
+        DocLogic::appList(ROOT_PATH . 'application/', $exception);
         $app_map = DocLogic::$appMap;
         $app_map = array_flip($app_map);
 
-        if(!isset($app_map[$app_namespace])){
+        if (!isset($app_map[$app_namespace])) {
             echo "异常错误";
         }
 
@@ -40,63 +41,66 @@ class Debug extends AdminLogin
 
         DocLogic::doc($app_path);
 
-        $method_doc = Doc::instance()->makeMethodDoc($class_name,$func_name);
+        $method_doc = Doc::instance()->makeMethodDoc($class_name, $func_name);
         $method_comment = $method_doc['comment'];
 
         $path = empty($method_doc['route']) ? $method_doc['path'] : $method_doc['route'];
-        $this->assign('path',$path);
+        $this->assign('path', $path);
 
-        $title = data($method_comment , 'title' , '未注释');
-        $this->assign('title',$title);
+        $title = data($method_comment, 'title', '未注释');
+        $this->assign('title', $title);
 
-        $host = Env::get('api.host','http://cms.test.cn/');
+        $host = Env::get('api.host', 'http://cms.test.cn/');
         $this->assign('host', $host);
 
-        $parameter = data($method_comment , 'parameter' , []);
-        $this->assign('param',$parameter);
+        $parameter = data($method_comment, 'parameter', []);
+        $this->assign('param', $parameter);
 
-        $header = data($method_comment,'header',[]);
-        $headers = [];$n = 0;
-        if(is_array($header)){
-            foreach ($header as  $h){
+        $header = data($method_comment, 'header', []);
+        $headers = [];
+        $n = 0;
+        if (is_array($header)) {
+            foreach ($header as $h) {
                 $h = preg_replace("/[\s]+/is", " ", $h);
-                $temp = explode(' ',$h);
-                if(isset($temp[0])){
+                $temp = explode(' ', $h);
+                if (isset($temp[0])) {
                     $headers[$n]['name'] = $temp[0];
                     $headers[$n]['value'] = isset($temp[1]) ? $temp[1] : '';
                     $n++;
                 }
             }
-        }else{
+        } else {
             $h = preg_replace("/[\s]+/is", " ", $header);
-            $temp = explode(' ',$h);
-            if(isset($temp[0])){
+            $temp = explode(' ', $h);
+            if (isset($temp[0])) {
                 $headers[$n]['name'] = $temp[0];
                 $headers[$n]['value'] = isset($temp[1]) ? $temp[1] : '';
             }
         }
-        $this->assign('headers',$headers);
+        $this->assign('headers', $headers);
         return $this->fetch();
     }
 
-    public function post(){
-        $url = $this->request->param('url','');
+    public function post()
+    {
+        $url = $this->request->param('url', '');
         $params = isset($this->param['params']) ? $this->param['params'] : [];
-        $method = $this->request->param('method','GET');
+        $method = $this->request->param('method', 'GET');
         $header = isset($this->param['headers']) ? $this->param['headers'] : [];
 
-        $result = $this->curl($url,$params,$method,$header);
+        $result = $this->curl($url, $params, $method, $header);
         $this->result($result);
     }
 
-    private function curl($url = '',$data = [],$method = "GET",$header = []){
+    private function curl($url = '', $data = [], $method = "GET", $header = [])
+    {
         $data = is_array($data) ? http_build_query($data) : $data;
-        if($method == "GET"){
-            if(strpos($data,'?') === false){
+        if ($method == "GET") {
+            if (strpos($data, '?') === false) {
                 $url = $url . "?";
             }
             $lastString = substr($data, -1);
-            $url = $lastString=="&" || $lastString=="?" ? $url . $data : $url . "&" . $data;
+            $url = $lastString == "&" || $lastString == "?" ? $url . $data : $url . "&" . $data;
         }
         curl_init();
         $ch = curl_init();
@@ -114,7 +118,7 @@ class Debug extends AdminLogin
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
         if (is_array($header) && 0 < count($header)) {
-            $header =self::getHttpHeaders($header);
+            $header = self::getHttpHeaders($header);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
 
@@ -134,7 +138,7 @@ class Debug extends AdminLogin
     {
         $httpHeader = [];
         foreach ($headers as $key => $value) {
-            array_push($httpHeader , $key.":".$value);
+            array_push($httpHeader, $key . ":" . $value);
         }
         return $httpHeader;
     }
