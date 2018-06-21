@@ -78,7 +78,7 @@ class Index extends AdminLogin
                 'users_number'       => Mysql::name('users')->count(),
                 'users_number_today' => Mysql::name('users')->where('created_at', 'between', [$today['begin'], $today['end']])
             ];
-            $this->ajaxReturn($req);
+            $this->result($req);
         }
 
         $user_number = Mysql::name('users')->count();

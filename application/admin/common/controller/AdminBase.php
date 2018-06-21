@@ -35,7 +35,7 @@ class AdminBase extends Controller
             'count' => $count,
             'data'  => $data
         ];
-        $this->ajaxReturn($result);
+        $this->result($result);
     }
 
     public function _empty()

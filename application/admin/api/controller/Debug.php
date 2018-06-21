@@ -86,7 +86,7 @@ class Debug extends AdminLogin
         $header = isset($this->param['headers']) ? $this->param['headers'] : [];
 
         $result = $this->curl($url,$params,$method,$header);
-        $this->ajaxReturn($result);
+        $this->result($result);
     }
 
     private function curl($url = '',$data = [],$method = "GET",$header = []){

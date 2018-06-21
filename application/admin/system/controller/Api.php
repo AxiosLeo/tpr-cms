@@ -70,7 +70,7 @@ class Api extends AdminLogin
                 $list = Tool::arraySort($list, $rule);
             }
 
-            $this->ajaxReturn($list);
+            $this->result($list);
         }
         return $this->fetch('index');
     }
