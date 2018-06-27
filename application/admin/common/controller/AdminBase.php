@@ -30,7 +30,7 @@ class AdminBase extends Controller
 
     protected function tableData($data, $count = 0){
         $this->setResult('count',$count);
-        $this->response($data);
+        $this->response($data,0);
     }
 
     public function _empty()
