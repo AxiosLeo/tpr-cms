@@ -19,11 +19,11 @@ use tpr\framework\Config;
 class RedisService extends \Redis
 {
     private $config = [
-        'host' => '127.0.0.1',
-        'auth' => '',
-        'port' => '6379',
-        'prefix' => 'redis:',
-        'timeout' => 60,
+        'host'     => '127.0.0.1',
+        'auth'     => '',
+        'port'     => '6379',
+        'prefix'   => 'redis:',
+        'timeout'  => 60,
         'database' => [
             'default' => 0,
         ]
@@ -41,8 +41,8 @@ class RedisService extends \Redis
     {
         self::$config_index = $select;
 
-        $config = Config::get('redis.' . $select);
-        $config = empty($config) ? [] : $config;
+        $config       = Config::get('redis.' . $select);
+        $config       = empty($config) ? [] : $config;
         $this->config = array_merge($this->config, $config);
 
         $this->do_connect($this->config);
@@ -71,7 +71,7 @@ class RedisService extends \Redis
             }
             $this->connect($config['socket']);
         } else {
-            $port = intval($config['port']);
+            $port    = intval($config['port']);
             $timeout = intval($config['timeout']);
             $this->connect($config['host'], $port, $timeout);
         }
@@ -150,7 +150,7 @@ class RedisService extends \Redis
 
     public function setsMembers($key)
     {
-        $size = $this->sCard($key);
+        $size    = $this->sCard($key);
         $members = [];
         for ($i = 0; $i < $size; $i++) {
             $members[$i] = $this->sPop($key);
