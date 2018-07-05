@@ -7,4 +7,4 @@ define('PROJECT_NAME', 'admin');
 
 require_once '../init.php';
 
-require_once THINK_PATH . 'start.php';
+require_once TPR_PATH . 'start.php';

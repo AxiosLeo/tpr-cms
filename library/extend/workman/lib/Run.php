@@ -40,7 +40,7 @@ class Run extends App
 
         // 加载系统语言包
         Lang::load([
-            THINK_PATH . 'lang' . DS . $request->langset() . EXT,
+            TPR_PATH . 'lang' . DS . $request->langset() . EXT,
             APP_PATH . 'lang' . DS . $request->langset() . EXT,
             CONF_PATH . 'lang' . DS . $request->langset() . EXT
         ]);

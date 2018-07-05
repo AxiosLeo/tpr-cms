@@ -13,5 +13,5 @@ define('APP_PATH', ROOT_PATH . 'application/' . PROJECT_NAME . '/');
 define('CONF_PATH', ROOT_PATH . 'config/');
 define('RUNTIME_PATH', ROOT_PATH . 'runtime/' . PROJECT_NAME . '/');
 define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);
-define('THINK_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
+define('TPR_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
 define('DS', DIRECTORY_SEPARATOR);
