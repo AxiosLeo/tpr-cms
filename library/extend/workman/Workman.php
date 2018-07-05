@@ -21,6 +21,7 @@ class Workman
 {
     protected static $workman_config = [
         'server'        => "websocket://0.0.0.0:2346",
+        'workman_name'  => 'workman_server',
         'process_count' => 4 ,
         'ssl'           => false,
         'context'       => [],
@@ -66,6 +67,9 @@ class Workman
     }
 
     private static function server(){
+
+        WorkmanOption::getWorker()->name = self::$workman_config['workman_name'];
+
         WorkmanOption::getWorker()->onWorkerStart = function($worker)
         {
             Task::run($worker);
