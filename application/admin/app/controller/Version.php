@@ -59,10 +59,6 @@ class Version extends AdminLogin
             }
             $list = $query->select();
 
-            foreach ($list as &$l){
-                $l['publish_time'] = trans2time($l['publish_time']);
-            }
-
             $count = Mysql::name('app_version')->alias('v')->where($where)->count();
             $this->tableData($list , $count);
         }
