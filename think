@@ -1,10 +1,17 @@
 #!/usr/bin/env php
 <?php
 
+define('PROJECT_NAME', 'command');
 
-define('PROJECT_NAME','command');
+define('BASE_NAMESPACE', 'tpr');
 
-require_once __DIR__ . '/init.php';
+define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+define('APP_PATH', ROOT_PATH . PROJECT_NAME . DIRECTORY_SEPARATOR);
+define('CONF_PATH', ROOT_PATH . 'config' . DIRECTORY_SEPARATOR);
+define('RUNTIME_PATH', ROOT_PATH . 'runtime' . DIRECTORY_SEPARATOR . PROJECT_NAME . DIRECTORY_SEPARATOR);
+define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);
+define('TPR_PATH', ROOT_PATH . 'vendor' . DIRECTORY_SEPARATOR . 'axios' . DIRECTORY_SEPARATOR . 'tpr-framework' . DIRECTORY_SEPARATOR);
+define('DS', DIRECTORY_SEPARATOR);
 
 // 加载框架引导文件
-require THINK_PATH.'console.php';
+require TPR_PATH . 'console.php';
