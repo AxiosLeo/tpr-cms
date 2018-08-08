@@ -33,7 +33,8 @@
     "axios/tpr-db": "^0.1.2"
   },
   "require-dev": {
-    "composer/composer": "1.0.*@dev"
+    "composer/composer": "1.0.*@dev",
+    "eaglewu/swoole-ide-helper": "dev-master"
   },
   "repositories": {
   }
