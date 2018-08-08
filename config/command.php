@@ -8,4 +8,5 @@
 
 return [
     'tpr\command\Index',
+    'tpr\command\Test'
 ];
