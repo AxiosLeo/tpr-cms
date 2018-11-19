@@ -27,13 +27,14 @@
     "phpoffice/phpspreadsheet": "^1.1",
     "axios/aliyun-sdk": "^0.5",
     "phpmailer/phpmailer": "^6.0",
-    "axios/xhprof-composer": "^0.1.0",
     "axios/tpr-framework": "^2.0",
     "monolog/monolog": "^1.23",
-    "axios/tpr-db": "^0.1.2"
+    "axios/tpr-db": "^0.1.2",
+    "apache/thrift": "^0.11.0"
   },
   "require-dev": {
     "composer/composer": "1.0.*@dev",
+    "axios/xhprof-composer": "^1.0.0",
     "eaglewu/swoole-ide-helper": "dev-master"
   },
   "repositories": {
