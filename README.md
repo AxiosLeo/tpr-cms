@@ -77,7 +77,10 @@ vim .env
  
 * 演示版(非最新版)
  
- > [http://cms.hanxv.cn](http://cms.hanxv.cn) 
+ > [http://cms.hanxv.cn](http://cms.hanxv.cn)
+
+## ApiDoc
+ > [apidoc.gitee.com/AxiosCro/tpr-cms](https://apidoc.gitee.com/AxiosCro/tpr-cms)
 
 ## 开源协议
 > 遵循Apache2开源协议发布，并提供免费使用
