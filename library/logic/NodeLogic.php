@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: Axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : Axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/8/29 15:49
  */
 
@@ -20,31 +19,32 @@ class NodeLogic
     public static $roleId = 0;
 
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int    $page
+     * @param int    $limit
      * @param string $app_name
      * @param string $app_path
+     *
      * @return array
      * @throws \ErrorException
      * @throws \tpr\db\exception\BindParamException
      * @throws \tpr\db\exception\Exception
      * @throws \tpr\db\exception\PDOException
      */
-    public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE , $app_path = APP_PATH)
+    public static function adminNode($page = 1, $limit = 10, $app_name = APP_NAMESPACE, $app_path = APP_PATH)
     {
         $load_path = [
             ROOT_PATH . 'library',
             $app_path
         ];
 
-        $config = [
-            'doc_path' => Doc::getClassPathList(),
-            'load_path' => $load_path,
+        $config    = [
+            'doc_path'      => Doc::getClassPathList(),
+            'load_path'     => $load_path,
             'app_namespace' => $app_name,
         ];
-        $doc = Doc::set($config)->doc();
+        $doc       = Doc::set($config)->doc();
         $node_list = [];
-        $n = 0;
+        $n         = 0;
 
         foreach ($doc as $d) {
             $methods = $d['methods'];
@@ -61,10 +61,10 @@ class NodeLogic
 
         $node_list = $page ? array_slice($node_list, ($page - 1) * $limit, $limit) : $node_list;
 
-        $menus = Mysql::name('menu')->field('title , module , controller , func')->select();
+        $menus     = Mysql::name('menu')->field('title , module , controller , func')->select();
         $menu_list = [];
         foreach ($menus as &$m) {
-            $path = $m['module'] . '/' . $m['controller'] . '/' . $m['func'];
+            $path             = $m['module'] . '/' . $m['controller'] . '/' . $m['func'];
             $menu_list[$path] = $m['title'];
         }
 
@@ -74,13 +74,14 @@ class NodeLogic
             }
         }
         return [
-            'list' => $node_list,
+            'list'  => $node_list,
             'count' => $n
         ];
     }
 
     /**
      * @param $role_id
+     *
      * @return array
      * @throws \ErrorException
      * @throws \tpr\db\exception\BindParamException
@@ -95,7 +96,7 @@ class NodeLogic
 
         self::$roleId = $role_id;
 
-        $role_node_list = Mysql::name('role_node')->where('role_id', self::$roleId)->where('disabled',0)->select();
+        $role_node_list = Mysql::name('role_node')->where('role_id', self::$roleId)->where('disabled', 0)->select();
 
         $role_node_array = [];
 

@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/9/18 上午9:24
  */
 
@@ -28,6 +27,7 @@ class DocLogic
 
     /**
      * check the path exist
+     *
      * @param string $path
      * @param string $type
      */
@@ -40,6 +40,7 @@ class DocLogic
 
     /**
      * @param $app_path
+     *
      * @return mixed
      */
     protected static function checkNamespace($app_path)
@@ -56,6 +57,7 @@ class DocLogic
 
     /**
      * @param string $app_path
+     *
      * @return string
      */
     public static function setAppPath($app_path)
@@ -71,6 +73,7 @@ class DocLogic
 
     /**
      * @param string $app_path
+     *
      * @return array|mixed
      */
     public static function doc($app_path = null)
@@ -79,7 +82,7 @@ class DocLogic
 
         $cache = Cache::get('api_doc_' . $app_path);
         if (!App::$debug && !empty($cache)) {
-            $doc = $cache;
+            $doc            = $cache;
             self::$is_cache = true;
         } else {
             self::checkNamespace($app_path);
@@ -88,8 +91,8 @@ class DocLogic
             $doc_path = Doc::getClassPathList($app_path);
 
             $config = [
-                'doc_path' => $doc_path,
-                'load_path' => [
+                'doc_path'      => $doc_path,
+                'load_path'     => [
                     ROOT_PATH . 'library/',
                     $app_path
                 ],
@@ -108,6 +111,7 @@ class DocLogic
      * @param string $class
      * @param string $module
      * @param string $app_path
+     *
      * @return array
      */
     public static function apiList($class = null, $module = null, $app_path = null)
@@ -132,14 +136,14 @@ class DocLogic
 
             foreach ($methods as $m) {
                 $comment = $m['comment'];
-                $api = [
-                    'title'      => data($comment,'title'),
-                    'name'       => $m['name'],
-                    'path'       => $m['path'],
-                    'route'      => $m['route'],
-                    'file_name'  => $d['file_name'],
-                    'class_name' => $d['name'],
-                    'app_namespace'   => $app_namespace
+                $api     = [
+                    'title'         => data($comment, 'title'),
+                    'name'          => $m['name'],
+                    'path'          => $m['path'],
+                    'route'         => $m['route'],
+                    'file_name'     => $d['file_name'],
+                    'class_name'    => $d['name'],
+                    'app_namespace' => $app_namespace
                 ];
                 array_push($api_list, $api);
             }
@@ -151,6 +155,7 @@ class DocLogic
     /**
      * @param string $module
      * @param string $app_path
+     *
      * @return array
      */
     public static function classList($module = null, $app_path = null)
@@ -168,8 +173,8 @@ class DocLogic
             $comment = $d['comment'];
 
             $class = [
-                'title' => data($comment, 'title', $d['name']),
-                'name' => $d['name'],
+                'title'     => data($comment, 'title', $d['name']),
+                'name'      => $d['name'],
                 'file_name' => $d['file_name']
             ];
 
@@ -181,13 +186,14 @@ class DocLogic
 
     /**
      * @param string $app_path
+     *
      * @return array
      */
     public static function moduleList($app_path)
     {
         $app_path = self::setAppPath($app_path);
 
-        $dir = rtrim($app_path, '//');
+        $dir      = rtrim($app_path, '//');
         $app_name = basename($app_path);
 
         $module_list = [];
@@ -198,8 +204,8 @@ class DocLogic
                 $subFile = $dir . DIRECTORY_SEPARATOR . $fileName;
                 if (is_dir($subFile) && str_replace('.', '', $fileName) != '') {
                     $data = [
-                        'path' => $subFile,
-                        'name' => $fileName,
+                        'path'      => $subFile,
+                        'name'      => $fileName,
                         'namespace' => BASE_NAMESPACE . "\\" . $app_name . "\\" . $fileName
                     ];
                     array_push($module_list, $data);
@@ -213,7 +219,8 @@ class DocLogic
 
     /**
      * @param string $dir
-     * @param array $exception
+     * @param array  $exception
+     *
      * @return array
      */
     public static function appList($dir = ROOT_PATH . 'application/', $exception = [])
@@ -228,8 +235,8 @@ class DocLogic
                 $subFile = $dir . DIRECTORY_SEPARATOR . $fileName;
                 if (is_dir($subFile) && str_replace('.', '', $fileName) != '' && !in_array($fileName, $exception)) {
                     $data = [
-                        'path' => $subFile,
-                        'name' => $fileName,
+                        'path'      => $subFile,
+                        'name'      => $fileName,
                         'namespace' => BASE_NAMESPACE . "\\" . $fileName
                     ];
                     array_push($app_list, $data);

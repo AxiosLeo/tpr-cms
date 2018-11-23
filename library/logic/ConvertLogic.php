@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axiosleo@foxmail.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axiosleo@foxmail.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2018/1/15 14:27
  */
 
@@ -20,8 +19,9 @@ class ConvertLogic
 
     public static $patch = "0";
 
-    public static function set($dict, $patch){
-        self::$dict = $dict;
+    public static function set($dict, $patch)
+    {
+        self::$dict  = $dict;
         self::$patch = $patch;
     }
 
@@ -49,7 +49,7 @@ class ConvertLogic
     private static function convert10($num, $to = 62)
     {
         $dict = self::$dict;
-        $ret = '';
+        $ret  = '';
         do {
             $ret = $dict[bcmod($num, $to)] . $ret;
             $num = bcdiv($num, $to);
@@ -59,10 +59,10 @@ class ConvertLogic
 
     private static function convertTo10($num, $from = 62)
     {
-        $num = strval($num);
+        $num  = strval($num);
         $dict = self::$dict;
-        $len = strlen($num);
-        $dec = 0;
+        $len  = strlen($num);
+        $dec  = 0;
         for ($i = 0; $i < $len; $i++) {
             $pos = strpos($dict, $num[$i]);
             $dec = bcadd(bcmul(bcpow($from, $len - $i - 1), $pos), $dec);

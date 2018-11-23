@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/9/18 下午1:04
  */
 
@@ -14,11 +13,13 @@ class PathNotException extends \RuntimeException
 {
     protected $path;
 
-    public function __construct($message , $path = null)
+    public function __construct($message, $path = null)
     {
+        parent::__construct();
         $this->message = $message;
         $this->path    = $path;
     }
+
 
     /**
      * 获取类名

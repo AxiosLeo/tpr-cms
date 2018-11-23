@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axiosleo@foxmail.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axiosleo@foxmail.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2018/2/2 15:33
  */
 
@@ -16,7 +15,8 @@ use tpr\framework\Route;
 
 class Run extends App
 {
-    public static function request($path,\tpr\framework\Request $request , $config){
+    public static function request($path, \tpr\framework\Request $request, $config)
+    {
         if (defined('BIND_MODULE')) {
             // 模块/控制器绑定
             BIND_MODULE && Route::bind(BIND_MODULE);
@@ -55,21 +55,22 @@ class Run extends App
         $request->dispatch($dispatch);
         return $dispatch;
     }
+
     public static function exec($dispatch, $config)
     {
         return parent::exec($dispatch, $config);
     }
 
-    public static function checkRoute($path , \tpr\framework\Request $request, array $config)
+    public static function checkRoute($path, \tpr\framework\Request $request, array $config)
     {
-        $depr = $config['pathinfo_depr'];
+        $depr   = $config['pathinfo_depr'];
         $result = false;
         // 路由检测
         $check = !is_null(self::$routeCheck) ? self::$routeCheck : $config['url_route_on'];
         if ($check) {
             // 路由检测（根据路由定义返回不同的URL调度）
             $result = Route::check($request, $path, $depr, $config['url_domain_deploy']);
-            $must = !is_null(self::$routeMust) ? self::$routeMust : $config['url_route_must'];
+            $must   = !is_null(self::$routeMust) ? self::$routeMust : $config['url_route_must'];
             if ($must && false === $result) {
                 // 路由无效
                 throw new RouteNotFoundException();

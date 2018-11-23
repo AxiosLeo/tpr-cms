@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axiosleo@foxmail.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axiosleo@foxmail.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 04/01/2018 17:06
  */
 
@@ -22,9 +21,9 @@ class SmsService
     public static $config_index = 'app.aliyun_message';
 
     public static $config = [
-        'accessKeyId' => '',
+        'accessKeyId'  => '',
         'accessSecret' => '',
-        'signName' => '',
+        'signName'     => '',
         'templateCode' => [
 
         ]
@@ -49,8 +48,8 @@ class SmsService
             self::$config_index = $config_index;
         }
 
-        self::$config = array_merge(self::$config, Config::get($config_index,[]));
-        self::$sms = Sms::factory(self::$config['accessKeyId'], self::$config['accessSecret']);
+        self::$config   = array_merge(self::$config, Config::get($config_index, []));
+        self::$sms      = Sms::factory(self::$config['accessKeyId'], self::$config['accessSecret']);
         self::$template = self::$config['templateCode'];
 
         return self::$instance;
@@ -60,7 +59,7 @@ class SmsService
     {
         if (isset(self::$template[$template])) {
             $param = [$code_key => $code];
-            $this->sendMessage($mobile,'code',$param);
+            $this->sendMessage($mobile, 'code', $param);
             return true;
         }
         return false;

@@ -7,9 +7,6 @@
  * @datetime: 2017/5/17 11:30
  */
 
-
-
-
 if (!function_exists('data')) {
     /**
      * @param $array

@@ -11,8 +11,10 @@ namespace library\extend\workman\exception;
 class ConnectionNotFound extends \RuntimeException
 {
     protected $class;
+
     public function __construct($message, $class = '')
     {
+        parent::__construct();
         $this->message = $message;
         $this->class   = $class;
     }

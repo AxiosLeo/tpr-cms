@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axiosleo@foxmail.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axiosleo@foxmail.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2018/1/25 15:16
  */
 
@@ -17,13 +16,15 @@ use Workerman\Worker;
 class Connect
 {
     public static $client = [];
+
     /**
      * @param Connection $connection
      */
-    public static function run($connection){
-        $data = Response::response('connect success');
-        $uniq = ConvertLogic::convert(Tool::uuid('connection_id'),16,62).ConvertLogic::convert(Tool::uuid('connection_id'),16,62);
-        self::$client[$uniq] = $connection;
+    public static function run($connection)
+    {
+        $data                      = Response::response('connect success');
+        $uniq                      = ConvertLogic::convert(Tool::uuid('connection_id'), 16, 62) . ConvertLogic::convert(Tool::uuid('connection_id'), 16, 62);
+        self::$client[$uniq]       = $connection;
         $connection->connection_id = $uniq;
         $connection->send($data);
     }
@@ -31,33 +32,40 @@ class Connect
     /**
      * @param Connection $connection
      */
-    public static function close($connection){
+    public static function close($connection)
+    {
         unset(self::$client[$connection->connection_id]);
         $connection->close();
     }
 
-    public static function allConnection(){
+    public static function allConnection()
+    {
         return WorkmanOption::getWorker()->connections;
     }
 
-    public static function count(){
+    public static function count()
+    {
         return count(WorkmanOption::getWorker()->connections);
     }
 
-    public static function reload(){
+    public static function reload()
+    {
         Worker::stopAll();
         Worker::runAll();
     }
 
-    public static function stop(){
+    public static function stop()
+    {
         Worker::stopAll();
     }
 
     /**
      * @param Connection $connection
+     *
      * @return mixed
      */
-    public static function getConnectionId($connection){
+    public static function getConnectionId($connection)
+    {
         return $connection->connection_id;
     }
 

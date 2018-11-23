@@ -30,7 +30,13 @@
     "monolog/monolog": "^1.23",
     "axios/tpr-db": "^0.1.2",
     "apache/thrift": "^0.11.0",
-    "overtrue/wechat": "^4.1"
+    "overtrue/wechat": "^4.1",
+    "ext-json": "*",
+    "ext-redis": "*",
+    "ext-bcmath": "*",
+    "ext-pdo": "*",
+    "ext-gearman": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
     "composer/composer": "1.0.*@dev",

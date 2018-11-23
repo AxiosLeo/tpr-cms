@@ -1,17 +1,18 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/8/2 上午8:56
  */
 
 namespace library\service;
 
+use library\connector\RedisClient;
+
 /**
  * Class CodeService
- * @desc 短信验证码功能服务类
+ * @desc    短信验证码功能服务类
  * @package library\service
  */
 class CodeService
@@ -51,16 +52,16 @@ class CodeService
 
     public function set($to, $time = 60)
     {
-        $key = self::key($to);
+        $key  = self::key($to);
         $code = mt_rand(100000, 999999);
 
-        $result = SmsService::instance('sms.'.self::$rest)->sendCode($to, $code, 'code');
+        $result = SmsService::instance('sms.' . self::$rest)->sendCode($to, $code, 'code');
 
         if ($result) {
-            RedisService::redis()->switchDB(0)->set($key, strval($code), $time);
+            RedisClient::init()->redis()->set($key, strval($code), $time);
         } else {
             self::$code = "500";
-            self::$msg = "message send service error";
+            self::$msg  = "message send service error";
         }
         return $result;
     }
@@ -68,7 +69,7 @@ class CodeService
     protected static function get($to)
     {
         $key = self::key($to);
-        return RedisService::redis()->switchDB(0)->exists($key) ? RedisService::redis()->switchDB(0)->get($key) : null;
+        return RedisClient::init()->redis()->exists($key) ? RedisClient::init()->redis()->get($key) : null;
     }
 
     public function check($to, $code)
@@ -82,14 +83,14 @@ class CodeService
 
         if (strval($code) != strval($verify_code)) {
             $count_error_key = self::key($to) . 'error';
-            $result = RedisService::redis()->switchDB()->count($count_error_key);
+            $result          = RedisClient::init()->count($count_error_key);
             if ($result === false) {
-                $result = RedisService::redis()->switchDB()->set($count_error_key, 1, ['ex' => 60]);
+                $result     = RedisClient::init()->redis()->set($count_error_key, 1, ['ex' => 60]);
                 self::$code = 4000;
             }
             if ($result > 3) {
-                RedisService::redis()->switchDB()->delete(self::key($to));
-                RedisService::redis()->switchDB()->delete($count_error_key);
+                RedisClient::init()->redis()->delete(self::key($to));
+                RedisClient::init()->redis()->delete($count_error_key);
                 self::$code = 40411;
             }
             return false;

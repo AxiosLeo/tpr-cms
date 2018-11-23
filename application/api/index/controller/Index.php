@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: Axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : Axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/5/17 9:45
  */
 
@@ -30,7 +29,8 @@ class Index extends ApiBase
 
     /**
      * send $name
-     * @desc example
+     * @desc      example
+     *
      * @parameter string name 名称
      * @method post|get
      */
@@ -58,8 +58,8 @@ class Index extends ApiBase
     public function apiDoc()
     {
         $config = [
-            'doc_path' => Doc::getClassPathList(),
-            'load_path' => [ROOT_PATH . 'library', APP_PATH],
+            'doc_path'      => Doc::getClassPathList(),
+            'load_path'     => [ROOT_PATH . 'library', APP_PATH],
             'app_namespace' => 'tpr\api'
         ];
         $this->response(Doc::set($config)->doc());

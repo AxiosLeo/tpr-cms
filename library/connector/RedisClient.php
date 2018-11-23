@@ -52,7 +52,7 @@ class RedisClient
     public static function init($config_index = "")
     {
         if (empty($config_index)) {
-            $config_index = "default";
+            $config_index = "redis.default";
         }
         if (isset(self::$instance[$config_index])) {
             return self::$instance[$config_index];
@@ -132,5 +132,84 @@ class RedisClient
     public function kv($key)
     {
         return KV::key($key, $this->redis);
+    }
+
+    public function counter($key, $init = 0, $expire = 0)
+    {
+        if (empty($expire)) {
+            $this->redis()->set($key, $init);
+        } else {
+            $this->redis()->psetex($key, $expire, $init);
+        }
+        return $init;
+    }
+
+    public function countNumber($key)
+    {
+        if (!$this->redis()->exists($key)) {
+            return false;
+        }
+        return $this->redis()->get($key);
+    }
+
+    /**
+     * @desc 进行计数
+     *
+     * @param $key
+     *
+     * @return bool|int
+     */
+    public function count($key)
+    {
+        if (!$this->redis()->exists($key)) {
+            return false;
+        }
+        $count = $this->redis()->incr($key);
+        return $count;
+    }
+
+    public function setsMembers($key)
+    {
+        $size    = $this->redis()->sCard($key);
+        $members = [];
+        for ($i = 0; $i < $size; $i++) {
+            $members[$i] = $this->redis()->sPop($key);
+        }
+        foreach ($members as $m) {
+            $this->redis()->sAdd($key, $m);
+        }
+        return $members;
+    }
+
+    public function setArray($key, $array, $ttl = 0)
+    {
+        if ($ttl) {
+            return $this->redis()->set($key, $this->formatArray($array), ['ex' => $ttl]);
+        } else {
+            return $this->redis()->set($key, $this->formatArray($array));
+        }
+    }
+
+    public function getArray($key)
+    {
+        if (!$this->redis()->exists($key)) {
+            return false;
+        }
+        return $this->unFormatArray($this->redis()->get($key));
+    }
+
+    private function formatArray($array)
+    {
+        return base64_encode(@serialize($array));
+    }
+
+    private function unFormatArray($data)
+    {
+        return @unserialize(base64_decode($data));
+    }
+
+    function __destruct()
+    {
+        $this->redis()->close();
     }
 }
