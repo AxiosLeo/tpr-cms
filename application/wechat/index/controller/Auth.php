@@ -64,7 +64,7 @@ class Auth extends WechatBase
         if (!empty($redirect)) {
             $redirect = base64_decode($redirect);
         } else {
-            $redirect = "index/index/index";
+            $redirect = $this->request->host();
         }
         header("location: " . $redirect);
     }
