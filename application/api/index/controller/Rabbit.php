@@ -13,7 +13,6 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use tpr\framework\Controller;
 use tpr\framework\Debug;
-use tpr\framework\Fork;
 
 class Rabbit extends Controller
 {
@@ -46,7 +45,6 @@ class Rabbit extends Controller
         $receiver_name = uniqid();
 
         //使用Fork类异步执行消息接收
-        Fork::work($this , 'forkReceive',[$receiver_name]);
         $this->response($receiver_name);
     }
 
