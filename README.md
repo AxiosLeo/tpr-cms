@@ -35,7 +35,6 @@
 - workman
 - aliyun-sdk
 - PHPMail
-- RongIM
 - Umeng
 - Base Class of Wechat Development
 - Admin System
