@@ -66,8 +66,7 @@ class Auth extends WechatBase
         } else {
             $redirect = "index/index/index";
         }
-        header("location: ".$redirect);
-//        $this->redirect(url($redirect, '', false));
+        header("location: " . $redirect);
     }
 
     public function api()

@@ -29,7 +29,7 @@ class WechatBase extends Controller
     {
         parent::__construct($request);
 
-        // 配置环境变量，强制使用某一个微信公众号，比如"微信公众号测试平台"
+        // wechat 环境变量，可用于公众号切换
         $this->wechat = env('app.wechat', $wechat_config);
 
         $wechat_config = c('wechat.' . $wechat_config, []);
