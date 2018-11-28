@@ -1,66 +1,23 @@
 <?php
 /**
- * @author: axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
- * @datetime: 2017/11/3 10:20
+ * @author  : Axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
+ * @datetime: 2017/10/23 10:59
  */
 
 namespace library\connector;
 
-use tpr\db\Db;
-use tpr\db\core\Connection;
-use tpr\framework\Config;
-
+/**
+ * Class Example
+ * @package library\connector
+ * @example Example::name($name) ; Example::name($name)
+ */
 class Mysql extends MysqlFacade
 {
-    private static $instance = [];
-
-    /**
-     * 动态生成数据库连接
-     *
-     * @param  string $con_name
-     * @param string  $config_index
-     * @param array   $custom_config
-     *
-     * @return Connection
-     */
-    public static function newCon($con_name, $config_index = "", $custom_config = [])
+    public static function __callStatic($method, $params)
     {
-        $config = Config::get($config_index);
-        if (!empty($custom_config)) {
-            $config = array_merge($config, $custom_config);
-        }
-        return self::instance($con_name, $config);
-    }
-
-    /**
-     * 关闭连接
-     *
-     * @param $con_name
-     */
-    public static function closeCon($con_name)
-    {
-        if (isset(self::$instance[$con_name])) {
-            self::instance($con_name)->close();
-            unset(self::$instance[$con_name]);
-        }
-    }
-
-    /**
-     * 实例化连接
-     *
-     * @param       $con_name
-     * @param array $config
-     *
-     * @return Connection
-     */
-    private static function instance($con_name, $config = [])
-    {
-        if (!isset(self::$instance[$con_name])) {
-            self::$instance[$con_name] = Db::connect($config, $con_name);
-        }
-        return self::$instance[$con_name];
+        $Con = Connector::newCon('mysql.default', 'mysql.default');
+        return call_user_func_array([$Con, $method], $params);
     }
 }
