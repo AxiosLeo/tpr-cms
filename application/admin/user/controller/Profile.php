@@ -1,9 +1,8 @@
 <?php
 /**
- * @author: Axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
+ * @author  : Axios
+ * @email   : axioscros@aliyun.com
+ * @blog    :  http://hanxv.cn
  * @datetime: 2017/5/18 13:38
  */
 
@@ -33,7 +32,7 @@ class Profile extends AdminLogin
                 $this->error($Validate->getError());
             }
             $this->param['update_at'] = time();
-            $result = Mysql::name('admin')->where('id', $this->user['id'])->update($this->param);
+            $result                   = Mysql::name('admin')->where('id', $this->user['id'])->update($this->param);
             if ($result) {
                 $this->user = AdminService::getSessionInfo($this->user['id']);
                 $this->success('操作成功');
@@ -57,13 +56,15 @@ class Profile extends AdminLogin
 
         $save_name = Tool::uuid();
         $file->setSaveName($save_name);
-        $info = $file->move( PUBLIC_PATH . "/uploads/images/");
+        $info = $file->move(PUBLIC_PATH . "/uploads/images/");
 
         if (!empty($info)) {
-            $pathname = $info->getPathname();
-            $pathname = substr($pathname, strpos($pathname, "uploads"));
-            $user = user_info();
+            $pathname       = $info->getPathname();
+            $pathname       = substr($pathname, strpos($pathname, "uploads"));
+            $user           = user_info();
             $user['avatar'] = '/' . $pathname;
+            Mysql::name('admin')->where('id', $this->user['id'])->setField('avatar', $user['avatar']);
+            user_save($user);
             $this->response($user['avatar']);
         } else {
             $this->wrong(500, $file->getError());
