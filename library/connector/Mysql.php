@@ -15,7 +15,7 @@ use tpr\framework\Config;
 /**
  * Class Example
  * @package library\connector
- * @example Example::name($name) ; Example::name($name)
+ * @example Mysql::name($name)
  */
 class Mysql extends DbFacade
 {
