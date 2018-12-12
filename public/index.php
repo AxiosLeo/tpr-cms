@@ -7,6 +7,7 @@ date_default_timezone_set('Asia/Shanghai');
 define('DS', DIRECTORY_SEPARATOR);
 define('PUBLIC_PATH', __DIR__);
 define('PROJECT_NAME', 'admin');
+define('APP_NAMESPACE', 'tpr\\admin');
 define('ROOT_PATH', dirname(__DIR__) . DS);
 define('CONFIG_PATH', ROOT_PATH . 'config' . DS);
 define('APP_PATH', ROOT_PATH . 'application' . DS . PROJECT_NAME . DS);
