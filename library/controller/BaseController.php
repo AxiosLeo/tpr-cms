@@ -19,6 +19,16 @@ class BaseController extends Controller
 
     protected $type = '';
 
+    protected $result = [];
+
+    protected $param;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->param = $this->request->param();
+    }
+
     protected function setResponseType($type)
     {
         $this->type = $type;
@@ -33,6 +43,12 @@ class BaseController extends Controller
         }
     }
 
+    protected function setResult($key, $value = '')
+    {
+        $this->result[$key] = $value;
+        return $this;
+    }
+
     protected function wrong($code = 500, $msg = '')
     {
         $this->response([], $code, $msg);
@@ -40,15 +56,13 @@ class BaseController extends Controller
 
     protected function response($data, $code = 200, $msg = '')
     {
-        $result   = [
-            'code' => $code,
-            'msg'  => $this->msg($msg),
-            'time' => $_SERVER['REQUEST_TIME'],
-            'data' => $data
-        ];
+        $this->setResult('code', $code)
+            ->setResult('msg', $this->msg($msg))
+            ->setResult('time', $_SERVER['REQUEST_TIME'])
+            ->setResult('data', $data);
         $config   = Container::get('config');
         $type     = empty($type) ? $config->get('default_ajax_return') : $type;
-        $response = Response::create($result, $type)->header($this->headers);
+        $response = Response::create($this->result, $type)->header($this->headers);
         throw new HttpResponseException($response);
     }
 
@@ -70,5 +84,18 @@ class BaseController extends Controller
             }
         }
         return $message;
+    }
+
+    protected function fetch($template = '', $vars = [], $config = [])
+    {
+        if (empty($template)) {
+            $template = $this->request->action();
+        }
+
+        if (strpos($template, ':') === false) {
+            $template = strtolower($this->request->module()) . ":" . strtolower($this->request->controller()) . ":" . $template;
+        }
+
+        return parent::fetch($template, $vars, $config);
     }
 }
