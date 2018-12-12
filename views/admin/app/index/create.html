@@ -1,0 +1,46 @@
+<div class="larry-personal">
+    <div class="layui-field-box layui-show">
+        <form class="layui-form" id="app_create_form" action="{:url('app/index/create')}">
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="platform" class="layui-form-label col-xs-3 col-sm-3 col-md-3">选择平台: </label>
+                    <div class="layui-input-inline">
+                        <select id="platform" name="platform">
+                            <option value="ios-ipad">ios-ipad</option>
+                            <option value="ios-iphone">ios-iphone</option>
+                            <option value="android">android</option>
+                            <option value="windows">windows</option>
+                            <option value="mac-os">mac-os</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="app_name" class="layui-form-label col-xs-3 col-sm-3 col-md-3">应用名称: </label>
+                    <div class="layui-input-inline">
+                        <input id="app_name" type="text" class="layui-input" name="app_name" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="base_version" class="layui-form-label col-xs-3 col-sm-3 col-md-3">主版本号: </label>
+                    <div class="layui-input-inline">
+                        <input id="base_version" type="number" class="layui-input" name="base_version" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="remark" class="layui-form-label col-xs-3 col-sm-3 col-md-3">备注: </label>
+                    <div class="layui-input-inline">
+                        <textarea id="remark" class="layui-input" name="remark" style="width: 300px;height: 110px;" ></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

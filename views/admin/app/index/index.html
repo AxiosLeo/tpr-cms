@@ -1,0 +1,138 @@
+{layout name="main" /}
+
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>创建应用</legend>
+    <div class="layui-field-box">
+        <form class="layui-form" id="form-admin-add" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <a id="addApp" class="layui-btn"><i class="layui-icon">&#xe654;</i>创建应用</a>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" id="keyword" name="keyword" placeholder="应用名称" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <span class="layui-btn" data-type="reload" onclick="reload()">搜索</span>
+                </div>
+            </div>
+        </form>
+        <table class="layui-table" id="data_table" lay-filter="data_table"></table>
+    </div>
+</fieldset>
+
+{php}$url = u('app','index','index');{/php}
+
+<script type="text/javascript">
+    var form, table;
+
+    layui.use(['jquery', 'form', 'table'],function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        form  = layui.form;
+        table = layui.table;
+
+        table.init();
+        reload();
+
+        table.on('tool(data_table)',function (obj) {
+            var id = obj.data.id;
+            if(obj.event === 'create'){
+                create();
+            }else if(obj.event === 'view'){
+                view(id);
+            }else if(obj.event === 'publish'){
+                publish(id);
+            }
+        });
+
+        table.on('edit(data_table)', function (obj) {
+            var  data = obj.data;
+            var url = "{:u('app','index','edit')}";
+
+            postSomething(url,data,function(res){
+                if(res.code){
+                    layer.msg(res.msg,{icon:1,time:1500});
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1500},function () {
+                        table.reload('data_table');
+                    });
+                }
+            });
+        });
+    });
+
+    $("#addApp").click(function () {
+        create();
+    });
+
+    function view(id){
+        var url = "{:u('app','index','view')}?id=" + id;
+        openLayer(url,{
+            title:"查看版本信息",
+            width:"600px", height:"380px",
+            btn: ['取消']
+
+        },{
+            cancel:function (index) {
+                layer.close(index);
+            }
+        })
+    }
+
+    function create(){
+        var url = "{:url('app/index/create')}";
+        openLayer(url,{
+            title:'创建应用',
+            width:"500px", height:"500px"
+        },{
+            yes:function () {
+                submitForm('#app_create_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        });
+    }
+
+    function publish(id) {
+        var url = "{:u('app','version','publish')}?id=" + id;
+        openLayer(url,{
+            title:"版本发布",
+            width:"600px", height:"450px"
+        },{
+            yes:function () {
+                submitForm('#app_publish_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        })
+    }
+
+    function reload() {
+        var cols = [[
+            {width: 180, templet: '#operationTpl', title: '操作',fixed:true},
+            {field: 'app_name', width: 150,  edit: 'text', title: '应用名称'},
+            {field: 'platform', width: 150, sort: true, title: '平台'},
+            {field: 'base_version', width: 150, title: '主版本号'},
+            {field: 'last_version', width: 200, title: '最新版本'},
+            {field: 'last_version_time', width: 200, sort: true, title: '最后发布时间'}
+        ]];
+        var keyword = $("#keyword").val();
+        loadTable({
+            height: 550,
+            url: '{$url}',
+            where: {keyword: keyword}
+        },cols);
+    }
+
+</script>
+<script type="text/html" id="operationTpl">
+    <a class="layui-btn layui-btn-default layui-btn-sm" lay-event="view">查看</a>
+    <a class="layui-btn layui-btn-default layui-btn-sm" lay-event="publish">发布新版</a>
+</script>
+

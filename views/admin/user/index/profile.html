@@ -1,0 +1,102 @@
+{layout name="main" /}
+<section class="layui-larry-box">
+    <div class="larry-personal">
+        <!-- /header -->
+        <div class="larry-personal-body clearfix">
+            <form id="profile_form" class="layui-form" action="{:url('user/profile/update')}" method="post">
+                <div class="col-lg-5">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            {php}$avatar = get_user_avatar($user['avatar']);{/php}
+                            <img id="avatar-image" src="{$avatar}" style="width: 250px;" class="img-responsive avatar layui-circle" alt="Responsive image">
+                            <input id="avatar-input" type="hidden" name="avatar" value="{$user['avatar']}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn avatar"><i class="fa fa-cloud-upload"></i>上传图片</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input id="username" name="username"  autocomplete="off"  class="layui-input layui-disabled" value="{$user['username']}" disabled >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="role_name" class="layui-form-label">所属角色</label>
+                        <div class="layui-input-block">
+                            <input id="role_name"  autocomplete="off" class="layui-input layui-disabled" value="{$role_name}" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="realname" class="layui-form-label">真实姓名</label>
+                        <div class="layui-input-block">
+                            <input id="realname" name="realname" autocomplete="off" class="layui-input" value="{$user['realname']}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="mobile" class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input id="mobile" name="mobile"  autocomplete="off" class="layui-input" value="{$user['mobile']}" placeholder="输入手机号码">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            {php}$sex = [0=>"",1=>""];$sex[$user['sex']]="checked";{/php}
+                            <input type="radio" name="sex" value="0" title="男" {$sex[0]}>
+                            <input type="radio" name="sex" value="1" title="女" {$sex[1]}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">座右铭</label>
+                        <div class="layui-input-block">
+                            <textarea name="motto" placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" class="layui-textarea">{$user['motto']}</textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button id="upload" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    layui.use(['form','upload','layer'],function(){
+        var upload = layui.upload;
+        var form = layui.form;
+        form.render();
+
+        upload.render({
+            elem:'.avatar',
+            url: '{:url("user/profile/avatar")}' ,//上传接口
+            method:'post',
+            ext: 'jpg|png',
+            before: function(obj){
+                //返回的参数item，即为当前的input DOM对象
+//                console.log('文件上传中');
+//                console.log(obj)
+            },
+            done: function(res){
+                //上传成功后的回调
+                if(res.code!=="200"){
+                    layer.msg(res.msg, {icon: 2, time: 1500});
+                }else{
+                    layer.msg(res.msg, {icon: 1, time: 1500});
+                    $("#avatar-image").attr('src',res.data);
+                    $("#avatar-input").attr('value',res.data);
+                }
+            },
+            error:function () {
+                
+            }
+        });
+    });
+</script>

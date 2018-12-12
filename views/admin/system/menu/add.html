@@ -1,0 +1,65 @@
+<div class="larry-personal">
+    <div class="layui-field-box layui-show">
+        <form id="system_menu_add_form" class="layui-form" action="{:url('system/menu/add')}">
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="parent_id" class="layui-form-label col-xs-3 col-sm-3 col-md-3">父级菜单: </label>
+                    <div class="layui-input-inline ">
+                        <select class="col-md-3" id="parent_id" name="parent_id" lay-filter="parent">
+                            <option value="0" selected>顶级菜单</option>
+                            {foreach name="parent_menu" item="pm"}
+                            <option value="{$pm['id']}">{$pm['title']}</option>
+                                {php}$sub = $pm['children'];if(!empty($sub)){{/php}
+                                {foreach name="sub" item="c"}
+                                <option value="{$c['id']}">└─{$c['title']}</option>
+                                {/foreach}
+                            {php}}{/php}
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="node_path" class="layui-form-label col-xs-3 col-sm-3 col-md-3">权限节点: </label>
+                    <div class="layui-input-inline ">
+                        <select class="col-md-3" id="node_path" lay-search="" name="node_path" lay-filter="parent">
+                            {foreach name="node_list" item="n"}
+                            <option value="{$n['path']}" >{$n['path']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="title" class="layui-form-label col-xs-3 col-sm-3 col-md-3">名称: </label>
+                    <div class="layui-input-inline ">
+                        <input id="title" class="layui-input" value="" name="title">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="icon" class="layui-form-label col-xs-3 col-sm-3 col-md-3">图标: </label>
+                    <div class="layui-input-inline ">
+                        <input id="icon" class="layui-input" name="icon" value="home">
+                        <span class="help-block" ><a href="http://fontawesome.dashgame.com/" style="color: #999999" target="_blank">Font Awesome图标库</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="sort" class="layui-form-label col-xs-3 col-sm-3 col-md-3">排序: </label>
+                    <div class="layui-input-inline ">
+                        <input id="sort" class="layui-input " name="sort" value="0">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

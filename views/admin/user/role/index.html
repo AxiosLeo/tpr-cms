@@ -1,0 +1,148 @@
+{layout name="main" /}
+
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>角色列表</legend>
+</fieldset>
+
+
+<blockquote class="layui-elem-quote mylog-info-tit">
+    <ul class="layui-tab-title" style="border: 0">
+        <li><a id="addRole" class="layui-btn"><i class="layui-icon">&#xe654;</i>新增角色</a></li>
+        <li>
+            <div class="search-bar">
+                <div class="layui-inline">
+                    <input class="layui-input" name="id" id="keyword">
+                </div>
+                <button class="layui-btn" data-type="reload" onclick="reload()">搜索</button>
+            </div>
+        </li>
+    </ul>
+</blockquote>
+
+{php}$url = u('user','role','index');{/php}
+<!--<table id="data_table" class="layui-table" lay-filter="data-table"></table>-->
+<table class="layui-table" id="data_table" lay-filter="data_table"></table>
+<script type="text/javascript">
+    var form, table;
+    var cols = [[ //标题栏
+        {field: 'id', width: 150, sort: true, title: 'ID'},
+        {field: 'role_name', width: 150, edit: 'text', title: '角色名'},
+        {field: 'admin_number', width: 100, sort: true, title: '用户数'},
+        {width: 180, templet: '#operationTpl', title: '操作'}
+    ]];
+
+    layui.use(['jquery', 'form', 'table'], function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        form  = layui.form;
+        table = layui.table;
+        reload();
+        table.on('edit(data_table)', function (obj) {
+            var  data = obj.data;
+            var url = "{:u('user','role','edit')}";
+
+            postSomething(url,data,function(res){
+                if(res.code){
+                    layer.msg(res.msg,{icon:1,time:1500});
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1500},function () {
+                        table.reload('data_table');
+                    });
+                }
+            });
+        });
+
+        table.on('tool(data_table)',function (obj) {
+            var url , id;
+            id = obj.data.id;
+            if(obj.event === 'del'){
+                url = "{:u('user','role','del')}";
+                postSomething(url,{id:id},function(res){
+                    if(res.code){
+                        layer.msg(res.msg,{icon:1,time:1500});
+                        obj.del();
+                    }else{
+                        layer.msg(res.msg,{icon:2,time:1500});
+                    }
+                });
+            }else if(obj.event === 'auth'){
+                var check_auth = [];
+                url = "{:url('user/role/auth')}?id=" + id;
+                openLayer(url,{
+                    title:"分配权限",
+                    width:"800px", height:"700px"
+                },{
+                    yes:function (index) {
+                        check_auth = table.checkStatus('user_role_auth_table');
+                        postSomething(url , {role_id:id,node:check_auth.data} ,function (res) {
+                            if(res.code){
+                                layer.msg(res.msg,{icon:1,time:1500},function () {
+                                    layer.close(index);
+                                });
+                            }else{
+                                layer.msg(res.msg,{icon:2,time:1500});
+                            }
+                        });
+                    },btn2:function (index) {
+                        layer.close(index);
+                    },success:function (data , index) {
+                        layer.full(index);
+                        table.render({
+                            id: 'user_role_auth_table',
+                            height: 550,
+                            elem: '#user_role_auth_table',
+                            url: "{:u('system','node','auth')}",
+                            method: 'post',
+                            where:{is_page: 0,role_id:id},
+                            page: false,
+                            loading: true,
+                            cols: [[
+                                {checkbox:true, fixed: true},
+                                {field: 'title', width: 250,title:'名称'},
+                                {field: 'path', width: 300, sort: true,title:'path'}
+                            ]]
+                        });
+                    }
+                });
+            }
+        });
+    });
+    
+    $("#addRole").click(function () {
+        var url = "{:url('user/role/add')}";
+
+        openLayer(url,{
+            title:"新增角色",
+            width:"450px", height:"200px"
+        },{
+            yes:function () {
+                submitForm("#user_role_add");
+            },btn2:function (index) {
+                layer.close(index);
+            }
+        });
+    });
+
+    function reload() {
+        var keyword = $("#keyword").val();
+        table.init();
+        table.render({
+            id: 'data_table',
+            height: 550,
+            elem: '#data_table',
+            url: '{$url}',
+            where: {keyword: keyword},
+            method: 'post',
+            page: true,
+            limits: [10, 30, 50, 100],
+            limit: 10,
+            loading: false,
+            cols: cols
+        });
+    }
+
+</script>
+<script type="text/html" id="operationTpl">
+    <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="auth">分配权限</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+</script>

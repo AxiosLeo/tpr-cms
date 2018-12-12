@@ -1,0 +1,86 @@
+<div class="row" style="height:375px;margin:0; padding:0;background-color: #FFFFFF;">
+    <div class="col-xs-12 col-md-12 col-lg-12" style="height: 100%;width: 100%;margin:0; padding:0;">
+        <form class="layui-form" id="app_publish_form" action="{:url('app/version/publish')}">
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="publish_app_id" class="layui-form-label layui-form-label col-xs-4 col-sm-4 col-md-2">选择应用: </label>
+                    <div class="layui-input-inline">
+                        <select id="publish_app_id" name="app_id" lay-search="" lay-filter="publish_app_id">
+                            <option value="">请选择</option>
+                            {foreach name='apps' item='a'}
+                            {php}$selected = $app_id==$a['id']?"selected":"";{/php}
+                            <option value="{$a['app_id']}" {$selected}>{$a['app_name']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="version_type" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本属性: </label>
+                    <div class="layui-input-inline">
+                        <select id="version_type" name="version_type">
+                            <option value="release">正式版(release)</option>
+                            <option value="rc">预览版(rc)</option>
+                            <option value="beta">公测版(beta)</option>
+                            <option value="alpha">内测版(alpha)</option>
+                            <option value="base">初始版(base)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="update_type" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">更新类别: </label>
+                    <div class="layui-input-inline">
+                        <select id="update_type" name="update_type" >
+                            <option value="0">修订版更新(debug)</option>
+                            <option value="1">次版本更新(功能性)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="app_version" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本号预览: </label>
+                    <div class="layui-input-inline">
+                        <input readonly id="app_version" class="layui-input " name="app_version" value="{$version['version']}">
+                    </div>
+                    <div class="layui-input-inline">
+                        <input id="app_build" class="layui-input" name="app_build" value="{$version['build']}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="app_key" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">APP_KEY: </label>
+                    <div class="layui-input-inline">
+                        <input readonly id="app_key" class="layui-input" style="width: 392px;" name="app_key" value="{$app_key}">
+                    </div>
+                </div>
+
+                    <!--<div class="col-xs-12 col-sm-12 col-md-8">
+                        <div class="layui-form-item">
+                            <label for="remark" class="layui-form-label layui-form-label col-xs-4 col-sm-2 col-md-2">版本描述: </label>
+                            <div class="layui-input-block col-xs-8 col-sm-10 col-md-10 ">
+                                <textarea class="layui-textarea layui-hide " name="remark" lay-verify="content" id="remark"></textarea>
+                            </div>
+                        </div>
+                    </div>-->
+            </div>
+        </form>
+    </div>
+</div>
+<script type="application/javascript">
+    layui.use(['jquery','form'],function() {
+        var form = layui.form;
+        window.jQuery = window.$ = layui.jquery;
+        form.on('select', function () {
+            getVersion();
+        });
+        form.render();
+    });
+    function getVersion() {
+        var version_type = $("#version_type").val();
+        var update_type  = $("#update_type").val();
+        var app_id = $("#publish_app_id").val();
+        var url = "{:url('app/version/getVersion')}";
+
+        $.post(url,{app_id:app_id,version_type:version_type,update_type:update_type},function (res) {
+            $("#app_version").val(res.data.version);
+            $("#app_build").val(res.data.build);
+        });
+    }
+</script>

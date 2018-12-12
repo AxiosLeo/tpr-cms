@@ -1,0 +1,68 @@
+<div class="larry-personal">
+    <div class="layui-field-box layui-show">
+        <form id="user_admin_edit_form" class="layui-form" action="{:url('user/admin/edit')}">
+            <input id="id" name="id" value="{$data['id']}" class="layui-input layui-hide">
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="role_id" class="layui-form-label col-xs-3 col-sm-3 col-md-3">选择角色: </label>
+                    <div class="layui-input-inline ">
+                        <select class="col-md-3" id="role_id" name="role_id" lay-filter="parent">
+                            <option value="0">未选择</option>
+                            {foreach name="roles" item="r"}
+                            {php}$selected = $r['id']==$data['role_id']?"selected":"";{/php}
+                            <option value="{$r['id']}" {$selected}>{$r['role_name']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label col-xs-3 col-sm-3 col-md-3">用户名: </label>
+                    <div class="layui-input-inline ">
+                        <input id="username" class="layui-input" value="{$data['username']}" name="username">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label class="layui-form-label col-xs-3 col-sm-3 col-md-3">性别: </label>
+                    <div class="layui-input-inline ">
+                        {php}$checked = $data['sex']==0?"checked":"";{/php}
+                        <input type="radio" name="sex" value="0" title="男" {$checked}>
+                        {php}$checked = $data['sex']==1?"checked":"";{/php}
+                        <input type="radio" name="sex" value="1" title="女" {$checked}>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="mobile" class="layui-form-label col-xs-3 col-sm-3 col-md-3">手机号: </label>
+                    <div class="layui-input-inline ">
+                        <input id="mobile" class="layui-input" name="mobile" value="{$data['mobile']}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="email" class="layui-form-label col-xs-3 col-sm-3 col-md-3">邮箱: </label>
+                    <div class="layui-input-inline ">
+                        <input id="email" class="layui-input " name="email" value="{$data['email']}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label for="motto" class="layui-form-label col-xs-3 col-sm-3 col-md-3">座右铭: </label>
+                    <div class="layui-input-inline ">
+                        <input id="motto" class="layui-input " name="motto" value="{$data['motto']}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

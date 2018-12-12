@@ -1,0 +1,18 @@
+{layout name="main" /}
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>版本发布时间线</legend>
+</fieldset>
+<ul class="layui-timeline">
+    {foreach name="version" item="vo"}
+    <li class="layui-timeline-item">
+        <i class="layui-icon layui-timeline-axis"></i>
+        <div class="layui-timeline-content layui-text">
+            <h3 class="layui-timeline-title">{$vo['app_name']}v{$vo['app_version']}</h3>
+            <p>
+                <span>发布时间:{$vo['publish_time']}</span><br>
+                <br>
+            </p>
+        </div>
+    </li>
+    {/foreach}
+</ul>

@@ -1,0 +1,141 @@
+{layout name="main" /}
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>版本管理</legend>
+    <div class="layui-field-box">
+        <form class="layui-form" id="form-admin-add" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <a id="publish" class="layui-btn"><i class="layui-icon">&#xe654;</i>发布版本</a>
+                </div>
+                <div class="layui-inline">
+                    <select id="app_id" name="app_id" lay-search="" lay-filter="app_id">
+                        <option value="0">请选择应用</option>
+                        {foreach name="app" item="a"}
+                        <option value="{$a['app_id']}">{$a['app_name']}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline" style="width: 300px;">
+                        <input type="text" id="keyword" name="keyword" placeholder="AppKey | AppVersion" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <span class="layui-btn" data-type="reload" onclick="reload()">搜索</span>
+                </div>
+            </div>
+        </form>
+        <table class="layui-table" id="data_table" lay-filter="data_table"></table>
+    </div>
+</fieldset>
+
+{php}$url = u('app','version','index');{/php}
+
+<script type="text/javascript">
+    var form, table;
+
+    layui.use(['jquery', 'form', 'table','layedit'],function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        window.layedit = layui.layedit;
+        form  = layui.form;
+        table = layui.table;
+        form.render();
+
+        reload();
+
+        table.on('tool(data_table)',function (obj) {
+            var id = obj.data.id;
+            if(obj.event === 'editRemark'){
+                var url = "{:url('app/version/remark')}?id=" + id;
+                openLayer(url,{
+                    title:false,height:"300px",maxmin:false
+                },{
+                    yes:function () {
+                        var remark = layedit.getText(layEditIndex);
+                        postSomething(url,{remark:remark})
+                    },btn2:function (index) {
+                        layer.close(index);
+                    },success:function () {
+                        window.layEditIndex = layedit.build('remark',{
+                            tool:[]
+                        });
+                    }
+                })
+            }
+        });
+
+        form.on('select(app_id)',function () {
+            reload();
+        });
+
+        table.on('edit(data_table)', function (obj) {
+            var  data = obj.data;
+            var url = "{:u('app','index','edit')}";
+
+            postSomething(url,data,function(res){
+                if(res.code){
+                    layer.msg(res.msg,{icon:1,time:1500});
+                }else{
+                    layer.msg(res.msg,{icon:2,time:1500},function () {
+                        table.reload('data_table');
+                    });
+                }
+            });
+        });
+    });
+
+    function reload() {
+        var keyword = $("#keyword").val();
+        var app_id = $("#app_id").val();
+        var cols = [[
+            {width: 100, templet: '#operationTpl', title: '操作',fixed:true},
+            {field: 'app_status', templet: '#statusTpl', width: 100, title: '状态'},
+            {field: 'app_name', width: 150,  edit: 'text', title: '应用名称'},
+            {field: 'app_key', width: 350, sort: true, title: 'AppKey'},
+            {field: 'app_version', templet:'#versionTpl', width: 200, sort: true, title: '版本号'},
+            {field: 'publish_time', width: 200, sort: true, title: '发布时间'}
+        ]];
+        loadTable({
+            height: 550,
+            url: '{$url}',
+            where: {keyword: keyword,app_id:app_id}
+        },cols)
+    }
+    
+    $("#publish").click(function () {
+        var url = "{:u('app','version','publish')}";
+        openLayer(url,{
+            title:"版本发布",width:"600px", height:"450px"
+        },{
+            yes:function () {
+                submitForm('#app_publish_form');
+            },btn2:function (index) {
+                layer.close(index);
+            },success:function () {
+                form.render();
+            }
+        })
+    });
+
+
+</script>
+<script type="text/html" id="operationTpl">
+    {{# if(d.app_status==1){}}
+    <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="stop"><i class="fa fa-stop-circle-o"></i></a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="start"><i class="fa fa-chevron-circle-down"></i></a>
+    {{#  } }}
+    <!--<a class="layui-btn layui-btn-default layui-btn-sm layer_tips" lay-event="editRemark" data-toggle="tooltip" title="编辑版本描述" ><i class="fa fa-pencil"></i></a>-->
+</script>
+<script type="text/html" id="statusTpl">
+    {{# if(d.app_status==1){}}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" >已上线</a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-primary layui-btn-sm" >已停用</a>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="versionTpl">
+    {{ d.app_version }}-{{ d.app_build }}
+</script>

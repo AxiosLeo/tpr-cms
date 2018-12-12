@@ -1,0 +1,46 @@
+{layout name="main" /}
+
+<fieldset class="layui-elem-field layui-field-title" >
+    <legend>权限节点</legend>
+</fieldset>
+
+{php}$url = u('system','node','index');{/php}
+
+<table class="layui-table" id="data_table" lay-filter="data_table"></table>
+<script type="text/javascript">
+    var form, table;
+    var cols = [[ //标题栏
+        {checkbox:true, fixed: true},
+        {field: 'title', width: 250, title: '名称'},
+        {field: 'path', width: 300, sort: true, title: 'path'}
+    ]];
+
+    layui.use(['jquery', 'form', 'table'], function () {
+        window.jQuery = window.$ = layui.jquery;
+        window.layer  = layui.layer;
+        form  = layui.form;
+        table = layui.table;
+        reload();
+    });
+
+    function reload() {
+        table.init();
+        table.render({
+            id: 'data_table',
+            height: 550,
+            elem: '#data_table',
+            url: '{$url}',
+            method: 'post',
+            page: true,
+            limits: [10 , 15, 30, 50, 100],
+            limit: 100,
+            loading: false,
+            cols: cols
+        });
+    }
+
+</script>
+<script type="text/html" id="operationTpl">
+    <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="auth">分配权限</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+</script>

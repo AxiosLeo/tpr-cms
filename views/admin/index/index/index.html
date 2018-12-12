@@ -1,0 +1,186 @@
+<html>
+<head>
+    <title>管理系统</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="/src/plugs/layui/2.4.5/css/layui.css">
+    <link rel="stylesheet" href="/src/plugs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+    <script type="application/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">TPR 后台管理系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item" ><a href="javascript:void(0);" onclick="refresh()">刷新</a></li>
+            <li class="layui-nav-item" >
+                <a href="javascript:void(0);" class="menu" data-id="api-test" data-url="{:url('api/index/index')}" data-icon="fa fa-cloud" data-title="接口管理">接口管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);">快捷链接</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="https://www.google.com" target="_blank">谷歌</a></dd>
+                    <dd><a href="https://www.baidu.com" target="_blank">百度</a></dd>
+                    <dd><a href="https://www.bing.com" target="_blank">必应</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);"  id="profile">
+                    {php}$avatar = get_user_avatar($user['avatar']);{/php}
+                    <img src="{$avatar}" class="layui-nav-img">
+                    {$user['username']}
+                </a>
+            </li>
+            <li class="layui-nav-item"><a href="{:url('user/login/logout')}">退出</a></li>
+        </ul>
+    </div>
+{php} if(!empty($menu)){{/php}
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" id="nav"  lay-filter="menu">
+                {volist name="menu" id="m"}
+                {php}$selected = $m['module']==$module ? "layui-nav-itemed":"";{/php}
+                <li class="layui-nav-item {$selected}">
+                    {php}$url = url($m['module'] ."/".$m['controller'] ."/".$m['func']);{/php}
+                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{$m['id']}" data-url="{$url}" data-icon="fa fa-{$m['icon']}" data-title="{$m['title']}">
+                        <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
+                        <span>{$m['title']}</span>
+                    </a>
+                    {php}$sub = $m['sub'];if(!empty($sub)){{/php}
+                    <dl class="layui-nav-child">
+                        {volist name="sub" id="s"}
+                        {php}$url = url($s['module']."/".$s['controller'] ."/". $s['func']);{/php}
+                        <dd>
+                            <a class="menu menu-child" href="javascript:void(0);" data-id="{$s['id']}" data-url="{$url}" data-icon="fa fa-{$s['icon']}" data-title="{$s['title']}">
+                                <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
+                                <span>{$s['title']}</span>
+                            </a>
+                        </dd>
+                        {/volist}
+                    </dl>
+                    {php}}{/php}
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+{php}}{/php}
+    <div class="layui-body" style="padding-left: 10px;padding-right: 10px;">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="1"><i class="fa fa-home"></i>后台首页</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer">
+        <div class="layui-mian">
+            <div style="text-align: center">
+                <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
+                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a>
+                <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
+                    前端框架<a href="http://www.layui.com/demo/">layui</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/src/plugs/layui/2.4.5/layui.all.js"></script>
+<script>
+    var element ;
+    var current_tab;
+
+    //JavaScript代码区域
+    layui.use('element', function(){
+        element = layui.element;
+        element.on("tab(iframe-tab)",function (data) {
+            current_tab = data.index;
+        });
+    });
+
+    $(window).resize(function () {
+        iframeHeight();
+    });
+
+    function iframeHeight(){
+        var lay_body = $(".layui-body");
+        var height = lay_body.height()-86;
+        $('iframe').height(height);
+    }
+    var nav = $(".menu");
+
+    nav.click(function () {
+        var obj = $(this).parent();
+        var hasChild = obj.find('dd').length;
+
+        if(!hasChild){
+            tabAdd(this);
+        }
+    });
+    $("#profile").click(function () {
+        var title = '基本资料';
+        var url = "{:url('user/index/profile')}";
+        var icon = "fa fa-user";
+        var id = 3;
+        element.tabDelete('iframe-tab',id);
+        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+        element.tabAdd('iframe-tab', {
+            title: '<i class="'+icon+'"></i>' + title,
+            href: content,
+            id: id
+        });
+        element.tabChange('iframe-tab',id);
+        var show = $(".layui-show");
+        show.empty();
+        show.append(content);
+    });
+
+
+    function tabAdd(obj) {
+        var $obj = $(obj);
+        var id = $obj.attr('data-id');
+
+        var exist = $(".layui-tab").find('iframe[data-id='+id+']');
+
+        if(exist.length){
+            element.tabChange('iframe-tab',id);
+        }else{
+            var title = $obj.attr('data-title');
+            var url = $obj.attr('data-url');
+            var icon = $obj.attr('data-icon');
+            element.tabDelete('iframe-tab',id);
+            var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="'+id+'" src="'+url+'" frameborder="0" ></iframe>';
+            element.tabAdd('iframe-tab', {
+                title: '<i class="'+icon+'"></i>' + title,
+                href: content,
+                id: id
+            });
+            element.tabChange('iframe-tab',id);
+            var show = $(".layui-show");
+            show.empty();
+            show.append(content);
+        }
+    }
+
+    function refresh() {
+        var iframe = $(".layui-show").find('iframe');
+        var src = iframe.attr('src');
+        iframe.attr('src',src);
+    }
+</script>
+</body>
+</html>
