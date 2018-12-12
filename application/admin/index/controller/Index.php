@@ -1,17 +1,125 @@
 <?php
-namespace app\index\controller;
+/**
+ * @author: Axios
+ *
+ * @email: axioscros@aliyun.com
+ * @blog:  http://hanxv.cn
+ * @datetime: 2017/5/17 10:10
+ */
 
-use think\Controller;
+namespace tpr\admin\index\controller;
 
-class Index extends Controller
+use tpr\admin\common\controller\AdminLogin;
+use library\connector\Mysql;
+use tpr\admin\common\model\MenuModel;
+
+class Index extends AdminLogin
 {
+    /**
+     * 后台系统主页面
+     * @return mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     */
     public function index()
     {
-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12载初心不改（2006-2018） - 你值得信赖的PHP框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
+        $menu = $this->menu();
+        $this->assign('menu', $menu);
+        return $this->fetch('index');
     }
 
-    public function hello($name = 'ThinkPHP5')
+    /**
+     * @return array|bool|mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     */
+    protected function menu()
     {
-        return 'hello,' . $name;
+        $role_id = user_info('role_id');
+        $parent_menu = MenuModel::model()->menus(0 , $role_id);
+        foreach ($parent_menu as &$m) {
+            $m['sub'] = MenuModel::model()->menus($m['id'] , $role_id);
+        }
+        return $parent_menu;
+    }
+
+    /**
+     * 后台首页
+     * @return mixed
+     * @throws \ErrorException
+     * @throws \tpr\db\exception\BindParamException
+     * @throws \tpr\db\exception\Exception
+     * @throws \tpr\db\exception\PDOException
+     */
+    public function main()
+    {
+        if ($this->request->isPost()) {
+            $disk_size = floor(disk_free_space(ROOT_PATH) / (1024 * 1024));
+            $disk_size = $disk_size < 100 ? '磁盘空间已小于100M' : $disk_size . 'M';
+
+            $data = [
+                'domain'     => $this->request->domain(),
+                'os'         => PHP_OS,
+                'server_ip'  => $_SERVER['SERVER_ADDR'],
+                'server_env' => PHP_VERSION,
+                'disk'       => $disk_size,
+                'username'   => $this->user['username'],
+                'upload_limit' => ini_get('upload_max_filesize')
+            ];
+
+            $today = get_day_begin_end_time(date("Y-m-d"));
+            $req = [
+                'env'                => $data,
+                'users_number'       => Mysql::name('users')->count(),
+                'users_number_today' => Mysql::name('users')->where('created_at', 'between', [$today['begin'], $today['end']])
+            ];
+            $this->result($req);
+        }
+
+        $user_number = Mysql::name('users')->count();
+        $this->assign('user_number',$user_number);
+        $register_today = Mysql::name('users')->whereTime('created_at','today')->count();
+        $this->assign('register_today',$register_today);
+
+        return $this->fetch('main');
+    }
+
+    public function userData(){
+        $dayArr = $this->getLastSevenDay();
+
+        $day_list = []; $data = [];
+
+        foreach ($dayArr as $d){
+            $day_list[] = $d['day'];
+
+            $count = Mysql::name('users')->whereBetween('created_at',[$d['begin'],$d['end']],'and')
+                ->count();
+            $data[] = $count;
+        }
+
+        $this->response(['day'=>$day_list,'data'=>$data]);
+    }
+
+    private function getLastSevenDay(){
+        $time = time();
+
+        $dayArr = []; $n = 0;
+
+        $total = 7;
+
+        for($i = 0;$i<$total;$i++){
+            $timestamp = $time - ($total-$n)*3600*24;
+            $dayArr[$n]['day'] = date("Y-m-d",$timestamp);
+            $temp = getDayBeginEndTime($dayArr[$n]['day']);
+            $dayArr[$n]['begin'] = $temp['begin'];
+            $dayArr[$n]['end'] = $temp['end'];
+            $n++;
+        }
+
+        return $dayArr;
     }
 }
