@@ -205,7 +205,7 @@ class DocLogic
                     $data = [
                         'path'      => $subFile,
                         'name'      => $fileName,
-                        'namespace' => BASE_NAMESPACE . "\\" . $app_name . "\\" . $fileName
+                        'namespace' => APP_NAMESPACE . "\\" . $app_name . "\\" . $fileName
                     ];
                     array_push($module_list, $data);
                 }
@@ -236,7 +236,7 @@ class DocLogic
                     $data = [
                         'path'      => $subFile,
                         'name'      => $fileName,
-                        'namespace' => BASE_NAMESPACE . "\\" . $fileName
+                        'namespace' => APP_NAMESPACE . "\\" . $fileName
                     ];
                     array_push($app_list, $data);
                 }

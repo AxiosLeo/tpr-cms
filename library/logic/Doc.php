@@ -8,7 +8,8 @@
 
 namespace library\logic;
 
-use think\facade\Route;
+use think\App;
+use think\Container;
 
 class Doc
 {
@@ -31,6 +32,26 @@ class Doc
     public static $classMap = [];
 
     private static $content = '';
+
+    /**
+     * @var App
+     */
+    private static $app;
+
+    /**
+     * @var \think\Route
+     */
+    private static $route;
+
+    public function __construct()
+    {
+        if (is_null(self::$app)) {
+            self::$app = Container::get('app');
+        }
+        if (is_null(self::$route)) {
+            self::$route = self::$app['route'];
+        }
+    }
 
     public static function set($config = [])
     {
@@ -154,13 +175,12 @@ class Doc
         $temp   = explode("\\", $temp);
         $temp   = array_values(array_filter($temp));
 
-        $m         = [];
+        $m = [];
         $m['name'] = $method->name;
         $m['path'] = strtolower($temp[0]) . "/" . strtolower($temp[2]) . "/" . $method->name;
-        $rule      = Route::name($m['path']);
-        $route     = '';
-        if (!empty($rule)) {
-            $route = $rule[0][0];
+        $route = self::$route->getName($m['path']);
+        if (empty($route)) {
+            $route = '';
         }
         $m['route']   = $route;
         $m['comment'] = $this->trans($method->getDocComment());
