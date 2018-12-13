@@ -15,7 +15,8 @@ define('RUNTIME_PATH', ROOT_PATH . 'runtime' . DS . PROJECT_NAME . DS);
 define('ROUTE_PATH', ROOT_PATH . 'route' . DS . PROJECT_NAME . DS);
 
 // 加载基础文件
-require __DIR__ . '/../framework/base.php';
+require __DIR__ . '/../vendor/axios/tp5/base.php';
+//require __DIR__ . '/../framework/base.php';
 
 Loader::addNamespace('library', ROOT_PATH . 'library' . DS);
 

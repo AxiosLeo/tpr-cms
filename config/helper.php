@@ -130,3 +130,10 @@ if (!function_exists('u')) {
         return url($module . '/' . $controller . '/' . $action);
     }
 }
+
+if (!function_exists('dd')) {
+    function dd($data, $label = null, $echo = true)
+    {
+        return dump($data, $echo, $label);
+    }
+}
