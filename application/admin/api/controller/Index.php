@@ -22,16 +22,20 @@ class Index extends AdminLogin
 
         if ($this->request->isPost()) {
             $app_path = $this->request->param('app_path', null);
-            if (empty($app_path)) {
+            if (empty($app_path) && file_exists(ROOT_PATH . 'application/api')) {
                 $app_path = ROOT_PATH . 'application/api';
+                $module_namespace = $this->request->param('module_namespace');
+                $class_name       = $this->request->param('class_name', null);
+
+                $api_list = DocLogic::apiList($class_name, $module_namespace, $app_path);
+
+                $total = count($api_list);
+            }else{
+                $api_list = [];
+                $total = 0;
             }
 
-            $module_namespace = $this->request->param('module_namespace');
-            $class_name       = $this->request->param('class_name', null);
 
-            $api_list = DocLogic::apiList($class_name, $module_namespace, $app_path);
-
-            $total = count($api_list);
             $this->tableData($api_list, $total);
         }
 
@@ -53,7 +57,11 @@ class Index extends AdminLogin
     {
         if ($this->request->isPost()) {
             $app_path = $this->request->param('app_path');
-            $modules  = DocLogic::moduleList($app_path);
+            if(file_exists($app_path)){
+                $modules  = DocLogic::moduleList($app_path);
+            }else{
+                $modules = [];
+            }
             $this->tableData($modules);
         }
     }
