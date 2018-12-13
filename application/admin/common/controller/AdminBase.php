@@ -35,8 +35,7 @@ class AdminBase extends Controller
 
     public function _empty()
     {
-        echo __FUNCTION__;
-        return "the function not exits";
+        $this->wrong(500,'action not exist');
     }
 
     public function __destruct()
