@@ -53,7 +53,7 @@
 
 ``` shell
 cd tpr-cms
-composer install
+composer install --no-dev
 cp .env.example .env
 
 #编辑.env文件
