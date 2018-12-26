@@ -7,22 +7,23 @@
 
 > github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
 
-## TPR核心代码
+## TPR 版本
 
--  基于thinkphp5的修订版框架 tpr-framework
-
-> 因为tpr-framework基于thinkphp5.0.9开发, 所以早期版本与thinkphp5官方版命名空间相同，所以不兼容不能共存。但是使用方法基本与thinkphp5相同
-
-> tpr-framework2.0+ 修改了命名空间，可以与thinkphp5的framework composer扩展共存。
-
-> [https://github.com/AxiosCros/tpr-framework](https://github.com/AxiosCros/tpr-framework)
+ * 使用tpr-framework内核的版本   [mater分支](https://github.com/AxiosCros/tpr-cms/tree/master)
+    > tpr-framework是基于thinkphp5.0.9开发的版本，与tp官方内核命名空间不同。使用方法参考tp5.0版本内核。
+    > 核心地址： [github.com/AxiosCros/tpr-framework](https://github.com/AxiosCros/tpr-framework)
+ * 使用tp5.1内核的版本  [think5.1分支](https://github.com/AxiosCros/tpr-cms/tree/think5.1)
+    > 因为官方版的tp5.1内核不支持多应用的模式，跟流年沟通过后，也依然不准备支持。
+      所以，这一版的内核是fork了tp5.1内核以后修改了五行代码的版本。
+      不影响原生功能，请放心使用。以后有新版本发布的话，我会重新fork，然后修复五行代码后跟进发布。
+    > 核心地址： [github.com/AxiosCros/framework](https://github.com/AxiosCros/framework)
 
 
 ## tpr-cms后台管理系统所需环境
-* php7.0+ 
-* php-fpm 
+* php7.0+
+* php-fpm
 * pcntl
-* posix 
+* posix
 * mysql5.5+
 * redis , phpredis
 * mongodb
@@ -52,7 +53,7 @@
 
 ``` shell
 cd tpr-cms
-composer install
+composer install --no-dev
 cp .env.example .env
 
 #编辑.env文件
