@@ -8,8 +8,6 @@
 
 namespace library\service;
 
-namespace library\service;
-
 use aliyun\sdk\sms\Sms;
 use tpr\framework\Config;
 
