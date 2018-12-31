@@ -19,10 +19,14 @@ use tpr\framework\Config;
  */
 class Mysql extends DbFacade
 {
+    private static $instance;
+
     public static function __callStatic($method, $params)
     {
-        $config = Config::get('mysql.default');
-        $Con = DbClient::newCon('mysql.default', $config);
-        return call_user_func_array([$Con, $method], $params);
+        if (is_null(self::$instance)) {
+            $config         = Config::get('mysql.default');
+            self::$instance = DbClient::newCon('mysql.default', $config);
+        }
+        return call_user_func_array([self::$instance, $method], $params);
     }
 }
