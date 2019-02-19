@@ -26,9 +26,10 @@
     "axios/tpr-db": "^0.2"
   },
   "require-dev": {
-    "composer/composer": "1.0.*@dev",
+    "composer/composer": "^1.8",
     "axios/xhprof-composer": "^1.0.0",
-    "eaglewu/swoole-ide-helper": "dev-master"
+    "eaglewu/swoole-ide-helper": "dev-master",
+    "symfony/var-dumper": "^4.2"
   },
   "repositories": {
   }
