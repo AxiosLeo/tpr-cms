@@ -6,8 +6,8 @@ define('PROJECT_NAME', 'command');
 define('BASE_NAMESPACE', 'tpr');
 define('DS',DIRECTORY_SEPARATOR);
 
-define('ROOT_PATH', __DIR__ . DS);
-define('APP_PATH', ROOT_PATH . PROJECT_NAME . DS);
+define('ROOT_PATH', dirname(__DIR__) . DS);
+define('APP_PATH', ROOT_PATH . 'application/command/' . DS);
 define('CONF_PATH', ROOT_PATH . 'config' . DS);
 define('RUNTIME_PATH', ROOT_PATH . 'runtime' . DS . PROJECT_NAME . DS);
 define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);

@@ -1,48 +1,99 @@
 <?php
 /**
- * @author  : axios
+ * @author  : axiosleo
  * @email   : axiosleo@foxmail.com
  * @blog    : http://hanxv.cn
- * @datetime: 2018-12-31 00:23
+ * @datetime: 2019-02-19 16:08
  */
 
 namespace library\controller;
 
-use api\tool\lib\ArrayTool;
+use tpr\framework\console\Command;
 use tpr\framework\console\Input;
 use tpr\framework\console\Output;
 
-class CommandBase
+class CommandBase extends Command
 {
-    /**
-     * @var Input
-     */
-    protected $input;
+    protected $action = [];
 
-    /**
-     * @var Output
-     */
-    protected $output;
+    protected $container = [];
 
-    /**
-     * @var ArrayTool
-     */
-    protected $param;
+    protected $command_name;
 
-    private static $inputStatic;
+    protected $desc;
 
-    private static $outputStatic;
+    protected $default_action;
 
-    public static function init(Input $input, Output $output)
+    protected $mode = 0;
+
+    protected function configure()
     {
-        self::$inputStatic  = $input;
-        self::$outputStatic = $output;
+        $this->setName($this->command_name)->setDescription($this->desc);
+        $this->addArgument('action');
     }
 
-    public function __construct($params = [])
+    protected function addAction($action, $class = null)
     {
-        $this->input  = self::$inputStatic;
-        $this->output = self::$outputStatic;
-        $this->param  = ArrayTool::instance($params);
+        if (!in_array($action, $this->action)) {
+            array_push($this->action, $action);
+        }
+        if (!is_null($class)) {
+            $this->container[$action] = $class;
+        }
+    }
+
+    protected function execute(Input $input, Output $output)
+    {
+        CommandActionBase::init($input, $output);
+        $params = [];
+        if ($this->input->hasArgument('params')) {
+            $params = $this->input->getArgument('params');
+            if (is_null($params)) {
+                $params = [];
+            } else {
+                $tmp   = explode(',', $params);
+                $param = [];
+                foreach ($tmp as $t) {
+                    if (false !== strpos($t, '=')) {
+                        list($key, $value) = explode('=', $t);
+                        $param[$key] = $value;
+                    } else {
+                        $param[$t] = null;
+                    }
+                }
+                $params = $param;
+            }
+        }
+        $this->dispatch($this->input->getArgument('action'), $params);
+    }
+
+    protected function dispatch($action = null, $params = [])
+    {
+        if (!empty($this->action)) {
+
+            if (!is_null($action) && isset($this->action[$action])) {
+                if (isset($this->action[$action])) {
+                    $action = $this->action[$action];
+                } elseif (!in_array($action, $this->action)) {
+                    $action = null;
+                }
+            }
+
+            if (is_null($action)) {
+                $action = $this->output->choice($this->input, 'select action', $this->action, $this->default_action);
+            }
+
+            $this->output->info($action . ' is your choice');
+            $this->output->newLine(3);
+
+            $class = isset($this->container[$action]) ? $this->container[$action] : null;
+
+            if (!is_null($class) && class_exists($class)) {
+                $Class = new $class($params);
+                call_user_func_array([$Class, "run"], []);
+            } else {
+                $this->output->error($class . ' is not exist');
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ if (IS_CLI) {
         while (false !== ($fileName = readdir($dirHandle))) {
             $subFile = $dir . $fileName;
             $tmp     = str_replace('.', '', $fileName);
-            if (!is_dir($subFile) && $tmp != '' && !in_array($fileName, ["Base.php"])) {
+            if (!is_dir($subFile) && $tmp != '') {
                 array_push($list, APP_NAMESPACE . "\\" . basename($subFile, ".php"));
             }
         }
