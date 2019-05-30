@@ -74,10 +74,6 @@ vim .env
  > admin
  
  > 123456
- 
-* 演示版(非最新版)
- 
- > [http://cms.hanxv.cn](http://cms.hanxv.cn)
 
 ## ApiDoc
  > [apidoc.gitee.com/AxiosCro/tpr-cms](https://apidoc.gitee.com/AxiosCro/tpr-cms)
