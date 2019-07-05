@@ -1,8 +1,8 @@
 <?php
 
-date_default_timezone_set('Asia/Shanghai');
+namespace tpr\index;
 
-define('PUBLIC_PATH', __DIR__);
-define('PROJECT_NAME', 'admin');
-require_once '../init.php';
-require_once TPR_PATH . 'start.php';
+define("APP_NAMESPACE", "app\\");
+
+require_once __DIR__ . '/../init.php';
+

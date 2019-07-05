@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+namespace tpr;
+
+define("APP_NAMESPACE", "app\\command\\");
+
+require_once 'init.php';

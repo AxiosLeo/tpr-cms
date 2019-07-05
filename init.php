@@ -1,17 +1,15 @@
 <?php
-/**
- * @author: axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
- * @datetime: 2017/8/1 下午4:21
- */
-define('BASE_NAMESPACE', 'tpr');
 
-define('ROOT_PATH', __DIR__ . '/');
-define('APP_PATH', ROOT_PATH . 'application/' . PROJECT_NAME . '/');
-define('CONF_PATH', ROOT_PATH . 'config/');
-define('RUNTIME_PATH', ROOT_PATH . 'runtime/' . PROJECT_NAME . '/');
-define('APP_NAMESPACE', BASE_NAMESPACE . '\\' . PROJECT_NAME);
-define('TPR_PATH', ROOT_PATH . 'vendor/axios/tpr-framework/');
-define('DS', DIRECTORY_SEPARATOR);
+namespace tpr;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+Path::framework(\dirname(__DIR__) . \DIRECTORY_SEPARATOR);
+Path::root(__DIR__ . \DIRECTORY_SEPARATOR);
+Path::vendor(\dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR);
+
+if (defined("APP_NAMESPACE")) {
+    App::setAppOption("namespace", APP_NAMESPACE);
+}
+
+App::run(true);

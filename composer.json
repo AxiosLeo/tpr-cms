@@ -1,9 +1,7 @@
 {
   "name": "axios/tpr-cms",
-  "description": "base on tpr-framework",
+  "description": "base on tpr framework",
   "type": "project",
-  "minimum-stability": "stable",
-  "version": "2.0.0",
   "keywords": [
     "tpr",
     "restful",
@@ -19,18 +17,29 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "axios/aliyun-sdk": "^0.5",
-    "overtrue/wechat": "^4.1",
-    "axios/tpr-framework": "^2.0",
-    "axios/tpr-db": "^0.2"
+    "php": ">=7.1",
+    "axios/tpr": "dev-master",
+    "axios/tpr-db": "^0.2",
+    "nette/php-generator": "^3.2"
   },
   "require-dev": {
-    "composer/composer": "^1.8",
-    "axios/xhprof-composer": "^1.0.0",
-    "eaglewu/swoole-ide-helper": "dev-master",
-    "symfony/var-dumper": "^4.2"
+    "symfony/var-dumper": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "library\\": "library/",
+      "App\\": "application/"
+    },
+    "files": [
+    ]
   },
   "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
+  },
+  "scripts": {
+    "run": "cd public/ && php -S localhost:8088"
   }
 }

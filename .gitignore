@@ -1,7 +1,6 @@
 .idea/
 composer.lock
 *.log
-thinkphp/
 .env
 log.txt
 test.html
@@ -13,3 +12,4 @@ Test*
 nohup.out
 uploads
 runtime/
+.php_cs.cache
