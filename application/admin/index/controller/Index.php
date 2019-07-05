@@ -1,6 +1,6 @@
 <?php
 
-namespace app\index\controller;
+namespace App\admin\index\controller;
 
 use tpr\Controller;
 
@@ -8,7 +8,7 @@ class Index extends Controller
 {
     public function index()
     {
-        return "hello,world";
+        return "hello,world! this is admin application";
     }
 
     public function test()

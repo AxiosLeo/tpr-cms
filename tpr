@@ -3,6 +3,7 @@
 
 namespace tpr;
 
-define("APP_NAMESPACE", "app\\command\\");
-
 require_once 'init.php';
+
+App::setAppOption("namespace", "app\\command\\");
+App::run(true);
