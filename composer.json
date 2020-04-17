@@ -20,15 +20,9 @@
   ],
   "require": {
     "php": ">=7.0",
-    "axios/aliyun-sdk": "^0.5",
-    "overtrue/wechat": "^4.1",
-    "axios/tpr-framework": "^2.0",
-    "axios/tpr-db": "^0.2"
+    "axios/tpr-framework": "^2.0"
   },
   "require-dev": {
-    "composer/composer": "^1.8",
-    "axios/xhprof-composer": "^1.0.0",
-    "eaglewu/swoole-ide-helper": "dev-master",
     "symfony/var-dumper": "^4.2"
   },
   "repositories": {
