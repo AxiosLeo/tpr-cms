@@ -78,11 +78,11 @@
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
             <ul class="layui-tab-title">
-                <li class="layui-this" lay-id="1"><i class="fa fa-home"></i>后台首页</li>
+                <li class="layui-this" lay-id="home"><i class="fa fa-home"></i>后台首页</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="{{ url('index','index','main') }}" frameborder="0" ></iframe>
+                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="home" src="{{ url('index','index','main') }}" frameborder="0" ></iframe>
                 </div>
             </div>
         </div>
@@ -156,6 +156,7 @@
         const exist = $(".layui-tab").find('iframe[data-id=' + id + ']');
 
         if (exist.length) {
+            console.log(id);
             element.tabChange('iframe-tab', id);
         } else {
             const title = $obj.attr('data-title');
