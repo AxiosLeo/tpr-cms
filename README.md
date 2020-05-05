@@ -25,6 +25,7 @@ composer install --vvv
 
 ## 快速使用
 
+### 启动 web 服务
 ```shell
 composer run
 ```
@@ -34,6 +35,16 @@ composer run
  
 * 管理系统
  > http://localhost:8088/admin.php
+
+### 命令行方式
+
+```shell
+./tpr
+
+# or
+
+php tpr
+```
 
 ## 开源协议
 > 遵循 [MIT](./LICENSE) 开源协议发布，并提供免费使用
