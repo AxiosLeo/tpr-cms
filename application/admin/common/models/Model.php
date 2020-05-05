@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace admin\common\models;
 
@@ -16,7 +16,7 @@ abstract class Model
 
     public function __construct()
     {
-        $this->db = FileDb::client(md5(get_called_class()));
+        $this->db = FileDb::client(md5(\get_called_class()));
     }
 
     protected function item($name)

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace api\index\controller;
 
@@ -12,9 +12,9 @@ class Index extends Controller
     public function index()
     {
         $this->response([
-            "code"   => "200",
-            "msg"    => "hello, world!",
-            "config" => Config::get()
+            'code'   => '200',
+            'msg'    => 'hello, world!',
+            'config' => Config::get(),
         ]);
     }
 }

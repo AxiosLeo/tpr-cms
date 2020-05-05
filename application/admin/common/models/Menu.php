@@ -1,16 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace admin\common\models;
 
 class Menu extends Model
 {
-    private function id($id)
-    {
-        return 'menu' . $id;
-    }
-
     public function add($name, $data)
     {
         $item           = $this->item($name);
@@ -28,6 +23,7 @@ class Menu extends Model
         foreach ($items as $item) {
             array_push($data, $item->getData());
         }
+
         return $data;
     }
 
@@ -43,7 +39,7 @@ class Menu extends Model
                 'module'     => $menu['module'],
                 'controller' => $menu['controller'],
                 'action'     => $menu['action'],
-                'sub'        => []
+                'sub'        => [],
             ];
             $sub  = $this->db->query()->where('parent_name', '==', $menu['name'])->results();
             if ($sub) {
@@ -60,6 +56,7 @@ class Menu extends Model
             }
             array_push($menus, $item);
         }
+
         return $menus;
     }
 
@@ -72,7 +69,7 @@ class Menu extends Model
             'icon'        => 'home',
             'module'      => 'index',
             'controller'  => 'index',
-            'action'      => 'main'
+            'action'      => 'main',
         ]);
         $this->add('system', [
             'parent_name' => '',
@@ -80,7 +77,7 @@ class Menu extends Model
             'icon'        => 'cogs',
             'module'      => 'system',
             'controller'  => 'index',
-            'action'      => 'index'
+            'action'      => 'index',
         ]);
         $this->add('system_menu', [
             'parent_name' => 'system',
@@ -88,8 +85,14 @@ class Menu extends Model
             'icon'        => 'list',
             'module'      => 'system',
             'controller'  => 'menu',
-            'action'      => 'index'
+            'action'      => 'index',
         ]);
+
         return $this->findAll();
+    }
+
+    private function id($id)
+    {
+        return 'menu' . $id;
     }
 }

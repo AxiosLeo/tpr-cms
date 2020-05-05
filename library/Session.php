@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace library;
 
@@ -16,6 +16,7 @@ class Session
         if (!Container::has('session')) {
             Container::bind('session', new \Minphp\Session\Session());
         }
+
         return Container::get('session');
     }
 }

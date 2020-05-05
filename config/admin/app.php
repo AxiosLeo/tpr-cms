@@ -1,7 +1,7 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 return [
-    'default_return_type' => 'html'
+    'default_return_type' => 'html',
 ];

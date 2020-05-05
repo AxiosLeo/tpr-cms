@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -8,8 +8,8 @@ use Twig\TwigFunction;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops = new \Whoops\Run();
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
 $whoops->register();
 //
 //$test = require './func.php';
@@ -48,11 +48,8 @@ $whoops->register();
 $data = [
     'a' => 1,
     'b' => [
-        'c' => 2
-    ]
+        'c' => 2,
+    ],
 ];
 
 file_put_contents(__DIR__ . '/tmp.php', "<?php\nreturn " . var_export($data, true) . ";\n");
-
-
-

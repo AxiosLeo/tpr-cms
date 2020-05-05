@@ -1,8 +1,8 @@
 <?php
-return array(
+
+return [
     'a' => 1,
-    'b' =>
-        array(
-            'c' => 2,
-        ),
-);
+    'b' => [
+        'c' => 2,
+    ],
+];

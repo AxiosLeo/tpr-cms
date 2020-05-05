@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace library;
 
@@ -22,8 +22,9 @@ class FileDb
     /**
      * @param string $name
      *
-     * @return Database
      * @throws FilesystemException
+     *
+     * @return Database
      */
     public static function client($name = 'default')
     {
@@ -31,6 +32,7 @@ class FileDb
             self::$client[$name] = new Database(self::getDbConfig($name));
         }
         self::$curr = $name;
+
         return self::$client[$name];
     }
 
@@ -48,9 +50,9 @@ class FileDb
             'validate'       => [
                 'name' => [
                     'valid.type'     => 'string',
-                    'valid.required' => true
-                ]
-            ]
+                    'valid.required' => true,
+                ],
+            ],
         ];
         $config  = Config::get('db', []);
 

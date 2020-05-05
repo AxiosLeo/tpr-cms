@@ -48,14 +48,16 @@ class Make extends Console
 
         switch ($type) {
             case 'Global':
-                $namespace = "command";
+                $namespace = 'command';
 
                 $save_path = Path::command() . $class_name . '.php';
+
                 break;
             case 'Custom Type':
                 $custom_type = $this->output->ask('Type Name', 'Default');
                 $namespace   = __NAMESPACE__ . $custom_type;
                 $save_path   = Path::command() . $custom_type . '/' . $class_name . '.php';
+
                 break;
         }
 
