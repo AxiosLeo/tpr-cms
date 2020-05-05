@@ -6,11 +6,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use tpr\Console;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class Test extends Console
 {
     public function configure()
     {
-        $this->setName("test")->setDescription('test command')->addArgument("action")->addOption("action");
+        $this->setName('test')->setDescription('test command')->addArgument('action')->addOption('action');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -18,6 +22,6 @@ class Test extends Console
         parent::execute($input, $output);
         unset($input, $output);
 
-        $this->output->writeln("this is test command");
+        $this->output->writeln('this is test command');
     }
 }

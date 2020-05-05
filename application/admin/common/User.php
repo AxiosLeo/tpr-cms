@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace admin\common;
 
@@ -17,20 +17,21 @@ class User
 
     private $session;
 
-    public function instance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
     public function __construct()
     {
         if (!Container::has('session')) {
             Container::bind('session', new Session());
         }
         $this->session = Container::get('session');
+    }
+
+    public function instance()
+    {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function isLogin()
@@ -45,7 +46,7 @@ class User
             return $user;
         }
         $data = [];
-        if (is_string($field)) {
+        if (\is_string($field)) {
             if (strpos($field, ',')) {
                 $keys = explode(',', $field);
                 foreach ($keys as $k) {
@@ -54,11 +55,12 @@ class User
             } else {
                 return data($user, $field);
             }
-        } elseif (is_array($field)) {
+        } elseif (\is_array($field)) {
             foreach ($field as $k) {
                 $data[$k] = data($user, $k);
             }
         }
+
         return $data;
     }
 
@@ -75,6 +77,7 @@ class User
     public function getUserAvatar()
     {
         $avatar = $this->getInfo('avatar');
+
         return !empty($avatar) && file_exists(Path::root() . 'public/' . $avatar) ? $avatar : '/src/images/avatar.png';
     }
 }
