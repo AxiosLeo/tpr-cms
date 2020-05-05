@@ -10,13 +10,11 @@
 
 ## 下载源码
 * github
-> git clone https://github.com/AxiosCros/tpr-cms.git
 
-* oschina
-> git clone https://git.oschina.net/AxiosCro/tpr-cms.git
-
-* coding
-> git clone https://git.coding.net/axios/tpr-cms.git
+```shell
+git clone https://github.com/AxiosCros/tpr-cms.git
+git checkout -b dev/tpr3 origin/dev/tpr3
+```
 
 ##
 ``` shell
