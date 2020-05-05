@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+namespace tpr;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+const APP_NAME = 'cli';
+
+Path::root(__DIR__ . \DIRECTORY_SEPARATOR);
+Path::vendor(Path::root() . 'vendor' . \DIRECTORY_SEPARATOR);
+Path::config(Path::join(Path::root(), 'config', APP_NAME));
+Path::cache(Path::join(Path::runtime(), 'cache', APP_NAME));
+
+App::debugMode(false);
+
+App::default()->setOption('name', APP_NAME)->run();

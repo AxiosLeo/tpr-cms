@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+<!-- Document : https://twig.symfony.com/doc/2.x/   -->
+
+<h1>{{ title }}</h1>
+
+<ul id="listItem">
+    {% for item in listItem %}
+    <li><a href="{{ item.value }}">{{ item.name }}</a></li>
+    {% endfor %}
+</ul>
+{{ testFunc(1) }}
+<footer></footer>
+</body>
+</html>
