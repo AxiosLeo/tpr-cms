@@ -1,46 +1,36 @@
 <?php
-/**
- * @author: Axios
- *
- * @email: axioscros@aliyun.com
- * @blog:  http://hanxv.cn
- * @datetime: 2017/5/17 11:22
- */
 
-namespace tpr\admin\common\controller;
+declare(strict_types = 1);
 
-use tpr\framework\Controller;
-use tpr\framework\Request;
-use tpr\framework\Session;
+namespace admin\common\controller;
+
+use tpr\Container;
+use tpr\Controller;
+use Twig\Environment;
+use Twig\TwigFunction;
 
 class AdminBase extends Controller
 {
-    protected $config;
+    /**
+     * @var Environment
+     */
+    protected $templateDriver;
 
-    protected $menu;
-
-    public function __construct(Request $request = null)
+    public function __construct()
     {
-        parent::__construct($request);
-
-        $this->assign('module', $this->request->module());
-
-        $this->assign('current_url', $this->request->path());
+        parent::__construct();
+        $this->templateDriver = Container::template()->driver();
+        $funcList             = include_once __DIR__ . '/../../func.php';
+        foreach ($funcList as $name => $func) {
+            $this->templateDriver->addFunction(new TwigFunction($name, $func));
+        }
+        $this->assign('module', Container::dispatch()->getModuleName());
+        $this->assign('controller', Container::dispatch()->getControllerName());
+        $this->assign('action', Container::dispatch()->getActionName());
     }
 
-    protected function tableData($data, $count = 0){
-        $this->setResult('count',$count);
-        $this->response($data,0);
-    }
-
-    public function _empty()
+    public function __call($name, $arguments)
     {
-        $this->wrong(500,'action not exist');
-    }
-
-    public function __destruct()
-    {
-        // TODO: Implement __destruct() method.
-        Session::set('last_url', $this->request->url());
+        halt($name);
     }
 }

@@ -1,16 +1,13 @@
 {
-  "name": "axios/tpr-cms",
-  "description": "base on tpr-framework",
-  "type": "project",
-  "minimum-stability": "stable",
-  "version": "2.0.0",
+  "name": "axios/tpr-app",
+  "description": "design for api development",
+  "version": "3.0.0",
   "keywords": [
-    "tpr",
-    "restful",
-    "tpr-cms",
-    "api"
+    "framework",
+    "ORM",
+    "Api"
   ],
-  "homepage": "https://github.com/AxiosCros/tpr-cms",
+  "homepage": "https://github.com/AxiosCros/tpr-app",
   "license": "Apache-2.0",
   "authors": [
     {
@@ -18,13 +15,37 @@
       "email": "axioscros@aliyun.com"
     }
   ],
+  "support": {
+    "issues": "https://github.com/AxiosCros/tpr-app/issues"
+  },
   "require": {
-    "php": ">=7.0",
-    "axios/tpr-framework": "^2.0"
+    "php": ">=7.1",
+    "symfony/var-dumper": "^4.3",
+    "axios/tpr-db": "^1.1",
+    "axios/tpr": "dev-master",
+    "minphp/session": "^1.2",
+    "tmarois/filebase": "^1.0"
   },
   "require-dev": {
-    "symfony/var-dumper": "^4.2"
+    "nette/php-generator": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "library\\": "library/",
+      "api\\": "application/api/",
+      "admin\\": "application/admin/"
+    },
+    "files": [
+      "library/helper.php"
+    ]
   },
   "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
+  },
+  "scripts": {
+    "run": "php -S localhost:8088 -t public/"
   }
 }

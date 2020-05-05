@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <title>管理系统</title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -20,9 +21,10 @@
         <div class="layui-logo">TPR 后台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item" ><a href="javascript:void(0);" onclick="refresh()">刷新</a></li>
-            <li class="layui-nav-item" >
-                <a href="javascript:void(0);" class="menu" data-id="api-test" data-url="{:url('api/index/index')}" data-icon="fa fa-cloud" data-title="接口管理">接口管理</a>
+            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="refresh()">刷新</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);" class="menu" data-id="api-test" data-url="api/index/index"
+                   data-icon="fa fa-cloud" data-title="接口管理">接口管理</a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:void(0);">快捷链接</a>
@@ -35,47 +37,43 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:void(0);"  id="profile">
-                    {php}$avatar = get_user_avatar($user['avatar']);{/php}
-                    <img src="{$avatar}" class="layui-nav-img">
-                    {$user['username']}
+                <a href="javascript:void(0);" id="profile">
+                    <img src="/src/images/avatar.png" class="layui-nav-img" alt="头像">
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="{:url('user/login/logout')}">退出</a></li>
+            <li class="layui-nav-item"><a href="/user/login/logout">退出</a></li>
         </ul>
     </div>
-{php} if(!empty($menu)){{/php}
+    {% if menu %}
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" id="nav"  lay-filter="menu">
-                {volist name="menu" id="m"}
-                {php}$selected = $m['module']==$module ? "layui-nav-itemed":"";{/php}
-                <li class="layui-nav-item {$selected}">
-                    {php}$url = u($m['module'] , $m['controller'] , $m['func']);{/php}
-                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{$m['id']}" data-url="{$url}" data-icon="fa fa-{$m['icon']}" data-title="{$m['title']}">
-                        <i class="fa fa-{$m['icon']}" data-icon="fa fa-{$m['icon']}"></i>
-                        <span>{$m['title']}</span>
+            <ul class="layui-nav layui-nav-tree" id="nav" lay-filter="menu">
+                {% for m in menu %}
+                <li class="layui-nav-item{{ selected(m['module'],module) ? ' layui-nav-itemed':'' }}">
+                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{{ m['id'] }}" data-url="{{ url(module,controller,action) }}" data-icon="fa fa-{{ m['icon'] }}" data-title="{{ m['title'] }}">
+                        <i class="fa fa-{{ m['icon'] }}" data-icon="fa fa-{{ m['icon'] }}"></i>
+                        <span>{{ m['title'] }}</span>
                     </a>
-                    {php}$sub = $m['sub'];if(!empty($sub)){{/php}
+                    {% set sub = m['sub'] %}
+                    {% if sub %}
                     <dl class="layui-nav-child">
-                        {volist name="sub" id="s"}
-                        {php}$url = u($s['module'] , $s['controller'] , $s['func']);{/php}
+                        {% for s in sub %}
                         <dd>
-                            <a class="menu menu-child" href="javascript:void(0);" data-id="{$s['id']}" data-url="{$url}" data-icon="fa fa-{$s['icon']}" data-title="{$s['title']}">
-                                <i class="fa fa-{$s['icon']}" data-icon="fa fa-{$s['icon']}"></i>
-                                <span>{$s['title']}</span>
+                            <a class="menu menu-child" href="javascript:void(0);" data-id="{{ s['id'] }}" data-url="{{ url(s['module'],s['controller'],s['action']) }}" data-icon="fa fa-{{ s['icon'] }}" data-title="{{ s['title'] }}">
+                                <i class="fa fa-{{ s['icon'] }}" data-icon="fa fa-{{ s['icon'] }}"></i>
+                                <span>{{ s['title'] }}</span>
                             </a>
                         </dd>
-                        {/volist}
+                        {% endfor %}
                     </dl>
-                    {php}}{/php}
+                    {% endif %}
                 </li>
-                {/volist}
+                {% endfor %}
             </ul>
         </div>
     </div>
-{php}}{/php}
+    {% endif %}
     <div class="layui-body" style="padding-left: 10px;padding-right: 10px;">
         <!-- 内容主体区域 -->
         <div class="layui-tab layui-tab-brief" lay-filter="iframe-tab" lay-allowClose="true">
@@ -84,7 +82,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="{:url('index/index/main')}" frameborder="0" ></iframe>
+                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="{{ url('index','index','main') }}" frameborder="0" ></iframe>
                 </div>
             </div>
         </div>
@@ -93,22 +91,22 @@
         <div class="layui-mian">
             <div style="text-align: center">
                 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
-                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-thinkphp5-restfulapi" title="TPR-thinkphp5-restfulapi"></a>
+                    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-CMS" title="TPR-CMS"></a>
                 <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
-                    前端框架<a href="http://www.layui.com/demo/">layui</a>
+                前端框架<a href="http://www.layui.com/demo/">layui</a>
             </div>
         </div>
     </div>
 </div>
 <script src="/src/plugs/layui/2.4.5/layui.all.js"></script>
 <script>
-    var element ;
-    var current_tab;
+    let element;
+    let current_tab;
 
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use('element', function () {
         element = layui.element;
-        element.on("tab(iframe-tab)",function (data) {
+        element.on("tab(iframe-tab)", function (data) {
             current_tab = data.index;
         });
     });
@@ -117,70 +115,70 @@
         iframeHeight();
     });
 
-    function iframeHeight(){
-        var lay_body = $(".layui-body");
-        var height = lay_body.height()-86;
+    function iframeHeight() {
+        const lay_body = $(".layui-body");
+        const height = lay_body.height() - 86;
         $('iframe').height(height);
     }
-    var nav = $(".menu");
+
+    const nav = $(".menu");
 
     nav.click(function () {
-        var obj = $(this).parent();
-        var hasChild = obj.find('dd').length;
+        const obj = $(this).parent();
+        const hasChild = obj.find('dd').length;
 
-        if(!hasChild){
+        if (!hasChild) {
             tabAdd(this);
         }
     });
     $("#profile").click(function () {
-        var title = '基本资料';
-        var url = "{:url('user/index/profile')}";
-        var icon = "fa fa-user";
-        var id = 3;
-        element.tabDelete('iframe-tab',id);
-        var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+        const title = '基本资料';
+        const url = "/user/index/profile";
+        const icon = "fa fa-user";
+        const id = 3;
+        element.tabDelete('iframe-tab', id);
+        const content = '<iframe id="tpr' + id + '" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="' + url + '" frameborder="0" ></iframe>';
         element.tabAdd('iframe-tab', {
-            title: '<i class="'+icon+'"></i>' + title,
+            title: '<i class="' + icon + '"></i>' + title,
             href: content,
             id: id
         });
-        element.tabChange('iframe-tab',id);
-        var show = $(".layui-show");
+        element.tabChange('iframe-tab', id);
+        const show = $(".layui-show");
         show.empty();
         show.append(content);
     });
 
-
     function tabAdd(obj) {
-        var $obj = $(obj);
-        var id = $obj.attr('data-id');
+        const $obj = $(obj);
+        const id = $obj.attr('data-id');
 
-        var exist = $(".layui-tab").find('iframe[data-id='+id+']');
+        const exist = $(".layui-tab").find('iframe[data-id=' + id + ']');
 
-        if(exist.length){
-            element.tabChange('iframe-tab',id);
-        }else{
-            var title = $obj.attr('data-title');
-            var url = $obj.attr('data-url');
-            var icon = $obj.attr('data-icon');
-            element.tabDelete('iframe-tab',id);
-            var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="'+id+'" src="'+url+'" frameborder="0" ></iframe>';
+        if (exist.length) {
+            element.tabChange('iframe-tab', id);
+        } else {
+            const title = $obj.attr('data-title');
+            const url = $obj.attr('data-url');
+            const icon = $obj.attr('data-icon');
+            element.tabDelete('iframe-tab', id);
+            const content = '<iframe id="tpr' + id + '" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="' + id + '" src="' + url + '" frameborder="0" ></iframe>';
             element.tabAdd('iframe-tab', {
-                title: '<i class="'+icon+'"></i>' + title,
+                title: '<i class="' + icon + '"></i>' + title,
                 href: content,
                 id: id
             });
-            element.tabChange('iframe-tab',id);
-            var show = $(".layui-show");
+            element.tabChange('iframe-tab', id);
+            const show = $(".layui-show");
             show.empty();
             show.append(content);
         }
     }
 
     function refresh() {
-        var iframe = $(".layui-show").find('iframe');
-        var src = iframe.attr('src');
-        iframe.attr('src',src);
+        const iframe = $(".layui-show").find('iframe');
+        const src = iframe.attr('src');
+        iframe.attr('src', src);
     }
 </script>
 </body>

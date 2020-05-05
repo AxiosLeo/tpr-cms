@@ -1,47 +1,14 @@
-基于TPR的后台管理系统
+基于 TPR 的后台管理系统
 ===============
 
-> 前端页面基于layui2.0开发，后端逻辑基于tpr-framework框架核心开发
+> 前端页面基于 [layui2](https://www.layui.com/) 开发，服务端基于 [TPR](https://github.com/AxiosCros/tpr) 框架核心开发
 
-> 交流QQ群：521797692
-
-> github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
-
-## TPR 版本
-
- * 使用tpr-framework内核的版本   [mater分支](https://github.com/AxiosCros/tpr-cms/tree/master)
-    > tpr-framework是基于thinkphp5.0.9开发的版本，与tp官方内核命名空间不同。使用方法参考tp5.0版本内核。
-    > 核心地址： [github.com/AxiosCros/tpr-framework](https://github.com/AxiosCros/tpr-framework)
- * 使用tp5.1内核的版本  [think5.1分支](https://github.com/AxiosCros/tpr-cms/tree/think5.1)
-    > 因为官方版的tp5.1内核不支持多应用的模式。
-      所以，这一版的内核是fork了tp5.1内核以后修改了五行代码的版本。
-      不影响原生功能，请放心使用。以后有新版本发布的话，我会重新fork，然后修复五行代码后跟进发布。
-    > 核心地址： [github.com/AxiosCros/framework](https://github.com/AxiosCros/framework)
-
+> Github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
 
 ## tpr-cms后台管理系统所需环境
-* php7.0+ 
-* php-fpm 
-* pcntl
-* posix 
-* mysql5.5+
-* redis , phpredis
-* mongodb
+* php7.1+
 
-
-## 集成组件或服务
-
-- gearman
-- rabbitMQ
-- workman
-- aliyun-sdk
-- PHPMail
-- Umeng
-- Base Class of Wechat Development
-- Admin System
-- API example
-
-## 安装
+## 下载源码
 * github
 > git clone https://github.com/AxiosCros/tpr-cms.git
 
@@ -51,32 +18,22 @@
 * coding
 > git clone https://git.coding.net/axios/tpr-cms.git
 
+##
 ``` shell
-cd tpr-cms
-composer install --no-dev
-cp .env.example .env
-
-#编辑.env文件
-vim .env
-
-#手动导入api.sql至数据库
-#api.sql中主要是一些后台管理系统会用到的数据表,另外还有一个api_users的用户示例表
-
+composer install --vvv
 ```
 
-## 访问
+## 快速使用
+
+```shell
+composer run
+```
+
 * 接口
- > http://domain/api.php
+ > http://localhost:8088/index.php
  
 * 管理系统
- > http://domain/index.php
- 
- > admin
- 
- > 123456
-
-## ApiDoc
- > [apidoc.gitee.com/AxiosCro/tpr-cms](https://apidoc.gitee.com/AxiosCro/tpr-cms)
+ > http://localhost:8088/admin.php
 
 ## 开源协议
-> 遵循Apache2开源协议发布，并提供免费使用
+> 遵循 [MIT](./LICENSE) 开源协议发布，并提供免费使用
