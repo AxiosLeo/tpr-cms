@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use tpr\Console;
 use tpr\Files;
 use tpr\Path;
+use Whoops\Handler\PlainTextHandler;
+use Whoops\Run;
 
 class Make extends Console
 {
@@ -80,9 +82,9 @@ class Make extends Console
 $this->setName("' . $command_name . '")->setDescription(\'\')->addArgument("action")->addOption("action");
         ');
             $inputParam = new Parameter('input');
-            $inputParam->setTypeHint('Symfony\\Component\\Console\\Input\\InputInterface');
+            $inputParam->setType('Symfony\\Component\\Console\\Input\\InputInterface');
             $outputParam = new Parameter('output');
-            $outputParam->setTypeHint('Symfony\\Component\\Console\\Output\\OutputInterface');
+            $outputParam->setType('Symfony\\Component\\Console\\Output\\OutputInterface');
             $Command->addMethod('execute')->setParameters([$inputParam, $outputParam])->setBody('
 parent::execute($input, $output);
 unset($input, $output);
@@ -96,7 +98,11 @@ $this->output->writeln("this is ' . $command_name . ' command");
 
             $this->output->success('Done! Save Path : ' . $save_path);
         } catch (Exception $e) {
-            dump($e);
+            $whoops = new Run();
+            $whoops->pushHandler(new PlainTextHandler());
+            $whoops->register();
+
+            throw $e;
         }
     }
 }
