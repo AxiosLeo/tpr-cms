@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace api\index\controller;
 
-use tpr\Config;
 use tpr\Controller;
 
 class Index extends Controller
