@@ -1,11 +1,11 @@
-基于 TPR 的后台管理系统
+面向多应用后端开发的管理系统和接口开发框架
 ===============
 
 > 前端页面基于 [layui2](https://www.layui.com/) 开发，服务端基于 [TPR](https://github.com/AxiosCros/tpr) 框架核心开发
 
 > Github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
 
-## tpr-cms后台管理系统所需环境
+## 所需环境
 * php7.1+
 
 ## 下载源码
@@ -13,17 +13,16 @@
 
 ```shell
 git clone https://github.com/AxiosCros/tpr-cms.git
-git checkout -b dev/tpr3 origin/dev/tpr3
 ```
 
 ##
 ``` shell
-composer install --vvv
+composer install
 ```
 
 ## 快速使用
 
-### 启动 web 服务
+* 启动 web 服务
 ```shell
 composer run
 ```
