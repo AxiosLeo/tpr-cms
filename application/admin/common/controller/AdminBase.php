@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace admin\common\controller;
 
@@ -34,6 +34,7 @@ class AdminBase extends Controller
         if ($this->request->isPost()) {
             $this->error(404, 'route not found');
         }
+
         return $this->fetch('error');
     }
 
@@ -42,7 +43,7 @@ class AdminBase extends Controller
         $res = [
             'code' => 200,
             'msg'  => 'success',
-            'data' => $data
+            'data' => $data,
         ];
         parent::success($res);
     }
