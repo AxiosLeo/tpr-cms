@@ -1,13 +1,15 @@
 {
-  "name": "axios/tpr-app",
+  "name": "axios/tpr-cms",
   "description": "design for api development",
+  "type": "project",
   "version": "3.0.0",
   "keywords": [
     "framework",
     "ORM",
-    "Api"
+    "Api",
+    "CMS"
   ],
-  "homepage": "https://github.com/AxiosCros/tpr-app",
+  "homepage": "https://github.com/AxiosCros/tpr-cms",
   "license": "Apache-2.0",
   "authors": [
     {
@@ -16,7 +18,7 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/AxiosCros/tpr-app/issues"
+    "issues": "https://github.com/AxiosCros/tpr-cms/issues"
   },
   "require": {
     "php": ">=7.1",
