@@ -10,7 +10,7 @@
     "CMS"
   ],
   "homepage": "https://github.com/AxiosCros/tpr-cms",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "authors": [
     {
       "name": "axios",
@@ -22,13 +22,13 @@
   },
   "require": {
     "php": ">=7.1",
-    "symfony/var-dumper": "^4.3",
     "axios/tpr-db": "^1.1",
     "axios/tpr": "dev-master",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0"
   },
   "require-dev": {
+    "symfony/var-dumper": "^4.3",
     "nette/php-generator": "^3.2"
   },
   "autoload": {
