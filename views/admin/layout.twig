@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="/src/plugs/layui/2.4.5/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/src/plugs/bootstrap/dist/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/src/css/global.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/src/plugs/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" src="/src/plugs/layui/2.4.5/layui.js"></script>
+    <script type="text/javascript" src="/src/plugs/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="/src/plugs/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <style>
+        legend{
+            width:auto;border-bottom: 0;
+        }
+        .layui-tab-title{
+            border-bottom: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.currPage = 1;
+        function submitForm(id, callback) {
+            var form = $(id);
+            submitFormIframe(form,callback)
+        }
+
+        function submitFormIframe(form,callback) {
+            var url = form.attr('action');
+            var obj = serializeForm(form);
+            if(url!=='' && url!==undefined){
+                postSomething(url, obj, callback);
+            }else{
+                console.log('url empty');
+            }
+            return false;
+        }
+
+        function serializeForm(obj) {
+            var params = {};
+            $.each($(obj).serializeArray(), function (index, param) {
+                if (!(param.name in params)) {
+                    params[param.name] = param.value;
+                }
+            });
+            return params;
+        }
+
+        function postSomething(url, obj, callback) {
+            $.post(url,obj,function (res) {
+                if(callback === undefined){
+                    callback = function (res) {
+                        if(res.code){
+                            layer.msg(res.msg,{icon:1,time:1500},function () {
+                                reloadTable();
+                                layer.closeAll();
+                            });
+                        }else{
+                            layer.msg(res.msg,{icon:2,time:1500});
+                        }
+                    };
+                }
+                callback(res);
+            });
+        }
+
+        function getFetch(url,callback) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                enctype: 'multipart/form-data',
+                data: {},
+                success: function (res) {
+                    if(res.code === 401){
+                        layer.msg(res.msg,{icon:2,time:1500});
+                        return false;
+                    }
+                    if(callback === undefined){
+                        callback = function (res) {
+                            console.log(res);
+                        };
+                    }
+                    callback(res);
+                }
+            });
+        }
+
+        function openLayer(url , config, btnFunction) {
+            getFetch(url,function (content) {
+                var option = {
+                    type: 1,title: '查看',closeBtn: 1
+                    ,width: '80%',height:'80%',shade: 0.3,shadeClose:true
+                    ,btn: ['保存','取消'],moveType: 1
+                    ,maxmin: true
+                };
+
+                $.extend(option,config);
+
+                var layer_option = {
+                    type: option.type
+                    ,title: option.title
+                    ,area: [option.width, option.height]
+                    ,shade: option.shade
+                    ,shadeClose: option.shadeClose
+                    ,maxmin: option.maxmin
+                    ,content: content
+                    ,moveType:option.moveType
+                    ,btn: option.btn
+                };
+                $.extend(layer_option , btnFunction);
+                // console.log(layer_option);
+                layer.open(layer_option);
+            });
+        }
+
+        function reloadTable() {
+            if(window.tableIns === undefined){
+                table.reload('data_table',{curr:window.currPage});
+            }else{
+                window.tableIns.reload({curr:window.currPage});
+            }
+        }
+
+        function loadTable(config,cols) {
+            var option = {
+                id: 'data_table',
+                height: 600,
+                elem: '#data_table',
+                url:'',
+                where:{},
+                method: 'post',
+                page: true,
+                limits: [10, 30, 50, 100, 300, 500, 1000],
+                limit: 50,
+                loading: true,
+                cols:cols,
+                curr:window.currPage,
+                done:function (res, curr) {
+                    window.currPage = curr;
+                }
+            };
+
+            $.extend(option,config);
+
+            window.tableIns = table.render(option);
+        }
+
+        function tabAdd(obj) {
+            var title = obj.title;
+            var url = obj.url;
+            var icon = obj.icon;
+            var id = obj.id;
+
+            parent.element.tabDelete('iframe-tab',id);
+            var content = '<iframe id="tpr'+id+'" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="0" src="'+url+'" frameborder="0" ></iframe>';
+            parent.element.tabAdd('iframe-tab', {
+                title: '<i class="'+icon+'"></i>' + title,
+                href: content,
+                id: id
+            });
+            parent.element.tabChange('iframe-tab',id);
+            var show = parent.$(".layui-show");
+            show.empty();
+            show.append(content);
+        }
+    </script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-main" style="overflow-x: hidden">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+<script type="application/javascript">
+    $(".layui-form").submit(function () {
+        submitForm(".layui-form");
+        return false;
+    });
+</script>
+</body>
+</html>
