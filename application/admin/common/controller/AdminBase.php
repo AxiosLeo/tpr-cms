@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace admin\common\controller;
 
@@ -31,6 +31,19 @@ class AdminBase extends Controller
 
     public function __call($name, $arguments)
     {
-        halt($name);
+        if ($this->request->isPost()) {
+            $this->error(404, 'route not found');
+        }
+        return $this->fetch('error');
+    }
+
+    protected function success($data = [])
+    {
+        $res = [
+            'code' => 200,
+            'msg'  => 'success',
+            'data' => $data
+        ];
+        parent::success($res);
     }
 }
