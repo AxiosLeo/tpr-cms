@@ -28,10 +28,10 @@ composer install --vvv
 composer run
 ```
 
-* 接口
+* 访问默认接口
  > http://localhost:8088/index.php
  
-* 管理系统
+* 访问管理系统
  > http://localhost:8088/admin.php
 
 ### 命令行方式
@@ -42,6 +42,28 @@ composer run
 # or
 
 php tpr
+
+# console output
+
+Command Tools for TPR application 1.0.0
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display this help message
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi            Force ANSI output
+      --no-ansi         Disable ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  help  Displays help for a command
+  list  Lists commands
+  make  generate code of command
+  test  test command
 ```
 
 ## 开源协议
