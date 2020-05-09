@@ -68,17 +68,15 @@
                         <tbody>
                         <tr>
                             <td>
-                                <strong>版本信息</strong>： 版本名称：<a href="https://github.com/AxiosCros/tpr-cms"
+                                <strong>版本信息</strong>： <a href="https://github.com/AxiosCros/tpr-cms"
                                                                target="_blank">TPR
-                                CMS</a> 版本号: v2.0.0_beta
+                                CMS</a>  v3.0.0
                             </td>
-                            <td>
-
-                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>开发作者</strong>：流水无痕(博客hanxv.cn)
+                                <strong>开发作者</strong>：流水无痕( <a href="https://hanxv.cn" target="_blank">hanxv.cn</a> )
                             </td>
                             <td></td>
                         </tr>
@@ -159,7 +157,6 @@
             }
         }
     });
-    Vue.config.delimiters = ['${', '}$'];
     vue.$nextTick(function () {
         const url = "{{ url('index','index','main') }}";
         $.post(url, {}, function (res) {

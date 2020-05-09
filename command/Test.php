@@ -14,7 +14,7 @@ class Test extends Console
 {
     public function configure()
     {
-        $this->setName('test')->setDescription('test command')->addArgument('action')->addOption('action');
+        $this->setName('test')->setDescription('this is test command');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

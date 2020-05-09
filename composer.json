@@ -28,8 +28,7 @@
     "tmarois/filebase": "^1.0"
   },
   "require-dev": {
-    "symfony/var-dumper": "^4.3",
-    "nette/php-generator": "^3.2"
+    "symfony/var-dumper": "^4.3"
   },
   "autoload": {
     "psr-4": {
