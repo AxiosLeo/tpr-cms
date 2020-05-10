@@ -35,7 +35,8 @@ class Service
      */
     public static function filedb($name)
     {
-        if (!Container::has('filedb.' . $name)) {
+        $container = 'filedb.' . $name;
+        if (!Container::has($container)) {
             $config = Config::get('db.' . $name, [
                 'dir'            => Path::root() . 'datas/' . $name,
                 'backupLocation' => Path::root() . 'datas/backup/' . $name,
@@ -52,9 +53,9 @@ class Service
                     ],
                 ],
             ]);
-            Container::bind('filedb', new Database($config));
+            Container::bind($container, new Database($config));
         }
 
-        return Container::get('filedb');
+        return Container::get($container);
     }
 }
