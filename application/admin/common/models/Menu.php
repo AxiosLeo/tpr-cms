@@ -6,27 +6,6 @@ namespace admin\common\models;
 
 class Menu extends Model
 {
-    public function add($name, $data)
-    {
-        $item           = $this->item($name);
-        $item->{'name'} = $name;
-        foreach ($data as $key => $val) {
-            $item->{$key} = $val;
-        }
-        $item->save();
-    }
-
-    public function findAll()
-    {
-        $items = $this->db->findAll();
-        $data  = [];
-        foreach ($items as $item) {
-            array_push($data, $item->getData());
-        }
-
-        return $data;
-    }
-
     public function getMenu()
     {
         $menus = [];
@@ -89,10 +68,5 @@ class Menu extends Model
         ]);
 
         return $this->findAll();
-    }
-
-    private function id($id)
-    {
-        return 'menu' . $id;
     }
 }

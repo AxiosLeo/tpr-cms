@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace admin\common\controller;
 
+use library\Service;
 use Minphp\Session\Session;
-use tpr\Config;
 use tpr\Container;
 use tpr\Controller;
 use Twig\Environment;
@@ -34,10 +34,7 @@ class AdminBase extends Controller
         $this->assign('module', Container::dispatch()->getModuleName());
         $this->assign('controller', Container::dispatch()->getControllerName());
         $this->assign('action', Container::dispatch()->getActionName());
-        if (!Container::has('session')) {
-            Container::bind('session', new Session(null, Config::get('session', [])));
-        }
-        $this->session = Container::get('session');
+        $this->session = Service::session();
         $this->session->start();
     }
 
