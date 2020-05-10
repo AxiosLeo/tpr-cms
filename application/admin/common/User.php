@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace admin\common;
 
+use function cms\data;
 use Minphp\Session\Session;
 use tpr\Container;
 use tpr\Path;
@@ -15,6 +16,9 @@ class User
      */
     private static $instance;
 
+    /**
+     * @var Session
+     */
     private $session;
 
     public function __construct()
@@ -23,6 +27,7 @@ class User
             Container::bind('session', new Session());
         }
         $this->session = Container::get('session');
+        $this->session->start();
     }
 
     public function instance()
