@@ -52,7 +52,7 @@
                 {% for m in menu %}
                 <li class="layui-nav-item{{ selected(m['module'],module) ? ' layui-nav-itemed':'' }}">
                     <a class="menu menu-parent" href="javascript:void(0);" data-id="{{ m['id'] }}"
-                       data-url="{{ url(module,controller,action) }}" data-icon="fa fa-{{ m['icon'] }}"
+                       data-url="{{ url(m['module'],m['controller'],m['action']) }}" data-icon="fa fa-{{ m['icon'] }}"
                        data-title="{{ m['title'] }}">
                         <i class="fa fa-{{ m['icon'] }}" data-icon="fa fa-{{ m['icon'] }}"></i>
                         <span>{{ m['title'] }}</span>
