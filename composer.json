@@ -25,7 +25,8 @@
     "axios/tpr-db": "^1.1",
     "axios/tpr": "dev-master",
     "minphp/session": "^1.2",
-    "tmarois/filebase": "^1.0"
+    "tmarois/filebase": "^1.0",
+    "gregwar/captcha": "^1.1"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.3"
