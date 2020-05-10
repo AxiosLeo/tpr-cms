@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace admin\index\controller;
 
 use admin\common\controller\AdminLogin;
+use function cms\createUrl;
 use tpr\Path;
 
 class Index extends AdminLogin
@@ -28,7 +29,7 @@ class Index extends AdminLogin
                 'username'     => 'AxiosCros',
                 'upload_limit' => ini_get('upload_max_filesize'),
             ];
-            $req = [
+            $req       = [
                 'env'                => $data,
                 'users_number'       => rand(10000, 99999),
                 'users_number_today' => rand(0, 100),
@@ -56,15 +57,18 @@ class Index extends AdminLogin
         ]);
     }
 
+    public function logout()
+    {
+        $this->user->clearInfo();
+        $this->redirect(createUrl('user', 'index', 'login'));
+    }
+
     private function getLastSevenDay()
     {
-        $time = time();
-
+        $time   = time();
         $dayArr = [];
         $n      = 0;
-
-        $total = 7;
-
+        $total  = 7;
         for ($i = 0; $i < $total; ++$i) {
             $timestamp           = $time - ($total - $n) * 3600 * 24;
             $dayArr[$n]['day']   = date('Y-m-d', $timestamp);
