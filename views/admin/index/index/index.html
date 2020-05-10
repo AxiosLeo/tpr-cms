@@ -38,10 +38,10 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:void(0);" id="profile">
-                    <img src="/src/images/avatar.png" class="layui-nav-img" alt="头像">
+                    <img src="{{ user_info.avatar }}" class="layui-nav-img" alt="头像">
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="/user/login/logout">退出</a></li>
+            <li class="layui-nav-item"><a href="{{ url('index','index','logout') }}">退出</a></li>
         </ul>
     </div>
     {% if menu %}
@@ -51,7 +51,9 @@
             <ul class="layui-nav layui-nav-tree" id="nav" lay-filter="menu">
                 {% for m in menu %}
                 <li class="layui-nav-item{{ selected(m['module'],module) ? ' layui-nav-itemed':'' }}">
-                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{{ m['id'] }}" data-url="{{ url(module,controller,action) }}" data-icon="fa fa-{{ m['icon'] }}" data-title="{{ m['title'] }}">
+                    <a class="menu menu-parent" href="javascript:void(0);" data-id="{{ m['id'] }}"
+                       data-url="{{ url(module,controller,action) }}" data-icon="fa fa-{{ m['icon'] }}"
+                       data-title="{{ m['title'] }}">
                         <i class="fa fa-{{ m['icon'] }}" data-icon="fa fa-{{ m['icon'] }}"></i>
                         <span>{{ m['title'] }}</span>
                     </a>
@@ -60,7 +62,9 @@
                     <dl class="layui-nav-child">
                         {% for s in sub %}
                         <dd>
-                            <a class="menu menu-child" href="javascript:void(0);" data-id="{{ s['id'] }}" data-url="{{ url(s['module'],s['controller'],s['action']) }}" data-icon="fa fa-{{ s['icon'] }}" data-title="{{ s['title'] }}">
+                            <a class="menu menu-child" href="javascript:void(0);" data-id="{{ s['id'] }}"
+                               data-url="{{ url(s['module'],s['controller'],s['action']) }}"
+                               data-icon="fa fa-{{ s['icon'] }}" data-title="{{ s['title'] }}">
                                 <i class="fa fa-{{ s['icon'] }}" data-icon="fa fa-{{ s['icon'] }}"></i>
                                 <span>{{ s['title'] }}</span>
                             </a>
@@ -82,7 +86,8 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="tpr0" class="tpr-iframe"  width="100%" onload="iframeHeight()" data-id="home" src="{{ url('index','index','main') }}" frameborder="0" ></iframe>
+                    <iframe id="tpr0" class="tpr-iframe" width="100%" onload="iframeHeight()" data-id="home"
+                            src="{{ url('index','index','main') }}" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -90,7 +95,8 @@
     <div class="layui-footer">
         <div class="layui-mian">
             <div style="text-align: center">
-                <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
+                <a target="_blank"
+                   href="//shang.qq.com/wpa/qunwpa?idkey=4b2b9c98132bed88a24e71f7f9d49030a39be51f5b15dfdab59cd9d17cc1b4e5">
                     <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TPR-CMS" title="TPR-CMS"></a>
                 <a href="https://github.com/AxiosCros/tpr-cms" title="" target="_blank">TPR CMS</a> ·
                 前端框架<a href="http://www.layui.com/demo/">layui</a>

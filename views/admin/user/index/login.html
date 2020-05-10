@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TPR后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="/src/plugs/layui/2.4.5/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/src/css/login.css" media="all">
+</head>
+<body>
+<div class="layui-canvs"></div>
+<div class="layui-layout layui-layout-login">
+    <h1>
+        <strong>TPR后台管理系统</strong>
+        <em>Management System</em>
+    </h1>
+    <div class="layui-user-icon larry-login">
+        <input type="text" placeholder="账号" class="login_txtbx"/>
+    </div>
+    <div class="layui-pwd-icon larry-login">
+        <input type="password" placeholder="密码" class="login_txtbx"/>
+    </div>
+    <div class="layui-val-icon larry-login">
+        <div class="layui-code-box">
+            <input type="text" id="code" name="code" placeholder="验证码" maxlength="5" class="login_txtbx">
+            <img id="captcha" src="{{ url('user','index','captcha' )}}" alt="" class="verifyImg"
+                 onclick="refreshCaptchaUrl()">
+        </div>
+    </div>
+    <div class="layui-submit larry-login">
+        <input type="button" value="立即登陆" class="submit_btn"/>
+    </div>
+    <div class="layui-login-text">
+        <p>© 2017 流水无痕</p>
+        <p>
+            <a href="http://www.layui.com" title="" target="_blank">前端框架 layui2.0</a> |
+            <a href="https://www.hanxv.cn" title="" target="_blank">个人博客</a>
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="/src/plugs/layui/2.4.5/layui.all.js"></script>
+<script type="text/javascript" src="/src/plugs/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/src/plugs/jparticle.jquery.js"></script>
+<script type="text/javascript">
+
+    function refreshCaptchaUrl() {
+        const url = "{{ url('user','index','captcha' )}}" + '?id=' + Math.random();
+        $("#captcha").attr('src', url);
+    }
+
+    layui.use(['jquery'], function () {
+        var canvas = $(".layui-canvs");
+        window.jQuery = window.$ = layui.jquery;
+        canvas.width($(window).width());
+        canvas.height($(window).height());
+        $(window).resize(function () {
+            canvas.width($(window).width());
+            canvas.height($(window).height());
+            var c = $(".layui-canvs").find('canvas').eq(0);
+            c.width($(window).width());
+            c.height($(window).height());
+//            canvas.jParticle({
+//                background: "#141414",
+//                color: "#E6E6E6"
+//            });
+        });
+    });
+
+    $(function () {
+        var open_layer = 0;
+        $(".layui-canvs").jParticle({
+            background: "#141414",
+            color: "#E6E6E6"
+        });
+        $(".login_txtbx").keypress(function (res) {
+                if (res.keyCode === 13 && open_layer === 0) {
+                    $('.submit_btn').click();
+                }
+            }
+        );
+
+        $(".submit_btn").click(function () {
+            const username = $(".layui-user-icon .login_txtbx").val();
+            const password = $(".layui-pwd-icon .login_txtbx").val();
+            const verify = $(".layui-code-box .login_txtbx").val();
+
+            const url = "{{ url('user','index','login') }}";
+
+            $.post(url, {username: username, password: password, verify: verify}, function (res) {
+                if (res.code) {
+                    open_layer = 1;
+                    layer.alert(res.msg, {
+                        skin: 'layui-layer-molv' //样式类名
+                        , closeBtn: 0
+                        , anim: 0 //动画类型
+                    }, function (index) {
+                        $(".layui-code-box .login_txtbx").val("");
+                        refreshCaptchaUrl();
+                        open_layer = 0;
+                        layer.close(index);
+                    });
+                } else {
+                    layer.msg('登陆成功', {icon: 1, time: 1500});
+                    window.location.href = res.url;
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
