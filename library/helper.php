@@ -24,3 +24,20 @@ function createUrl($module, $controller, $action)
 
     return $request->indexFile() . '/' . $module . '/' . $controller . '/' . $action;
 }
+
+function getDayBeginEndTime($date, $format='timestamp')
+{
+    $begin = strtotime($date . ' 00:00:00');
+    $end   = strtotime("{$date} +1 day -1 seconds");
+    if ('timestamp' == $format) {
+        return [
+            'begin'=> $begin,
+            'end'  => $end,
+        ];
+    }
+
+    return [
+        'begin'=> date($format, $begin),
+        'end'  => date($format, $end),
+    ];
+}
