@@ -48,6 +48,7 @@
     }
   },
   "scripts": {
-    "run": "echo '\n\n\nApi   :  http://localhost:8088\nAdmin :  http://localhost:8088/admin.php\n' && php -S localhost:8088 -t public/"
+    "run": "echo '\n\n\nApi   :  http://localhost:8088\nAdmin :  http://localhost:8088/admin.php\n' && php -S localhost:8088 -t public/",
+    "fix": "php-cs-fixer fix ./"
   }
 }
