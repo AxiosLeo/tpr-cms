@@ -24,7 +24,7 @@ composer install
 
 * 启动 web 服务
 ```shell
-composer run
+composer start
 ```
 
 * 访问默认接口
