@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace admin\common;
 
-use function cms\data;
 use library\Service;
 use Minphp\Session\Session;
 use tpr\Path;

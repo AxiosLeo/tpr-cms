@@ -6,7 +6,6 @@ namespace admin\user\controller;
 
 use admin\common\controller\AdminBase;
 use admin\common\User;
-use function cms\createUrl;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
 

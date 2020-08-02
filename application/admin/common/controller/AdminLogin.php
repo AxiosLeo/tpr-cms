@@ -6,7 +6,6 @@ namespace admin\common\controller;
 
 use admin\common\models\Menu;
 use admin\common\User;
-use function cms\createUrl;
 
 class AdminLogin extends AdminBase
 {

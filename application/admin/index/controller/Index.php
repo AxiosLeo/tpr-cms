@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace admin\index\controller;
 
 use admin\common\controller\AdminLogin;
-use function cms\createUrl;
-use function cms\getDayBeginEndTime;
 use tpr\Path;
 
 class Index extends AdminLogin

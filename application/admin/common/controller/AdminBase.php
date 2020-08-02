@@ -27,7 +27,7 @@ class AdminBase extends Controller
     {
         parent::__construct();
         $this->templateDriver = Container::template()->driver();
-        $funcList             = include_once __DIR__ . '/../../func.php';
+        $funcList             = include_once __DIR__ . '/../../../../library/twig.php';
         foreach ($funcList as $name => $func) {
             $this->templateDriver->addFunction(new TwigFunction($name, $func));
         }
