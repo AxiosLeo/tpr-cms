@@ -21,9 +21,9 @@
     "issues": "https://github.com/AxiosCros/tpr-cms/issues"
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.4",
     "axios/tpr-db": "^1.1",
-    "axios/tpr": "^3.1",
+    "axios/tpr": "^5.0",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0",
     "gregwar/captcha": "^1.1"

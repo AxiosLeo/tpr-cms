@@ -47,7 +47,7 @@ class Index extends AdminBase
 
     public function captcha()
     {
-        $this->setHeaders('Content-type', 'image/jpeg');
+        $this->setHeader('Content-type', 'image/jpeg');
         $captcha = new CaptchaBuilder();
         $phrase  = $captcha->getPhrase();
         $this->session->write('phrase', $phrase);

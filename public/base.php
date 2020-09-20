@@ -7,11 +7,15 @@ use tpr\Path;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-Path::$subPath = APP_NAME;
+Path::configurate([
+    'app'     => 'application' . \DIRECTORY_SEPARATOR . APP_NAME,
+    'runtime' => 'runtime' . \DIRECTORY_SEPARATOR . APP_NAME,
+    'views'   => 'views' . \DIRECTORY_SEPARATOR . APP_NAME,
+]);
 
 App::debugMode(true);
-$app = App::default();
-$app->setOption('name', APP_NAME);
-$app->setOption('namespace', APP_NAME);
 
-$app->run();
+App::default()->config([
+    'name'      => APP_NAME,
+    'namespace' => APP_NAME,
+])->run();

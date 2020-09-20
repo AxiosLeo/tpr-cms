@@ -3,15 +3,22 @@
 
 namespace tpr;
 
+use tpr\command\Make;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 const APP_NAME = 'cli';
 
-Path::root(__DIR__ . \DIRECTORY_SEPARATOR);
-Path::vendor(Path::root() . 'vendor' . \DIRECTORY_SEPARATOR);
-Path::config(Path::join(Path::root(), 'config', APP_NAME));
-Path::cache(Path::join(Path::runtime(), 'cache', APP_NAME));
+Path::configurate([
+    'command' => 'command'
+]);
 
-App::debugMode(false);
-
-App::default()->setOption('name', APP_NAME)->run();
+App::default()->config([
+    'name'           => APP_NAME,
+    'namespace'      => 'app\\command',
+    'server_options' => [
+        'commands' => [
+            'make' => Make::class
+        ]
+    ]
+])->run();

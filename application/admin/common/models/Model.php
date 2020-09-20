@@ -16,7 +16,7 @@ abstract class Model
 
     public function __construct()
     {
-        $this->db = Service::filedb(md5(\get_called_class()));
+        $this->db = Service::filedb(md5(static::class));
     }
 
     public function add($name, $data)

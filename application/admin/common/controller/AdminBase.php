@@ -9,7 +9,6 @@ use Minphp\Session\Session;
 use tpr\Container;
 use tpr\Controller;
 use Twig\Environment;
-use Twig\TwigFunction;
 
 class AdminBase extends Controller
 {
@@ -26,25 +25,15 @@ class AdminBase extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->templateDriver = Container::template()->driver();
-        $funcList             = include_once __DIR__ . '/../../../../library/twig.php';
+        $funcList = include_once __DIR__ . '/../../../../library/twig.php';
         foreach ($funcList as $name => $func) {
-            $this->templateDriver->addFunction(new TwigFunction($name, $func));
+            $this->addTemplateFunc($name, $func);
         }
         $this->assign('module', Container::dispatch()->getModuleName());
         $this->assign('controller', Container::dispatch()->getControllerName());
         $this->assign('action', Container::dispatch()->getActionName());
         $this->session = Service::session();
         $this->session->start();
-    }
-
-    public function __call($name, $arguments)
-    {
-        if ($this->request->isPost()) {
-            $this->response([], 404, 'route not found');
-        }
-
-        return $this->fetch('error');
     }
 
     protected function success($data = [], $url = null)

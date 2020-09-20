@@ -20,7 +20,7 @@ class Service
     public static function session()
     {
         if (!Container::has('session')) {
-            Container::bind('session', new Session(null, Config::get('session', [])));
+            Container::bindWithObj('session', new Session(null, Config::get('session', [])));
         }
 
         return Container::get('session');
@@ -53,7 +53,7 @@ class Service
                     ],
                 ],
             ]);
-            Container::bind($container, new Database($config));
+            Container::bindWithObj($container, new Database($config));
         }
 
         return Container::get($container);
