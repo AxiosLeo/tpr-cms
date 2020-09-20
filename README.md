@@ -1,4 +1,7 @@
-面向多应用后端开发的管理系统和接口开发框架
+# TPR-CMS
+
+> 面向多应用开发场景，集成后端接口及内容管理系统的开发框架
+
 ===============
 
 > 前端页面基于 [layui2](https://www.layui.com/) 开发，服务端基于 [TPR](https://github.com/AxiosCros/tpr) 框架核心开发
@@ -6,16 +9,19 @@
 > Github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
 
 ## 所需环境
-* php7.1+
+
+* php7.4+
 
 ## 下载源码
+
 * github
 
 ```shell
 git clone https://github.com/AxiosCros/tpr-cms.git
 ```
 
-##
+## 安装依赖
+
 ``` shell
 composer install
 ```
@@ -59,11 +65,11 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
+  clear clear cache
   help  Displays help for a command
   list  Lists commands
   make  generate code of command
-  test  test command
 ```
 
 ## 开源协议
-> 遵循 [MIT](./LICENSE) 开源协议发布，并提供免费使用
+> 遵循 [MIT](LICENSE) 开源协议发布，并提供免费使用
