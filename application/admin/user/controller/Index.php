@@ -54,4 +54,8 @@ class Index extends AdminBase
         $this->session->save();
         $captcha->build()->output();
     }
+
+    public function profile(){
+        return $this->fetch();
+    }
 }

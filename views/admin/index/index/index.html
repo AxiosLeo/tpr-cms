@@ -139,7 +139,7 @@
     });
     $("#profile").click(function () {
         const title = '基本资料';
-        const url = "/user/index/profile";
+        const url = "{{ url('user','index','profile') }}";
         const icon = "fa fa-user";
         const id = 3;
         element.tabDelete('iframe-tab', id);
