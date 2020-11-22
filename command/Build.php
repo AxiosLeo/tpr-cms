@@ -23,7 +23,7 @@ class Build extends Console
         parent::execute($input, $output);
         unset($input, $output);
 
-        $build_path = Path::join(Path::root(), 'blog', 'build');
+        $build_path = Path::join(Path::app(), 'blog', 'build');
         $this->shell("cd $build_path && yarn build");
         Files::copy($build_path, Path::index());
     }
