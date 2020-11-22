@@ -17,6 +17,8 @@ App::default()->config([
     'name'           => APP_NAME,
     'namespace'      => 'app\\command',
     'server_options' => [
+        'name'      => 'Command Tools for TPR application',
+        'version'   => '1.0.0',
         'commands' => [
             'make' => Make::class
         ]
