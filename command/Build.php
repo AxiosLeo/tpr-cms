@@ -15,7 +15,7 @@ class Build extends Console
 
     public function configure()
     {
-        $this->setName("build")->setDescription('build blog front page');
+        $this->setName('build')->setDescription('build blog front page');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -24,8 +24,9 @@ class Build extends Console
         unset($input, $output);
 
         $build_path = Path::join(Path::app(), 'blog', 'build');
-        $this->shell("cd $build_path && yarn build");
-        Files::copy($build_path, Path::index());
+        $this->shell("cd {$build_path} && rm -r build/");
+        $this->shell("cd {$build_path} && yarn build");
+        $this->shell('cd ' . Path::index() . ' && rm -rf static/');
+        Files::copy($build_path, Path::index(), true);
     }
 }
-
