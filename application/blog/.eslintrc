@@ -69,8 +69,8 @@
         "beforeEach": true
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "script",
+        "ecmaVersion": 10,
+        "sourceType": "module",
         "ecmaFeatures": {}
     },
     "extends": "eslint:recommended"
