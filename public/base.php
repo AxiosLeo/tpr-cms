@@ -20,6 +20,7 @@ Path::configurate([
 
 // init app
 $app = App::default();
+
 // load global config
 Config::load(Path::join(Path::root(), 'config/global'));
 $app->config([
