@@ -15,7 +15,7 @@ class Build extends Console
 
     public function configure()
     {
-        $this->setName('build')->setDescription('build blog front page');
+        $this->setName('build')->setDescription('Build blog front page');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

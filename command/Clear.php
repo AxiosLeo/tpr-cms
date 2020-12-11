@@ -19,7 +19,7 @@ class Clear extends Console
     {
         $this->setName('clear')
             ->addArgument('path', InputArgument::OPTIONAL, 'project path', Path::cache())
-            ->setDescription('clear cache');
+            ->setDescription('Clear cache');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

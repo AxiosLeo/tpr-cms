@@ -33,11 +33,14 @@ composer install
 composer start
 ```
 
-* 访问默认接口
- > http://localhost:8088/index.php
+* 访问前端页面
+  > http://localhost:8088/index.html
+
+* 访问接口
+  > http://localhost:8088/api.php
  
 * 访问管理系统
- > http://localhost:8088/admin.php
+  > http://localhost:8088/admin.php
 
 ### 命令行方式
 
@@ -65,10 +68,11 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
-  clear clear cache
-  help  Displays help for a command
-  list  Lists commands
-  make  generate code of command
+  build  Build blog front page
+  clear  Clear cache
+  help   Displays help for a command
+  list   Lists commands
+  make   generate code of command
 ```
 
 ## 开源协议
