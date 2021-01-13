@@ -1,12 +1,10 @@
 # TPR-CMS
 
-> 面向多应用开发场景，集成后端接口及内容管理系统的开发框架
-
-===============
+> 面向多应用开发场景，集成后端接口及内容管理系统的开发框架。
 
 > 前端页面基于 [layui2](https://www.layui.com/) 开发，服务端基于 [TPR](https://github.com/AxiosCros/tpr) 框架核心开发
 
-> Github: [TPR-CMS](https://github.com/AxiosCros/tpr-cms)
+> TPR 开发文档: [wiki](https://github.com/AxiosCros/tpr/wiki)
 
 ## 所需环境
 
