@@ -6,6 +6,8 @@
 
 > TPR 开发文档: [wiki](https://github.com/AxiosCros/tpr/wiki)
 
+> QQ 群: 521797692
+
 ## 所需环境
 
 * php7.4+
