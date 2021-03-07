@@ -77,4 +77,5 @@ Available commands:
 ```
 
 ## 开源协议
+
 > 遵循 [MIT](LICENSE) 开源协议发布，并提供免费使用
