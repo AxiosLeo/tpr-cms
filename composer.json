@@ -50,7 +50,7 @@
     }
   },
   "scripts": {
-    "start": "echo http://localhost:8088 && php -S localhost:8088 -t public/",
+    "start": "./tpr build && echo http://localhost:8088 && php -S localhost:8088 -t public/",
     "fix": "php-cs-fixer fix ./"
   }
 }

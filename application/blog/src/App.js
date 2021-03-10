@@ -11,11 +11,19 @@ function App() {
         </p>
         <a
           className="App-link"
-          href="https://hanxv.cn"
+          href="/admin.php"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Blog Link
+          Admin
+        </a>
+        <a
+          className="App-link"
+          href="/api.php"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          API
         </a>
       </header>
     </div>
