@@ -9,11 +9,3 @@ composer.phar
 runtime/
 *.cache
 datas/
-public/static/
-public/asset-manifest.json
-public/favicon.ico
-public/index.html
-public/*.png
-public/manifest.json
-public/robots.txt
-!public/src/
