@@ -55,7 +55,8 @@ class Index extends AdminBase
         $captcha->build()->output();
     }
 
-    public function profile(){
+    public function profile()
+    {
         return $this->fetch();
     }
 }

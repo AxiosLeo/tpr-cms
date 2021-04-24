@@ -33,7 +33,7 @@ class Menu extends Model
                     ]);
                 }
             }
-            array_push($menus, $item);
+            $menus[] = $item;
         }
 
         return $menus;

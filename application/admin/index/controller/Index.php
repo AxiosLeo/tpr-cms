@@ -21,9 +21,9 @@ class Index extends AdminLogin
             $disk_size = $disk_size < 100 ? '磁盘空间已小于100M' : $disk_size . 'M';
             $data      = [
                 'domain'       => $this->request->host(),
-                'os'           => PHP_OS,
+                'os'           => \PHP_OS,
                 'server_ip'    => $this->request->server('SERVER_ADDR'),
-                'server_env'   => PHP_VERSION,
+                'server_env'   => \PHP_VERSION,
                 'disk'         => $disk_size,
                 'username'     => 'AxiosCros',
                 'upload_limit' => ini_get('upload_max_filesize'),

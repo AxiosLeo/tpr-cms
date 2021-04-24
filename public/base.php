@@ -15,7 +15,7 @@ Path::configurate([
     'app'     => 'application' . \DIRECTORY_SEPARATOR . APP_NAME,
     'runtime' => 'runtime' . \DIRECTORY_SEPARATOR . APP_NAME,
     'views'   => 'views' . \DIRECTORY_SEPARATOR . APP_NAME,
-    'config'  => 'config' . \DIRECTORY_SEPARATOR . APP_NAME
+    'config'  => 'config' . \DIRECTORY_SEPARATOR . APP_NAME,
 ]);
 
 // init app

@@ -34,7 +34,7 @@ abstract class Model
         $items = $this->db->findAll();
         $data  = [];
         foreach ($items as $item) {
-            array_push($data, $item->getData());
+            $data[] = $item->getData();
         }
 
         return $data;
