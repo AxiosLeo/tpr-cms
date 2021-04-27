@@ -34,14 +34,11 @@ composer install
 composer start
 ```
 
-* 访问前端页面
-  > http://localhost:8088/index.html
-
 * 访问接口
   > http://localhost:8088/api.php
  
 * 访问管理系统
-  > http://localhost:8088/admin.php
+  > http://localhost:8088/index.php
 
 ### 命令行方式
 
@@ -49,18 +46,19 @@ composer start
 ./tpr
 
 # or
-
 php tpr
+```
 
-# console output
+console output
 
+```shell
 Command Tools for TPR application 1.0.0
 
 Usage:
   command [options] [arguments]
 
 Options:
-  -h, --help            Display this help message
+  -h, --help            Display help for the given command. When no command is given display help for the list command
   -q, --quiet           Do not output any message
   -V, --version         Display this application version
       --ansi            Force ANSI output
@@ -69,11 +67,10 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
-  build  Build blog front page
   clear  Clear cache
-  help   Displays help for a command
-  list   Lists commands
-  make   generate code of command
+  help   Display help for a command
+  list   List commands
+  make   Generate code of command
 ```
 
 ## 开源协议
