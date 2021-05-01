@@ -34,7 +34,7 @@ class Index extends AdminBase
                 $user->refreshInfo(['avatar' => '/src/images/user.jpg']);
                 $this->success([], createUrl('index', 'index', 'index'));
             } else {
-                $this->error('验证码错误' . $phrase . ':' . $verify, 400);
+                $this->error('验证码错误', 400);
             }
         }
         $user = new User();
