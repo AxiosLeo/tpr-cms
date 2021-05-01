@@ -6,6 +6,14 @@ use tpr\App;
 use tpr\Config;
 use tpr\Path;
 
+$autoload_file = __DIR__ . '/../vendor/autoload.php';
+
+if (!file_exists($autoload_file)) {
+    echo 'Please install composer libraries with command : `composer install`';
+
+    exit();
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // use debug mode

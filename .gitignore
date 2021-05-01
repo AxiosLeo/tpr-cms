@@ -9,3 +9,5 @@ composer.phar
 runtime/
 *.cache
 datas/
+.htaccess
+nginx.htaccess
