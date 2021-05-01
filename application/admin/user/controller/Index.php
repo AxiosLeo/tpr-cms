@@ -26,7 +26,7 @@ class Index extends AdminBase
             $verify = $this->request->post('verify');
             $phrase = $this->session->read('phrase');
             if (empty($phrase)) {
-                $this->response('验证码错误(' . $phrase . ')', 400);
+                $this->response('验证码错误', 400);
             }
             $result = PhraseBuilder::comparePhrases($phrase, $verify);
             if ($result) {
