@@ -23,7 +23,7 @@
   "require": {
     "php": ">=7.4",
     "axios/tpr-db": "^1.1",
-    "axios/tpr": "~5.1.0",
+    "axios/tpr": "~5.1.1",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0",
     "gregwar/captcha": "^1.1"
@@ -36,8 +36,7 @@
     "psr-4": {
       "library\\": "library/",
       "api\\": "application/api/",
-      "admin\\": "application/admin/",
-      "blog\\": "application/blog/"
+      "admin\\": "application/admin/"
     },
     "files": [
       "library/helper.php"
