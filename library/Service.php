@@ -38,8 +38,8 @@ class Service
         $container = 'filedb.' . $name;
         if (!Container::has($container)) {
             $config = Config::get('db.' . $name, [
-                'dir'            => Path::root() . 'datas/' . $name,
-                'backupLocation' => Path::root() . 'datas/backup/' . $name,
+                'dir'            => path_join(Path::root(), 'datas/' . $name),
+                'backupLocation' => path_join(Path::root(), 'datas/backup/' . $name),
                 'format'         => Json::class,
                 'cache'          => true,
                 'cache_expires'  => 1800,
