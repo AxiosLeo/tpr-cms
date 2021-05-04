@@ -31,7 +31,7 @@ composer install
 
 * 启动 web 服务
 ```shell
-composer start
+composer run start
 ```
 
 * 访问接口
