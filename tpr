@@ -9,10 +9,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 const APP_NAME = 'cli';
 
-Path::configurate([
-    'command' => 'command'
-]);
-
 App::default()->config([
     'name'           => APP_NAME,
     'namespace'      => 'app\\command',
