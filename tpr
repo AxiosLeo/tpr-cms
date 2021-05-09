@@ -8,6 +8,9 @@ use tpr\command\Make;
 require_once __DIR__ . '/vendor/autoload.php';
 
 const APP_NAME = 'cli';
+Path::configurate([
+        "command"=>"application/commands"
+]);
 
 App::default()->config([
     'name'           => APP_NAME,
@@ -15,8 +18,8 @@ App::default()->config([
     'server_options' => [
         'name'      => 'Command Tools for TPR application',
         'version'   => '1.0.0',
-        'commands' => [
-            'make' => Make::class
-        ]
-    ]
+        'commands'  => [
+            'make' => Make::class,
+        ],
+    ],
 ])->run();
