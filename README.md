@@ -1,19 +1,18 @@
 # TPR-CMS
 
-> 面向多应用开发场景，集成后端接口及内容管理系统的开发框架。
+> CMS application using TPR.
 
-> 前端页面基于 [layui2](https://www.layui.com/) 开发，服务端基于 [TPR](https://github.com/AxiosCros/tpr) 框架核心开发
+> Base on [layui2](https://www.layui.com/) and [TPR Framework](https://github.com/AxiosCros/tpr)
 
-> TPR 开发文档: [wiki](https://github.com/AxiosCros/tpr/wiki)
+> TPR [document](https://github.com/AxiosCros/tpr/wiki)
 
-> QQ 群: 521797692
 
-## 所需环境
+## Required
 
 * php7.4+
 * php8     (TPR 5.0.8+)
 
-## 下载源码
+## Download
 
 * github
 
@@ -21,26 +20,25 @@
 git clone https://github.com/AxiosCros/tpr-cms.git
 ```
 
-## 安装依赖
+## Install dependencies
 
 ``` shell
 composer install
 ```
 
-## 快速使用
+## Quick Start
 
-* 启动 web 服务
 ```shell
 composer run start
 ```
 
-* 访问接口
+* api server
   > http://localhost:8088/api.php
  
-* 访问管理系统
+* admin system
   > http://localhost:8088/index.php
 
-### 命令行方式
+### CLI application
 
 ```shell
 ./tpr
@@ -73,6 +71,6 @@ Available commands:
   make   Generate code of command
 ```
 
-## 开源协议
+## License
 
-> 遵循 [MIT](LICENSE) 开源协议发布，并提供免费使用
+The TPR-CMS is open-sourced software licensed under the [MIT](LICENSE).
