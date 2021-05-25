@@ -34,6 +34,7 @@ class Clear extends Console
                 $this->output->success('Clear cache : ' . $cache_path);
             }
         }
+
         return 0;
     }
 }
