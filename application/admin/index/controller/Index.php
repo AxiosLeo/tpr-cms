@@ -28,7 +28,7 @@ class Index extends AdminLogin
                 'username'     => 'AxiosCros',
                 'upload_limit' => ini_get('upload_max_filesize'),
             ];
-            $req       = [
+            $req = [
                 'env'                => $data,
                 'users_number'       => rand(10000, 99999),
                 'users_number_today' => rand(0, 100),

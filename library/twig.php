@@ -6,10 +6,10 @@ return [
     'selected' => function ($menuModule, $currModule) {
         return $menuModule === $currModule;
     },
-    'dump'     => function (...$data) {
+    'dump' => function (...$data) {
         call_user_func_array('dump', $data);
     },
-    'url'      => function ($module, $controller, $action) {
+    'url' => function ($module, $controller, $action) {
         return url($module, $controller, $action);
     },
 ];

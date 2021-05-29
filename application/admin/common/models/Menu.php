@@ -20,7 +20,7 @@ class Menu extends Model
                 'action'     => $menu['action'],
                 'sub'        => [],
             ];
-            $sub  = $this->db->query()->where('parent_name', '==', $menu['name'])->results();
+            $sub = $this->db->query()->where('parent_name', '==', $menu['name'])->results();
             if ($sub) {
                 foreach ($sub as $s) {
                     array_push($item['sub'], [

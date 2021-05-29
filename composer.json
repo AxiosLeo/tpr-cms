@@ -30,7 +30,8 @@
   },
   "require-dev": {
     "symfony/var-dumper": "*",
-    "nette/php-generator": "^3.5"
+    "nette/php-generator": "^3.5",
+    "friendsofphp/php-cs-fixer": "^3.0"
   },
   "autoload": {
     "psr-4": {
@@ -50,6 +51,6 @@
   },
   "scripts": {
     "start": "echo http://localhost:8088 && php -S localhost:8088 -t public/",
-    "fix": "php-cs-fixer fix ./"
+    "fix": "vendor/bin/php-cs-fixer fix . --config=.php_cs.dist.php"
   }
 }
