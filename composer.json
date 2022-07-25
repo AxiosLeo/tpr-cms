@@ -23,7 +23,7 @@
   "require": {
     "php": ">=7.4",
     "axios/tpr-db": "^1.1",
-    "axios/tpr": "~5.1.1",
+    "axios/tpr": "^5.2.0",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0",
     "gregwar/captcha": "^1.1"
@@ -42,12 +42,6 @@
     "files": [
       "library/helper.php"
     ]
-  },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://mirrors.aliyun.com/composer/"
-    }
   },
   "scripts": {
     "start": "echo http://localhost:8088 && php -S localhost:8088 -t public/",
