@@ -23,14 +23,14 @@ class Menu extends Model
             $sub = $this->db->query()->where('parent_name', '==', $menu['name'])->results();
             if ($sub) {
                 foreach ($sub as $s) {
-                    array_push($item['sub'], [
+                    $item['sub'][] = [
                         'id'         => $s['name'],
                         'title'      => $s['title'],
                         'icon'       => $s['icon'],
                         'module'     => $s['module'],
                         'controller' => $s['controller'],
                         'action'     => $s['action'],
-                    ]);
+                    ];
                 }
             }
             $menus[] = $item;

@@ -11,6 +11,7 @@ use tpr\Path;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class Clear extends Console

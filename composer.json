@@ -21,23 +21,25 @@
     "issues": "https://github.com/AxiosCros/tpr-cms/issues"
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.1",
     "axios/tpr-db": "^1.1",
     "axios/tpr": "^5.2.0",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0",
-    "gregwar/captcha": "^1.1"
+    "ext-gd": "*",
+    "ext-fileinfo": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "*",
     "nette/php-generator": "^3.5",
-    "friendsofphp/php-cs-fixer": "^3.0"
+    "friendsofphp/php-cs-fixer": "^3.16"
   },
   "autoload": {
     "psr-4": {
       "library\\": "library/",
       "api\\": "application/api/",
-      "admin\\": "application/admin/"
+      "admin\\": "application/admin/",
+      "Gregwar\\": "library/Gregwar"
     },
     "files": [
       "library/helper.php"

@@ -26,7 +26,7 @@ class Index extends AdminLogin
                 'server_env'   => \PHP_VERSION,
                 'disk'         => $disk_size,
                 'username'     => 'AxiosCros',
-                'upload_limit' => ini_get('upload_max_filesize'),
+                'upload_limit' => \ini_get('upload_max_filesize'),
             ];
             $req = [
                 'env'                => $data,

@@ -44,3 +44,10 @@ function getDayBeginEndTime($date, $format = 'timestamp')
         'end'   => date($format, $end),
     ];
 }
+
+function halt(...$data)
+{
+    dump(...$data);
+
+    exit(0);
+}

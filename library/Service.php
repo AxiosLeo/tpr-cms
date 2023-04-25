@@ -29,9 +29,9 @@ class Service
     /**
      * @param string $name
      *
-     * @throws FilesystemException
-     *
      * @return Database
+     *
+     * @throws FilesystemException
      */
     public static function filedb($name)
     {
