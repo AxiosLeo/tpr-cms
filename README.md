@@ -6,15 +6,13 @@
 
 > TPR [document](https://github.com/AxiosCros/tpr/wiki)
 
-
 ## Required
 
-* php7.4+
-* php8     (TPR 5.0.8+)
+- php8.1+
 
 ## Download
 
-* github
+- github
 
 ```shell
 git clone https://github.com/AxiosCros/tpr-cms.git
@@ -22,7 +20,7 @@ git clone https://github.com/AxiosCros/tpr-cms.git
 
 ## Install dependencies
 
-``` shell
+```shell
 composer install
 ```
 
@@ -32,10 +30,11 @@ composer install
 composer run start
 ```
 
-* api server
+- api server
+
   > http://localhost:8088/api.php
- 
-* admin system
+
+- admin system
   > http://localhost:8088/index.php
 
 ### CLI application
