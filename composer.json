@@ -26,8 +26,7 @@
     "axios/tpr": "^5.2.0",
     "minphp/session": "^1.2",
     "tmarois/filebase": "^1.0",
-    "ext-gd": "*",
-    "ext-fileinfo": "*"
+    "ext-gd": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "*",
